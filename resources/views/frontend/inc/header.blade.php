@@ -16,13 +16,13 @@
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="./about.html">About </a>
+                            <a class="nav-link" href="{{route('frontend.about')}}">About </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./how-we-works.html">how we works</a>
+                            <a class="nav-link" href="{{route('frontend.work')}}">how we works</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./contact.html">Contact </a>
+                            <a class="nav-link" href="{{route('frontend.contact')}}">Contact </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownItem" role="button"
@@ -30,8 +30,8 @@
                                 Fundraisers
                             </a>
                             <ul class="dropdown-menu border-0 shadow-lg " aria-labelledby="dropdownItem">
-                                <li><a class="dropdown-item" href="non-profit.html">Non Profit</a></li>
-                                <li><a class="dropdown-item" href="for-individual.html">For Individual</a></li>
+                                <li><a class="dropdown-item" href="{{route('frontend.nonprofit')}}">Non Profit</a></li>
+                                <li><a class="dropdown-item" href="{{route('frontend.individual')}}">For Individual</a></li>
                             </ul>
                         </li>
 
@@ -65,11 +65,11 @@
                                         <span class="ms-2"> my account </span>
                                     </a>
                                     <ul class="dropdown-menu border-0 shadow-lg " aria-labelledby="dropdownItem">
-                                        <li><a class="dropdown-item" href="/user-campaign.html">Your campaign </a></li>
-                                        <li><a class="dropdown-item" href="/user-donation.html">Donation you have made</a></li>
-                                        <li><a class="dropdown-item" href="/fundriser.html">Start a new fundrising</a></li>
-                                        <li><a class="dropdown-item" href="/all-transaction.html">All Statements</a></li>
-                                        <li><a class="dropdown-item" href="/user-profile.html">account
+                                        <li><a class="dropdown-item" href="{{ route('user.activecampaign')}}">Your campaign </a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.donationhistory')}}">Donation you have made</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.newfundraiser')}}">Start a new fundrising</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.alltransaction')}}">All Statements</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.profile')}}">account
                                                 settings</a>
                                             </li>
                                         <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign Out</a>

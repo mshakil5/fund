@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
   
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\FundraiserController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +39,15 @@ Route::get('/home-page', [App\Http\Controllers\HomeController::class, 'index'])-
 
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
+Route::get('/work', [FrontendController::class, 'work'])->name('frontend.work');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
+Route::get('/privacy', [FrontendController::class, 'privacy'])->name('frontend.privacy');
+Route::get('/terms', [FrontendController::class, 'terms'])->name('frontend.terms');
+
+
+Route::get('/non-profit', [FrontendController::class, 'nonprofit'])->name('frontend.nonprofit');
+Route::get('/individual', [FrontendController::class, 'individual'])->name('frontend.individual');
+Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('frontend.fundriser');
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
@@ -44,7 +55,11 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function(){
   
-    Route::get('user-dashboard', [HomeController::class, 'userHome'])->name('user.dashboard');
+    Route::get('user-profile', [HomeController::class, 'userHome'])->name('user.profile');
+    Route::get('donation-history', [DonationController::class, 'donationHistory'])->name('user.donationhistory');
+    Route::get('start-a-new-fundraiser', [FundraiserController::class, 'newFundraiser'])->name('user.newfundraiser');
+    Route::get('my-campaign', [FundraiserController::class, 'activeCampaign'])->name('user.activecampaign');
+    Route::get('all-transaction', [TransactionController::class, 'allTransaction'])->name('user.alltransaction');
 });
   
 /*------------------------------------------

@@ -29,7 +29,7 @@ class HomeController extends Controller
         }if (auth()->user()->is_type == '2') {
             return view('agent.dashboard');
         }if (auth()->user()->is_type == '0') {
-            return view('user.dashboard');
+            return view('user.profile');
         }
         if (auth()->user()->is_type == 0) {
             return view('home');
@@ -43,7 +43,7 @@ class HomeController extends Controller
      */
     public function userHome()
     {
-        return view('user.dashboard');
+        return view('user.profile');
     }
 
     /**

@@ -12,19 +12,19 @@
             </div>
             <div class=" col-md-3 mb-3">
                 <ul class="footer-link ">
-                    <li class="mb-2"><a href="index.html" class=""> 
+                    <li class="mb-2"><a href="{{ route('homepage')}}" class=""> 
                         <iconify-icon   class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Home</a></li>
-                    <li class="mb-2"><a href="how-we-works.html" class=""> <iconify-icon
+                    <li class="mb-2"><a href="{{route('frontend.work')}}" class=""> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> How we works</a></li>
-                    <li class="mb-2"><a href="about.html" class=""> <iconify-icon
+                    <li class="mb-2"><a href="{{route('frontend.about')}}" class=""> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> About</a></li>
                     <li class="mb-2"><a href="how-we-works.html#faq" class=""> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> FAQs</a></li>
-                    <li class="mb-2"><a href="#" class=""> <iconify-icon
+                    <li class="mb-2"><a href="{{route('frontend.fundriser')}}" class=""> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Start fundrising</a>
                     </li>
                     <li class="mb-2">
-                        <a href="terms.html" class=""> <iconify-icon
+                        <a href="{{route('frontend.terms')}}" class=""> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Terms & conditions</a>
                     </li>
                 </ul>
