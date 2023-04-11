@@ -38,12 +38,12 @@
               <h4 class="txt-dash mb-3">Account Balance</h4>
               <h2 class="amount">6,123.00 GBP</h2>
               <div class="row my-2">
-                  <div class="col-lg-7 ">
-                      <img src="../dashboard/images/card.png" class="img-fluid mt-3 mb-2" alt="">
+                  <div class="col-lg-6 ">
+                      <img src="{{ asset('assets/admin/images/card.png')}}" class="img-fluid mt-3 mb-2" alt="">
                       <a href="#" class="d-block fs-14 txt-theme fw-bold">Order a card</a>
                   </div>
 
-                  <div class="col-lg-5  pt-3 d-flex flex-column  ">
+                  <div class="col-lg-6  pt-3 d-flex flex-column  ">
                       <a href="#" class="btn-theme bg-primary fs-16 fw-700">Make a
                           donation</a>
                       <a href="#" class="btn-theme bg-secondary fs-16 fw-700">Order voucher books</a>

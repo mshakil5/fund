@@ -70,6 +70,8 @@
         }
     </script>
 
+    @yield('script')
+
     <!--  <script>
         document.onkeydown = function(e) {
           if (e.ctrlKey && e.keyCode === 85) { 

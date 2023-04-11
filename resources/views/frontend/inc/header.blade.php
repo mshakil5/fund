@@ -58,11 +58,13 @@
                                 </li>
                             @else
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="dropdownItem"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="https://via.placeholder.com/510x440.png" class="img-fluid  rounded"
-                                            width="45px" />
-                                        <span class="ms-2"> my account </span>
+                                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="dropdownItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @if (isset(Auth::user()->photo))
+                                            <img src="{{ asset('images/'.Auth::user()->photo)}}" class="img-fluid  rounded" width="45px" />
+                                        @else
+                                            <img src="https://via.placeholder.com/510x440.png" class="img-fluid  rounded" width="45px" />
+                                        @endif
+                                        <span class="ms-2"> My account </span>
                                     </a>
                                     <ul class="dropdown-menu border-0 shadow-lg " aria-labelledby="dropdownItem">
                                         <li><a class="dropdown-item" href="{{ route('user.activecampaign')}}">Your campaign </a></li>

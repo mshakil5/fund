@@ -143,7 +143,7 @@ body {
 }
 
 .default {
-  padding: 90px 0;
+  padding: 25px 0;
 }
 @media (max-width: 768px) {
   .default {
@@ -623,7 +623,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #fff;
   font-family: "DarkerGrotesque-semibold";
   border-radius: 0;
-  margin: 15px 0;
+  margin: 6px 0;
   min-height: 43px;
   border: 0;
   font-size: 19px;

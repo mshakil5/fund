@@ -7,6 +7,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\FundraiserController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ Route::get('/clear', function() {
 
 Auth::routes();
 
-Route::get('/home-page', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
@@ -54,6 +55,9 @@ All Normal Users Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function(){
+
+    Route::post('profile-update', [UserController::class, 'updateProfile'])->name('user.updateprofile');
+
   
     Route::get('user-profile', [HomeController::class, 'userHome'])->name('user.profile');
     Route::get('donation-history', [DonationController::class, 'donationHistory'])->name('user.donationhistory');
