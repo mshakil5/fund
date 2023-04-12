@@ -3,16 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\ContactMailController; 
-use App\Http\Controllers\Admin\GalleryController; 
 use App\Http\Controllers\Admin\ImageController;
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\NewsController;
-use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Agent\AgentController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Admin\FundraisingSourceController;
 
 
 
@@ -55,6 +49,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/photo/{id}/edit', [ImageController::class, 'edit']);
     Route::put('/photo/{id}', [ImageController::class, 'update']);
     Route::get('/photo/{id}', [ImageController::class, 'delete']);
+    
+    // fundraising-source
+    Route::get('/fundraising-source', [FundraisingSourceController::class, 'index'])->name('admin.fundraisingsource');
+    Route::post('/fundraising-source', [FundraisingSourceController::class, 'store']);
+    Route::get('/fundraising-source/{id}/edit', [FundraisingSourceController::class, 'edit']);
+    Route::put('/fundraising-source/{id}', [FundraisingSourceController::class, 'update']);
+    Route::get('/fundraising-source/{id}', [FundraisingSourceController::class, 'delete']);
 
 
     // contact mail 

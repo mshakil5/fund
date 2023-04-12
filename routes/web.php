@@ -61,9 +61,11 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
   
     Route::get('user-profile', [HomeController::class, 'userHome'])->name('user.profile');
     Route::get('donation-history', [DonationController::class, 'donationHistory'])->name('user.donationhistory');
-    Route::get('start-a-new-fundraiser', [FundraiserController::class, 'newFundraiser'])->name('user.newfundraiser');
     Route::get('my-campaign', [FundraiserController::class, 'activeCampaign'])->name('user.activecampaign');
     Route::get('all-transaction', [TransactionController::class, 'allTransaction'])->name('user.alltransaction');
+    
+    Route::get('start-a-new-fundraiser', [FundraiserController::class, 'newFundraiser'])->name('user.newfundraiser');
+    Route::post('fund-raise', [FundraiserController::class, 'newFundraiserStore'])->name('user.newfundraiserstore');
 });
   
 /*------------------------------------------

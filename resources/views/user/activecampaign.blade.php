@@ -38,31 +38,36 @@
                             <tr>
                                 <th scope="col"> Date</th>
                                 <th scope="col">Title</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">Source</th>
                                 <th scope="col">Amount</th>
                                 <th scope="col">Status</th> 
-                                <th scope="col"> payment method</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>12-12-2023</td>
-                                <td>lorem ipsum </td>
-                                <td>$56</td>
-                                <td>Active </td> 
-                                <td>card or something</td>
-                                <td class="d-flex align-items-center">
-                                    <a href="user-campaign-edit.html" class="px-2">
-                                        <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
-                                    </a>
-                                    <a href="/user-transaction.html" class="px-2" title="view all transaction">
-                                        <iconify-icon icon="ic:outline-remove-red-eye"></iconify-icon>
-                                    </a>
-                                    <a href="#" class="px-2">
-                                        <iconify-icon class="text-danger" icon="bi:trash"></iconify-icon>
-                                    </a>
-                                </td>
-                            </tr>
+                            @foreach ($data as $data)
+                                <tr>
+                                    <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y') }}</td>
+                                    <td>{{$data->title}} </td>
+                                    <td>{{$data->country->name}} </td>
+                                    <td>{{ \App\Models\FundraisingSource::where('id',$data->fundraising_source_id)->first()->name}} </td>
+                                    <td>${{$data->raising_goal}}</td>
+                                    <td>Active </td> 
+                                    <td class="d-flex align-items-center">
+                                        <a href="user-campaign-edit.html" class="px-2">
+                                            <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
+                                        </a>
+                                        <a href="/user-transaction.html" class="px-2" title="view all transaction">
+                                            <iconify-icon icon="ic:outline-remove-red-eye"></iconify-icon>
+                                        </a>
+                                        <a href="#" class="px-2">
+                                            <iconify-icon class="text-danger" icon="bi:trash"></iconify-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
                           
 
                         </tbody>
@@ -72,7 +77,7 @@
         </div>
         <div class="row"> 
             <div class="col-lg-6 mx-auto mt-2">
-                <a href="create-campaign.html" class="btn-theme bg-primary mx-auto w-50 text-center d-block">Create New Campaign</a>
+                <a href="{{ route('user.newfundraiser')}}" class="btn-theme bg-primary mx-auto w-50 text-center d-block">Create New Campaign</a>
             </div> 
         </div>
     </div>

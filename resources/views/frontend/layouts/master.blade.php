@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/app.css')}}">
     <!-- <link rel="stylesheet" type="text/css" href="./css/slick.css" />
     <link rel="stylesheet" type="text/css" href="./css/slick-theme.css" /> -->
+    
+    <!-- select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -46,6 +49,9 @@
     <script src="{{ asset('assets/js/app.js')}}"></script>
     <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> -->
     <!-- <script src="./js/slick.min.js" type="text/javascript"></script> -->
+
+    <!-- select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         for (var i = 0; i < document.links.length; i++) {
             if (document.links[i].href === document.URL) {
@@ -53,6 +59,16 @@
             }
         }
     </script>
+
+<script>
+    $(document).ready(function() {
+        // Select2 Multiple
+        $('.select2').select2({
+            placeholder: "Select",
+            allowClear: true
+        });
+    });
+</script>
 
     <script>
         // page schroll top
