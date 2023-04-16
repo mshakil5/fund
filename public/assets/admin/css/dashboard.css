@@ -221,13 +221,14 @@ body {
 }
 .dashboard-wraper .sidebar .navigation li {
   list-style: none;
-  margin-bottom: 15px;
+  margin-bottom: 2px;
 }
 .dashboard-wraper .sidebar .navigation li a {
   font-size: 19px;
   font-family: "DarkerGrotesque-Light", sans-serif;
   color: #003057;
   padding-left: 45px;
+  font-weight: bold;
 }
 .dashboard-wraper .sidebar .navigation li a.nav-link.current {
   color: #fff;

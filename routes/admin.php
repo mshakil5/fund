@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -42,6 +43,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     //company details
     Route::resource('company-detail','App\Http\Controllers\Admin\CompanyDetailController');
     //company details end
+
+    // create fundraiser from admin
+    Route::get('/new-fundraiser', [UserController::class, 'newfundraiser'])->name('admin.newfundraiser');
+    Route::post('/new-fundraiser', [UserController::class, 'newfundraiserstore']);
+    Route::get('/new-fundraiser/{id}/edit', [UserController::class, 'newfundraiseredit']);
+    Route::post('/new-fundraiser-update', [UserController::class, 'newfundraiserupdate']);
+    Route::get('/new-fundraiser/{id}', [UserController::class, 'newfundraiserdelete']);
 
     // photo
     Route::get('/photo', [ImageController::class, 'index'])->name('admin.photo');

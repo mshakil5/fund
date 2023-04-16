@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/dashboard.css')}}">
     {{--  datatables --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap.min.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -27,6 +29,7 @@
             <ul class="navigation">
                 <li><a href="{{route('admin.dashboard')}}" class="nav-link">Dashboard</a></li>
                 <li><a href="{{route('admin.fundraisingsource')}}" class="nav-link">Fundraising Source</a></li>
+                <li><a href="{{route('admin.newfundraiser')}}" class="nav-link">Fundraiser</a></li>
                 {{-- <li><a href="order-voucher-books.html">Order voucher books</a></li>
                 <li><a href="tevini-card.html">Tevini card</a></li>
                 <li><a href="view-transactions.html">View transactions</a></li>
@@ -98,7 +101,7 @@
         // page schroll top
         function pagetop() {
             window.scrollTo({
-                top: 130,
+                top: 100,
                 behavior: 'smooth',
             });
         }
@@ -160,7 +163,6 @@
                 responsive: true
             } );
         
-            new $.fn.dataTable.FixedHeader( table );
         } );
     </script>
 
