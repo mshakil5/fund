@@ -10,6 +10,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CharityController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +54,8 @@ Route::get('/individual', [FrontendController::class, 'individual'])->name('fron
 Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('frontend.fundriser');
 
 /*----------------------Charity Registration-----------------------*/
-Route::get('/charity-registration', [CharityController::class, 'register'])->name('charity.register');
+Route::get('/charity-registration', [CharityController::class, 'charity'])->name('charity.register');
+Route::post('/charity-registration', [CharityController::class, 'charityregistration'])->name('charity.registration');
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
@@ -75,9 +77,9 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
 All Agent Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::group(['prefix' =>'agent/', 'middleware' => ['auth', 'is_agent']], function(){
+Route::group(['prefix' =>'charity/', 'middleware' => ['auth', 'is_agent']], function(){
   
-    Route::get('agent-dashboard', [HomeController::class, 'agentHome'])->name('agent.dashboard');
+    Route::get('charity-profile', [HomeController::class, 'charityHome'])->name('charity.profile');
 });
   
 

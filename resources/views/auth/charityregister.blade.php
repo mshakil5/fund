@@ -12,10 +12,10 @@
         <div class="row my-5">
             <div class="col-lg-10 mx-auto authBox">
                 <div class="row">
-                    <div class="col-lg-7 d-flex align-items-center justify-content-center">
+                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
                         <img src="https://via.placeholder.com/510x540.png" alt="" class="w-100">
                     </div>
-                    <div class="col-lg-5"> 
+                    <div class="col-lg-6"> 
 
                         
                         @if (isset($message))
@@ -24,34 +24,38 @@
                         </span>
                         @endif
                          
-                        <form method="POST" action="{{ route('register') }}" class="form-custom py-4">
+                        <form method="POST" action="{{ route('charity.registration') }}" class="form-custom py-4">
                             @csrf
                               <div class="title text-center mb-5 txt-secondary">Create Charity Account</div>
                             <div class="form-group">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Charity Name" autofocus>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname" placeholder="Surname" autofocus>
-                                @error('surname')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Phone Number" autofocus>
+                                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Charity Number" autofocus>
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
                             <div class="form-group">
+                                <select name="country" id="country" placeholder="Charity Country" autofocus required  class="form-control @error('country') is-invalid @enderror">
+                                    <option value="">Country</option>
+                                    @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+                            {{-- <div class="form-group">
                                 <input id="house_number" type="text" class="form-control @error('house_number') is-invalid @enderror" name="house_number" value="{{ old('house_number') }}" required autocomplete="house_number" placeholder="House Number" autofocus>
                                 @error('house_number')
                                     <span class="invalid-feedback" role="alert">
@@ -82,9 +86,37 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> --}}
+                            
                             <div class="form-group">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
+                                <input id="r_name" type="text" class="form-control @error('r_name') is-invalid @enderror" name="r_name" value="{{ old('r_name') }}" required autocomplete="r_name" placeholder="Representative Name" autofocus>
+                                @error('r_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <input id="r_position" type="text" class="form-control @error('r_position') is-invalid @enderror" name="r_position" value="{{ old('r_position') }}" required autocomplete="r_position" placeholder="Representative Position" autofocus>
+                                @error('r_position')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <input id="r_phone" type="number" class="form-control @error('r_phone') is-invalid @enderror" name="r_phone" value="{{ old('r_phone') }}" required autocomplete="r_phone" placeholder="Representative Phone" autofocus>
+                                @error('r_phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Representative Email" autofocus>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

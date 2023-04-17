@@ -29,6 +29,11 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('postcode')->nullable();
             $table->string('vat_number')->nullable();
+            $table->string('r_name')->nullable();
+            $table->string('r_position')->nullable();
+            $table->string('r_phone')->nullable();
+            $table->string('r_photo')->nullable();
+            $table->string('r_address')->nullable();
             $table->string('photo')->nullable();
             $table->string('account_name')->nullable();
             $table->string('account_number')->nullable();

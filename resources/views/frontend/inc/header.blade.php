@@ -57,6 +57,25 @@
 
                                     </ul>
                                 </li>
+                            @elseif (Auth::user()->is_type == 2)
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="dropdownItem"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="https://via.placeholder.com/510x440.png" class="img-fluid  rounded"
+                                            width="45px" />
+                                        <span class="ms-2"> {{Auth::user()->name}} </span>
+                                    </a>
+                                    <ul class="dropdown-menu border-0 shadow-lg " aria-labelledby="dropdownItem">
+                                        <li><a class="dropdown-item" href="{{ route('charity.profile')}}">Profile</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign Out</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+
+                                    </ul>
+                                </li>
                             @else
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="dropdownItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">
