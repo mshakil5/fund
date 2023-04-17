@@ -8,6 +8,8 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\FundraiserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\CharityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,9 @@ Route::get('/terms', [FrontendController::class, 'terms'])->name('frontend.terms
 Route::get('/non-profit', [FrontendController::class, 'nonprofit'])->name('frontend.nonprofit');
 Route::get('/individual', [FrontendController::class, 'individual'])->name('frontend.individual');
 Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('frontend.fundriser');
+
+/*----------------------Charity Registration-----------------------*/
+Route::get('/charity-registration', [CharityController::class, 'register'])->name('charity.register');
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
@@ -57,15 +62,12 @@ All Normal Users Routes List
 Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function(){
 
     Route::post('profile-update', [UserController::class, 'updateProfile'])->name('user.updateprofile');
-
-  
     Route::get('user-profile', [HomeController::class, 'userHome'])->name('user.profile');
     Route::get('donation-history', [DonationController::class, 'donationHistory'])->name('user.donationhistory');
     Route::get('my-campaign', [FundraiserController::class, 'activeCampaign'])->name('user.activecampaign');
     Route::get('all-transaction', [TransactionController::class, 'allTransaction'])->name('user.alltransaction');
-    
-    Route::get('start-a-new-fundraiser', [FundraiserController::class, 'newFundraiser'])->name('user.newfundraiser');
-    Route::post('fund-raise', [FundraiserController::class, 'newFundraiserStore'])->name('user.newfundraiserstore');
+    Route::get('start-a-new-campaign', [CampaignController::class, 'newCampaign'])->name('user.newcampaign');
+    Route::post('fund-raise', [CampaignController::class, 'newCampaignStore'])->name('user.newcampaignstore');
 });
   
 /*------------------------------------------

@@ -32,6 +32,7 @@
                             <ul class="dropdown-menu border-0 shadow-lg " aria-labelledby="dropdownItem">
                                 <li><a class="dropdown-item" href="{{route('frontend.nonprofit')}}">Non Profit</a></li>
                                 <li><a class="dropdown-item" href="{{route('frontend.individual')}}">For Individual</a></li>
+                                <li><a class="dropdown-item" href="{{route('charity.register')}}">Charity Register </a></li>
                             </ul>
                         </li>
 
@@ -69,11 +70,9 @@
                                     <ul class="dropdown-menu border-0 shadow-lg " aria-labelledby="dropdownItem">
                                         <li><a class="dropdown-item" href="{{ route('user.activecampaign')}}">Your campaign </a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.donationhistory')}}">Donation you have made</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('user.newfundraiser')}}">Start a new fundrising</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.newcampaign')}}">Start a new fundrising</a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.alltransaction')}}">All Statements</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('user.profile')}}">account
-                                                settings</a>
-                                            </li>
+                                        <li><a class="dropdown-item" href="{{ route('user.profile')}}">account settings</a> </li>
                                         <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign Out</a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                                 @csrf

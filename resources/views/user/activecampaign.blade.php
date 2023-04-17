@@ -77,7 +77,7 @@
         </div>
         <div class="row"> 
             <div class="col-lg-6 mx-auto mt-2">
-                <a href="{{ route('user.newfundraiser')}}" class="btn-theme bg-primary mx-auto w-50 text-center d-block">Create New Campaign</a>
+                <a href="{{ route('user.newcampaign')}}" class="btn-theme bg-primary mx-auto w-50 text-center d-block">Create New Campaign</a>
             </div> 
         </div>
     </div>
