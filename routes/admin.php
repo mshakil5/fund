@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CharityController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -50,6 +51,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/new-fundraiser/{id}/edit', [UserController::class, 'newfundraiseredit']);
     Route::post('/new-fundraiser-update', [UserController::class, 'newfundraiserupdate']);
     Route::get('/new-fundraiser/{id}', [UserController::class, 'newfundraiserdelete']);
+
+    // create charity from admin
+    Route::get('/charity', [CharityController::class, 'getCharityByAdmin'])->name('admin.allcharity');
+    Route::post('/charity', [CharityController::class, 'newCharitystore']);
+    Route::get('/charity/{id}/edit', [CharityController::class, 'newCharityedit']);
+    Route::post('/charity-update', [CharityController::class, 'newCharityupdate']);
+    Route::get('/charity/{id}', [CharityController::class, 'newCharitydelete']);
 
     // photo
     Route::get('/photo', [ImageController::class, 'index'])->name('admin.photo');

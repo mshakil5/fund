@@ -16,6 +16,9 @@
                         <img src="https://via.placeholder.com/410x340.png" alt="" class="w-100">
                     </div>
                     <div class="col-lg-5"> 
+                        @if(session()->has('message'))
+                        <p class="alert alert-success"> {{ session()->get('message') }}</p>
+                        @endif
                          
                         <form method="POST" action="{{ route('login') }}" class="form-custom mt-5">
                             @csrf
