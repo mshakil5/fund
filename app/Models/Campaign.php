@@ -18,4 +18,9 @@ class Campaign extends Model
     {
         return $this->belongsTo(FundraisingSource::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

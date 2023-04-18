@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CharityController;
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -58,6 +59,18 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/charity/{id}/edit', [CharityController::class, 'newCharityedit']);
     Route::post('/charity-update', [CharityController::class, 'newCharityupdate']);
     Route::get('/charity/{id}', [CharityController::class, 'newCharitydelete']);
+
+
+    // campaign
+    Route::get('/campaign', [CampaignController::class, 'getCampaignByAdmin'])->name('admin.campaign');
+    Route::post('/campaign', [CampaignController::class, 'storeCampaignByAdmin']);
+    Route::get('/campaign/{id}/edit', [CampaignController::class, 'editCampaignByAdmin']);
+    Route::post('/campaign/{id}', [CampaignController::class, 'updateCampaignByAdmin']);
+    Route::get('/campaign/{id}', [CampaignController::class, 'deleteCampaignByAdmin']);
+
+    // active deactive campaign
+    Route::get('active-campaign', [CampaignController::class, 'activeCampaign']);
+    
 
     // photo
     Route::get('/photo', [ImageController::class, 'index'])->name('admin.photo');

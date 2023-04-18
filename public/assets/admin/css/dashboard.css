@@ -475,15 +475,15 @@ form .form-group .form-control:focus {
 }
 
 .form-check {
-  height: 39px;
+  height: 27px;
   width: 39px;
   border-radius: 5px;
-  background-color: white;
+  background-color: #fdf3ee;
   border: 0;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  margin-right: 14px;
+  margin-right: 4px;
   position: relative;
 }
 .form-check:checked::after {

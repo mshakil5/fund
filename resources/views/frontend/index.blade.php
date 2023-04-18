@@ -60,6 +60,9 @@
             </div>
         </div>
         <div class="row">
+
+
+            @foreach ($campaign as $campaign)
             <div class="col-lg-4 col-md-6 upperGap">
                 <div class="card-theme  ">
                     <div class="topper">
@@ -67,74 +70,28 @@
                     </div>
                     <div class="card-body pt-5">
                         <div class="inner">
-                            <div class="card-title">Lorem, ipsum dolor.</div>
+                            <a href="{{ route('frontend.campaignDetails',$campaign->id)}}">
+                                <div class="card-title">{{$campaign->title}}</div>
+                            </a>
                             <div class="my-4">
                                 <p class="d-flex mb-0 justify-content-between flex-wrap">
-                                    <span>£679 Raised </span>
+                                    <span>@if ($campaign->total_collection > 0) £{{$campaign->total_collection}} Raised @else @endif</span>
                                     <span>Last day</span>
                                 </p>
                                 <p class="d-flex mb-0 justify-content-between flex-wrap">
-                                    <span>£120,000 Goal </span>
+                                    <span>£{{$campaign->raising_goal}} Goal </span>
                                     <span>Days left</span>
                                 </p>
                             </div>
-                            <a href="campaign-single.html"
+                            <a href="{{ route('frontend.campaignDetails',$campaign->id)}}"
                                 class="btn-theme bg-primary mx-auto w-50 text-center d-block">Donate Now</a>
                         </div>
                     </div>
                 </div>
-
             </div>
-            <div class="col-lg-4 col-md-6 upperGap">
-                <div class="card-theme  ">
-                    <div class="topper">
-                        <img src="https://via.placeholder.com/100.png" alt="" class="rounded-circle">
-                    </div>
-                    <div class="card-body pt-5">
-                        <div class="inner">
-                            <div class="card-title">Lorem, ipsum dolor.</div>
-                            <div class="my-4">
-                                <p class="d-flex mb-0 justify-content-between flex-wrap">
-                                    <span>£679 Raised </span>
-                                    <span>Last day</span>
-                                </p>
-                                <p class="d-flex mb-0 justify-content-between flex-wrap">
-                                    <span>£120,000 Goal </span>
-                                    <span>Days left</span>
-                                </p>
-                            </div>
-                            <a href="campaign-single.html"
-                                class="btn-theme bg-primary mx-auto w-50 text-center d-block">Donate Now</a>
-                        </div>
-                    </div>
-                </div>
+            @endforeach
+            
 
-            </div>
-            <div class="col-lg-4 col-md-6 upperGap">
-                <div class="card-theme  ">
-                    <div class="topper">
-                        <img src="https://via.placeholder.com/100.png" alt="" class="rounded-circle">
-                    </div>
-                    <div class="card-body pt-5">
-                        <div class="inner">
-                            <div class="card-title">Lorem, ipsum dolor.</div>
-                            <div class="my-4">
-                                <p class="d-flex mb-0 justify-content-between flex-wrap">
-                                    <span>£679 Raised </span>
-                                    <span>Last day</span>
-                                </p>
-                                <p class="d-flex mb-0 justify-content-between flex-wrap">
-                                    <span>£120,000 Goal </span>
-                                    <span>Days left</span>
-                                </p>
-                            </div>
-                            <a href="campaign-single.html"
-                                class="btn-theme bg-primary mx-auto w-50 text-center d-block">Donate Now</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
 </section>

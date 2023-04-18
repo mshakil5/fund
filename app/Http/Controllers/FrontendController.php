@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.index');
+        $campaign = Campaign::where('status','1')->orderby('id','DESC')->get();
+        return view('frontend.index',compact('campaign'));
     }
 
     public function about()
@@ -39,5 +41,12 @@ class FrontendController extends Controller
     public function fundriser()
     {
         return view('frontend.fundriser');
+    }
+
+    public function campaignDetails($id)
+    {
+        $campaign = Campaign::where('id','!=',$id)->whereStatus(1)->orderby('id','DESC')->get();
+        $data = Campaign::where('id',$id)->first();
+        return view('frontend.campaigndetails', compact('data','campaign'));
     }
 }

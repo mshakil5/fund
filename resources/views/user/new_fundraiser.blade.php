@@ -83,7 +83,7 @@
                                         How much would you like to raise?</h4>
                                     <h6 class="para text-muted fs-6">Keep the mind that transaction fees, including credit and debit charges are deducted from each donation.</h6>
 
-                                    <input type="text" class="my-3 form-control fs-4" placeholder="Your starting goal" id="raising_goal" name="raising_goal">
+                                    <input type="number" class="my-3 form-control fs-4" placeholder="Your starting goal" id="raising_goal" name="raising_goal">
                                     <p class="para text-muted fs-6">
                                         To received money raised, please make sure the person withdrawing has:
                                     </p>
@@ -102,7 +102,12 @@
                                     <div class="row my-3">
                                         <div class="col-lg-6 ">
                                             <label for="image" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Upload Photo</label>
-                                            <input type="file" name="image" class="form-control" id="image">
+                                            <input type="file" name="image[]" class="form-control" id="image" multiple>
+                                            
+                                            <div class="col-md-12 my-2" style="display: none">
+                                                <div class="preview2"></div>
+                                            </div>
+                                            
                                         </div>
                                         <div class="col-lg-6 ">
                                             <label for="video_link" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Upload Video Link </label>
@@ -136,7 +141,7 @@
                                             <label for="" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Confirm your charity </label>
                                             <p class="para mb-3 text-muted fs-6 float-start"> <input type="checkbox" class="me-2" id="confirmcondition">lorem, ipsum dolor et semet lorem, ipsum dolor et semetlorem, ipsum dolor et semetlorem, ipsum dolor et semet lorem, ipsum dolor et semet lorem, ipsum dolor et semetlorem, ipsum dolor et semetlorem, ipsum dolor et semet</p>
                                         </div>
-                                        <button class="btn-theme bg-secondary mx-auto mt-4 saveBtn disabled" id="saveBtn">Complete Fundriser</button>
+                                        <button class="btn-theme bg-secondary mx-auto mt-4 saveBtn" id="saveBtn" disabled>Complete Fundriser</button>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="profile" role="tabpanel"
@@ -158,15 +163,16 @@
 
 @section('script')
 <script>
+    
+    var storedFiles = [];
     $(document).ready(function() {
         $('#confirmcondition').change(function() {
             if($(this).is(":checked")) {
-                $('.saveBtn').removeClass('disabled');
+                $("#saveBtn").prop('disabled', false);
             }else{
-                $('.saveBtn').addClass('disabled'); 
+                $("#saveBtn").prop('disabled', true);
             }      
         });
-
 
         //header for csrf-token is must in laravel
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
@@ -174,19 +180,19 @@
             var url = "{{URL::to('/user/fund-raise')}}";
             // console.log(url);
             $("#saveBtn").click(function(){
-                var file_data = $('#image').prop('files')[0];
-                if(typeof file_data === 'undefined'){
-                    file_data = 'null';
-                }
+                
+                // $("#loading").show();
                 var form_data = new FormData();
-                form_data.append('image', file_data);
+                for(var i=0, len=storedFiles.length; i<len; i++) {
+                    form_data.append('image[]', storedFiles[i]);
+                }
                 form_data.append("source", $("#source").val());
                 form_data.append("country", $("#country").val());
                 form_data.append("raising_goal", $("#raising_goal").val());
                 form_data.append("video_link", $("#video_link").val());
                 form_data.append("title", $("#title").val());
                 form_data.append("story", $("#story").val());
-                
+                // console.log(image);
                 $.ajax({
                     url: url,
                     method: "POST",
@@ -194,6 +200,7 @@
                     processData: false,
                     data:form_data,
                     success: function (d) {
+                        console.log(d);
                         if (d.status == 303) {
                             $(".ermsg").html(d.message);
                         }else if(d.status == 300){
@@ -208,9 +215,33 @@
                 });
             });
 
-
-
-
     });
+
+    // gallery images
+        /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
+        $(document).on('change','#image',function(){
+            len_files = $("#image").prop("files").length;
+            var construc = "<div class='row'>";
+            for (var i = 0; i < len_files; i++) {
+                var file_data2 = $("#image").prop("files")[i];
+                storedFiles.push(file_data2);
+                construc += '<div class="col-3 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+                    'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
+            }
+            construc += "</div>";
+            $('.preview2').append(construc);
+        });
+
+        $(".preview2").on('click','span.imageremove2',function(){
+            var trash = $(this).data("file");
+            for(var i=0;i<storedFiles.length;i++) {
+                if(storedFiles[i].name === trash) {
+                    storedFiles.splice(i,1);
+                    break;
+                }
+            }
+            $(this).parent().remove();
+
+        });
 </script>
 @endsection

@@ -48,10 +48,12 @@ Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.c
 Route::get('/privacy', [FrontendController::class, 'privacy'])->name('frontend.privacy');
 Route::get('/terms', [FrontendController::class, 'terms'])->name('frontend.terms');
 
-
 Route::get('/non-profit', [FrontendController::class, 'nonprofit'])->name('frontend.nonprofit');
 Route::get('/individual', [FrontendController::class, 'individual'])->name('frontend.individual');
 Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('frontend.fundriser');
+
+
+Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->name('frontend.campaignDetails');
 
 /*----------------------Charity Registration-----------------------*/
 Route::get('/charity-registration', [CharityController::class, 'charity'])->name('charity.register');
