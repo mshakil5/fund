@@ -68,18 +68,18 @@ class CampaignController extends Controller
         $data->country_id = $request->country;
         $data->fundraising_for = "yourself";
         // image
-        if ($request->image) {
-            foreach ($request->image as $key => $image) {
-                if ($key == 0) {
-                    $rand = mt_rand(100000, 999999);
-                    $name = time() . "_" . Auth::id() . "_" . $rand . "." . $image->getClientOriginalExtension();
-                    //move image to postimages folder
-                    $image->move(public_path() . '/images/', $name);
-                    //insert into picture table
-                    $data->image = $name;
-                }
-            }
-        }
+        // if ($request->image) {
+        //     foreach ($request->image as $key => $image) {
+        //         if ($key == 0) {
+        //             $rand = mt_rand(100000, 999999);
+        //             $name = time() . "_" . Auth::id() . "_" . $rand . "." . $image->getClientOriginalExtension();
+        //             //move image to postimages folder
+        //             $image->move(public_path() . '/images/', $name);
+        //             //insert into picture table
+        //             $data->image = $name;
+        //         }
+        //     }
+        // }
         // end
         $data->status = "0";
         $data->created_by = Auth::user()->id;
@@ -239,5 +239,73 @@ class CampaignController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
         }
 
+    }
+
+    // frontpage new campaign 
+    public function startCampaign()
+    {
+        $country = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        return view('frontend.start_new_campaign',compact('country','source'));
+    }
+
+    public function startCampaignStep1(Request $request)
+    {
+        $country = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $countryname = $request->country;
+        $sourceid = $request->source;
+        $title = $request->title;
+        $story = $request->story;
+        // dd($countryname);
+        return view('frontend.start_new_campaign_basicinfo',compact('country','source','countryname','sourceid','title','story'));
+    }
+
+    public function startCampaignStep2(Request $request)
+    {
+        $country = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $countryname = $request->country;
+        $sourceid = $request->source;
+        $title = $request->title;
+        $story = $request->story;
+        // dd($countryname);
+        return view('frontend.start_new_campaign_personalinfo',compact('country','source','countryname','sourceid','title','story'));
+    }
+
+    public function startCampaignStep3(Request $request)
+    {
+        $country = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $countryname = $request->country;
+        $sourceid = $request->source;
+        $title = $request->title;
+        $story = $request->story;
+        // dd($countryname);
+        return view('frontend.start_new_campaign_bankinfo',compact('country','source','countryname','sourceid','title','story'));
+    }
+
+    public function startCampaignStep4(Request $request)
+    {
+        $country = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $countryname = $request->country;
+        $sourceid = $request->source;
+        $title = $request->title;
+        $story = $request->story;
+        // dd($countryname);
+        return view('frontend.start_new_campaign_terms',compact('country','source','countryname','sourceid','title','story'));
+    }
+
+    public function startCampaignStep5(Request $request)
+    {
+        $country = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $countryname = $request->country;
+        $sourceid = $request->source;
+        $title = $request->title;
+        $story = $request->story;
+        // dd($countryname);
+        return view('frontend.start_new_campaign_confirmations',compact('country','source','countryname','sourceid','title','story'));
     }
 }

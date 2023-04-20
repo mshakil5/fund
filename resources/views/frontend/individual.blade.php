@@ -23,7 +23,7 @@
                 </button>
             </div> -->
             <div class="d-flex align-items-center justify-content-center"> 
-                <a href="fundriser.html" class="btn-theme bg-primary">Start A new fundriser</a>
+                <a href="{{route('newcampaign')}}" class="btn-theme bg-primary">Start A new fundriser</a>
             </div>
         </div>
     </div>
