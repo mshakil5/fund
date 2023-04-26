@@ -15,18 +15,24 @@
                     
                     <div class="row mt-4">
                         <div class="col-lg-9 mx-auto">
-                            <div class="title darkerGrotesque-bold lh-1 fs-3">Tell us a bit more about your fundriser
+                            <div class="title darkerGrotesque-bold lh-1 fs-3">Tell us a bit more about basic information
                             </div>
-                            <h5 class="para text-center mt-3 text-muted fs-6">
-                                Who are you fundrising for
-                            </h5>
-                            <form action="{{route('startanewfund2')}}" method="post">
-                                @csrf
+                            <form action="{{route('campaignPersonalInfo')}}" method="GET">
+                                {{-- @csrf --}}
                             
+
+                                {{-- hidden data  --}}
+                                <input type="hidden" id="fund_raising_type" name="fund_raising_type" value="{{$fund_raising_type}}">
+                                <input type="hidden" id="countryid" name="countryid" value="{{$countryid}}">
+                                <input type="hidden" id="sourceid" name="sourceid" value="{{$sourceid}}">
+                                <input type="hidden" id="title" name="title" value="{{$title}}">
+                                <input type="hidden" id="story" name="story" value="{{$story}}">
+
                                     <h4 class="fs-4  mb-2 darkerGrotesque-bold txt-secondary">
                                         How much would you like to raise?</h4>
                                     <h6 class="para text-muted fs-6">Keep the mind that transaction fees, including credit and debit charges are deducted from each donation.</h6>
 
+                                    
                                     <input type="number" class="my-3 form-control fs-4" placeholder="Your starting goal" id="raising_goal" name="raising_goal">
                                     <p class="para text-muted fs-6">
                                         To received money raised, please make sure the person withdrawing has:
@@ -72,14 +78,6 @@
                                         </ul>
                                     </div>
                                     <div class="row my-3">
-                                        <div class="col-lg-12 mb-3">
-                                            <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Fundriser title {{$countryname}} </label>
-                                            <input type="text" name="title" class="form-control" id="title" value="{{$countryname}}">
-                                        </div>
-                                        <div class="col-lg-12 ">
-                                            <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell your story </label>
-                                            <textarea name="story" id="story" class="form-control"></textarea>
-                                        </div>
 
                                             <div class="col-lg-6 ">
                                                 <label for="tagline" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Tagline</label>
@@ -93,7 +91,7 @@
                                             
                                         <div class="col-lg-12 mb-3">
                                             <label for="location" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Location </label>
-                                            <input type="text" name="location" class="form-control" id="location" value="{{$countryname}}">
+                                            <input type="text" name="location" class="form-control" id="location" value="">
                                         </div>
 
                                         <div class="col-lg-6 ">
@@ -102,12 +100,12 @@
                                         </div>
                                         <div class="col-lg-6 ">
                                             <label for="end_date" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> End Date </label>
-                                            <input type="text" name="end_date" class="form-control" id="end_date">
+                                            <input type="date" name="end_date" class="form-control" id="end_date">
                                         </div>
     
 
-                                        
-                                        <button type="submit" class="btn-theme bg-secondary mx-auto mt-4 saveBtn" id="saveBtn">Next</button>
+                                        <a href="{{route('newcampaigngeninfo')}}" class="btn-theme  bg-primary mx-auto mt-4">Back</a>
+                                        <button type="submit" class="btn-theme bg-secondary mx-auto mt-4">Next</button>
 
                                         
 

@@ -5,8 +5,6 @@
 
 @section('content')
 
-
-
 <section class="fundriser">
     <div class="container">
         <div class="row">
@@ -14,7 +12,6 @@
                 <div class="inner">
                     <div class="row">
                         <div class="col-lg-9 mx-auto">
-                            <div class="ermsg"></div>
                             <div class="title darkerGrotesque-bold lh-1 fs-1">Lets begin your fundriser journey
                             </div>
                             <h5 class="para text-center mt-3 text-muted fs-6">
@@ -22,57 +19,116 @@
                             </h5>
                         </div>
                     </div>
-                    <div class="row">
+                    
+                    <div class="row ">
                         <div class="col-lg-9 mx-auto">
-                            <form action="{{route('startanewfund1')}}" method="post">
-                                @csrf
-                                <div class="row my-2">
-                                    <div class="col-lg-6 ">
-                                        <label for="" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Select your country</label>
-                                        <select name="country" id="country" class="form-control darkerGrotesque-bold fs-5  darkerGrotesque-medium select2">
-                                            <option value="">Select Country</option>
-                                            @foreach ($country as $cntry)
-                                            <option value="{{$cntry->id}}">{{$cntry->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6 ">
-                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Why you are fundrising? </label>
-                                        <select name="source" id="source" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2">
-                                            <option value="">Select</option>
-                                            <@foreach ($source as $source)
-                                            <option value="{{$source->id}}">{{$source->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
 
-                                </div>
+                            <ul class="nav nav-tabs mt-5 border-0 py-4 justify-content-center  bg-transparent" id="myTab"
+                                role="tablist">
+                                <li class="nav-item fs-5 mx-2" role="presentation">
+                                    <form action="{{route('newcampaigngeninfo')}}" method="get">
+                                        {{-- @csrf --}}
+                                        <div class="nav-link shadow-sm d-flex align-items-center justify-content-center active" id="home-tab" data-bs-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                                            
+                                            <input type="hidden" name="fund_raising_type" class="form-control" id="fund_raising_type" value="yourself">
+                                            
 
-                                <div class="row my-3">
-                                    <div class="col-lg-12 mb-3">
-                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Fundriser title</label>
-                                        <input type="text" name="title" class="form-control" id="title">
-                                    </div>
-                                    <div class="col-lg-12 ">
-                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell your story </label>
-                                        <textarea name="story" id="story" class="form-control"></textarea>
-                                    </div>
-
-                                    <div class="col-lg-12 mt-3">
-                                        <label for="" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Confirm your charity </label>
-                                        <p class="para mb-3 text-muted fs-6 float-start"> <input type="checkbox" class="me-2" id="confirmcondition">lorem, ipsum dolor et semet lorem, ipsum dolor et semetlorem, ipsum dolor et semetlorem, ipsum dolor et semet lorem, ipsum dolor et semet lorem, ipsum dolor et semetlorem, ipsum dolor et semetlorem, ipsum dolor et semet</p>
-                                    </div>
-                                    <button type="submit" class="btn-theme bg-secondary mx-auto mt-4 saveBtn" id="saveBtn">Next</button>
+                                            @if (Auth::user())
+                                            <button type="submit" class="fw-bold" style="border: none;background: #18988b;color: white;">Your Self</button>
+                                            @else
+                                                    <!-- Button trigger modal -->
+                                            <button type="button"  class="fw-bold" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                                Your Self
+                                            </button>
+                                            @endif
+                                            
+                                            
+                                        </div>
                                     </form>
+                                </li>
+                                <li class="nav-item fs-5 mx-2" role="presentation">
+                                    <div class="nav-link shadow-sm d-flex align-items-center justify-content-center" id="profile-tab" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
+                                        <div class="fw-bold">Someone Else</div>
+                                    </div>
+                                </li>
+                                <li class="nav-item fs-5 mx-2" role="presentation">
+                                    <div class="nav-link shadow-sm d-flex align-items-center justify-content-center" id="contact-tab" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
+                                        <div class="fw-bold">Charity</div>
+                                    </div>
+                                </li>
+                            </ul>
+                            {{-- <div class="tab-content shadow-sm">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                    aria-labelledby="home-tab">
+
+                                    <div class="row my-5">
+                                        <button class="btn-theme bg-secondary mx-auto mt-4">Complete
+                                            Fundriser</button>
+                                    </div>
                                 </div>
+                            </div> --}}
+
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div  class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            @if(session()->has('message'))
+            <p class="alert alert-success"> {{ session()->get('message') }}</p>
+            @endif
+             
+            <form method="POST" action="{{ route('login') }}" class="form-custom">
+                @csrf
+
+                <div class="title text-center txt-secondary">LOGIN</div>
+                <div class="form-group">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                </div>
+                <div class="form-group">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Login </button>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                     <a href="{{ route('register')}}" class="btn-theme bg-secondary d-block text-center mx-0 w-100"> Apply for an account</a>
+                </div>
+            </form>
+
+
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 
 

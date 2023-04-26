@@ -244,68 +244,188 @@ class CampaignController extends Controller
     // frontpage new campaign 
     public function startCampaign()
     {
-        $country = Country::select('id','name')->get();
-        $source = FundraisingSource::select('id','name')->get();
-        return view('frontend.start_new_campaign',compact('country','source'));
+        return view('frontend.start_new_campaign');
     }
 
-    public function startCampaignStep1(Request $request)
+    // public function startCampaignGeneralInfo()
+    // {
+    //     $country = Country::select('id','name')->get();
+    //     $source = FundraisingSource::select('id','name')->get();
+        
+    //     return view('frontend.campaign_info',compact('country','source'));
+    // }
+
+    public function startCampaignGeneralInformation(Request $request)
     {
         $country = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $countryname = $request->country;
-        $sourceid = $request->source;
-        $title = $request->title;
-        $story = $request->story;
-        // dd($countryname);
-        return view('frontend.start_new_campaign_basicinfo',compact('country','source','countryname','sourceid','title','story'));
+        $funraisingtype = $request->fund_raising_type;
+        // dd($funraisingtype);
+        return view('frontend.start_new_campaign_geninfo',compact('country','source','funraisingtype'));
     }
 
-    public function startCampaignStep2(Request $request)
+    public function startCampaignBasicInformation(Request $request)
     {
         $country = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $countryname = $request->country;
+        $fund_raising_type = $request->fund_raising_type;
+        $countryid = $request->country;
         $sourceid = $request->source;
         $title = $request->title;
         $story = $request->story;
-        // dd($countryname);
-        return view('frontend.start_new_campaign_personalinfo',compact('country','source','countryname','sourceid','title','story'));
+        // dd($fund_raising_type);
+        return view('frontend.start_new_campaign_basicinfo',compact('country','source','countryid','sourceid','title','story','fund_raising_type'));
     }
 
-    public function startCampaignStep3(Request $request)
+    public function startCampaignPersonalInformation(Request $request)
     {
         $country = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $countryname = $request->country;
-        $sourceid = $request->source;
+        $fund_raising_type = $request->fund_raising_type;
+        $countryid = $request->countryid;
+        $sourceid = $request->sourceid;
         $title = $request->title;
         $story = $request->story;
-        // dd($countryname);
-        return view('frontend.start_new_campaign_bankinfo',compact('country','source','countryname','sourceid','title','story'));
+        $raising_goal = $request->raising_goal;
+        $image = $request->image;
+        $video_link = $request->video_link;
+        $tagline = $request->tagline;
+        $category = $request->category;
+        $location = $request->location;
+        $funding_type = $request->funding_type;
+        $end_date = $request->end_date;
+        // dd($image);
+        return view('frontend.start_new_campaign_personalinfo',compact('country','source','countryid','sourceid','title','story','fund_raising_type','raising_goal','image','video_link','tagline','category','location','funding_type','end_date'));
     }
 
-    public function startCampaignStep4(Request $request)
+    public function startCampaignBankInformation(Request $request)
     {
         $country = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $countryname = $request->country;
-        $sourceid = $request->source;
+        $fund_raising_type = $request->fund_raising_type;
+        $countryid = $request->countryid;
+        $sourceid = $request->sourceid;
         $title = $request->title;
         $story = $request->story;
-        // dd($countryname);
-        return view('frontend.start_new_campaign_terms',compact('country','source','countryname','sourceid','title','story'));
+        $raising_goal = $request->raising_goal;
+        $image = $request->image;
+        $video_link = $request->video_link;
+        $tagline = $request->tagline;
+        $category = $request->category;
+        $location = $request->location;
+        $funding_type = $request->funding_type;
+        $end_date = $request->end_date;
+
+        $email = $request->email;
+        $name = $request->name;
+        $family_name = $request->family_name;
+        $dob = $request->dob;
+        $phone = $request->phone;
+        $country_address = $request->country_address;
+        $address = $request->address;
+        $city = $request->city;
+        $street_name = $request->street_name;
+        $town = $request->town;
+        $postcode = $request->postcode;
+        $gov_issue_id = $request->gov_issue_id;
+        
+        // dd($image);
+
+
+        return view('frontend.start_new_campaign_bankinfo',compact('country','source','countryid','sourceid','title','story','fund_raising_type','raising_goal','image','video_link','tagline','category','location','funding_type','end_date','email','name','family_name','dob','phone','country_address','address','city','street_name','town','postcode','gov_issue_id'));
     }
 
-    public function startCampaignStep5(Request $request)
+    public function startCampaignTermsCondition(Request $request)
     {
         $country = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $countryname = $request->country;
-        $sourceid = $request->source;
+
+        $fund_raising_type = $request->fund_raising_type;
+        $countryid = $request->countryid;
+        $sourceid = $request->sourceid;
         $title = $request->title;
         $story = $request->story;
+        $raising_goal = $request->raising_goal;
+        $image = $request->image;
+        $video_link = $request->video_link;
+        $tagline = $request->tagline;
+        $category = $request->category;
+        $location = $request->location;
+        $funding_type = $request->funding_type;
+        $end_date = $request->end_date;
+        $email = $request->email;
+        $name = $request->name;
+        $family_name = $request->family_name;
+        $dob = $request->dob;
+        $phone = $request->phone;
+        $country_address = $request->country_address;
+        $address = $request->address;
+        $city = $request->city;
+        $street_name = $request->street_name;
+        $town = $request->town;
+        $postcode = $request->postcode;
+        $gov_issue_id = $request->gov_issue_id;
+        $currency = $request->currency;
+        $name_of_account = $request->name_of_account;
+        $bank_account_country = $request->bank_account_country;
+        $bank_name = $request->bank_name;
+        $bank_account_class = $request->bank_account_class;
+        $bank_account_type = $request->bank_account_type;
+        $bank_routing = $request->bank_routing;
+        $iban = $request->iban;
+        $bank_verification_doc = $request->bank_verification_doc;
         // dd($countryname);
-        return view('frontend.start_new_campaign_confirmations',compact('country','source','countryname','sourceid','title','story'));
+        return view('frontend.start_new_campaign_terms',compact('country','source','countryid','sourceid','title','story','fund_raising_type','raising_goal','image','video_link','tagline','category','location','funding_type','end_date','email','name','family_name','dob','phone','country_address','address','city','street_name','town','postcode','gov_issue_id','currency','name_of_account','bank_account_country','bank_name','bank_account_class','bank_account_type','bank_routing','iban','bank_verification_doc'));
+    }
+
+    public function startCampaignconfirmation(Request $request)
+    {
+        $data = new Campaign;
+        $data->fund_raising_type = $request->fund_raising_type;
+        if (Auth::user()) {
+            $data->user_id = Auth::user()->id;
+        }
+        $data->country_id = $request->countryid;
+        $data->fundraising_source_id = $request->sourceid;
+        $data->title = $request->title;
+        $data->story = $request->story;
+        $data->raising_goal = $request->raising_goal;
+        // $data->image = $request->image;
+        $data->video_link = $request->video_link;
+        $data->tagline = $request->tagline;
+        $data->category = $request->category;
+        $data->location = $request->location;
+        $data->funding_type = $request->funding_type;
+        $data->end_date = $request->end_date;
+        $data->email = $request->email;
+        $data->name = $request->name;
+        $data->family_name = $request->family_name;
+        $data->dob = $request->dob;
+        $data->phone = $request->phone;
+        $data->country_address = $request->country_address;
+        $data->address = $request->address;
+        $data->city = $request->city;
+        $data->street_name = $request->street_name;
+        $data->town = $request->town;
+        $data->postcode = $request->postcode;
+        $data->gov_issue_id = $request->gov_issue_id;
+        $data->currency = $request->currency;
+        $data->name_of_account = $request->name_of_account;
+        $data->bank_account_country = $request->bank_account_country;
+        $data->bank_name = $request->bank_name;
+        $data->bank_account_class = $request->bank_account_class;
+        $data->bank_account_type = $request->bank_account_type;
+        $data->bank_routing = $request->bank_routing;
+        $data->iban = $request->iban;
+        $data->bank_verification_doc = $request->bank_verification_doc;
+        $data->status = '0';
+        
+        if ($data->save()) {
+            return view('frontend.start_new_campaign_confirmations')
+               ->with('success','Your campaign create successfully. Thank you.');
+        }else{
+            return view('frontend.start_new_campaign_confirmations')
+               ->with('error','Server error!!.');
+        }
     }
 }

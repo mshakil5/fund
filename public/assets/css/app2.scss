@@ -7,8 +7,8 @@
 
 // variables
 
-$primary: #18988B;
-$secondary: #003057;
+$primary: #265080;
+$secondary: #F0BD57;
 $txt: #4E4B44;
 $white: #fff;
 
@@ -247,38 +247,6 @@ body {
 .banner {
     background: #fff7f2;
     min-height: 90vh;
-
-    .steps {
-        .inner {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-
-            .items {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                gap: 18px;
-
-                .circle {
-                    height: 80px;
-                    width: 80px;
-                    border: 1px dashed lightgrey;
-                    flex-basis: 80px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .content {
-                    height: 60px;
-                    width: 60px;
-                    flex: 1;
-                    text-align: left;
-                }
-            }
-        }
-    }
 
     .inner {
         // padding-top: 50px;
@@ -966,16 +934,19 @@ body::-webkit-scrollbar-thumb {
 .card-theme {
     padding: 0;
     box-shadow: 0px 2px 5px 0px #b1b1b1;
-    overflow: hidden;
 
     .topper {
-        height: 240px;
-        position: relative;
-        overflow: hidden;
+        height: 145px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url(https://via.placeholder.com/315x150.png);
 
         img {
-            width: 100%;
-            height: auto;
+            position: absolute;
+            right: 20px;
+            bottom: -50px;
+            z-index: 1;
+            border: 4px solid #ffffffad;
         }
     }
 
@@ -985,14 +956,7 @@ body::-webkit-scrollbar-thumb {
             line-height: 1;
             color: #265080;
             font-family: "DarkerGrotesque-bold";
-
-            a {
-                color: $secondary ;
-
-            }
         }
-
-        .status {}
 
         span {
             font-size: 18px;
@@ -1006,11 +970,11 @@ body::-webkit-scrollbar-thumb {
     }
 
     &:hover {
-        // .topper {
-        //     img {
-        //         animation: bounce 0.8s linear;
-        //     }
-        // }
+        .topper {
+            img {
+                animation: bounce 0.8s linear;
+            }
+        }
     }
 }
 
@@ -1209,7 +1173,7 @@ body::-webkit-scrollbar-thumb {
     }
 
     img {
-        height: 100%;
+        height: 100%; 
         border-radius: 3px;
     }
 }
@@ -1222,7 +1186,7 @@ body::-webkit-scrollbar-thumb {
         background-color: #fefefe;
         width: 7px;
     }
-
+    
     &::-webkit-scrollbar-thumb {
         border-radius: 50px;
         background: lightgrey;
@@ -1231,20 +1195,19 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-.shareIcons {
+.shareIcons{
     display: flex;
     gap: 10px;
     margin: 25px 0px;
     flex-wrap: wrap;
-
-    .items {
-
-        flex: 1;
+    .items{ 
+        
+        flex:1;
         flex-wrap: wrap;
     }
 }
 
-.editProfile {
+.editProfile{
     height: 45px;
     width: 45px;
     display: flex;
@@ -1256,142 +1219,4 @@ body::-webkit-scrollbar-thumb {
     top: 15px;
     font-size: 2rem;
     color: #787878;
-}
-
-// 15-march
-
-.authSection {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    background-image: url(../images/monitor.svg);
-    height: 100vh;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
-
-    @media(max-width:1230px) {
-        background-image: unset;
-        background: aliceblue;
-    }
-
-    .inner {
-        width: 380px;
-        margin: 0 auto;
-        margin-top: 90px;
-    }
-}
-
-
-.login-form {
-    background: #26508012;
-    padding: 25px;
-    border-radius: 5px;
-}
-
-.plan {
-    min-height: 435px;
-    background: #E3D4C2;
-
-    .planContent {}
-
-    .optionItems {
-        font-size: 19px;
-        font-weight: bold;
-        margin-bottom: 4px;
-        padding: 8px 15px;
-        letter-spacing: 0.7px;
-        line-height: 1;
-
-        &:nth-child(odd) {
-            background-color: #E8E1D9;
-            border-radius: 4px;
-            color: $secondary;
-        }
-
-        &:nth-child(even) {
-            background-color: rgb(243 239 235);
-            border-radius: 4px;
-            color: $secondary;
-        }
-    }
-
-    // &.plan-bg-1 {
-
-
-
-
-    // }
-
-    // &.plan-bg-2 {
-    //     background: #FFF7F2;
-    //     .optionItems {
-    //         font-size: 19px;
-    //         font-weight: bold;
-    //         margin-bottom: 4px;
-    //         padding: 8px 15px;
-    //         letter-spacing: 0.7px;
-    //         line-height: 1;  
-    //         &:nth-child(odd) {
-    //             background-color: rgb(231 220 214);
-    //             border-radius: 4px;
-    //             color: $primary;
-    //         } 
-    //         &:nth-child(even) {
-    //             background-color: rgb(235 204 188);
-    //             border-radius: 4px;
-    //             color: $primary;
-    //         }
-    //     }
-
-    // }
-
-    // &.plan-bg-3 {
-    //     background: #FFF7F2;
-    //     .optionItems {
-    //         font-size: 19px;
-    //         font-weight: bold;
-    //         margin-bottom: 4px;
-    //         padding: 8px 15px;
-    //         letter-spacing: 0.7px;
-    //         line-height: 1;  
-    //         &:nth-child(odd) {
-    //             background-color: rgb(231 220 214);
-    //             border-radius: 4px;
-    //             color: $primary;
-    //         } 
-    //         &:nth-child(even) {
-    //             background-color: rgb(235 204 188);
-    //             border-radius: 4px;
-    //             color: $primary;
-    //         }
-    //     }
-
-    // }
-}
-
-.advertisement {
-    background-color: #e3d4c2;
-
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
-input[type=radio] {
- height: 18px;
- width: 18px;
-}
-input[type=checkbox] {
- height: 18px;
- width: 18px;
 }

@@ -51,12 +51,19 @@ Route::get('/terms', [FrontendController::class, 'terms'])->name('frontend.terms
 Route::get('/non-profit', [FrontendController::class, 'nonprofit'])->name('frontend.nonprofit');
 Route::get('/individual', [FrontendController::class, 'individual'])->name('frontend.individual');
 Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('frontend.fundriser');
+
+
+// start a new campaign
 Route::get('/start-a-new-campaign', [CampaignController::class, 'startCampaign'])->name('newcampaign');
-Route::any('/campaign-basic-information', [CampaignController::class, 'startCampaignStep1'])->name('startanewfund1');
-Route::any('/campaign-personal-information', [CampaignController::class, 'startCampaignStep2'])->name('startanewfund2');
-Route::any('/campaign-bank-information', [CampaignController::class, 'startCampaignStep3'])->name('startanewfund3');
-Route::any('/campaign-terms-condition', [CampaignController::class, 'startCampaignStep4'])->name('startanewfund4');
-Route::any('/campaign-confirmations', [CampaignController::class, 'startCampaignStep5'])->name('startanewfund5');
+    // this route create for test 
+// Route::get('/campaign-information', [CampaignController::class, 'startCampaignGeneralInfo'])->name('newcampaigngeninfo');
+    // end
+Route::get('/campaign-information', [CampaignController::class, 'startCampaignGeneralInformation'])->name('newcampaigngeninfo');
+Route::get('/campaign-basic-information', [CampaignController::class, 'startCampaignBasicInformation'])->name('campaignBasicInfo');
+Route::get('/campaign-personal-information', [CampaignController::class, 'startCampaignPersonalInformation'])->name('campaignPersonalInfo');
+Route::get('/campaign-bank-information', [CampaignController::class, 'startCampaignBankInformation'])->name('campaignBankInfo');
+Route::get('/campaign-terms-condition', [CampaignController::class, 'startCampaignTermsCondition'])->name('campaignTermCondition');
+Route::post('/campaign-confirmations', [CampaignController::class, 'startCampaignconfirmation'])->name('campaignConfirmation');
 
 Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->name('frontend.campaignDetails');
 
