@@ -32,6 +32,7 @@
                 <li><a href="{{route('admin.newfundraiser')}}" class="nav-link">Fundraiser</a></li>
                 <li><a href="{{route('admin.allcharity')}}" class="nav-link">Charity</a></li>
                 <li><a href="{{route('admin.campaign')}}" class="nav-link">Campaign</a></li>
+                <li><a href="{{url('admin/company-detail')}}" class="nav-link">Company Details</a></li>
                 {{-- <li><a href="order-voucher-books.html">Order voucher books</a></li>
                 <li><a href="tevini-card.html">Tevini card</a></li>
                 <li><a href="view-transactions.html">View transactions</a></li>
@@ -40,8 +41,8 @@
                 <li><a href="contact.html">Contact</a></li> --}}
             </ul>
             <div class="bottom-part">
-                <a href="#" class="btn-theme bg-secondary">Order voucher books</a>
-                <a href="#" class="btn-theme bg-primary">Make a donation</a>
+                {{-- <a href="#" class="btn-theme bg-secondary">Order voucher books</a>
+                <a href="#" class="btn-theme bg-primary">Make a donation</a> --}}
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mt-2 d-flex justify-content-center txt-theme fw-bold align-items-center">
                     <iconify-icon icon="humbleicons:logout"></iconify-icon>
                     &nbsp;Log out

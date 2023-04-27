@@ -266,36 +266,37 @@ class CampaignController extends Controller
 
     public function startCampaignBasicInformation(Request $request)
     {
-        $country = Country::select('id','name')->get();
-        $source = FundraisingSource::select('id','name')->get();
-        $fund_raising_type = $request->fund_raising_type;
-        $countryid = $request->country;
-        $sourceid = $request->source;
-        $title = $request->title;
-        $story = $request->story;
-        // dd($fund_raising_type);
-        return view('frontend.start_new_campaign_basicinfo',compact('country','source','countryid','sourceid','title','story','fund_raising_type'));
+        
+        $validatedData = $request->validate([
+            'fund_raising_type' => 'required',
+            'country' => 'required',
+            'source' => 'required',
+            'title' => 'required',
+            'story' => 'required',
+        ]);
+
+        $request->session()->put('frontend.start_new_campaign_geninfo', $validatedData);
+        return view('frontend.start_new_campaign_basicinfo', ['step2Data' => $validatedData]);
     }
 
     public function startCampaignPersonalInformation(Request $request)
     {
-        $country = Country::select('id','name')->get();
-        $source = FundraisingSource::select('id','name')->get();
-        $fund_raising_type = $request->fund_raising_type;
-        $countryid = $request->countryid;
-        $sourceid = $request->sourceid;
-        $title = $request->title;
-        $story = $request->story;
-        $raising_goal = $request->raising_goal;
-        $image = $request->image;
-        $video_link = $request->video_link;
-        $tagline = $request->tagline;
-        $category = $request->category;
-        $location = $request->location;
-        $funding_type = $request->funding_type;
-        $end_date = $request->end_date;
-        // dd($image);
-        return view('frontend.start_new_campaign_personalinfo',compact('country','source','countryid','sourceid','title','story','fund_raising_type','raising_goal','image','video_link','tagline','category','location','funding_type','end_date'));
+        
+        
+        $validatedData = $request->validate([
+            'raising_goal' => 'required',
+            'image' => 'required',
+            'video_link' => 'required',
+            'tagline' => 'required',
+            'category' => 'required',
+            'location' => 'required',
+            'funding_type' => 'required',
+            'end_date' => 'required',
+        ]);
+
+        $request->session()->put('frontend.start_new_campaign_basicinfo', $validatedData);
+
+        return view('frontend.start_new_campaign_personalinfo', ['step3Data' => $validatedData]);
     }
 
     public function startCampaignBankInformation(Request $request)

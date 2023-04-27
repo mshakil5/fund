@@ -132,7 +132,7 @@ class CompanyDetailController extends Controller
             $logorand = mt_rand(100000, 999999);
             $companylogoName = time(). $logorand .'.'.$request->company_logo->extension();
             $request->company_logo->move(public_path('images/company'), $companylogoName);
-            $company->company_logo= $companylogoName;
+            $company->header_logo = $companylogoName;
         }
 
         if($request->fav_icon != 'null'){
@@ -149,7 +149,7 @@ class CompanyDetailController extends Controller
         }
 
         $company->company_name= $request->company_name;
-        $company->address= $request->address;
+        $company->address1= $request->address;
         $company->address2 = $request->address2;
         $company->footer_content = $request->footer_content;
         $company->google_map = $request->google_map;
@@ -159,7 +159,7 @@ class CompanyDetailController extends Controller
         $company->email1= $request->email1;
         $company->email2= $request->email2;
         $company->facebook= $request->facebook;
-        $company->twiter= $request->twiter;
+        $company->twitter = $request->twiter;
         $company->instagram= $request->instagram;
         $company->linkedin= $request->linkedin;
         $company->website= $request->website;

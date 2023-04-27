@@ -24,8 +24,8 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-9 mx-auto">
-                            <form action="{{route('campaignBasicInfo')}}" method="GET">
-                                {{-- @csrf --}}
+                            <form action="{{route('campaignBasicInfo')}}" method="POST">
+                                @csrf
                                 {{-- hiden data  --}}
                                 <input type="hidden" name="fund_raising_type" id="fund_raising_type" value="{{$funraisingtype}}">
                                 {{-- end  --}}

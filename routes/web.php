@@ -58,11 +58,11 @@ Route::get('/start-a-new-campaign', [CampaignController::class, 'startCampaign']
     // this route create for test 
 // Route::get('/campaign-information', [CampaignController::class, 'startCampaignGeneralInfo'])->name('newcampaigngeninfo');
     // end
-Route::get('/campaign-information', [CampaignController::class, 'startCampaignGeneralInformation'])->name('newcampaigngeninfo');
-Route::get('/campaign-basic-information', [CampaignController::class, 'startCampaignBasicInformation'])->name('campaignBasicInfo');
-Route::get('/campaign-personal-information', [CampaignController::class, 'startCampaignPersonalInformation'])->name('campaignPersonalInfo');
-Route::get('/campaign-bank-information', [CampaignController::class, 'startCampaignBankInformation'])->name('campaignBankInfo');
-Route::get('/campaign-terms-condition', [CampaignController::class, 'startCampaignTermsCondition'])->name('campaignTermCondition');
+Route::post('/campaign-information', [CampaignController::class, 'startCampaignGeneralInformation'])->name('newcampaigngeninfo');
+Route::post('/campaign-basic-information', [CampaignController::class, 'startCampaignBasicInformation'])->name('campaignBasicInfo');
+Route::post('/campaign-personal-information', [CampaignController::class, 'startCampaignPersonalInformation'])->name('campaignPersonalInfo');
+Route::post('/campaign-bank-information', [CampaignController::class, 'startCampaignBankInformation'])->name('campaignBankInfo');
+Route::post('/campaign-terms-condition', [CampaignController::class, 'startCampaignTermsCondition'])->name('campaignTermCondition');
 Route::post('/campaign-confirmations', [CampaignController::class, 'startCampaignconfirmation'])->name('campaignConfirmation');
 
 Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->name('frontend.campaignDetails');

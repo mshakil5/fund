@@ -17,8 +17,8 @@
                         <div class="col-lg-9 mx-auto">
                             <div class="title darkerGrotesque-bold lh-1 fs-3">Tell us a bit more about your bank information
                             </div>
-                            <form action="{{route('campaignTermCondition')}}" method="GET">
-                                {{-- @csrf --}}
+                            <form action="{{route('campaignTermCondition')}}" method="POST">
+                                @csrf
 
                                 {{-- hidden data  --}}
                                 <input type="hidden" id="fund_raising_type" name="fund_raising_type" value="{{$fund_raising_type}}">

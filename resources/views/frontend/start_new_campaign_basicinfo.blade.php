@@ -17,17 +17,10 @@
                         <div class="col-lg-9 mx-auto">
                             <div class="title darkerGrotesque-bold lh-1 fs-3">Tell us a bit more about basic information
                             </div>
-                            <form action="{{route('campaignPersonalInfo')}}" method="GET">
-                                {{-- @csrf --}}
+                            <form action="{{route('campaignPersonalInfo')}}" method="POST">
+                                @csrf
                             
-
-                                {{-- hidden data  --}}
-                                <input type="hidden" id="fund_raising_type" name="fund_raising_type" value="{{$fund_raising_type}}">
-                                <input type="hidden" id="countryid" name="countryid" value="{{$countryid}}">
-                                <input type="hidden" id="sourceid" name="sourceid" value="{{$sourceid}}">
-                                <input type="hidden" id="title" name="title" value="{{$title}}">
-                                <input type="hidden" id="story" name="story" value="{{$story}}">
-
+                                value="{{ $step2Data['purpose'] ?? '' }}"
                                     <h4 class="fs-4  mb-2 darkerGrotesque-bold txt-secondary">
                                         How much would you like to raise?</h4>
                                     <h6 class="para text-muted fs-6">Keep the mind that transaction fees, including credit and debit charges are deducted from each donation.</h6>

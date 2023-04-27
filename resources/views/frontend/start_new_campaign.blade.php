@@ -26,8 +26,8 @@
                             <ul class="nav nav-tabs mt-5 border-0 py-4 justify-content-center  bg-transparent" id="myTab"
                                 role="tablist">
                                 <li class="nav-item fs-5 mx-2" role="presentation">
-                                    <form action="{{route('newcampaigngeninfo')}}" method="get">
-                                        {{-- @csrf --}}
+                                    <form action="{{route('newcampaigngeninfo')}}" method="POST">
+                                        @csrf
                                         <div class="nav-link shadow-sm d-flex align-items-center justify-content-center active" id="home-tab" data-bs-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
                                             
                                             <input type="hidden" name="fund_raising_type" class="form-control" id="fund_raising_type" value="yourself">

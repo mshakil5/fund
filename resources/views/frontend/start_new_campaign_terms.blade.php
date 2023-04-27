@@ -24,7 +24,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-9 mx-auto">
-                            <form action="{{route('campaignConfirmation')}}" method="post">
+                            <form action="{{route('campaignConfirmation')}}" method="POST">
                                 @csrf
                                 <div class="row my-3">
                                     {{-- hidden data  --}}
