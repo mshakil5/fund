@@ -65,4 +65,25 @@ class LoginController extends Controller
         }
           
     }
+
+    public function login2(Request $request)
+    {   
+        $input = $request->all();
+        // dd($request->campaignid);
+     
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+     
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        {
+            // return redirect()->intended();
+            return redirect()->route('frontend.campaignDetails',$request->campaignid);
+        }else{
+            return redirect()->route('login')
+                ->with('error','Email-Address And Password Are Wrong.');
+        }
+          
+    }
 }

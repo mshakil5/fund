@@ -10,15 +10,10 @@
 <section class="bleesed default">
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
-            <div class="title darkerGrotesque-bold lh-1">We're Not Like Other Charity Fundraising <br> Websites.
-                Discover What <br> Makes us Different.</div>
+            <div class="title darkerGrotesque-bold lh-1">{{\App\Models\Master::where('name','about')->first()->title}}</div>
             <div class="para text-center mt-4">
-                <p> Fundd Money Giving, is a not-for-profit alternative to other fundraising websites.
-                    Whilst you can't do this for free, you can do it without making a profit.
-                    At Fundd, we exist to make giving go further, so together we can transform more lives and
-                    communities around the world.
-                </p>
-                <a href="#" class="btn-theme bg-secondary mx-auto">Fund Now</a>
+                {!! \App\Models\Master::where('name','about')->first()->description !!}
+                <a href="{{route('newcampaign')}}" class="btn-theme bg-secondary mx-auto">Fund Now</a>
             </div>
         </div>
     </div>

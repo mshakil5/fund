@@ -10,11 +10,9 @@
 <section class="bleesed default">
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
-            <div class="title darkerGrotesque-bold lh-1">Make a difference with fundraising for nonprofits</div>
+            <div class="title darkerGrotesque-bold lh-1">{{\App\Models\Master::where('name','nonprofit1')->first()->title}}</div>
             <div class="para text-center mt-4">
-                <p> The fast and easy way to raise money for the nonprofits you care about. <br>
-                    START FUNDRAISING FOR YOUR FAVORITE NONPROFIT
-                </p>
+                {!! \App\Models\Master::where('name','nonprofit1')->first()->description !!}
             </div>
             <div class="searchBox p-0 mt-3">
                 <input placeholder="Search..." type="text">

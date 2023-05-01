@@ -72,7 +72,15 @@
                     <big> <span class="w-100 fw-bold">raised of £1,000 goal</span></big>
 
                     <div class="d-flex justify-content-between my-3 ">
-                        <a href="#" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
+                        @if (Auth::user())
+                            <a href="{{ route('frontend.campaignDonate',$data->id)}}" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
+                        @else
+                            <!-- Button trigger modal -->
+                            <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Donate Now
+                                </button>
+                        @endif
+
                         <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
                             data-bs-target="#shareModal">Share</button>
                     </div>
@@ -101,8 +109,112 @@
         </div>
     </div>
 </section>
+    <!-- share modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content fs-5 darkerGrotesque-semibold ">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-4" id="shareModalLabel">Help by sharing</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-dark lh-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima ratione
+                        excepturi accusamus!</p>
+                    <hr>
+                    <div class="shareIcons">
+                        <div class="items text-center shadow-sm">
+                            <a href="" class="d-flex flex-column justify-content-center align-items-center">
+                                <iconify-icon class="fs-3" icon="logos:facebook"></iconify-icon>
+                                <div class="txt-primary fw-bold">Facebook</div>
+                            </a>
+                        </div>
+                        <div class="items text-center shadow-sm">
+                            <a href="" class="d-flex flex-column justify-content-center align-items-center">
+                                <iconify-icon class="fs-3" icon="logos:twitter"></iconify-icon>
+                                <div class="txt-primary fw-bold">Twitter</div>
+                            </a>
+                        </div>
+                        <div class="items text-center shadow-sm">
+                            <a href="" class="d-flex flex-column justify-content-center align-items-center">
+                                <iconify-icon class="fs-3" icon="ic:outline-email"></iconify-icon>
+                                <div class="txt-primary fw-bold">Email</div>
+                            </a>
+                        </div>
+                        <div class="items text-center shadow-sm">
+                            <a href="" class="d-flex flex-column justify-content-center align-items-center">
+                                <iconify-icon class="fs-3" icon="logos:whatsapp-icon"></iconify-icon>
+                                <div class="txt-primary fw-bold">whatsapp</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="text" class="form-control fs-5"  id="myInput" style="height:46px;"
+                            value="https:link.share000124.com">
+                        <button class="btn btn-theme bg-primary"  onclick="copyTextFS()">Copy</button>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!--Login  Modal -->
+<div  class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            @if(session()->has('message'))
+            <p class="alert alert-success"> {{ session()->get('message') }}</p>
+            @endif
+             
+            <form method="POST" action="{{ route('loginto') }}" class="form-custom">
+                @csrf
+
+                <div class="title text-center txt-secondary">LOGIN</div>
+                <div class="form-group">
+                    <input type="hidden" name="campaignid" id="campaignid" value="{{$data->id}}">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                </div>
+                <div class="form-group">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Login </button>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                     <a href="{{ route('register')}}" class="btn-theme bg-secondary d-block text-center mx-0 w-100"> Apply for an account</a>
+                </div>
+            </form>
 
 
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('scripts')

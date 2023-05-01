@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CharityController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\WhyChooseUsController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -53,6 +55,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/new-fundraiser-update', [UserController::class, 'newfundraiserupdate']);
     Route::get('/new-fundraiser/{id}', [UserController::class, 'newfundraiserdelete']);
 
+    // Route::post('/fundraiser-update', [UserController::class, 'fundraiserUpdate']);
+    // fundraiser profile
+    Route::get('/fundraiser-profile/{id}', [UserController::class, 'fundraiserProfile'])->name('admin.fundraiserProfile');
+
+
     // create charity from admin
     Route::get('/charity', [CharityController::class, 'getCharityByAdmin'])->name('admin.allcharity');
     Route::post('/charity', [CharityController::class, 'newCharitystore']);
@@ -91,5 +98,24 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/contact-mail', [ContactMailController::class, 'index'])->name('admin.contact-mail');
     Route::get('/contact-mail/{id}/edit', [ContactMailController::class, 'edit']);
     Route::put('/contact-mail/{id}', [ContactMailController::class, 'update'])->name('admin.contact.update');
+
+    // why-choose-us
+    Route::get('/why-choose-us', [WhyChooseUsController::class, 'index'])->name('admin.whychooseus');
+    Route::post('/why-choose-us', [WhyChooseUsController::class, 'store']);
+    Route::get('/why-choose-us/{id}/edit', [WhyChooseUsController::class, 'edit']);
+    Route::put('/why-choose-us/{id}', [WhyChooseUsController::class, 'update']);
+    Route::get('/why-choose-us/{id}', [WhyChooseUsController::class, 'delete']);
+
+    
+    // all-data
+    Route::get('/all-data', [MasterController::class, 'index'])->name('admin.master');
+    Route::post('/all-data', [MasterController::class, 'store']);
+    Route::get('/all-data/{id}/edit', [MasterController::class, 'edit']);
+    Route::put('/all-data/{id}', [MasterController::class, 'update']);
+
+
+    // all-data
+    Route::get('/home-top-section', [MasterController::class, 'homeTopSection'])->name('admin.hometopsection');
+    Route::post('/home-top-section', [MasterController::class, 'homeTopSectionUpdate']);
 });
 //admin part end

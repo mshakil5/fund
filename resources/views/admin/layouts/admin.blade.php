@@ -33,6 +33,10 @@
                 <li><a href="{{route('admin.allcharity')}}" class="nav-link">Charity</a></li>
                 <li><a href="{{route('admin.campaign')}}" class="nav-link">Campaign</a></li>
                 <li><a href="{{url('admin/company-detail')}}" class="nav-link">Company Details</a></li>
+                <li><a href="{{route('admin.whychooseus')}}" class="nav-link">Why Choose Us</a></li>
+                <li><a href="{{route('admin.master')}}" class="nav-link">All Data</a></li>
+                <li><a href="{{route('admin.hometopsection')}}" class="nav-link">Homepage Top Section</a></li>
+                <li><a href="{{route('admin.contact-mail')}}" class="nav-link">Contact Mail</a></li>
                 {{-- <li><a href="order-voucher-books.html">Order voucher books</a></li>
                 <li><a href="tevini-card.html">Tevini card</a></li>
                 <li><a href="view-transactions.html">View transactions</a></li>

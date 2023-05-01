@@ -28,7 +28,7 @@
                                       <div class="form-group">
                                         <label for="address">Address</label>
                                         {{-- ckeditor --}}
-                                        <textarea class="form-control" id="address" name="address" rows="4" placeholder="Enter your address">@if (!empty($company->address)){{$company->address}}@endif</textarea>
+                                        <textarea class="form-control" id="address" name="address" rows="4" placeholder="Enter your address">@if (!empty($company->address1)){{$company->address1}}@endif</textarea>
                                       </div>
                   
                                       <div class="form-group">

@@ -165,6 +165,15 @@ class UserController extends Controller
 
 
         $data = User::find($request->codeid);
+        if($request->image != 'null'){
+            $request->validate([
+                'image' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $data->photo= $imageName;
+        }
         $data->name = $request->name;
         $data->surname = $request->surname;
         $data->phone = $request->phone;
@@ -193,5 +202,11 @@ class UserController extends Controller
         }else{
             return response()->json(['success'=>false,'message'=>'Delete Failed']);
         }
+    }
+
+    public function fundraiserProfile($id)
+    {
+        $data = User::where('id', $id)->first();
+        return view('admin.fundraiser.fundraiserprofile', compact('data'));
     }
 }

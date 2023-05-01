@@ -3,7 +3,7 @@
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light py-0 ">
                 <a class="navbar-brand" href="{{ route('homepage')}}">
-                    <img src="{{ asset('assets/images/logo.png')}}" class="py-2 img-fluid mx-auto" width="200px">
+                    <img src="{{ asset('images/company/'.\App\Models\CompanyDetail::where('id',1)->first()->header_logo)}}" class="py-2 img-fluid mx-auto" width="200px">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"

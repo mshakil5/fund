@@ -12,106 +12,108 @@
         </div>
     </div>
 <div id="addThisFormContainer">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card" style="background-color: #fdf3ee">
-                <div class="card-header">
-                    <h5>Campaign form</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="ermsg">
-                        </div>
-                        <div class="col-md-12">
-                          <div class="tile">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    {!! Form::open(['url' => 'admin/master/create','id'=>'createThisForm']) !!}
-                                    {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
-                                    @csrf
-                                    <div>
-                                        <label for="country">Select your country</label>
-                                        <select name="country" id="country" class="form-control">
-                                            <option value="">Please Select</option>
-                                            @foreach ($countries as $country)
-                                                <option value="{{$country->id}}">{{$country->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div>
-                                        <label for="source">Why you are fundrising?</label>
-                                        <select name="source" id="source" class="form-control">
-                                            <option value="">Please Select</option>
-                                            @foreach ($source as $source)
-                                                <option value="{{$source->id}}">{{$source->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div>
-                                        <label for="fundraising_for">Who are you fundrising for?</label>
-                                        <select name="fundraising_for" id="fundraising_for" class="form-control">
-                                            <option value="">Please Select</option>
-                                            <option value="yourself">Yourself</option>
-                                            <option value="someone">Someone Else</option>
-                                            <option value="charity">Charity</option>
-
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="raising_goal">Raising goal</label>
-                                        <input type="number" id="raising_goal" name="raising_goal" class="form-control">
-                                    </div>
-                                    <div>
-                                        <label for="image">Upload Photo</label>
-                                        <input type="file" id="image" name="image" class="form-control" multiple>
-                                    </div>
-                                    <div>
-                                        <div class="col-md-12 my-2" style="display: none">
-                                            <div class="preview2"></div>
+    
+    
+    <div class="row ">
+        <div class="col-lg-12">
+            <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="transaction-tab" data-bs-toggle="tab"
+                        data-bs-target="#transaction" type="button" role="tab" aria-controls="transaction"
+                        aria-selected="true">Basic Information</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="moneyIn-tab" data-bs-toggle="tab" data-bs-target="#moneyIn"
+                        type="button" role="tab" aria-controls="moneyIn" aria-selected="false">
+                    Campaign Information
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="moneyOut-tab" data-bs-toggle="tab"
+                        data-bs-target="#moneyOut" type="button" role="tab" aria-controls="moneyOut"
+                        aria-selected="false">Personal Information</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending"
+                        type="button" role="tab" aria-controls="pending" aria-selected="false">Bank Information</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="transaction" role="tabpanel"
+                    aria-labelledby="transaction-tab">
+                    <div class="data-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card" style="background-color: #fdf3ee">
+                                
+                                    <div class="card-body">
+                                        <div class="tile">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                
+                                                <div>
+                                                    <label for="name">Name</label>
+                                                    <input type="text" id="name" name="name" class="form-control">
+                                                </div>
+                                                <div>
+                                                    <label for="email">Email</label>
+                                                    <input type="email" id="email" name="email" class="form-control">
+                                                </div>
+                                                <div>
+                                                    <label for="house_number">House Number</label>
+                                                    <input type="text" id="house_number" name="house_number" class="form-control">
+                                                </div>
+                                                <div>
+                                                    <label for="town">Town</label>
+                                                    <input type="text" id="town" name="town" class="form-control">
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div>
+                                                    <label for="surname">Surname</label>
+                                                    <input type="text" id="surname" name="surname" class="form-control">
+                                                </div>
+            
+                                                <div>
+                                                    <label for="phone">Phone</label>
+                                                    <input type="number" id="phone" name="phone" class="form-control">
+                                                </div>
+            
+                                                <div>
+                                                    <label for="street_name">Street Name</label>
+                                                    <input type="text" id="street_name" name="street_name" class="form-control">
+                                                </div>
+            
+                                                <div>
+                                                    <label for="postcode">Postcode</label>
+                                                    <input type="text" id="postcode" name="postcode" class="form-control">
+                                                </div>
+                                                
+            
+                                            </div>
                                         </div>
+                                        
+                                        </div>
+                    
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    
-                                    <div>
-                                        <label for="video_link">Video Link</label>
-                                        <input type="text" id="video_link" name="video_link" class="form-control">
-                                    </div>
-
-                                    
-                                    <div>
-                                        <label for="title">Title</label>
-                                        <input type="text" id="title" name="title" class="form-control">
-                                    </div>
-
-                                    
-                                    <div>
-                                        <label for="story">Story</label>
-                                        <textarea name="story" id="story" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-
-                                </div>
                             </div>
-                            <div class="tile-footer">
-                                <hr>
-                                <input type="button" id="addBtn" value="Create" class="btn-theme bg-primary">
-                                <input type="button" id="FormCloseBtn" value="Close" class="btn-theme btn-warning">
-                                {!! Form::close() !!}
-                            </div>
-                          </div>
+                    
                         </div>
+                        
                     </div>
-
+                </div>
+                <div class="tab-pane fade" id="moneyIn" role="tabpanel" aria-labelledby="moneyIn-tab">...
+                </div>
+                <div class="tab-pane fade" id="moneyOut" role="tabpanel" aria-labelledby="moneyOut-tab">...
+                </div>
+                <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">...
                 </div>
             </div>
         </div>
-
     </div>
+
 
 </div>
 
@@ -154,7 +156,7 @@
                                         </td>
                                         
                                         <td style="text-align: center">
-                                            {{-- <a id="EditBtn" rid="{{$data->id}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a> --}}
+                                            <a id="EditBtn" rid="{{$data->id}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
                                             <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
 
                                             
@@ -214,7 +216,7 @@
 
         $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
-                clearform();
+                // clearform();
                 $("#newBtn").hide(100);
                 $("#addThisFormContainer").show(300);
 
@@ -222,7 +224,7 @@
             $("#FormCloseBtn").click(function(){
                 $("#addThisFormContainer").hide(200);
                 $("#newBtn").show(100);
-                clearform();
+                // clearform();
             });
 
         //header for csrf-token is must in laravel
@@ -343,15 +345,15 @@
             //Delete
 
             function populateForm(data){
-                $("#source").val(data.source);
-                $("#country").val(data.country);
-                $("#raising_goal").val(data.raising_goal);
-                $("#video_link").val(data.video_link);    
-                $("#title").val(data.title);   
-                $("#story").val(data.story);        
-                $("#fundraising_for").val(data.fundraising_for);       
-                $("#codeid").val(data.id);
-                $("#addBtn").val('Update');
+                // $("#source").val(data.source);
+                // $("#country").val(data.country);
+                // $("#raising_goal").val(data.raising_goal);
+                // $("#video_link").val(data.video_link);    
+                // $("#title").val(data.title);   
+                // $("#story").val(data.story);        
+                // $("#fundraising_for").val(data.fundraising_for);       
+                // $("#codeid").val(data.id);
+                // $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);
                 $("#newBtn").hide(100);
             }

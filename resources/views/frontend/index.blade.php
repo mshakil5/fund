@@ -13,13 +13,12 @@
                     <div class="col-lg-6 d-flex align-items-center justify-content-center">
                         <div class="inner w-75">
                             <div class="intro-title">
-                                Lorem ipsum dolor sit amet.
+                                {{\App\Models\Slider::where('id','1')->first()->left_title}}
                             </div>
-                            <p class="txt-theme mb-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex,
-                                vel quia? Aliquam fugit magni blanditiis.</p>
+                            <p class="txt-theme mb-4">{{\App\Models\Slider::where('id','1')->first()->left_description}}</p>
                             <div>
-                                <a href="#" class="btn-theme bg-secondary">Open an account</a>
-                                <a href="#" class="btn-theme bg-primary">How it works</a>
+                                <a href="{{route('register')}}" class="btn-theme bg-secondary">Open an account</a>
+                                <a href="{{route('frontend.work')}}" class="btn-theme bg-primary">How it works</a>
                             </div>
                         </div>
                     </div>
@@ -27,8 +26,7 @@
                         <div class="w-100 px-3">
                             <div class="row mb-4">
                                 <h3 class="  lh-1 fw-bold" style="color:#265080;">
-                                    Fundraising on <span class="txt-primary fw-bold">TaxDocs</span> takes just a
-                                    <br> few minutes
+                                    {{\App\Models\Slider::where('id','1')->first()->right_header}}
                                 </h3>
                             </div>
                             <div class="inner">
@@ -38,8 +36,8 @@
                                             icon="material-symbols:filter-1-rounded"></iconify-icon>
                                     </div>
                                     <div class="content">
-                                        <h3 class="mb-1 fw-bold txt-primary">Start with the basics</h3>
-                                        <p class="mb-1 txt-theme">Kick things off with your name and location.</p>
+                                        <h3 class="mb-1 fw-bold txt-primary">{{\App\Models\Slider::where('id','1')->first()->right_title1}}</h3>
+                                        <p class="mb-1 txt-theme">{{\App\Models\Slider::where('id','1')->first()->right_description1}}</p>
                                     </div>
                                 </div>
                                 <div class="items">
@@ -49,8 +47,8 @@
                                             icon="material-symbols:filter-2"></iconify-icon>
                                     </div>
                                     <div class="content">
-                                        <h3 class="mb-1 fw-bold txt-primary">Tell your story</h3>
-                                        <p class="mb-1 txt-theme">We'll guide you with tips along the way.</p>
+                                        <h3 class="mb-1 fw-bold txt-primary">{{\App\Models\Slider::where('id','1')->first()->right_title2}}</h3>
+                                        <p class="mb-1 txt-theme">{{\App\Models\Slider::where('id','1')->first()->right_description2}}</p>
                                     </div>
                                 </div>
                                 <div class="items">
@@ -59,8 +57,8 @@
                                             icon="material-symbols:filter-3"></iconify-icon>
                                     </div>
                                     <div class="content">
-                                        <h3 class="mb-1 fw-bold txt-primary">Share with friends and family</h3>
-                                        <p class="mb-1 txt-theme">People out there want to help you.</p>
+                                        <h3 class="mb-1 fw-bold txt-primary">{{\App\Models\Slider::where('id','1')->first()->right_title3}}</h3>
+                                        <p class="mb-1 txt-theme">{{\App\Models\Slider::where('id','1')->first()->right_description3}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -77,14 +75,10 @@
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
 
-            <div class="title">We’re a not-for-profit company from Fundd Group</div>
+            <div class="title">{{\App\Models\Master::where('name','homepage2ndsection')->first()->title}}</div>
             <div class="para text-center mt-4">
-                <p> We don’t believe that business should profit from charity which is why we set up Fundd Money
-                    Giving, as a much needed not-for-profit alternative to challenge the status quo.</p>
-                <p>
-                    Are you ready to make a difference?
-                </p>
-                <a href="#" class="btn-theme bg-secondary mx-auto">Create an account</a>
+                {!! \App\Models\Master::where('name','homepage2ndsection')->first()->description !!}
+                <a href="{{route('register')}}" class="btn-theme bg-secondary mx-auto">Create an account</a>
             </div>
 
 
@@ -136,7 +130,7 @@
                                     <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
                                 </div>
                                 <div>
-                                    <a href="#" class="btn-theme bg-primary">Donate Now</a>
+                                    <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="btn-theme bg-primary">Donate Now</a>
                                 </div>
                             </div>
 

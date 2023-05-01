@@ -24,18 +24,16 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-9 mx-auto">
-                            <form action="{{route('campaignBasicInfo')}}" method="POST">
+                            <form action="{{route('newcampaigngeninfo_post')}}" method="POST">
                                 @csrf
-                                {{-- hiden data  --}}
-                                <input type="hidden" name="fund_raising_type" id="fund_raising_type" value="{{$funraisingtype}}">
-                                {{-- end  --}}
+                                                
                                 <div class="row my-2">
                                     <div class="col-lg-6">
                                         <label for="" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Select your country</label>
                                         <select name="country" id="country" class="form-control darkerGrotesque-bold fs-5  darkerGrotesque-medium select2" required>
                                             <option value="">Select Country</option>
                                             @foreach ($country as $cntry)
-                                            <option value="{{$cntry->id}}">{{$cntry->name}}</option>
+                                            <option value="{{$cntry->id}}" @if((isset($step2Data["country"]))&&($step2Data["country"]==$cntry->id)) selected @endif>{{$cntry->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -44,7 +42,7 @@
                                         <select name="source" id="source" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2" required>
                                             <option value="">Select</option>
                                             <@foreach ($source as $source)
-                                            <option value="{{$source->id}}">{{$source->name}}</option>
+                                            <option value="{{$source->id}}" @if((isset($step2Data["source"]))&&($step2Data["source"]==$source->id)) selected @endif>{{$source->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -54,18 +52,14 @@
                                 <div class="row my-3">
                                     <div class="col-lg-12 mb-3">
                                         <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Fundriser title</label>
-                                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" required>
+                                        <input type="text" name="title" class="form-control" id="title" value="{{ $step2Data['title'] ?? '' }}" required>
                                     </div>
                                     <div class="col-lg-12 ">
                                         <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell your story </label>
-                                        <textarea name="story" id="story" class="form-control" required></textarea>
+                                        <textarea name="story" id="story" class="form-control" required>{{ $step2Data['story'] ?? '' }}</textarea>
                                     </div>
 
-                                    {{-- <div class="col-lg-12 mt-3">
-                                        <label for="" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Confirm your charity </label>
-                                        <p class="para mb-3 text-muted fs-6 float-start"> <input type="checkbox" class="me-2" id="confirmcondition" >lorem, ipsum dolor et semet lorem, ipsum dolor et semetlorem, ipsum dolor et semetlorem, ipsum dolor et semet lorem, ipsum dolor et semet lorem, ipsum dolor et semetlorem, ipsum dolor et semetlorem, ipsum dolor et semet</p>
-                                    </div> --}}
-                                    <a href="{{ url()->previous() }}" class="btn-theme  bg-primary mx-auto mt-4 saveBtn">Back</a>
+                                    <a href="{{route('newcampaign_show')}}" class="btn-theme  bg-primary mx-auto mt-4">Back</a>
                                     <button type="submit" class="btn-theme bg-secondary mx-auto mt-4 saveBtn" id="saveBtn">Next</button>
                                     </form>
                                 </div>

@@ -11,11 +11,11 @@
 <section class="how-we-works default">
     <div class="container">
         <div class="row flex-column">
-            <img src="https://via.placeholder.com/260.png" style="width:260px;" class=" mx-auto"/> <br>
-            <div class="title darkerGrotesque-bold lh-1">How We works</div>
+            <img src="@if (isset(\App\Models\Master::where('name','work')->first()->image))
+            {{asset('images/'.\App\Models\Master::where('name','work')->first()->image)}} @else https://via.placeholder.com/260.png @endif" style="width:260px;" class=" mx-auto"/> <br>
+            <div class="title darkerGrotesque-bold lh-1">{{\App\Models\Master::where('name','work')->first()->title}}</div>
             <div class="para text-center mt-4">
-                Whilst you can't do this for free, you can do it without making a profit.
-At Fundd, we exist to make giving go further, so together we can transform more lives and communities around the world. 
+                {!! \App\Models\Master::where('name','work')->first()->description !!} 
             </div>
             <a href="#" class="btn-theme bg-secondary mx-auto mt-4">Fund Now</a>
         </div>
@@ -34,7 +34,27 @@ At Fundd, we exist to make giving go further, so together we can transform more 
                     </div> 
                 </div>
                 <div class="row">
+
+                    @foreach (\App\Models\WhyChooseUs::orderby('id','DESC')->get() as $whychoose)
                     <div class="col-lg-6 mb-5 ">
+                        <div class="row">
+                            <div class="col-lg-4 d-flex align-items-center text-center">
+                                <img src="@if(isset($whychoose->image)){{asset('images/'.$whychoose->image)}} @else https://via.placeholder.com/160.png @endif" class="me-3 img-fluid" />
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="paratitle">{{$whychoose->title}}</div>
+                            <div class="para">
+                                {!! $whychoose->description!!}
+                            </div>
+                            </div>
+                        </div> 
+                    </div>
+                    @endforeach
+                    
+
+
+
+                    {{-- <div class="col-lg-6 mb-5 ">
                         <div class="row">
                             <div class="col-lg-4 d-flex align-items-center text-center">
                                 <img src="https://via.placeholder.com/160.png" class="me-3 img-fluid" />
@@ -66,18 +86,7 @@ At Fundd, we exist to make giving go further, so together we can transform more 
                             <div class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius perferendis natus voluptas magni voluptatem .</div>
                             </div>
                         </div> 
-                    </div>
-                    <div class="col-lg-6 mb-5 ">
-                        <div class="row">
-                            <div class="col-lg-4 d-flex align-items-center text-center">
-                                <img src="https://via.placeholder.com/160.png" class="me-3 img-fluid" />
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="paratitle">Lorem, ipsum.</div>
-                            <div class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius perferendis natus voluptas magni voluptatem .</div>
-                            </div>
-                        </div> 
-                    </div>
+                    </div> --}}
                    
                 </div>
             </div>

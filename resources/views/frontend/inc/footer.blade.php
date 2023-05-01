@@ -3,11 +3,11 @@
         <div class="row py-4 fs-5">
             <div class=" col-md-3 mb-3 ">
                 <a href="{{ route('homepage')}}">
-                    <img src="{{ asset('assets/images/logo.png')}}" width="200px">
+                    <img src="{{ asset('images/company/'.\App\Models\CompanyDetail::where('id',1)->first()->header_logo)}}" width="200px">
+                    {{-- <img src="{{ asset('assets/images/logo.png')}}" width="200px"> --}}
                 </a>
-                <p class="fw-bold my-3 darkerGrotesque-bold lh-1">Lorem ipsum dolor sit amet consectetur </p>
-                <p class="text-muted mb-1 lh-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-                    similique libero magni.</p>
+                {{-- <p class="fw-bold my-3 darkerGrotesque-bold lh-1">Lorem ipsum dolor sit amet consectetur </p> --}}
+                <p class="text-muted mb-1 lh-1">{{\App\Models\CompanyDetail::where('id',1)->first()->footer_content }}</p>
 
             </div>
             <div class=" col-md-3 mb-3">
@@ -32,11 +32,11 @@
             <div class=" col-md-3 mb-3">
                 <h4 class="txt-primary fw-bold mb-3 darkerGrotesque-semibold">Contact</h4>
                 <p class="mb-1 darkerGrotesque-semibold "><iconify-icon class="txt-primary"
-                        icon="ic:baseline-local-phone"></iconify-icon> Phone: 07490 956 227</p>
+                        icon="ic:baseline-local-phone"></iconify-icon> Phone: {{\App\Models\CompanyDetail::where('id',1)->first()->phone1 }}</p>
                 <p class="mb-1 darkerGrotesque-semibold "><iconify-icon class="txt-primary"
-                        icon="tabler:brand-whatsapp"></iconify-icon> Whatsapp: 07490 956 227 </p>
+                        icon="tabler:brand-whatsapp"></iconify-icon> Whatsapp: {{\App\Models\CompanyDetail::where('id',1)->first()->phone1 }} </p>
                 <p class="mb-1 darkerGrotesque-semibold "><iconify-icon class="txt-primary"
-                        icon="ic:outline-email"></iconify-icon> Email: admin@admin.com</p>
+                        icon="ic:outline-email"></iconify-icon> Email: {{\App\Models\CompanyDetail::where('id',1)->first()->email1 }}</p>
             </div>
             <div class=" col-md-3 mb-3">
                 <form>

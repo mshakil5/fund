@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CharityController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::get('/clear', function() {
 // });
 
 Auth::routes();
+Route::post('/loginto', [LoginController::class, 'login2'])->name('loginto');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -52,24 +54,57 @@ Route::get('/non-profit', [FrontendController::class, 'nonprofit'])->name('front
 Route::get('/individual', [FrontendController::class, 'individual'])->name('frontend.individual');
 Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('frontend.fundriser');
 
+Route::post('/contact-submit', [FrontendController::class, 'visitorContact'])->name('contact.submit');
 
-// start a new campaign
-Route::get('/start-a-new-campaign', [CampaignController::class, 'startCampaign'])->name('newcampaign');
-    // this route create for test 
-// Route::get('/campaign-information', [CampaignController::class, 'startCampaignGeneralInfo'])->name('newcampaigngeninfo');
-    // end
-Route::post('/campaign-information', [CampaignController::class, 'startCampaignGeneralInformation'])->name('newcampaigngeninfo');
-Route::post('/campaign-basic-information', [CampaignController::class, 'startCampaignBasicInformation'])->name('campaignBasicInfo');
-Route::post('/campaign-personal-information', [CampaignController::class, 'startCampaignPersonalInformation'])->name('campaignPersonalInfo');
-Route::post('/campaign-bank-information', [CampaignController::class, 'startCampaignBankInformation'])->name('campaignBankInfo');
-Route::post('/campaign-terms-condition', [CampaignController::class, 'startCampaignTermsCondition'])->name('campaignTermCondition');
-Route::post('/campaign-confirmations', [CampaignController::class, 'startCampaignconfirmation'])->name('campaignConfirmation');
+
 
 Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->name('frontend.campaignDetails');
 
 /*----------------------Charity Registration-----------------------*/
 Route::get('/charity-registration', [CharityController::class, 'charity'])->name('charity.register');
 Route::post('/charity-registration', [CharityController::class, 'charityregistration'])->name('charity.registration');
+
+
+/*------------------------------------------
+--------------------------------------------
+All Normal Authenticate Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::group(['middleware' => ['auth']], function(){
+
+    // start a new campaign
+    Route::get('/start-a-new-campaign', [CampaignController::class, 'step1_show_startCampaign'])->name('newcampaign_show');
+    Route::post('/start-a-new-campaign', [CampaignController::class, 'step1_post_startCampaign'])->name('newcampaign_post');
+
+    Route::get('/campaign-information', [CampaignController::class, 'step2_show_CampaignGeneralInfo'])->name('newcampaigngeninfo_show');
+    Route::post('/campaign-information', [CampaignController::class, 'step2_post_CampaignGeneralInfo'])->name('newcampaigngeninfo_post');
+
+    Route::get('/campaign-basic-information', [CampaignController::class, 'step3_show_CampaignBasicInfo'])->name('campaignBasicInfo_show');
+    Route::post('/campaign-basic-information', [CampaignController::class, 'step3_post_CampaignBasicInfo'])->name('campaignBasicInfo_post');
+
+    //step 4
+    Route::get('/campaign-personal-information', [CampaignController::class, 'step4_show_CampaignPersonalInfo'])->name('campaignPersonalInfo_show');
+    Route::post('/campaign-personal-information', [CampaignController::class, 'step4_post_CampaignPersonalInfo'])->name('campaignPersonalInfo_post');
+
+    //step 5
+    Route::get('/campaign-bank-information', [CampaignController::class, 'step5_show_startCampaignBankInfo'])->name('campaignBankInfo_show');
+    Route::post('/campaign-bank-information', [CampaignController::class, 'step5_post_startCampaignBankInfo'])->name('campaignBankInfo_post');
+
+    //step 6
+    Route::get('/campaign-terms-condition', [CampaignController::class, 'step6_show_CampaignTermsCondition'])->name('campaignTermCondition_show');
+    Route::post('/campaign-confirmations', [CampaignController::class, 'step6_post_Campaignconfirmation'])->name('campaignTermCondition_post');
+
+    // new campaign data store
+    Route::post('/campaign-confirmations', [CampaignController::class, 'startCampaign_dataStore'])->name('campaignConfirmation_post');
+
+    // campaign donate
+    Route::get('/campaign-donate/{id}', [CampaignController::class, 'campaignDonate'])->name('frontend.campaignDonate');
+
+
+});
+
+
+
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
