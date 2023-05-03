@@ -11,6 +11,12 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ermsg">
+            </div>
+        </div>
+    </div>
 <div id="addThisFormContainer">
     
     
@@ -45,61 +51,57 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card" style="background-color: #fdf3ee">
-                                
                                     <div class="card-body">
                                         <div class="tile">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                
-                                                <div>
-                                                    <label for="name">Select Your Country</label>
-                                                    <select name="country" id="country" class="form-control select2" required>
-                                                        <option value="">Select Country</option>
-                                                        @foreach ($countries as $cntry)
-                                                        <option value="{{$cntry->id}}">{{$cntry->name}}</option>
-                                                        @endforeach
-                                                    </select>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div>
+                                                        <label for="user_id">Select User</label>
+                                                        <select name="user_id" id="user_id" class="form-control select2" required>
+                                                            <option value="">Select User</option>
+                                                            @foreach ($users as $user)
+                                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div>
+                                                        <label for="name">Select Your Country</label>
+                                                        <select name="country" id="country" class="form-control select2" required>
+                                                            <option value="">Select Country</option>
+                                                            @foreach ($countries as $cntry)
+                                                            <option value="{{$cntry->id}}">{{$cntry->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div>
+                                                        <label for="source">Why you are fundrising?</label>
+                                                        <select name="source" id="source" class="form-control  select2" required>
+                                                            <option value="">Select</option>
+                                                            @foreach ($source as $source)
+                                                            <option value="{{$source->id}}">{{$source->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div>
+                                                        <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Fundriser title</label>
+                                                        <input type="text" name="title" class="form-control" id="title">
+                                                    </div>
+                                                </div>
 
+                                                <div class="col-lg-12">
+                                                    <div>
+                                                        <label for="story" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell your story </label>
+                                                        <textarea name="story" id="story" class="form-control summernote"></textarea>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <label for="email">Email</label>
-                                                    <input type="email" id="email" name="email" class="form-control">
-                                                </div>
-                                                <div>
-                                                    <label for="house_number">House Number</label>
-                                                    <input type="text" id="house_number" name="house_number" class="form-control">
-                                                </div>
-                                                <div>
-                                                    <label for="town">Town</label>
-                                                    <input type="text" id="town" name="town" class="form-control">
-                                                </div>
-                                                
+
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div>
-                                                    <label for="surname">Surname</label>
-                                                    <input type="text" id="surname" name="surname" class="form-control">
-                                                </div>
-            
-                                                <div>
-                                                    <label for="phone">Phone</label>
-                                                    <input type="number" id="phone" name="phone" class="form-control">
-                                                </div>
-            
-                                                <div>
-                                                    <label for="street_name">Street Name</label>
-                                                    <input type="text" id="street_name" name="street_name" class="form-control">
-                                                </div>
-            
-                                                <div>
-                                                    <label for="postcode">Postcode</label>
-                                                    <input type="text" id="postcode" name="postcode" class="form-control">
-                                                </div>
-                                                
-            
-                                            </div>
-                                        </div>
-                                        
                                         </div>
                     
                                     </div>
@@ -110,13 +112,288 @@
                         
                     </div>
                 </div>
-                <div class="tab-pane fade" id="moneyIn" role="tabpanel" aria-labelledby="moneyIn-tab">...
+                <div class="tab-pane fade" id="moneyIn" role="tabpanel" aria-labelledby="moneyIn-tab">
+                    <div class="data-container">
+                        <div class="row">
+                            <div class="col-lg-12">      
+                                <div>
+                                    <label for="raising_goal" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">How much would you like to raise?</label>
+                                    <input type="number" class="form-control" placeholder="Your starting goal" id="raising_goal" name="raising_goal">
+                                </div>               
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="image" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Feature Image</label>
+                                    <input type="file" name="fimage" class="form-control" id="fimage" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="image" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Photo</label>
+                                    <input type="file" name="image[]" class="form-control" id="image" multiple required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="preview2">
+                                    
+                                </div>
+                            </div>
+                            <div>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Video Link</label>
+                                    <input type="text" name="video_link" class="form-control" id="video_link">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="tagline" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Tagline</label>
+                                    <input type="text" name="tagline" class="form-control" id="tagline">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="category" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Category </label>
+                                    <input type="text" name="category" class="form-control"  id="category">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="location" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Location </label>
+                                    <input type="text" name="location" class="form-control" id="location">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="funding_type" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Funding Type</label>
+                                    <select name="funding_type" class="form-control" id="funding_type">
+                                        <option value="">Select</option>
+                                        <option value="Partial">Partial</option>
+                                        <option value="All or Nothing">All or Nothing</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="end_date" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> End Date </label>
+                                    <input type="date" name="end_date" class="form-control" id="end_date">
+                                </div>
+                            </div>
+                            <hr>
+                    
+                        </div>
+                        
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="moneyOut" role="tabpanel" aria-labelledby="moneyOut-tab">...
+                <div class="tab-pane fade" id="moneyOut" role="tabpanel" aria-labelledby="moneyOut-tab">
+                    <div class="data-container">
+                        <div class="row">
+                            <div class="col-lg-12">      
+                                <div>
+                                    <label for="email" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Email</label>
+                                    <input type="email" class="form-control" placeholder="Your email" id="email" name="email">
+                                </div>               
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="name" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Name</label>
+                                    <input type="text" name="name" class="form-control" id="name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="family_name" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Family Name </label>
+                                    <input type="text" name="family_name" class="form-control" id="family_name">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="dob" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Date of birth</label>
+                                    <input type="date" name="dob" class="form-control" id="dob">
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="phone" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Phone Number </label>
+                                    <input type="text" name="phone" class="form-control" id="phone">
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="col-lg-12">
+                                <div>
+                                    <label for="country_address" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Country </label>
+                                    <input type="text" name="country_address" class="form-control" id="country_address" >
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="col-lg-12">
+                                <div>
+                                    <label for="address" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Address </label>
+                                    <textarea name="address" id="address" class="form-control"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="city" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">City</label>
+                                    <input type="text" name="city" class="form-control" id="city">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="street_name" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Street Name</label>
+                                    <input type="text" name="street_name" class="form-control" id="street_name">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="town" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Town </label>
+                                    <input type="text" name="town" class="form-control" id="town">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="postcode" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Post code </label>
+                                    <input type="text" name="postcode" class="form-control" id="postcode">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div>
+                                    <label for="gov_issue_id" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Government Issued ID</label>
+                                    <input type="text" name="gov_issue_id" class="form-control" id="gov_issue_id">
+                                </div>
+                            </div>
+                            
+                            <hr>
+                    
+                        </div>
+                        
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">...
+                <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                    <div class="data-container">
+                        <div class="row">
+                            <div class="col-lg-6">      
+                                <div>
+                                    <label for="currency" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Currency </label>
+                                    <input type="text" name="currency" class="form-control" id="currency" required>
+                                </div>               
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="bank_account_country" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Country </label>
+                                    <input type="text" name="bank_account_country" class="form-control" id="bank_account_country" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="name_of_account" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Name of the account</label>
+                                    <input type="text" name="name_of_account" class="form-control" id="name_of_account" required>
+                                </div>
+                            </div>
+                            
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="bank_name" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Name</label>
+                                    <input type="bank_name" name="bank_name" class="form-control" id="bank_name" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="bank_account_number" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Account Number</label>
+                                    <input type="text" name="bank_account_number" class="form-control" id="bank_account_number" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="bank_sort_code" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Sort Code</label>
+                                    <input type="text" name="bank_sort_code" class="form-control" id="bank_sort_code" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6" style="display:none">
+                                <div>
+                                    <label for="bank_account_class" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Bank Account Class </label>
+                                    <select name="bank_account_class" id="bank_account_class"  class="form-control" required>
+                                        <option value="">Select</option>
+                                        <option value="Personal">Personal</option>
+                                        <option value="Corporate">Corporate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" style="display:none">
+                                <div>
+                                    <label for="bank_account_type" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Bank Account Type </label>
+                                    <select name="bank_account_type" id="bank_account_type"  class="form-control" required>
+                                        <option value="">Select</option>
+                                        <option value="Checking">Checking</option>
+                                        <option value="Saving">Saving</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div>
+                                    <label for="bank_routing" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Bank Routing </label>
+                                    <select name="bank_routing" id="bank_routing"  class="form-control" required>
+                                        <option value="">Select</option>
+                                        <option value="SWIFT">SWIFT</option>
+                                        <option value="BIC">BIC</option>
+                                        <option value="Sort Code">Sort Code</option>
+                                        <option value="BSB">BSB</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="iban" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">IBAN </label>
+                                    <input type="text" name="iban" class="form-control" id="iban" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="bank_verification_doc" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Verification Document</label>
+                                    <input type="file" name="bank_verification_doc" class="form-control" id="bank_verification_doc">
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="col-lg-12">
+                                <div>
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                            <hr>
+                    
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-12">
+            <input type="button" id="addBtn" value="Create" class="btn-theme bg-primary fs-16 fw-700">
+            <input type="button" id="FormCloseBtn" value="Close" class="btn-theme bg-secondary">
         </div>
     </div>
 
@@ -184,6 +461,11 @@
 
 @endsection
 @section('script')
+<script type="text/javascript">
+    $('.summernote').summernote({
+        height: 200
+    });
+</script>
 <script>
     $(function() {
       $('.campaignstatus').change(function() {
@@ -237,22 +519,60 @@
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
             var url = "{{URL::to('/admin/campaign')}}";
-            var updateurl = "{{URL::to('/admin/campaign-update')}}";
             // console.log(url);
             $("#addBtn").click(function(){
                 // fundraiser create 
                 if($(this).val() == 'Create') {
+                    var file_data = $('#fimage').prop('files')[0];
+                    if(typeof file_data === 'undefined'){
+                        file_data = 'null';
+                    }
+
+                    var bank_verification_doc = $('#bank_verification_doc').prop('files')[0];
+                    if(typeof bank_verification_doc === 'undefined'){
+                        bank_verification_doc = 'null';
+                    }
+
                     var form_data = new FormData();
                     for(var i=0, len=storedFiles.length; i<len; i++) {
                         form_data.append('image[]', storedFiles[i]);
                     }
+                    form_data.append('fimage', file_data);
                     form_data.append("source", $("#source").val());
                     form_data.append("country", $("#country").val());
-                    form_data.append("raising_goal", $("#raising_goal").val());
-                    form_data.append("video_link", $("#video_link").val());
                     form_data.append("title", $("#title").val());
                     form_data.append("story", $("#story").val());
-                    form_data.append("fundraising_for", $("#fundraising_for").val());
+                    form_data.append("raising_goal", $("#raising_goal").val());
+                    form_data.append("video_link", $("#video_link").val());
+                    form_data.append("tagline", $("#tagline").val());
+                    form_data.append("category", $("#category").val());
+                    form_data.append("location", $("#location").val());
+                    form_data.append("funding_type", $("#funding_type").val());
+                    form_data.append("end_date", $("#end_date").val());
+                    form_data.append("email", $("#email").val());
+                    form_data.append("name", $("#name").val());
+                    form_data.append("family_name", $("#family_name").val());
+                    form_data.append("dob", $("#dob").val());
+                    form_data.append("phone", $("#phone").val());
+                    form_data.append("country_address", $("#country_address").val());
+                    form_data.append("address", $("#address").val());
+                    form_data.append("city", $("#city").val());
+                    form_data.append("street_name", $("#street_name").val());
+                    form_data.append("town", $("#town").val());
+                    form_data.append("postcode", $("#postcode").val());
+                    form_data.append("gov_issue_id", $("#gov_issue_id").val());
+                    form_data.append("currency", $("#currency").val());
+                    form_data.append("bank_account_country", $("#bank_account_country").val());
+                    form_data.append("name_of_account", $("#name_of_account").val());
+                    form_data.append("bank_name", $("#bank_name").val());
+                    form_data.append("bank_account_number", $("#bank_account_number").val());
+                    form_data.append("bank_sort_code", $("#bank_sort_code").val());
+                    form_data.append("bank_account_class", $("#bank_account_class").val());
+                    form_data.append("bank_account_type", $("#bank_account_type").val());
+                    form_data.append("bank_routing", $("#bank_routing").val());
+                    form_data.append("iban", $("#iban").val());
+                    form_data.append('bank_verification_doc', bank_verification_doc);
+                    form_data.append("user_id", $("#user_id").val());
                     
                     $.ajax({
                         url: url,
@@ -275,56 +595,11 @@
                     });
                 }
                 // fundraiser create 
-                //Update
-                if($(this).val() == 'Update'){
-
-                    var form_data = new FormData();
-                    for(var i=0, len=storedFiles.length; i<len; i++) {
-                        form_data.append('image[]', storedFiles[i]);
-                    }
-                    form_data.append("source", $("#source").val());
-                    form_data.append("country", $("#country").val());
-                    form_data.append("raising_goal", $("#raising_goal").val());
-                    form_data.append("video_link", $("#video_link").val());
-                    form_data.append("title", $("#title").val());
-                    form_data.append("story", $("#story").val());
-                    form_data.append("fundraising_for", $("#fundraising_for").val());
-                    form_data.append("codeid", $("#codeid").val());
-                    
-                    $.ajax({
-                        url: updateurl,
-                        method: "POST",
-                        contentType: false,
-                        processData: false,
-                        data:form_data,
-                        success: function (d) {
-                            if (d.status == 303) {
-                                $(".ermsg").html(d.message);
-                            }else if(d.status == 300){
-                                pagetop();
-                                $(".ermsg").html(d.message);
-                                window.setTimeout(function(){location.reload()},2000)
-                            }
-                        },
-                        error: function (d) {
-                            console.log(d);
-                        }
-                    });
-                }
-                //Update
+                
 
             });
 
-            //Edit
-            $("#contentContainer").on('click','#EditBtn', function(){
-                $accountid = $(this).attr('rid');
-                $info_url = url + '/'+$accountid+'/edit';
-                $.get($info_url,{},function(d){
-                    populateForm(d);
-                    pagetop();
-                });
-            });
-            //Edit  end
+            
 
             //Delete
             $("#contentContainer").on('click','#deleteBtn', function(){
@@ -350,19 +625,7 @@
             });
             //Delete
 
-            function populateForm(data){
-                // $("#source").val(data.source);
-                // $("#country").val(data.country);
-                // $("#raising_goal").val(data.raising_goal);
-                // $("#video_link").val(data.video_link);    
-                // $("#title").val(data.title);   
-                // $("#story").val(data.story);        
-                // $("#fundraising_for").val(data.fundraising_for);       
-                // $("#codeid").val(data.id);
-                // $("#addBtn").val('Update');
-                $("#addThisFormContainer").show(300);
-                $("#newBtn").hide(100);
-            }
+            
 
             function clearform(){
                 $('#createThisForm')[0].reset();

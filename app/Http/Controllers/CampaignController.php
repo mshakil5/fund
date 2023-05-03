@@ -8,6 +8,7 @@ use App\Models\FundraisingSource;
 use App\Models\Campaign;
 use DB;
 use App\Models\CampaignImage;
+use App\Models\User;
 use Illuminate\support\Facades\Auth;
 
 class CampaignController extends Controller
@@ -120,103 +121,131 @@ class CampaignController extends Controller
     // campaign by admin
     public function getCampaignByAdmin()
     {
+        $users = User::select('id','name','email')->where('is_type','0')->get();
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
         $data = Campaign::orderby('id','DESC')->get();
-        return view('admin.campaign.index',compact('countries','source','data'));
+        return view('admin.campaign.index',compact('countries','source','data','users'));
     }
 
     // campaign store by admin
-    // public function storeCampaignByAdmin(Request $request)
-    // {
+    public function storeCampaignByAdmin(Request $request)
+    {
 
-    //     if(empty($request->country)){
-    //         $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Country \" field..!</b></div>";
-    //         return response()->json(['status'=> 303,'message'=>$message]);
-    //         exit();
-    //     }
+        if(empty($request->country)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Country \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
 
-    //     if(empty($request->source)){
-    //         $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Why you are fundrising \" field..!</b></div>";
-    //         return response()->json(['status'=> 303,'message'=>$message]);
-    //         exit();
-    //     }
+        if(empty($request->source)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Why you are fundrising \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
 
-    //     if(empty($request->title)){
-    //         $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Title \" field..!</b></div>";
-    //         return response()->json(['status'=> 303,'message'=>$message]);
-    //         exit();
-    //     }
+        if(empty($request->title)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Title \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
 
-    //     if(empty($request->story)){
-    //         $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Story \" field..!</b></div>";
-    //         return response()->json(['status'=> 303,'message'=>$message]);
-    //         exit();
-    //     }
+        if(empty($request->story)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Story \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
 
-    //     if(empty($request->video_link)){
-    //         $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Video Link \" field..!</b></div>";
-    //         return response()->json(['status'=> 303,'message'=>$message]);
-    //         exit();
-    //     }
-
-    //     if(empty($request->raising_goal)){
-    //         $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Goal \" field..!</b></div>";
-    //         return response()->json(['status'=> 303,'message'=>$message]);
-    //         exit();
-    //     }
+        if(empty($request->raising_goal)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Goal \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
 
     
-    //     $data = new Campaign();
-    //     $data->user_id = Auth::user()->id;
-    //     $data->title = $request->title;
-    //     $data->story = $request->story;
-    //     $data->video_link = $request->video_link;
-    //     $data->raising_goal = $request->raising_goal;
-    //     $data->fundraising_source_id = $request->source;
-    //     $data->country_id = $request->country;
-    //     $data->fundraising_for = $request->fundraising_for;
-    //     // image
-    //     // if ($request->image) {
-    //     //     foreach ($request->image as $key => $image) {
-    //     //         if ($key == 0) {
-    //     //             $rand = mt_rand(100000, 999999);
-    //     //             $name = time() . "_" . Auth::id() . "_" . $rand . "." . $image->getClientOriginalExtension();
-    //     //             //move image to postimages folder
-    //     //             $image->move(public_path() . '/images/', $name);
-    //     //             //insert into picture table
-    //     //             $data->image = $name;
-    //     //         }
-    //     //     }
-    //     // }
-    //     // end
-    //     $data->status = "0";
-    //     $data->created_by = Auth::user()->id;
-    //     if ($data->save()) {
-    //         //image upload start
-    //         if ($request->image) {
-    //             // $media= [];
-    //             foreach ($request->image as $image) {
-    //                 $rand = mt_rand(100000, 999999);
-    //                 $name = time() . "_" . Auth::id() . "_" . $rand . "." . $image->getClientOriginalExtension();
-    //                 //move image to postimages folder
-    //                 $image->move(public_path() . '/images/', $name);
-    //                 //insert into picture table
-    //                 $pic = new CampaignImage();
-    //                 $pic->image = $name;
-    //                 $pic->campaign_id = $data->id;
-    //                 $pic->user_id = Auth::user()->id;
-    //                 $pic->created_by = Auth::user()->id;
-    //                 $pic->save();
-    //             }
-    //         }
-    //         $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>New campaign create successfully.</b></div>";
-    //         // $message = $request->image[0];
-    //         return response()->json(['status'=> 300,'message'=>$message]);
-    //     } else {
-    //         return response()->json(['status'=> 303,'message'=>'Server Error!!']);
-    //     }
-    // }
+        $data = new Campaign();
+        $data->user_id = $request->user_id;
+        if($request->fimage != 'null'){
+            $request->validate([
+                'fimage' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->fimage->extension();
+            $request->fimage->move(public_path('images/campaign'), $imageName);
+            $data->image= $imageName;
+        }
+
+        if($request->bank_verification_doc != 'null'){
+            $request->validate([
+                'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imagedocName = time(). $rand .'.'.$request->bank_verification_doc->extension();
+            $request->bank_verification_doc->move(public_path('images/campaign'), $imagedocName);
+            $data->bank_verification_doc = $imagedocName;
+        }
+        
+            $data->title = $request->title;
+            $data->country_id = $request->country;
+            $data->fundraising_source_id = $request->source;
+            $data->story = $request->story;
+            $data->raising_goal = $request->raising_goal;
+            $data->video_link = $request->video_link;
+            $data->tagline = $request->tagline;
+            $data->category = $request->category;
+            $data->location = $request->location;
+            $data->funding_type = $request->funding_type;
+            $data->end_date = $request->end_date;
+            $data->email = $request->email;
+            $data->name = $request->name;
+            $data->family_name = $request->family_name;
+            $data->dob = $request->dob;
+            $data->phone = $request->phone;
+            $data->country_address = $request->country_address;
+            $data->address = $request->address;
+            $data->city = $request->city;
+            $data->street_name = $request->street_name;
+            $data->town = $request->town;
+            $data->postcode = $request->postcode;
+            $data->gov_issue_id = $request->gov_issue_id;
+            $data->currency = $request->currency;
+            $data->bank_account_country = $request->bank_account_country;
+            $data->name_of_account = $request->name_of_account;
+            $data->bank_name = $request->bank_name;
+            $data->bank_account_number = $request->bank_account_number;
+            $data->bank_sort_code = $request->bank_sort_code;
+
+            $data->bank_account_class = $request->bank_account_class;
+            $data->bank_account_type = $request->bank_account_type;
+            $data->bank_routing = $request->bank_routing;
+            $data->iban = $request->iban;
+            
+            $data->status = "0";
+            $data->updated_by = Auth::user()->id;
+
+        if ($data->save()) {
+            if ($request->image) {
+                foreach ($request->image as $key => $img) {
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/campaign'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->campaign_id = $data->id;
+                    $pic->user_id = Auth::user()->id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            }
+
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Created Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+    }
 
     public function editCampaignByAdmin($id)
     {
@@ -231,7 +260,6 @@ class CampaignController extends Controller
     public function updateCampaignByAdmin(Request $request)
     {
         $data = Campaign::find($request->codeid);
-
         if($request->fimage != 'null'){
             $request->validate([
                 'fimage' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',

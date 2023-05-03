@@ -43,6 +43,11 @@
                             data-bs-target="#disabled-tab-pane" type="button" role="tab"
                             aria-controls="disabled-tab-pane" aria-selected="false">Donor</button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fs-5" id="message-tab" data-bs-toggle="tab"
+                            data-bs-target="#message-tab-pane" type="button" role="tab"
+                            aria-controls="message-tab-pane" aria-selected="false">Contact</button>
+                    </li>
                 </ul>
                 <div class="tab-content fs-5 mb-4" id="myTabContent">
                     <div class="tab-pane fade p-4 bg-white show active" id="home-tab-pane" role="tabpanel"
@@ -60,6 +65,47 @@
                     </div>
                     <div class="tab-pane fade p-4 bg-white" id="disabled-tab-pane" role="tabpanel"
                         aria-labelledby="disabled-tab" tabindex="0"> git mollitia! Dicta, cumque saepe.
+                    </div>
+                    <div class="tab-pane fade p-4 bg-white" id="message-tab-pane" role="tabpanel"
+                        aria-labelledby="message-tab" tabindex="0">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-10 mx-auto">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="title mb-5 fs-1 " >
+                                                Message
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                          
+                                            <div class="theme-para ">
+                                                Fill out the form below and we’ll get back to you as   soon as we can.
+                                            </div>
+                                            <div class="ermsg"></div>
+                                            <div class="form-custom"> 
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" id="name" name="name" placeholder="Name"> 
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="email" id="email" name="email" placeholder="Email"> 
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" id="subject" name="subject" placeholder="Subject"> 
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="3" id="message" name="message" placeholder="Message"></textarea> 
+                                                </div>
+                                                <div class="form-group">
+                                                    <button id="submit" class="btn-theme bg-primary">Send</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
