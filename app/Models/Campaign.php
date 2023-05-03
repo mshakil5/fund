@@ -23,4 +23,9 @@ class Campaign extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function campaignimage()
+    {
+        return $this->hasMany(CampaignImage::class);
+    }
 }

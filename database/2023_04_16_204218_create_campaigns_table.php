@@ -50,6 +50,8 @@ return new class extends Migration
             $table->longText('name_of_account')->nullable();
             $table->longText('bank_account_country')->nullable();
             $table->longText('bank_name')->nullable();
+            $table->longText('bank_account_number')->nullable();
+            $table->longText('bank_sort_code')->nullable();
             $table->longText('bank_account_class')->nullable();
             $table->longText('bank_account_type')->nullable();
             $table->longText('bank_routing')->nullable();

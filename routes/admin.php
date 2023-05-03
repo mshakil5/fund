@@ -71,8 +71,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // campaign
     Route::get('/campaign', [CampaignController::class, 'getCampaignByAdmin'])->name('admin.campaign');
     Route::post('/campaign', [CampaignController::class, 'storeCampaignByAdmin']);
-    Route::get('/campaign/{id}/edit', [CampaignController::class, 'editCampaignByAdmin']);
-    Route::post('/campaign/{id}', [CampaignController::class, 'updateCampaignByAdmin']);
+    Route::get('/campaign-edit/{id}', [CampaignController::class, 'editCampaignByAdmin'])->name('admin.campaignEdit');
+    Route::post('/campaign-update', [CampaignController::class, 'updateCampaignByAdmin']);
     Route::get('/campaign/{id}', [CampaignController::class, 'deleteCampaignByAdmin']);
 
     // active deactive campaign

@@ -52,8 +52,14 @@
                                             <div class="col-lg-6">
                                                 
                                                 <div>
-                                                    <label for="name">Name</label>
-                                                    <input type="text" id="name" name="name" class="form-control">
+                                                    <label for="name">Select Your Country</label>
+                                                    <select name="country" id="country" class="form-control select2" required>
+                                                        <option value="">Select Country</option>
+                                                        @foreach ($countries as $cntry)
+                                                        <option value="{{$cntry->id}}">{{$cntry->name}}</option>
+                                                        @endforeach
+                                                    </select>
+
                                                 </div>
                                                 <div>
                                                     <label for="email">Email</label>
@@ -156,7 +162,7 @@
                                         </td>
                                         
                                         <td style="text-align: center">
-                                            <a id="EditBtn" rid="{{$data->id}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
+                                            <a href="{{route('admin.campaignEdit',$data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
                                             <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
 
                                             

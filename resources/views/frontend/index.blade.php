@@ -98,8 +98,8 @@
             <div class="col-lg-4 col-md-6 ">
                 <div class="card-theme mb-3">
                     <div class="topper d-flex align-items-center justify-content-center">
-                        <a href="#" class="p-0 d-block">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/A_poor_man.jpg">
+                        <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block">
+                            <img src="{{asset('images/campaign/'.$campaign->image)}}">
                         </a>
                     </div>
                     <div class="card-body ">

@@ -78,7 +78,7 @@
 
                                     <div class="col-lg-12">
                                         <label for="bank_verification_doc" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Verification Document</label>
-                                        <input type="file" name="bank_verification_doc" class="form-control" id="bank_verification_doc" required>
+                                        <input type="file" name="bank_verification_doc" class="form-control" id="bank_verification_doc">
                                     </div>
 
                                     <div class="row my-3">

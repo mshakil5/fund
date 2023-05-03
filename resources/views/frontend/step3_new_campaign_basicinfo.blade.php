@@ -87,7 +87,12 @@
 
                                         <div class="col-lg-6 ">
                                             <label for="funding_type" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Funding Type</label>
-                                            <input type="text" name="funding_type" class="form-control" id="funding_type" value="{{ $step3dataForm['funding_type'] ?? ''  }}">
+                                            {{-- <input type="text" name="funding_type" class="form-control" id="funding_type" value="{{ $step3dataForm['funding_type'] ?? ''  }}"> --}}
+                                            <select name="funding_type" class="form-control" id="funding_type">
+                                                <option value="">Select</option>
+                                                <option value="Partial" @if((isset($step3dataForm["funding_type"]))&&($step3dataForm["funding_type"]=="Partial")) selected @endif>Partial</option>
+                                                <option value="All or Nothing" @if((isset($step3dataForm["funding_type"]))&&($step3dataForm["funding_type"]=="All or Nothing")) selected @endif>All or Nothing</option>
+                                            </select>
                                         </div>
                                         <div class="col-lg-6 ">
                                             <label for="end_date" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> End Date </label>

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class CampaignImage extends Model
 {
     use HasFactory;
+
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
+    }
 }

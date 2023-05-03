@@ -257,7 +257,7 @@ body {
   flex: 1;
   background: #FDF3EE;
   overflow-y: scroll;
-  max-height: 100vh;
+  max-height: 200vh;
 }
 .dashboard-wraper .rightbar .content {
   padding: 0 25px;
