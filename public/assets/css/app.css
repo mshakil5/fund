@@ -1130,3 +1130,13 @@ input[type=checkbox] {
   height: 18px;
   width: 18px;
 }/*# sourceMappingURL=app.css.map */
+
+
+.pagetitle {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  color: #003057;
+  font-family: "DarkerGrotesque-Bold", sans-serif;
+  border-bottom: 3px solid #E1D8CE;
+}

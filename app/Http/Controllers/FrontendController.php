@@ -50,7 +50,7 @@ class FrontendController extends Controller
     public function campaignDetails($id)
     {
         $campaign = Campaign::where('id','!=',$id)->whereStatus(1)->orderby('id','DESC')->get();
-        $data = Campaign::where('id',$id)->first();
+        $data = Campaign::with('campaignimage')->where('id',$id)->first();
         return view('frontend.campaigndetails', compact('data','campaign'));
     }
 

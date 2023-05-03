@@ -13,8 +13,8 @@
             <h3 class="fw-bold txt-primary mb-4">Our Beautiful Charlotte Louise Ollard(Smith)</h3>
             <div class="col-lg-8">
                 <div class="popup-gallery shadow-sm p-4 bg-white">
-                    <a href="https://via.placeholder.com/711x304.png" class="image" title="Some Text for the image">
-                        <img src="https://via.placeholder.com/711x304.png" alt="Alt text" />
+                    <a href="{{asset('images/campaign/'.$data->image)}}" class="image" title="Some Text for the image">
+                        <img src="{{asset('images/campaign/'.$data->image)}}" alt="Alt text" />
                     </a>
 
                     <!-- <a href="https://www.youtube.com/watch?v=smE-uIljiGo" class="video" title="This is a video">
@@ -47,10 +47,7 @@
                 <div class="tab-content fs-5 mb-4" id="myTabContent">
                     <div class="tab-pane fade p-4 bg-white show active" id="home-tab-pane" role="tabpanel"
                         aria-labelledby="home-tab" tabindex="0">
-                        Lorem ipsum dolor sit amet Atque, deserunt a, nesciunt explicabo culpa officia aperiam
-                        repellat, enim quod veritatis fugit mollitia! Dicta, cumque saepe.
-                        Lorem ipsum dolor sit amet Atque, deserunt a, nesciunt explicabo culpa officia aperiam
-                        repellat, enim quod veritatis fugit mollitia!
+                        {!!$data->story!!}
                     </div>
                     <div class="tab-pane fade p-4 bg-white" id="profile-tab-pane" role="tabpanel"
                         aria-labelledby="profile-tab" tabindex="0">

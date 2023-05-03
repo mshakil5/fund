@@ -52,14 +52,25 @@ class CharityController extends Controller
 
     public function charityregistration(Request $request)
     {
+
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => 'required',
+            'password' => ['required','min:6'],
+            'confirm_password' => 'required|same:password',
+        ]);
         
         $data = new User();
         $data->name = $request->name;
         $data->email = $request->email;
-        $data->country = $request->country;
-        $data->r_phone = $request->r_phone;
-        $data->r_position = $request->r_position;
-        $data->r_name = $request->r_name;
+        // $data->country = $request->country;
+        // $data->r_phone = $request->r_phone;
+        // $data->r_position = $request->r_position;
+        // $data->r_name = $request->r_name;
+        $data->street_name = $request->street_name;
+        $data->house_number = $request->house_number;
+        $data->town = $request->town;
         $data->phone = $request->phone;
         $data->postcode = $request->postcode;
         $data->password = Hash::make($request->password);

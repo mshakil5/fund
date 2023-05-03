@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="col-lg-12 ">
                                         <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell your story </label>
-                                        <textarea name="story" id="story" class="form-control" required>{{ $step2Data['story'] ?? '' }}</textarea>
+                                        <textarea name="story" id="story" class="form-control summernote" required>{{ $step2Data['story'] ?? '' }}</textarea>
                                     </div>
 
                                     <a href="{{route('newcampaign_show')}}" class="btn-theme  bg-primary mx-auto mt-4">Back</a>
@@ -77,13 +77,10 @@
 @endsection
 
 @section('script')
-<script>
 
-$(document).ready(function() {
-    
-});
-
-
+<script type="text/javascript">
+    $('.summernote').summernote({
+        height: 200
+    });
 </script>
-
 @endsection
