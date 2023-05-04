@@ -5,9 +5,6 @@
 
 @section('content')
 
-
-
-
 <section class="auth py-4">
     <div class="container">
        
@@ -37,7 +34,7 @@
                             <div class="pagetitle pb-2 mb-2">
                                 Charity info
                             </div>
-                            <form method="POST" action="{{ route('charity.registration') }}">
+                            <form method="POST" action="{{ route('charity.registration') }}"  enctype="multipart/form-data">
                                 @csrf
 
                             <div class="row mb-2">
@@ -68,17 +65,18 @@
                                 </div>
                             </div>
 
-                            <div class="pagetitle pb-2 mb-2">
-                                Address
-                            </div>
-
                             <div class="row mb-2">
                                 <div class="col-4">
-                                    <label for="street_name" style="font-size: 23px">Street Name </label>
+                                    <label for="country" style="font-size: 23px">Country </label>
                                 </div>
                                 <div class="col-8">
-                                    <input id="street_name" type="text" class="form-control @error('street_name') is-invalid @enderror" name="street_name" value="{{ old('street_name') }}" required autocomplete="street_name" placeholder="Street name" autofocus>
-                                    @error('street_name')
+                                    <select name="country" id="country" class="form-control @error('country') is-invalid @enderror" required autocomplete="country" autofocus>
+                                        <option value="">Select Country</option>
+                                        @foreach ($countries as $country)
+                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('country')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -87,12 +85,12 @@
                             </div>
 
                             <div class="row mb-2">
-                                <div class="col-4">
-                                    <label for="house_number" style="font-size: 23px">House Number </label>
+                                <div class="col-7">
+                                    <label for="postcode" style="font-size: 23px">Upload copy of bank statement for varification</label>
                                 </div>
-                                <div class="col-8">
-                                    <input id="house_number" type="text" class="form-control @error('house_number') is-invalid @enderror" name="house_number" value="{{ old('house_number') }}" required autocomplete="house_number" placeholder="House number" autofocus>
-                                    @error('house_number')
+                                <div class="col-5">
+                                    <input id="bank_statement" type="file" class="form-control @error('bank_statement') is-invalid @enderror" name="bank_statement" value="{{ old('bank_statement') }}" autocomplete="bank_statement" placeholder="Post code" autofocus>
+                                    @error('bank_statement')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -100,36 +98,53 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-2">
-                                <div class="col-4">
-                                    <label for="town" style="font-size: 23px">Town </label>
-                                </div>
-                                <div class="col-8">
-                                    <input id="town" type="text" class="form-control @error('town') is-invalid @enderror" name="town" value="{{ old('town') }}" required autocomplete="town" placeholder="Town" autofocus>
-                                    @error('town')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                        <div class="pagetitle pb-2 mb-2">
+                            Representative info
+                        </div>
 
-                            <div class="row mb-2">
-                                <div class="col-4">
-                                    <label for="postcode" style="font-size: 23px">Post code </label>
-                                </div>
-                                <div class="col-8">
-                                    <input id="postcode" type="text" class="form-control @error('postcode') is-invalid @enderror" name="postcode" value="{{ old('postcode') }}" required autocomplete="postcode" placeholder="Post code" autofocus>
-                                    @error('postcode')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                        <div class="row mb-2">
+                            <div class="col-4">
+                                <label for="r_name" style="font-size: 23px">Representative Name </label>
                             </div>
+                            <div class="col-8">
+                                <input id="r_name" type="text" class="form-control @error('r_name') is-invalid @enderror" name="r_name" value="{{ old('r_name') }}" required autocomplete="r_name" placeholder="Representative Name" autofocus>
+                                @error('r_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4">
+                                <label for="r_position" style="font-size: 23px">Representative Position </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="r_position" type="text" class="form-control @error('r_position') is-invalid @enderror" name="r_position" value="{{ old('r_position') }}" required autocomplete="r_position" placeholder="Representative Position" autofocus>
+                                @error('r_position')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4">
+                                <label for="r_phone" style="font-size: 23px">Representative Phone </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="r_phone" type="number" class="form-control @error('r_phone') is-invalid @enderror" name="r_phone" value="{{ old('r_phone') }}" required autocomplete="r_phone" placeholder="Representative Phone" autofocus>
+                                @error('r_phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                             
-
                             <div class="pagetitle pb-2 mb-2">
                                 Credentials
                             </div>
@@ -208,17 +223,18 @@
                     
                     <div class="col-lg-12"> 
 
+
                         {{-- <div class="pagetitle pb-2 mb-2">
-                            Representative info
+                            Address
                         </div>
 
                         <div class="row mb-2">
                             <div class="col-4">
-                                <label for="r_name" style="font-size: 23px">Representative Name </label>
+                                <label for="street_name" style="font-size: 23px">Street Name </label>
                             </div>
                             <div class="col-8">
-                                <input id="r_name" type="text" class="form-control @error('r_name') is-invalid @enderror" name="r_name" value="{{ old('r_name') }}" required autocomplete="r_name" placeholder="Representative Name" autofocus>
-                                @error('r_name')
+                                <input id="street_name" type="text" class="form-control @error('street_name') is-invalid @enderror" name="street_name" value="{{ old('street_name') }}" required autocomplete="street_name" placeholder="Street name" autofocus>
+                                @error('street_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -228,11 +244,11 @@
 
                         <div class="row mb-2">
                             <div class="col-4">
-                                <label for="r_position" style="font-size: 23px">Representative Position </label>
+                                <label for="house_number" style="font-size: 23px">House Number </label>
                             </div>
                             <div class="col-8">
-                                <input id="r_position" type="text" class="form-control @error('r_position') is-invalid @enderror" name="r_position" value="{{ old('r_position') }}" required autocomplete="r_position" placeholder="Representative Position" autofocus>
-                                @error('r_position')
+                                <input id="house_number" type="text" class="form-control @error('house_number') is-invalid @enderror" name="house_number" value="{{ old('house_number') }}" required autocomplete="house_number" placeholder="House number" autofocus>
+                                @error('house_number')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -242,17 +258,33 @@
 
                         <div class="row mb-2">
                             <div class="col-4">
-                                <label for="r_phone" style="font-size: 23px">Representative Phone </label>
+                                <label for="town" style="font-size: 23px">Town </label>
                             </div>
                             <div class="col-8">
-                                <input id="r_phone" type="number" class="form-control @error('r_phone') is-invalid @enderror" name="r_phone" value="{{ old('r_phone') }}" required autocomplete="r_phone" placeholder="Representative Phone" autofocus>
-                                @error('r_phone')
+                                <input id="town" type="text" class="form-control @error('town') is-invalid @enderror" name="town" value="{{ old('town') }}" required autocomplete="town" placeholder="Town" autofocus>
+                                @error('town')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4">
+                                <label for="postcode" style="font-size: 23px">Post code </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="postcode" type="text" class="form-control @error('postcode') is-invalid @enderror" name="postcode" value="{{ old('postcode') }}" required autocomplete="postcode" placeholder="Post code" autofocus>
+                                @error('postcode')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div> --}}
+
+                        
 
                             {{-- <div class="form-group">
                                 <input id="house_number" type="text" class="form-control @error('house_number') is-invalid @enderror" name="house_number" value="{{ old('house_number') }}" required autocomplete="house_number" placeholder="House Number" autofocus>
@@ -300,4 +332,6 @@
         </div>
     </div>
 </section> 
+
+
 @endsection

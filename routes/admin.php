@@ -59,6 +59,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // fundraiser profile
     Route::get('/fundraiser-profile/{id}', [UserController::class, 'fundraiserProfile'])->name('admin.fundraiserProfile');
 
+    // active deactive fundraiser
+    Route::get('active-fundraiser', [UserController::class, 'activefundraiser']);
 
     // create charity from admin
     Route::get('/charity', [CharityController::class, 'getCharityByAdmin'])->name('admin.allcharity');
@@ -66,6 +68,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/charity/{id}/edit', [CharityController::class, 'newCharityedit']);
     Route::post('/charity-update', [CharityController::class, 'newCharityupdate']);
     Route::get('/charity/{id}', [CharityController::class, 'newCharitydelete']);
+    // active deactive fundraiser
+    Route::get('active-charity', [CharityController::class, 'activeDeactiveAccount']);
 
 
     // campaign

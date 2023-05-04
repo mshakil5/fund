@@ -64,17 +64,20 @@ class CharityController extends Controller
         $data = new User();
         $data->name = $request->name;
         $data->email = $request->email;
-        // $data->country = $request->country;
-        // $data->r_phone = $request->r_phone;
-        // $data->r_position = $request->r_position;
-        // $data->r_name = $request->r_name;
-        $data->street_name = $request->street_name;
-        $data->house_number = $request->house_number;
-        $data->town = $request->town;
+        $data->country = $request->country;
+        $data->r_phone = $request->r_phone;
+        $data->r_position = $request->r_position;
+        $data->r_name = $request->r_name;
         $data->phone = $request->phone;
-        $data->postcode = $request->postcode;
         $data->password = Hash::make($request->password);
+        if(isset($request->bank_statement)){
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->bank_statement->extension();
+            $request->bank_statement->move(public_path('images'), $imageName);
+            $data->bank_statement= $imageName;
+        }
         $data->is_type = '2';
+        $data->status = '0';
         $data->save();
         // return redirect()->route('login');
         return redirect()->route('login')->with('message', "Charity Registration Successful. Please Login"); 
@@ -206,6 +209,28 @@ class CharityController extends Controller
         }else{
             return response()->json(['success'=>false,'message'=>'Delete Failed']);
         }
+    }
+
+    public function activeDeactiveAccount(Request $request)
+    {
+        $data = User::find($request->id);
+        $data->status = $request->status;
+        $data->save();
+
+        if($request->status==1){
+            $active = User::find($request->id);
+            $active->status = $request->status;
+            $active->save();
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            $deactive = User::find($request->id);
+            $deactive->status = $request->status;
+            $deactive->save();
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+
     }
 
     

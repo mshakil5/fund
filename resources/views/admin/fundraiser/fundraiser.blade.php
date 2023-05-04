@@ -97,6 +97,7 @@
 </div>
 
 <button id="newBtn" type="button" class="btn-theme bg-primary">Add New</button>
+<div class="stsermsg"></div>
     <hr>
     <div id="contentContainer">
         <div class="row">
@@ -127,11 +128,9 @@
                                         <td style="text-align: center">{{$data->email}}</td>
                                         <td style="text-align: center">{{$data->phone}}</td>
                                         <td style="text-align: center">
-                                            <div class="toggle-flip">
-                                                <label>
-                                                    <input type="checkbox" class="toggle-class" data-id="{{$data->id}}" {{ $data->status ? 'checked' : '' }}><span class="flip-indecator" data-toggle-on="Active" data-toggle-off="Inactive"></span>
-                                                </label>
-                                            </div>    
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input fundraiserstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="fundraiserstatus" @if ($data->status == 1) checked @endif >
+                                            </div>
                                         </td>
                                         
                                         <td style="text-align: center">
@@ -159,6 +158,37 @@
 @endsection
 @section('script')
 
+<script>
+    $(function() {
+      $('.fundraiserstatus').change(function() {
+        var url = "{{URL::to('/admin/active-fundraiser')}}";
+          var status = $(this).prop('checked') == true ? 1 : 0;
+          var id = $(this).data('id');
+           console.log(id);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: url,
+              data: {'status': status, 'id': id},
+              success: function(d){
+                // console.log(data.success)
+                if (d.status == 303) {
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }else if(d.status == 300){
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+          });
+      })
+    })
+</script>
 <script>
     $(document).ready(function () {
 

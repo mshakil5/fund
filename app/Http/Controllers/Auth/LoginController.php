@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Models\User;
   
 class LoginController extends Controller
 {
@@ -47,22 +48,36 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-     
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
-            if (auth()->user()->is_type == '1') {
-                return redirect()->route('admin.dashboard');
-            }else if (auth()->user()->is_type == '2') {
-                return redirect()->route('charity.profile');
-            }else if (auth()->user()->is_type == '0') {
-                return redirect()->route('user.profile');
-            }else{
-                return redirect()->route('home');
+
+        $chksts = User::where('email', $input['email'])->first();
+        if ($chksts) {
+            if ($chksts->status == 1) {
+                if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+                    {
+                        if (auth()->user()->is_type == '1') {
+                            return redirect()->route('admin.dashboard');
+                        }else if (auth()->user()->is_type == '2') {
+                            return redirect()->route('charity.profile');
+                        }else if (auth()->user()->is_type == '0') {
+                            return redirect()->route('user.profile');
+                        }else{
+                            return redirect()->route('home');
+                        }
+                    }else{
+                        return redirect()->route('login')
+                            ->with('error','Email-Address And Password Are Wrong.');
+                    }
+                }else{
+                    return view('auth.login')
+                    ->with('message','Your Account is Deactive.');
+                }
+            }else {
+                return view('auth.login')
+                    ->with('message','Credential Error. You are not authenticate user.');
             }
-        }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
-        }
+        
+     
+        
           
     }
 

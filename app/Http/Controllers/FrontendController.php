@@ -8,12 +8,16 @@ use App\Models\ContactMail;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\ContactFormMail;
+use Carbon\Carbon;
 
 class FrontendController extends Controller
 {
     public function index()
     {
-        $campaign = Campaign::where('status','1')->orderby('id','DESC')->get();
+        $todate = Carbon::now();
+        // dd($todate);
+        $campaign = Campaign::where('status','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
+        // dd($campaign);
         return view('frontend.index',compact('campaign'));
     }
 
