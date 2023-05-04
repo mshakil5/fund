@@ -9,16 +9,15 @@ use Illuminate\Http\Request;
 use Mail;
 use App\Mail\ContactFormMail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\URL;
 
 class FrontendController extends Controller
 {
     public function index()
     {
         $todate = Carbon::now();
-        // dd($todate);
         $campaign = Campaign::where('status','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
-        // dd($campaign);
-        return view('frontend.index',compact('campaign'));
+        return view('frontend.index',compact('campaign','todate'));
     }
 
     public function about()
@@ -53,9 +52,17 @@ class FrontendController extends Controller
 
     public function campaignDetails($id)
     {
+        $shareComponent = \Share::page(
+            URL::current(),
+            'Your share text comes here',
+        )
+        ->facebook()
+        ->twitter()
+        ->whatsapp();
+
         $campaign = Campaign::where('id','!=',$id)->whereStatus(1)->orderby('id','DESC')->get();
         $data = Campaign::with('campaignimage')->where('id',$id)->first();
-        return view('frontend.campaigndetails', compact('data','campaign'));
+        return view('frontend.campaigndetails', compact('data','campaign','shareComponent'));
     }
 
     public function visitorContact(Request $request)

@@ -95,6 +95,16 @@
         </div>
         <div class="row mt-5">
             @foreach ($campaign as $campaign)
+
+            @php
+                $today = $todate->format('Y-m-d');
+                $end = $campaign->end_date;
+                $datetime1 = new DateTime($today);
+                $datetime2 = new DateTime($end);
+                $interval = $datetime1->diff($datetime2);
+                $days = $interval->format('%a');
+            @endphp
+
             <div class="col-lg-4 col-md-6 ">
                 <div class="card-theme mb-3">
                     <div class="topper d-flex align-items-center justify-content-center">
@@ -115,8 +125,8 @@
                                     1051
                                 </span>
                                 <span class="d-flex align-items-center me-2">
-                                    <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 10 days
-                                    left
+                                    <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 
+                                    {{$days}} days left
                                 </span>
                             </div>
                             <div class="progress " style="height: 7px;">

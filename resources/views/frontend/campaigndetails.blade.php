@@ -5,12 +5,28 @@
 
 @section('content')
 
-
+<style>
+    div#social-links {
+        margin: 0 auto;
+        max-width: 500px;
+    }
+    div#social-links ul li {
+        display: inline-block;
+    }          
+    div#social-links ul li a {
+        padding: 20px;
+        border: 1px solid #ccc;
+        margin: 1px;
+        font-size: 30px;
+        color: #222;
+        background-color: #ccc;
+    }
+</style>
 
 <section class="bleesed default">
     <div class="container">
         <div class="row">
-            <h3 class="fw-bold txt-primary mb-4">Our Beautiful Charlotte Louise Ollard(Smith)</h3>
+            <h3 class="fw-bold txt-primary mb-4">{{$data->title}}</h3>
             <div class="col-lg-8">
                 <div class="popup-gallery shadow-sm p-4 bg-white">
                     <a href="{{asset('images/campaign/'.$data->image)}}" class="image" title="Some Text for the image">
@@ -43,11 +59,7 @@
                             data-bs-target="#disabled-tab-pane" type="button" role="tab"
                             aria-controls="disabled-tab-pane" aria-selected="false">Donor</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link fs-5" id="message-tab" data-bs-toggle="tab"
-                            data-bs-target="#message-tab-pane" type="button" role="tab"
-                            aria-controls="message-tab-pane" aria-selected="false">Contact</button>
-                    </li>
+                    
                 </ul>
                 <div class="tab-content fs-5 mb-4" id="myTabContent">
                     <div class="tab-pane fade p-4 bg-white show active" id="home-tab-pane" role="tabpanel"
@@ -66,53 +78,15 @@
                     <div class="tab-pane fade p-4 bg-white" id="disabled-tab-pane" role="tabpanel"
                         aria-labelledby="disabled-tab" tabindex="0"> git mollitia! Dicta, cumque saepe.
                     </div>
-                    <div class="tab-pane fade p-4 bg-white" id="message-tab-pane" role="tabpanel"
-                        aria-labelledby="message-tab" tabindex="0">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-10 mx-auto">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="title mb-5 fs-1 " >
-                                                Message
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                          
-                                            <div class="theme-para ">
-                                                Fill out the form below and we’ll get back to you as   soon as we can.
-                                            </div>
-                                            <div class="ermsg"></div>
-                                            <div class="form-custom"> 
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" id="name" name="name" placeholder="Name"> 
-                                                </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" type="email" id="email" name="email" placeholder="Email"> 
-                                                </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" type="text" id="subject" name="subject" placeholder="Subject"> 
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" rows="3" id="message" name="message" placeholder="Message"></textarea> 
-                                                </div>
-                                                <div class="form-group">
-                                                    <button id="submit" class="btn-theme bg-primary">Send</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card p-4 rounded sideCard">
-                    <div class=" display-6 fw-bold"> £3,260 </div>
-                    <big> <span class="w-100 fw-bold">raised of £1,000 goal</span></big>
+                <div class="card p-4 rounded sideCard mb-3">
+                    <div class=" display-6 fw-bold"> £@if (isset($data->total_collection))
+                        {{$data->total_collection}}
+                    @else 0 @endif  </div>
+                    <big> <span class="w-100 fw-bold">raised of £{{$data->raising_goal}} goal</span></big>
 
                     <div class="d-flex justify-content-between my-3 ">
                         @if (Auth::user())
@@ -123,13 +97,9 @@
                                 Donate Now
                                 </button>
                         @endif
-
                         <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
                             data-bs-target="#shareModal">Share</button>
                     </div>
-
-
-                    
                     <div class=" my-2 d-flex align-items-center justify-content-between">
                         <div>
                             <img src="https://via.placeholder.com/60x60.png" alt="" class="img-fluid rounded">
@@ -139,13 +109,34 @@
                         </div>
                         <h3 class="fw-bold">$150</h3>
                     </div>
-
-
-                    
-                    
-
                     <div class="my-3">
                         <a href="#" class="btn-theme bg-primary w-100 ms-1">View More..</a>
+                    </div>
+                </div>
+
+                <div class="card p-4 rounded sideCard">
+                    <div class="about-card text-center">
+
+                        @if (isset($data->user->photo))
+                            <img src="{{ asset('images/'.$data->user->photo)}}" class="img-circle">
+                        @else
+                            <img src="https://via.placeholder.com/100.png" class="img-circle">
+                        @endif
+
+                        <div class="title">{{$data->user->name}}</div>
+                        <div class="my-3">
+
+                            @if (Auth::user())
+                                <a href="#" class="btn-theme bg-primary w-100 ms-1">Contact Organizer</a>
+                            @else
+                                <!-- Button trigger modal -->
+                                <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    Contact Organizer
+                                    </button>
+                            @endif
+
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -165,7 +156,8 @@
                         excepturi accusamus!</p>
                     <hr>
                     <div class="shareIcons">
-                        <div class="items text-center shadow-sm">
+                        {!! $shareComponent !!}
+                        {{-- <div class="items text-center shadow-sm">
                             <a href="" class="d-flex flex-column justify-content-center align-items-center">
                                 <iconify-icon class="fs-3" icon="logos:facebook"></iconify-icon>
                                 <div class="txt-primary fw-bold">Facebook</div>
@@ -188,7 +180,7 @@
                                 <iconify-icon class="fs-3" icon="logos:whatsapp-icon"></iconify-icon>
                                 <div class="txt-primary fw-bold">whatsapp</div>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="d-flex align-items-center">
                         <input type="text" class="form-control fs-5"  id="myInput" style="height:46px;"
