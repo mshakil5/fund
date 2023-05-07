@@ -22,24 +22,19 @@
                         <div class="col-mg-12">
                             <div class="row">
                                 <div class="col-lg-4 ">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/A_poor_man.jpg"
+                                    <img src="{{asset('images/campaign/'.$data->image)}}"
                                         alt="" class="img-fluid">
                                 </div>
                                 <div class="col-lg-8">
-                                    <p class="para fs-6 mb-1 text-muted py-2">Lorem ipsum dolor sit, amet
-                                        consectetur
-                                        adipisicing elit. Quod neque id natus quisquam ab.
-                                        dolor sit, amet consectetur adipisicing elit. Quod neque id natus quisquam
-                                        ab.
-                                        Eos, voluptate porro. </p>
-                                    <b class="para mt-3 text-dark fs-6"> Your Donation will benfit mark terry </b>
+                                    <p class="para fs-6 mb-1 text-muted py-2">{!!$data->story!!}</p>
+                                    <b class="para mt-3 text-dark fs-6"> {{$data->title}} </b>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 mt-2">
                             <label class="para mt-2 text-dark fs-6 mb-2 fw-bold " for="">Enter Your
                                 donation</label>
-                            <input type="number" placeholder="£GBP" class="form-control py-3 border fs-1 fw-bold">
+                            <input type="number" id="amount" name="amount" placeholder="£GBP" class="form-control py-3 border fs-1 fw-bold">
                         </div>
                         <div class="col-md-12 mt-3">
                             <p class="para fs-6 mb-2 text-dark">This donation will be displayed in the name of
@@ -57,11 +52,11 @@
                                 the generosity of donors like you to continue to help more people. Thank you for
                                 including a contribution of:
                             </p>
-                            <select name="" class="form-control fs-6 fw-bold my-4" id="">
-                                <option value="" class="fs-6 fw-bold">10% (£2.70) </option>
-                                <option value="" class="fs-6 fw-bold">15% (£5.70) </option>
-                                <option value="" class="fs-6 fw-bold">20% (£8.70) </option>
-                                <option value="" class="fs-6 fw-bold">30% (£10.70) </option>
+                            <select name="tips" id="tips" class="form-control fs-6 fw-bold my-4">
+                                <option value="10" class="fs-6 fw-bold">10%</option>
+                                <option value="15" class="fs-6 fw-bold">15%</option>
+                                <option value="20" class="fs-6 fw-bold">20%</option>
+                                <option value="30" class="fs-6 fw-bold">30%</option>
                             </select>
 
                             <p class="my-2 d-flex align-items-center ">
@@ -84,21 +79,21 @@
                                     to receive marketing emails.
                                 </label>
                             </p>
-                            <div class="text-center mt-4">
+                            {{-- <div class="text-center mt-4">
                                 <h3 class="fw-bold txt-secondary">Total : £45.90</h3>
                                 <a href="#" class="btn btn-theme bg-secondary  mx-auto ">
                                     <iconify-icon icon="logos:google-icon" class="me-1 w-50"></iconify-icon>
                                     Pay
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
 
 
                     </div>
                     <div class="  ">
-                        <div class="title darkerGrotesque-bold lh-1 fs-3 mt-5">Payment Mathods </div>
+                        <div class="title darkerGrotesque-bold lh-1 fs-3 mt-2">Payment Mathods </div>
 
-                        <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent"
+                        <ul class="nav nav-tabs mt-2 border-0 py-4 justify-content-center  bg-transparent"
                             id="myTab" role="tablist">
                             <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="paypal">
@@ -229,20 +224,26 @@
                             <div class="d-flex w-100 align-items-center justify-content-between">
                                 <div class="fs-6 para">Your donation</div>
                                 <div class="fs-6 para">
-                                    <h5 class="fs-6 para">£12.56</h5>
+                                    <h5 class="fs-6 para"><span id="donation_amount"></span></h5>
                                 </div>
                             </div>
                             <div class="d-flex w-100 align-items-center justify-content-between">
                                 <div class="fs-6 para">Your Tip</div>
                                 <div class="fs-6 para">
-                                    <h5 class="fs-6 para">£12.56</h5>
+                                    <h5 class="fs-6 para"><span id="donation_tips"></span></h5>
+                                </div>
+                            </div>
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <div class="fs-6 para">Commission</div>
+                                <div class="fs-6 para">
+                                    <h5 class="fs-6 para"><span id="donation_commission"></span></h5>
                                 </div>
                             </div>
                             <hr class="my-1">
                             <div class="d-flex w-100 align-items-center justify-content-between">
                                 <div class="fs-6 para">Total due today</div>
                                 <div class="fs-6 para">
-                                    <h5 class="fs-6 para">£50.56</h5>
+                                    <h5 class="fs-6 para"><span id="net_donation_amount"></span></h5>
                                 </div>
                             </div>
 
@@ -264,5 +265,49 @@
 
 @endsection
 
-@section('scripts')
+@section('script')
+<script>
+    function goEdit(){
+        let editable = document.getElementById("editable");
+         editable.setAttribute('contenteditable','true'); 
+         editable.focus();
+         setEndOfContenteditable(editable);
+    }
+</script>
+
+
+<script>
+   $(document).ready(function() {
+        //calculation end
+        $("#amount").keyup(function(){
+            var amount = Number($("#amount").val());
+            var tips = Number($("#tips").val());
+            var total_tips = (amount * tips)/100;
+            var total_amount = amount + total_tips;
+            var commission = (total_amount * 10)/100;
+            var net_amount = total_amount + commission;
+            
+            $("#donation_amount").html("£"+ amount.toFixed(2));
+            $("#donation_tips").html("£"+ total_tips.toFixed(2));
+            $("#donation_commission").html("£"+ commission.toFixed(2));
+            $("#net_donation_amount").html("£"+ net_amount.toFixed(2));
+        });
+        //calculation end  
+        //calculation end
+        $("#tips").change(function(){
+            var amount = Number($("#amount").val());
+            var tips = Number($("#tips").val());
+            var total_tips = (amount * tips)/100;
+            var total_amount = amount + total_tips;
+            var commission = (total_amount * 10)/100;
+            var net_amount = total_amount + commission;
+            
+            $("#donation_amount").html("£"+ amount.toFixed(2));
+            $("#donation_tips").html("£"+ total_tips.toFixed(2));
+            $("#donation_commission").html("£"+ commission.toFixed(2));
+            $("#net_donation_amount").html("£"+ net_amount.toFixed(2));
+        });
+        //calculation end  
+    });   
+</script>
 @endsection

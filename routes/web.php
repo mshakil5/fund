@@ -100,6 +100,7 @@ Route::group(['middleware' => ['auth']], function(){
     // campaign donate
     Route::get('/campaign-donate/{id}', [CampaignController::class, 'campaignDonate'])->name('frontend.campaignDonate');
 
+    Route::post('/campaign-message', [FrontendController::class, 'campaignMessage'])->name('campaign.message');
 
 });
 

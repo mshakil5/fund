@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Redirect;
   
 class LoginController extends Controller
 {
@@ -52,8 +53,12 @@ class LoginController extends Controller
         $chksts = User::where('email', $input['email'])->first();
         if ($chksts) {
             if ($chksts->status == 1) {
+                
+
                 if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
                     {
+                        
+                // dd($chksts);
                         if (auth()->user()->is_type == '1') {
                             return redirect()->route('admin.dashboard');
                         }else if (auth()->user()->is_type == '2') {
@@ -64,8 +69,8 @@ class LoginController extends Controller
                             return redirect()->route('home');
                         }
                     }else{
-                        return redirect()->route('login')
-                            ->with('error','Email-Address And Password Are Wrong.');
+                        return view('auth.login')
+                            ->with('message','Email-Address And Password Are Wrong.');
                     }
                 }else{
                     return view('auth.login')
@@ -75,9 +80,6 @@ class LoginController extends Controller
                 return view('auth.login')
                     ->with('message','Credential Error. You are not authenticate user.');
             }
-        
-     
-        
           
     }
 
@@ -96,8 +98,8 @@ class LoginController extends Controller
             // return redirect()->intended();
             return redirect()->route('frontend.campaignDetails',$request->campaignid);
         }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+            return redirect()->route('frontend.campaignDetails',$request->campaignid)
+                ->with('error','Email-Address And Password Are Wrong.')->with('error_code', 5);
         }
           
     }

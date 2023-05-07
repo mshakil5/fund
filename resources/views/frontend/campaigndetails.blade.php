@@ -127,15 +127,16 @@
                         <div class="my-3">
 
                             @if (Auth::user())
-                                <a href="#" class="btn-theme bg-primary w-100 ms-1">Contact Organizer</a>
+                                <!-- Button trigger modal -->
+                                <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#contactmessageModal">
+                                    Contact Organizer
+                                </button>
                             @else
                                 <!-- Button trigger modal -->
                                 <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
                                     Contact Organizer
-                                    </button>
+                                </button>
                             @endif
-
-
                         </div>
                     </div>
                 </div>
@@ -188,10 +189,6 @@
                         <button class="btn btn-theme bg-primary"  onclick="copyTextFS()">Copy</button>
                     </div>
                 </div>
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
             </div>
         </div>
     </div>
@@ -249,8 +246,106 @@
         
       </div>
     </div>
-  </div>
+</div>
+
+    <!--Message  Modal -->
+    <div  class="modal fade" id="contactmessageModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="ermsg"></div>
+
+                <div class="form-custom">
+    
+                    <div class="title text-center txt-secondary">Message</div>
+                    <div class="form-group">
+                        <input type="hidden" id="campaignid" name="campaignid" value="{{$data->id}}">
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Name" autofocus>
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <input id="msgemail" type="email" class="form-control @error('msgemail') is-invalid @enderror" name="msgemail" value="{{ old('msgemail') }}" required autocomplete="msgemail" placeholder="Email" autofocus>
+                        
+                    </div>
+                    <div class="form-group">
+                        <input id="subject" type="text" class="form-control @error('subject') is-invalid @enderror" name="subject" value="{{ old('subject') }}" required autocomplete="subject" placeholder="Subject" autofocus>
+                        @error('subject')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" id="message" name="message" placeholder="Message" required></textarea> 
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button id="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Send</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
 @endsection
 
-@section('scripts')
+@section('script')
+<script>
+    $(document).ready(function () {
+
+
+        //header for csrf-token is must in laravel
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+
+           //  make mail start
+           var url = "{{URL::to('/campaign-message')}}";
+           $("#submit").click(function(){
+            
+                   var name= $("#name").val();
+                   var email= $("#msgemail").val();
+                   var subject= $("#subject").val();
+                   var message= $("#message").val();
+                   var campaignid= $("#campaignid").val();
+                   $.ajax({
+                       url: url,
+                       method: "POST",
+                       data: {name,email,subject,message,campaignid},
+                       success: function (d) {
+                           if (d.status == 303) {
+                               $(".ermsg").html(d.message);
+                           }else if(d.status == 300){
+                               $(".ermsg").html(d.message);
+                               window.setTimeout(function(){location.reload()},2000)
+                           }
+                       },
+                       error: function (d) {
+                           console.log(d);
+                       }
+                   });
+
+           });
+           // send mail end
+
+
+    });
+</script>
+
+@if(!empty(Session::get('error_code')) && Session::get('error_code') == 5)
+<script>
+$(document).ready(function () {
+    // $('#loginModal').modal('show');
+    window.$('#loginModal').modal();
+});
+</script>
+@endif
+
 @endsection
