@@ -6,6 +6,7 @@ use App\Models\Campaign;
 use App\Models\Contact;
 use App\Models\User;
 use App\Models\ContactMail;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\ContactFormMail;
@@ -63,7 +64,8 @@ class FrontendController extends Controller
 
         $campaign = Campaign::where('id','!=',$id)->whereStatus(1)->orderby('id','DESC')->get();
         $data = Campaign::with('campaignimage')->where('id',$id)->first();
-        return view('frontend.campaigndetails', compact('data','campaign','shareComponent'));
+        $totalcollection = Transaction::where('campaign_id',$id)->sum('amount');
+        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection'));
     }
 
     public function visitorContact(Request $request)

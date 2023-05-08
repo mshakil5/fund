@@ -34,16 +34,16 @@
                 
             </div>
             <ul class="navigation">
-                <li><a href="{{route('admin.dashboard')}}" class="nav-link">Dashboard</a></li>
-                <li><a href="{{route('admin.fundraisingsource')}}" class="nav-link">Fundraising Source</a></li>
-                <li><a href="{{route('admin.newfundraiser')}}" class="nav-link">Fundraiser</a></li>
-                <li><a href="{{route('admin.allcharity')}}" class="nav-link">Charity</a></li>
-                <li><a href="{{route('admin.campaign')}}" class="nav-link">Campaign</a></li>
-                <li><a href="{{url('admin/company-detail')}}" class="nav-link">Company Details</a></li>
-                <li><a href="{{route('admin.whychooseus')}}" class="nav-link">Why Choose Us</a></li>
-                <li><a href="{{route('admin.master')}}" class="nav-link">All Data</a></li>
-                <li><a href="{{route('admin.hometopsection')}}" class="nav-link">Homepage Top Section</a></li>
-                <li><a href="{{route('admin.contact-mail')}}" class="nav-link">Contact Mail</a></li>
+                <li><a href="{{route('admin.dashboard')}}" class="nav-link {{ (request()->is('admin/dashboard*')) ? 'current' : '' }}">Dashboard</a></li>
+                <li><a href="{{route('admin.fundraisingsource')}}" class="nav-link {{ (request()->is('admin/fundraising-source*')) ? 'current' : '' }}">Fundraising Source</a></li>
+                <li><a href="{{route('admin.newfundraiser')}}" class="nav-link {{ (request()->is('admin/new-fundraiser*')) ? 'current' : '' }}">Fundraiser</a></li>
+                <li><a href="{{route('admin.allcharity')}}" class="nav-link {{ (request()->is('admin/charity*')) ? 'current' : '' }}">Charity</a></li>
+                <li><a href="{{route('admin.campaign')}}" class="nav-link {{ (request()->is('admin/campaign*')) ? 'current' : '' }}">Campaign</a></li>
+                <li><a href="{{url('admin/company-detail')}}" class="nav-link {{ (request()->is('admin/company-detail*')) ? 'current' : '' }}">Company Details</a></li>
+                <li><a href="{{route('admin.whychooseus')}}" class="nav-link {{ (request()->is('admin/why-choose-us*')) ? 'current' : '' }}">Why Choose Us</a></li>
+                <li><a href="{{route('admin.master')}}" class="nav-link {{ (request()->is('admin/all-data*')) ? 'current' : '' }}">All Data</a></li>
+                <li><a href="{{route('admin.hometopsection')}}" class="nav-link {{ (request()->is('admin/home-top-section*')) ? 'current' : '' }}">Homepage Top Section</a></li>
+                <li><a href="{{route('admin.contact-mail')}}" class="nav-link {{ (request()->is('admin/contact-mail*')) ? 'current' : '' }}">Contact Mail</a></li>
                 {{-- <li><a href="order-voucher-books.html">Order voucher books</a></li>
                 <li><a href="tevini-card.html">Tevini card</a></li>
                 <li><a href="view-transactions.html">View transactions</a></li>
@@ -103,13 +103,13 @@
     <script src="{{ asset('assets/admin/js/bootstrap-5.bundle.min.js')}}"></script>
     <script src="{{ asset('assets/admin/js/iconify.min.js')}}"></script>
     <script src="{{ asset('assets/admin/js/app.js')}}"></script>
-    <script>
+    {{-- <script>
         for (var i = 0; i < document.links.length; i++) {
             if (document.links[i].href === document.URL) {
                 document.links[i].className = 'nav-link current';
             }
         }
-    </script>
+    </script> --}}
 
     <script>
         // page schroll top

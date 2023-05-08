@@ -29,14 +29,35 @@
             <h3 class="fw-bold txt-primary mb-4">{{$data->title}}</h3>
             <div class="col-lg-8">
                 <div class="popup-gallery shadow-sm p-4 bg-white">
-                    <a href="{{asset('images/campaign/'.$data->image)}}" class="image" title="Some Text for the image">
-                        <img src="{{asset('images/campaign/'.$data->image)}}" alt="Alt text" />
-                    </a>
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach ($data->campaignimage as $key => $img)
+                                <div class="carousel-item @if ($key == 0) active @endif">
+                                    <a href="{{asset('images/campaign/'.$data->image)}}" class="img-fluid" title="Some Text for the image">
+                                        <img src="{{asset('images/campaign/'.$data->image)}}" class="img-fluid" alt="Alt text" />
+                                    </a>
+                                </div>
+                            @endforeach
+                          
 
-                    <!-- <a href="https://www.youtube.com/watch?v=smE-uIljiGo" class="video" title="This is a video">
-                      <img src="https://via.placeholder.com/510x440.png" alt="Alt text" />
-                    </a> -->
-
+                          @if (isset($data->video_link))
+                            <div class="carousel-item">
+                                <a href="{{$data->video_link}}" class="video" title="This is a video">
+                                    <img src="{{$data->video_link}}" alt="Video link" />
+                                </a>
+                            </div> 
+                          @endif
+                          
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
                 <ul class="nav nav-tabs justify-content-start mt-4 mb-2 rounded-0" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -83,8 +104,8 @@
             </div>
             <div class="col-lg-4">
                 <div class="card p-4 rounded sideCard mb-3">
-                    <div class=" display-6 fw-bold"> £@if (isset($data->total_collection))
-                        {{$data->total_collection}}
+                    <div class=" display-6 fw-bold"> £@if (isset($totalcollection))
+                        {{$totalcollection}}
                     @else 0 @endif  </div>
                     <big> <span class="w-100 fw-bold">raised of £{{$data->raising_goal}} goal</span></big>
 
