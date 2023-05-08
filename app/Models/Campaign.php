@@ -28,4 +28,9 @@ class Campaign extends Model
     {
         return $this->hasMany(CampaignImage::class);
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

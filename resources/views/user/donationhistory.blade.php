@@ -14,65 +14,30 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col"> Next payment</th>
-                                <th scope="col">Frequincy</th>
+                                <th scope="col">SL</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Beneficiary</th>
                                 <th scope="col">Amount</th>
-                                <th scope="col">Fund</th>
-                                <th scope="col">Sub Fund</th>
-                                <th scope="col"> payment method</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Annonimous Donation</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Display Name</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($data as $key => $item)
                             <tr>
-                                <td>12-12-2023</td>
-                                <td>weekly</td>
-                                <td>$56</td>
-                                <td>fund purpose</td>
-                                <td>youth</td>
-                                <td>card or something</td>
-                                <td class="d-flex align-items-center">
-                                    <a href="user-donation-edit.html" class="px-2">
-                                        <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
-                                    </a>
-                                    <a href="#" class="px-2">
-                                        <iconify-icon class="text-danger" icon="bi:trash"></iconify-icon>
-                                    </a>
-                                </td>
+                                <td>{{$key + 1}}</td>
+                                <td>{{$item->date}}</td>
+                                <td>{{$item->campaign->title}}</td>
+                                <td>{{$item->total_amount}}</td>
+                                <td>No</td>
+                                <td>{{$item->description}}</td>
+                                <td>{{$item->donation_display_name}}</td>
+                                <td>Confirm</td>
                             </tr>
-                            <tr>
-                                <td>12-12-2023</td>
-                                <td>weekly</td>
-                                <td>$56</td>
-                                <td>fund purpose</td>
-                                <td>youth</td>
-                                <td>card or something</td>
-                                <td class="d-flex align-items-center">
-                                    <a href="user-donation-edit.html" class="px-2">
-                                        <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
-                                    </a>
-                                    <a href="#" class="px-2">
-                                        <iconify-icon class="text-danger" icon="bi:trash"></iconify-icon>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>12-12-2023</td>
-                                <td>weekly</td>
-                                <td>$56</td>
-                                <td>fund purpose</td>
-                                <td>youth</td>
-                                <td>card or something</td>
-                                <td class="d-flex align-items-center">
-                                    <a href="user-donation-edit.html" class="px-2">
-                                        <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
-                                    </a>
-                                    <a href="#" class="px-2">
-                                        <iconify-icon class="text-danger" icon="bi:trash"></iconify-icon>
-                                    </a>
-                                </td>
-                            </tr>
-
+                            @endforeach
+                            
                         </tbody>
                     </table>
                 </div>

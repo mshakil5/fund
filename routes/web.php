@@ -10,6 +10,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CharityController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -101,6 +102,9 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/campaign-donate/{id}', [CampaignController::class, 'campaignDonate'])->name('frontend.campaignDonate');
 
     Route::post('/campaign-message', [FrontendController::class, 'campaignMessage'])->name('campaign.message');
+    
+    // Route::get('stripe', [StripeController::class, 'stripe']);
+    Route::post('/stripe', [StripeController::class,'stripePyament'])->name("stripe.post");
 
 });
 
@@ -130,6 +134,7 @@ All Agent Routes List
 Route::group(['prefix' =>'charity/', 'middleware' => ['auth', 'is_agent']], function(){
   
     Route::get('charity-profile', [HomeController::class, 'charityHome'])->name('charity.profile');
+    Route::get('all-transaction', [TransactionController::class, 'allCharityTransaction'])->name('charity.alltransaction');
 });
   
 

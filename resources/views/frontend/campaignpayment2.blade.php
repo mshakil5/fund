@@ -4,36 +4,7 @@
 @endsection
 
 @section('content')
-<style>
-    /* Custom styles for Card Element iframe */
-.StripeElement {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    color: #32325d;
-    background-color: #f8f8f8;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-}
-#card-element{
-    margin-bottom: 20px;
 
-}
-#payButton{
-    background-color: #007bff; /* Set the background color */
-    color: #fff; /* Set the text color */
-    font-size: 18px; /* Set the font size */
-    padding: 10px 20px; /* Set padding */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Set border radius */
-    cursor: pointer; /* Set cursor */
-}
-
-/* Custom styles for invalid input in Card Element iframe */
-.StripeElement--invalid {
-    border-color: #fa755a;
-}
-</style>
 
 
 <section class="fundriser my-2 py-4">
@@ -63,7 +34,7 @@
                         <div class="col-md-12 mt-2">
                             <label class="para mt-2 text-dark fs-6 mb-2 fw-bold " for="">Enter Your
                                 donation</label>
-                            <input type="number" id="d_amount" name="d_amount" placeholder="£GBP" class="form-control py-3 border fs-1 fw-bold">
+                            <input type="number" id="amount" name="amount" placeholder="£GBP" class="form-control py-3 border fs-1 fw-bold">
                         </div>
                         <div class="col-md-12 mt-3">
                             <p class="para fs-6 mb-2 text-dark">This donation will be displayed in the name of
@@ -234,43 +205,41 @@
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 
-                                <div class="ermsg">
-                                </div>
-                                @if (Session::has('success'))
-                                    <div class="alert alert-success text-center">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                                        <p>{{ Session::get('success') }}</p>
-                                    </div>
-                                @endif
-                                <!-- Include the Stripe Elements JS library -->
-                                <script src="https://js.stripe.com/v3/"></script>
-        
-                                <!-- Create a form to collect card details -->
-                                <form id="payment-form">
-                                    <div class='form-row row'>
-                                        <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Donation Amount</label>
-                                            <input class='form-control' id="amount" name="amount" placeholder='£' size='4' type='number' required>
+                                <form role="form" action="{{ route('stripe.post') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
+                                    @csrf
+                                    <div class="row ">
+                                        <div class="col-lg-12">
+                                            <input type="text" class="form-control fs-5 mb-3 " placeholder="Name on card">
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <input type="number" class="form-control fs-5 mb-3 "
+                                                placeholder="Card Number">
+                                        </div>
+                                        
+                                        <div class="col-lg-12">
+                                            <div class='form-row row'>
+                                                <div class='col-xs-12 col-md-4 form-group cvc required'>
+                                                    <label class='control-label'>CVC</label> <input autocomplete='off'
+                                                        class='form-control card-cvc' placeholder='ex. 311' size='4'
+                                                        type='text'>
+                                                </div>
+                                                <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                                    <label class='control-label'>Expiration Month</label> <input
+                                                        class='form-control card-expiry-month' placeholder='MM' size='2'
+                                                        type='text'>
+                                                </div>
+                                                <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                                    <label class='control-label'>Expiration Year</label> <input
+                                                        class='form-control card-expiry-year' placeholder='YYYY' size='4'
+                                                        type='text'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12  mt-4 d-flex align-items-center">
+                                            <button type="submit" class="btn btn-primary btn-theme mx-auto w-50 bg-primary">Donate now! </button>
+                                            
                                         </div>
                                     </div>
-        
-                                    <div class='form-row row'>
-                                        <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Name on Card</label>
-                                            <input class='form-control' id="cardholder-name" name="cardholder_name" size='4' type='text' required>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <input type="hidden" name="donor_id" id="donor_id" value="{{auth()->user()->id}}">    
-                                    <input type="hidden" name="tips_amount" id="tips_amount" value="">    
-                                    <input type="hidden" name="c_amount" id="c_amount" value="">    
-                                    <input type="hidden" name="campaign_id" id="campaign_id" value="{{$data->id}}">  
-                                    <div id="card-element"></div>
-                                    <div class="col-lg-12  mt-4 d-flex align-items-center">
-                                        <button id="payButton" type="submit" class="btn btn-primary btn-theme mx-auto w-50 bg-primary">Pay</button>
-                                    </div>
-                                
-
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -354,11 +323,14 @@
     }
 </script>
 
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
 <script>
    $(document).ready(function() {
         //calculation end
-        $("#d_amount").keyup(function(){
-            var amount = Number($("#d_amount").val());
+        $("#amount").keyup(function(){
+            var amount = Number($("#amount").val());
             var tips = Number($("#tips").val());
             var total_tips = (amount * tips)/100;
             var total_amount = amount + total_tips;
@@ -369,12 +341,11 @@
             $("#donation_tips").html("£"+ total_tips.toFixed(2));
             $("#donation_commission").html("£"+ commission.toFixed(2));
             $("#net_donation_amount").html("£"+ net_amount.toFixed(2));
-            $("#amount").val(net_amount.toFixed(2));
         });
         //calculation end  
         //calculation end
         $("#tips").change(function(){
-            var amount = Number($("#d_amount").val());
+            var amount = Number($("#amount").val());
             var tips = Number($("#tips").val());
             var total_tips = (amount * tips)/100;
             var total_amount = amount + total_tips;
@@ -385,14 +356,13 @@
             $("#donation_tips").html("£"+ total_tips.toFixed(2));
             $("#donation_commission").html("£"+ commission.toFixed(2));
             $("#net_donation_amount").html("£"+ net_amount.toFixed(2));
-            $("#amount").val(net_amount.toFixed(2));
         });
         //calculation end  
     });   
 </script>
 <script>
     // Create a Stripe instance with your publishable key
-    var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
+    var stripe = Stripe('pk_live_51KsS4xAynpveFrWHr7GiZOV2fLG1cYEkAlnm1SVeI93ENsDH6HQi8CoXNklvhbWP9Z9TNIzzfTR8gIi6205E2ejZ00uwYYwNpz');
   
     // Create a card element and mount it to the card-element div
     var cardElement = stripe.elements().create('card');
@@ -417,16 +387,12 @@
       });
     });
   
-    var url = "{{URL::to('/stripe')}}";
+    var url = "{{URL::to('/user/stripe')}}";
     // Function to confirm the PaymentIntent on the backend
     function confirmPayment(paymentMethodId) {
         var amount = $("#amount").val();
         var cardHolderName = $("#cardholder-name").val();
         var donor_id = $("#donor_id").val();
-        var campaign_id = $("#campaign_id").val();
-        var tips_amount = $("#tips_amount").val();
-        var c_amount = $("#c_amount").val();
-        var displayname = $('#editable').text();
       fetch(url, {
         method: 'POST',
         headers: {
@@ -435,11 +401,11 @@
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
 
-        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, donor_id: donor_id, campaign_id:campaign_id,tips_amount:tips_amount,c_amount:c_amount,displayname:displayname })
+        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, donor_id: donor_id })
       }).then(function(response) {
         return response.json();
       }).then(function(data) {
-        console.log(data);
+        // console.log(data);
         // Handle the response from the backend
         if (data.client_secret) {
           stripe.confirmCardPayment(data.client_secret).then(function(result) {
@@ -451,7 +417,6 @@
               // Payment successful
               $(".ermsg").html("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Payment Successfull.</b></div>");
               console.log(result.paymentIntent);
-              window.setTimeout(function(){location.reload()},2000)
             }
           });
         }

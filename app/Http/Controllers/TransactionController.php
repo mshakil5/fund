@@ -10,4 +10,11 @@ class TransactionController extends Controller
     {
         return view('user.alltransaction');
     }
+
+
+    // charity transaction 
+    public function allCharityTransaction()
+    {
+        return view('charity.alltransaction');
+    }
 }
