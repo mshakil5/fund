@@ -4,6 +4,7 @@
 
 
 <a href="{{route('admin.fundraiserProfile',$data->id)}}" class="btn-theme bg-primary">Profile</a>
+<a href="{{route('admin.fundraiserdonation',$data->id)}}" class="btn-theme bg-primary">Donation</a>
 
     <hr>
 <!-- content area -->

@@ -135,7 +135,7 @@
                     </div>
                 </div>
 
-                <div class="card p-4 rounded sideCard">
+                <div class="card p-4 rounded sideCard mb-3">
                     <div class="about-card text-center">
 
                         @if (isset($data->user->photo))
@@ -161,6 +161,17 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- qr code scanner  --}}
+                <div class="card p-4 rounded sideCard">
+                    <div class="about-card text-center" style="background: #ffffff">
+
+                        
+                        
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>

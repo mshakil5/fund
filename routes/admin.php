@@ -8,6 +8,7 @@ use App\Http\Controllers\CharityController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\WhyChooseUsController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\FundraiserController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -58,6 +59,9 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // Route::post('/fundraiser-update', [UserController::class, 'fundraiserUpdate']);
     // fundraiser profile
     Route::get('/fundraiser-profile/{id}', [UserController::class, 'fundraiserProfile'])->name('admin.fundraiserProfile');
+
+    // fundraiser donation
+    Route::get('/fundraiser-donation/{id}', [FundraiserController::class, 'fundraiserDonation'])->name('admin.fundraiserdonation');
 
     // active deactive fundraiser
     Route::get('active-fundraiser', [UserController::class, 'activefundraiser']);

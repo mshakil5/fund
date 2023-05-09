@@ -18,7 +18,8 @@ class FrontendController extends Controller
     public function index()
     {
         $todate = Carbon::now();
-        $campaign = Campaign::where('status','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
+        $campaign = Campaign::with('transaction','campaignimage')->where('status','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
+        // dd($campaign);
         return view('frontend.index',compact('campaign','todate'));
     }
 

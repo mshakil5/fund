@@ -103,6 +103,8 @@
                 $datetime2 = new DateTime($end);
                 $interval = $datetime1->diff($datetime2);
                 $days = $interval->format('%a');
+                $total_collection = $campaign->transaction->sum('amount');
+                $total_donar = $campaign->transaction->count();
             @endphp
 
             <div class="col-lg-4 col-md-6 ">
@@ -122,7 +124,7 @@
                             <div class="status d-flex py-2">
                                 <span class="d-flex align-items-center me-4">
                                     <iconify-icon class="me-1" icon="ic:baseline-people-outline"></iconify-icon>
-                                    1051
+                                    {{$total_donar}}
                                 </span>
                                 <span class="d-flex align-items-center me-2">
                                     <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 
@@ -136,7 +138,7 @@
 
                             <div class="d-flex align-items-center justify-content-between mt-3">
                                 <div>
-                                    <h4 class="mb-1 text-dark fw-bold">@if ($campaign->total_collection > 0) £{{$campaign->total_collection}} Raised @else @endif</h4>
+                                    <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) £{{$total_collection}} Raised @else @endif</h4>
                                     <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
                                 </div>
                                 <div>
