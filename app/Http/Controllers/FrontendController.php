@@ -12,6 +12,7 @@ use Mail;
 use App\Mail\ContactFormMail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
+use DB;
 
 class FrontendController extends Controller
 {
@@ -66,7 +67,16 @@ class FrontendController extends Controller
         $campaign = Campaign::where('id','!=',$id)->whereStatus(1)->orderby('id','DESC')->get();
         $data = Campaign::with('campaignimage')->where('id',$id)->first();
         $totalcollection = Transaction::where('campaign_id',$id)->sum('amount');
-        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection'));
+        
+        $doners = Transaction::selectRaw('SUM(amount) as sumamount, user_id')->where([
+            ['campaign_id','=', $id]
+        ])->groupBy('user_id')->orderby('id','DESC')->limit(5)->get();
+
+
+        
+
+
+        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners'));
     }
 
     public function visitorContact(Request $request)

@@ -75,11 +75,6 @@
                             data-bs-target="#contact-tab-pane" type="button" role="tab"
                             aria-controls="contact-tab-pane" aria-selected="false">Comments</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link fs-5" id="disabled-tab" data-bs-toggle="tab"
-                            data-bs-target="#disabled-tab-pane" type="button" role="tab"
-                            aria-controls="disabled-tab-pane" aria-selected="false">Donor</button>
-                    </li>
                     
                 </ul>
                 <div class="tab-content fs-5 mb-4" id="myTabContent">
@@ -95,9 +90,6 @@
                     <div class="tab-pane fade p-4 bg-white" id="contact-tab-pane" role="tabpanel"
                         aria-labelledby="contact-tab" tabindex="0">
                         Lorem ipsum dolor llat, enim quod veritatis fugit mollitia! Dicta, cumque saepe.
-                    </div>
-                    <div class="tab-pane fade p-4 bg-white" id="disabled-tab-pane" role="tabpanel"
-                        aria-labelledby="disabled-tab" tabindex="0"> git mollitia! Dicta, cumque saepe.
                     </div>
                     
                 </div>
@@ -121,15 +113,17 @@
                         <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
                             data-bs-target="#shareModal">Share</button>
                     </div>
-                    <div class=" my-2 d-flex align-items-center justify-content-between">
+                    @foreach ($doners as $doner)
+                    <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <img src="https://via.placeholder.com/60x60.png" alt="" class="img-fluid rounded">
                             <h5 class="user d-inline ms-2 fw-bold">
-                                Martin Smith
+                                {{$doner->user->name}}
                             </h5>
                         </div>
-                        <h3 class="fw-bold">$150</h3>
+                        <h3 class="fw-bold">${{$doner->sumamount}}</h3>
                     </div>
+                    @endforeach
+                    
                     <div class="my-3">
                         <a href="#" class="btn-theme bg-primary w-100 ms-1">View More..</a>
                     </div>
@@ -154,7 +148,7 @@
                                 </button>
                             @else
                                 <!-- Button trigger modal -->
-                                <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0 btn-contact" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
                                     Contact Organizer
                                 </button>
                             @endif
@@ -166,7 +160,7 @@
                 <div class="card p-4 rounded sideCard">
                     <div class="about-card text-center" style="background: #ffffff">
 
-                        
+                        {!! QrCode::size(250)->generate(URL::current()) !!}
                         
                     </div>
                 </div>
@@ -239,11 +233,12 @@
             <p class="alert alert-success"> {{ session()->get('message') }}</p>
             @endif
              
-            <form method="POST" action="{{ route('loginto') }}" class="form-custom">
+            <form method="POST" action="{{ route('logintodonate') }}" class="form-custom">
                 @csrf
 
                 <div class="title text-center txt-secondary">LOGIN</div>
                 <div class="form-group">
+                    <input type="hidden" name="conid" id="conid" value="">
                     <input type="hidden" name="campaignid" id="campaignid" value="{{$data->id}}">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
                     @error('email')
@@ -251,11 +246,9 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-
                 </div>
                 <div class="form-group">
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
-
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -275,7 +268,6 @@
 
 
         </div>
-        
       </div>
     </div>
 </div>
@@ -368,6 +360,10 @@
            // send mail end
 
 
+    });
+
+    $(document).on('click', '.btn-contact', function () {
+        $('#loginModal').find('.modal-body #conid').val(1);
     });
 </script>
 

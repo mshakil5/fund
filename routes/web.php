@@ -40,7 +40,7 @@ Route::get('/clear', function() {
 // });
 
 Auth::routes();
-Route::post('/loginto', [LoginController::class, 'login2'])->name('loginto');
+Route::post('/loginto', [LoginController::class, 'loginToDonate'])->name('logintodonate');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

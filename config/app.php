@@ -184,6 +184,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -218,6 +219,7 @@ return [
                 'Html' => Collective\Html\HtmlFacade::class,
                 'Image' => Intervention\Image\Facades\Image::class,
                 'Share' => Jorenvh\Share\ShareFacade::class,
+                'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ])->toArray(),
 
 ];
