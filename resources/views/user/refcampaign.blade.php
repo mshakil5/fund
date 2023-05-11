@@ -2,11 +2,30 @@
 @section('content')
 
 
+<section class="bleesed">
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="searchBox p-0 mt-3  shadow-sm">
+                <div class="referrmsg"></div>
+                <input placeholder="Referral link paste here .." type="url" id="refurl" name="refurl">
+                <button id="refsubBtn">
+                    <iconify-icon icon="quill:search"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="bleesed default py-5">
     <div class="container"> 
         <div class="row mt-5">
+            @if (Session::has('success'))
+                <div class="alert alert-success mt-2">{{ Session::get('success') }} 
+                </div>
+                @endif
             <div class="col-lg-6">
-                <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> List of active campaign</h2>
+                <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> List of referred campaign</h2>
+                
             </div>
             <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5"> 
 
@@ -43,7 +62,6 @@
                                 <th scope="col">Amount</th>
                                 <th scope="col">Status</th> 
                                 <th scope="col">Assign</th>
-                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,17 +79,6 @@
                                             Refer
                                         </button>
                                     </td> 
-                                    <td class="d-flex align-items-center">
-                                        <a href="#" class="px-2">
-                                            <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
-                                        </a>
-                                        <a href="#" class="px-2" title="view all transaction">
-                                            <iconify-icon icon="ic:outline-remove-red-eye"></iconify-icon>
-                                        </a>
-                                        {{-- <a href="#" class="px-2">
-                                            <iconify-icon class="text-danger" icon="bi:trash"></iconify-icon>
-                                        </a> --}}
-                                    </td>
                                 </tr>
                             @endforeach
                             
@@ -135,5 +142,53 @@ $(document).on('click', '.refBtn', function () {
         document.execCommand('copy');
         $(".ermsg").html("<div class='alert alert-success'><b>Copied.</b></div>");
     }
+
+    
+$(document).ready(function () {
+
+    //header for csrf-token is must in laravel
+    $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+            //
+        // var url = "{{URL::to('/admin/why-choose-us')}}";
+        // console.log(url);
+        // $("#refsubBtn").click(function(){
+
+        //     var form_data = new FormData();
+        //     form_data.append("description", $("#description").val());
+        //     $.ajax({
+        //         url: refurl,
+        //         method: "POST",
+        //         contentType: false,
+        //         processData: false,
+        //         data:form_data,
+        //         success: function (d) {
+        //             if (d.status == 303) {
+        //                 $(".ermsg").html(d.message);
+        //             }else if(d.status == 300){
+        //             success("Data Insert Successfully!!");
+        //                 window.setTimeout(function(){location.reload()},2000)
+        //             }
+        //         },
+        //         error: function (d) {
+        //             console.log(d);
+        //         }
+        //     });
+        // });
+
+
+});
+
+
 </script>
+
+<script>
+    document.getElementById("refsubBtn").addEventListener("click", myRefFunction);
+    function myRefFunction() {
+        // alert('btn work');
+        $newurl = $("#refurl").val();
+        console.log($newurl);
+      window.location.href= $newurl;
+    }
+  </script>
+
 @endsection

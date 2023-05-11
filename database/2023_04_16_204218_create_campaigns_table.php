@@ -57,6 +57,7 @@ return new class extends Migration
             $table->longText('bank_routing')->nullable();
             $table->longText('iban')->nullable();
             $table->longText('bank_verification_doc')->nullable();
+            $table->longText('ref_ids')->nullable();
             $table->tinyInteger('approved')->default(0);
             $table->tinyInteger('terminate')->default(0);
             $table->tinyInteger('disable')->default(0);

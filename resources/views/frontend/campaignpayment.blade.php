@@ -69,7 +69,7 @@
                             <p class="para fs-6 mb-2 text-dark">This donation will be displayed in the name of
                                 <b>
                                     <div class="d-inline" title="You can update the name here " id="editable">
-                                     "Mento Software"
+                                     {{ Auth::user()->name }}
                                     </div>
                                 </b> 
                                 <button onclick="goEdit();" class="btn btn-sm bg-primary fs-6 fw-bold py-0 text-white">Edit</button>
@@ -152,12 +152,12 @@
                                     <h5 class="fs-6 para"><span id="donation_tips"></span></h5>
                                 </div>
                             </div>
-                            <div class="d-flex w-100 align-items-center justify-content-between">
+                            {{-- <div class="d-flex w-100 align-items-center justify-content-between" >
                                 <div class="fs-6 para">Commission</div>
                                 <div class="fs-6 para">
                                     <h5 class="fs-6 para"><span id="donation_commission"></span></h5>
                                 </div>
-                            </div>
+                            </div> --}}
                             <hr class="my-1">
                             <div class="d-flex w-100 align-items-center justify-content-between">
                                 <div class="fs-6 para">Total due today</div>
@@ -250,7 +250,7 @@
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Donation Amount</label>
-                                            <input class='form-control' id="amount" name="amount" placeholder='£' size='4' type='number' required>
+                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' required>
                                         </div>
                                     </div>
         
@@ -364,12 +364,15 @@
             var total_amount = amount + total_tips;
             var commission = (total_amount * 10)/100;
             var net_amount = total_amount + commission;
+            var total_amount_with_commission = total_amount + commission - total_tips;
             
-            $("#donation_amount").html("£"+ amount.toFixed(2));
+            $("#donation_amount").html("£"+ total_amount_with_commission.toFixed(2));
             $("#donation_tips").html("£"+ total_tips.toFixed(2));
-            $("#donation_commission").html("£"+ commission.toFixed(2));
+            // $("#donation_commission").html("£"+ commission.toFixed(2));
             $("#net_donation_amount").html("£"+ net_amount.toFixed(2));
             $("#amount").val(net_amount.toFixed(2));
+            $("#c_amount").val(commission.toFixed(2));
+            $("#tips_amount").val(total_tips.toFixed(2));
         });
         //calculation end  
         //calculation end
@@ -380,12 +383,15 @@
             var total_amount = amount + total_tips;
             var commission = (total_amount * 10)/100;
             var net_amount = total_amount + commission;
+            var total_amount_with_commission = total_amount + commission - total_tips;
             
-            $("#donation_amount").html("£"+ amount.toFixed(2));
+            $("#donation_amount").html("£"+ total_amount_with_commission.toFixed(2));
             $("#donation_tips").html("£"+ total_tips.toFixed(2));
-            $("#donation_commission").html("£"+ commission.toFixed(2));
+            // $("#donation_commission").html("£"+ commission.toFixed(2));
             $("#net_donation_amount").html("£"+ net_amount.toFixed(2));
             $("#amount").val(net_amount.toFixed(2));
+            $("#c_amount").val(commission.toFixed(2));
+            $("#tips_amount").val(total_tips.toFixed(2));
         });
         //calculation end  
     });   
@@ -420,8 +426,14 @@
     var url = "{{URL::to('/stripe')}}";
     // Function to confirm the PaymentIntent on the backend
     function confirmPayment(paymentMethodId) {
+        if ($('#public').is(":checked")){
+            var displaynameshow = "yes";
+            }else{
+            var displaynameshow = "Kind Soul";
+            }
         var amount = $("#amount").val();
         var cardHolderName = $("#cardholder-name").val();
+        var tips = $("#tips").val();
         var donor_id = $("#donor_id").val();
         var campaign_id = $("#campaign_id").val();
         var tips_amount = $("#tips_amount").val();
@@ -435,7 +447,7 @@
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
 
-        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, donor_id: donor_id, campaign_id:campaign_id,tips_amount:tips_amount,c_amount:c_amount,displayname:displayname })
+        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, donor_id: donor_id, campaign_id:campaign_id,tips_amount:tips_amount,c_amount:c_amount,displayname:displayname,displaynameshow:displaynameshow,tips:tips })
       }).then(function(response) {
         return response.json();
       }).then(function(data) {

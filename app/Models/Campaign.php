@@ -33,4 +33,9 @@ class Campaign extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function campaignshare()
+    {
+        return $this->hasMany(CampaignShare::class);
+    }
 }

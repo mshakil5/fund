@@ -32,20 +32,26 @@ class StripeController extends Controller
 
         $stripetopup = new Transaction();
         $stripetopup->date = date('Y-m-d');
+        $stripetopup->tran_no = date('his');
         $stripetopup->user_id = $request->donor_id;
         $stripetopup->campaign_id = $request->campaign_id;
         $stripetopup->commission = $request->c_amount;
+        $stripetopup->tips_percent = $request->tips;
         $stripetopup->tips = $request->tips_amount;
         $stripetopup->amount = $amt;
         $stripetopup->total_amount = $request->amount;
-        $stripetopup->donation_display_name = $request->displayname;
         $stripetopup->token = time();
+        if ($request->displaynameshow == "yes") {
+            $stripetopup->donation_display_name = "Kind Soul";
+        } else {
+            $stripetopup->donation_display_name = $request->displayname;
+        }
+        $stripetopup->donation_type = "Campaign";
         $stripetopup->description = "Donation";
-        $stripetopup->notification = "1";
+        $stripetopup->payment_type = "Stripe";
+        $stripetopup->notification = "0";
         $stripetopup->status = "0";
         $stripetopup->save();
-        
-
         // Return the client secret to the frontend
         return response()->json([
             'client_secret' => $paymentIntent->client_secret,

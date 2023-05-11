@@ -72,10 +72,6 @@ class FrontendController extends Controller
             ['campaign_id','=', $id]
         ])->groupBy('user_id')->orderby('id','DESC')->limit(5)->get();
 
-
-        
-
-
         return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners'));
     }
 

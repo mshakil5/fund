@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('date',255)->nullable();
+            $table->string('tran_no',255)->nullable();
             $table->string('donation_type',255)->nullable();
             $table->string('donation_display_name',255)->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
@@ -24,10 +25,13 @@ return new class extends Migration
             $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
             $table->bigInteger('charity_id')->unsigned()->nullable();
             $table->foreign('charity_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('assign_id')->unsigned()->nullable();
+            $table->foreign('assign_id')->references('id')->on('users')->onDelete('cascade');
             $table->double('amount',10,2)->nullable();
             $table->double('tips',10,2)->nullable();
             $table->double('commission',10,2)->nullable();
             $table->double('total_amount',10,2)->nullable();
+            $table->string('payment_type',255)->nullable();
             $table->longText('title')->nullable();
             $table->longText('description')->nullable();
             $table->string('token',255)->nullable();

@@ -106,6 +106,10 @@ Route::group(['middleware' => ['auth']], function(){
     // Route::get('stripe', [StripeController::class, 'stripe']);
     Route::post('/stripe', [StripeController::class,'stripePyament'])->name("stripe.post");
 
+    
+    Route::get('/referral/campaign', [FundraiserController::class, 'getCampaignReferralLink']);
+    Route::post('/referral/campaign', [FundraiserController::class, 'storeCampaignReferralLink'])->name('user.confirmrefcapmaign');
+
 });
 
 
@@ -121,6 +125,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('user-profile', [HomeController::class, 'userHome'])->name('user.profile');
     Route::get('donation-history', [DonationController::class, 'donationHistory'])->name('user.donationhistory');
     Route::get('my-campaign', [FundraiserController::class, 'activeCampaign'])->name('user.activecampaign');
+    Route::get('ref-campaign', [FundraiserController::class, 'referralCampaign'])->name('user.refcampaign');
     Route::get('all-transaction', [TransactionController::class, 'allTransaction'])->name('user.alltransaction');
     Route::get('start-a-new-campaign', [CampaignController::class, 'newCampaign'])->name('user.newcampaign');
     Route::post('fund-raise', [CampaignController::class, 'newCampaignStore'])->name('user.newcampaignstore');
