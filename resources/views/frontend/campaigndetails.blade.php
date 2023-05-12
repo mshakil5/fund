@@ -33,8 +33,8 @@
                         <div class="carousel-inner">
                             @foreach ($data->campaignimage as $key => $img)
                                 <div class="carousel-item @if ($key == 0) active @endif">
-                                    <a href="{{asset('images/campaign/'.$data->image)}}" class="img-fluid" title="Some Text for the image">
-                                        <img src="{{asset('images/campaign/'.$data->image)}}" class="img-fluid" alt="Alt text" />
+                                    <a href="{{asset('images/campaign/'.$img->image)}}" class="img-fluid" title="Some Text for the image">
+                                        <img src="{{asset('images/campaign/'.$img->image)}}" class="img-fluid" alt="Alt text" />
                                     </a>
                                 </div>
                             @endforeach
@@ -42,9 +42,13 @@
 
                           @if (isset($data->video_link))
                             <div class="carousel-item">
-                                <a href="{{$data->video_link}}" class="video" title="This is a video">
+                                {{-- <a href="{{$data->video_link}}" class="video" title="This is a video">
                                     <img src="{{$data->video_link}}" alt="Video link" />
-                                </a>
+                                </a> --}}
+                                <video width="400" controls>
+                                    <source src="{{$data->video_link}}" type="video/mp4">
+                                    Your browser does not support HTML video.
+                                </video>
                             </div> 
                           @endif
                           

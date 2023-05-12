@@ -30,15 +30,46 @@
     <div class="dashboard-wraper">
         <div class="sidebar " id="sidebar">
             <div class="brand">
-              <a href="{{ route('homepage')}}"><img src="{{ asset('assets/admin/images/logo.svg')}}" width="114px" class="mx-auto" alt="logo"></a>
+              <a href="{{ route('homepage')}}"><img src="{{ asset('images/company/'.\App\Models\CompanyDetail::where('id',1)->first()->header_logo)}}" width="114px" class="mx-auto" alt="logo"></a>
                 
             </div>
             <ul class="navigation">
                 <li><a href="{{route('admin.dashboard')}}" class="nav-link {{ (request()->is('admin/dashboard*')) ? 'current' : '' }}">Dashboard</a></li>
-                <li><a href="{{route('admin.fundraisingsource')}}" class="nav-link {{ (request()->is('admin/fundraising-source*')) ? 'current' : '' }}">Fundraising Source</a></li>
-                <li><a href="{{route('admin.newfundraiser')}}" class="nav-link {{ (request()->is('admin/new-fundraiser*')) ? 'current' : '' }}">Fundraiser</a></li>
-                <li><a href="{{route('admin.allcharity')}}" class="nav-link {{ (request()->is('admin/charity*')) ? 'current' : '' }}">Charity</a></li>
-                <li><a href="{{route('admin.campaign')}}" class="nav-link {{ (request()->is('admin/campaign*')) ? 'current' : '' }}">Campaign</a></li>
+
+                <div class="accordion" id="dropdownLink">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            All Users
+                        </button>
+                      </h2>
+                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
+                        <div class="accordion-body">
+                            <li><a href="{{route('admin.newfundraiser')}}" class="nav-link {{ (request()->is('admin/new-fundraiser*')) ? 'current' : '' }}">Fundraiser</a></li>
+                            <li><a href="{{route('admin.allcharity')}}" class="nav-link {{ (request()->is('admin/charity*')) ? 'current' : '' }}">Charity</a></li>
+                        </div>
+                      </div>
+                    </div> 
+                </div>
+
+                <div class="accordion" id="dropdownLink">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCampaignTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Campaign
+                        </button>
+                      </h2>
+                      <div id="collapseCampaignTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
+                        <div class="accordion-body">
+                            <li><a href="{{route('admin.fundraisingsource')}}" class="nav-link {{ (request()->is('admin/fundraising-source*')) ? 'current' : '' }}">Fundraising Source</a></li>
+                            <li><a href="{{route('admin.campaign')}}" class="nav-link {{ (request()->is('admin/campaign*')) ? 'current' : '' }}">New Campaign</a></li>
+                        </div>
+                      </div>
+                    </div> 
+                </div>
+
+
+                
                 <li><a href="{{url('admin/company-detail')}}" class="nav-link {{ (request()->is('admin/company-detail*')) ? 'current' : '' }}">Company Details</a></li>
                 <li><a href="{{route('admin.whychooseus')}}" class="nav-link {{ (request()->is('admin/why-choose-us*')) ? 'current' : '' }}">Why Choose Us</a></li>
                 <li><a href="{{route('admin.master')}}" class="nav-link {{ (request()->is('admin/all-data*')) ? 'current' : '' }}">All Data</a></li>
