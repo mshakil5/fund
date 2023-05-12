@@ -34,7 +34,7 @@
                             @foreach ($data->campaignimage as $key => $img)
                                 <div class="carousel-item @if ($key == 0) active @endif">
                                     <a href="{{asset('images/campaign/'.$img->image)}}" class="img-fluid" title="Some Text for the image">
-                                        <img src="{{asset('images/campaign/'.$img->image)}}" class="img-fluid" alt="Alt text" />
+                                        <img src="{{asset('images/campaign/'.$img->image)}}" style="height: 711;width:304" class="img-fluid" alt="Alt text" />
                                     </a>
                                 </div>
                             @endforeach
@@ -45,9 +45,8 @@
                                 {{-- <a href="{{$data->video_link}}" class="video" title="This is a video">
                                     <img src="{{$data->video_link}}" alt="Video link" />
                                 </a> --}}
-                                <video width="400" controls>
+                                <video width="711" height="304" autoplay controls>
                                     <source src="{{$data->video_link}}" type="video/mp4">
-                                    Your browser does not support HTML video.
                                 </video>
                             </div> 
                           @endif
@@ -135,16 +134,13 @@
 
                 <div class="card p-4 rounded sideCard mb-3">
                     <div class="about-card text-center">
-
                         @if (isset($data->user->photo))
                             <img src="{{ asset('images/'.$data->user->photo)}}" class="img-circle">
                         @else
                             <img src="https://via.placeholder.com/100.png" class="img-circle">
                         @endif
-
                         <div class="title">{{$data->user->name}}</div>
                         <div class="my-3">
-
                             @if (Auth::user())
                                 <!-- Button trigger modal -->
                                 <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#contactmessageModal">
@@ -157,6 +153,18 @@
                                 </button>
                             @endif
                         </div>
+
+                        <div class="row"> 
+                            @foreach ($data->campaignshare as $cshare)
+                            <div class="col-lg-6 mb-2">
+                                <div class="organizer-card text-center">
+                                    <img src="{{ asset('images/'.$cshare->user->photo)}}" class="img-circle">
+                                    <div class="title">{{$cshare->user->name}}</div>
+                                </div>
+                            </div> 
+                            @endforeach
+                        </div>
+
                     </div>
                 </div>
 
@@ -215,7 +223,7 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <input type="text" class="form-control fs-5"  id="myInput" style="height:46px;"
-                            value="https:link.share000124.com">
+                            value="{{ URL::current() }}@if (Auth::user())?uid={{Auth::user()->id}} @else @endif">
                         <button class="btn btn-theme bg-primary"  onclick="copyTextFS()">Copy</button>
                     </div>
                 </div>
@@ -327,6 +335,22 @@
 @endsection
 
 @section('script')
+<script>
+    function copyTextFS() {
+        // Get the text field
+        var copyText = document.getElementById("myInput");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        // Alert the copied text
+        alert("Copied the text: " + copyText.value);
+    }
+</script>
 <script>
     $(document).ready(function () {
 

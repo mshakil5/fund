@@ -57,11 +57,11 @@
     <!-- select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        for (var i = 0; i < document.links.length; i++) {
-            if (document.links[i].href === document.URL) {
-                document.links[i].className = 'nav-link current';
-            }
-        }
+        // for (var i = 0; i < document.links.length; i++) {
+        //     if (document.links[i].href === document.URL) {
+        //         document.links[i].className = 'nav-link current';
+        //     }
+        // }
     </script>
 
 <script>

@@ -866,7 +866,7 @@ body::-webkit-scrollbar-thumb {
 }
 .about-card {
   background: #e3d8cf;
-  padding: 35px 25px;
+  padding: 16px 13px;
   border-radius: 8px;
   line-height: 1.6;
   font-size: 20px;
@@ -883,7 +883,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 50%;
 }
 .about-card .title {
-  margin: 15px 0;
+  margin: 5px 0;
   font-size: 25px;
   line-height: 1;
   color: #265080;
@@ -1139,4 +1139,34 @@ input[type=checkbox] {
   color: #003057;
   font-family: "DarkerGrotesque-Bold", sans-serif;
   border-bottom: 3px solid #E1D8CE;
+}
+
+.organizer-card {
+  background: #e3d8cf;
+  padding: 2px 2px;
+  border-radius: 8px;
+  line-height: 1.6;
+  font-size: 20px;
+  font-family: "Roboto-Regular";
+  color: #4E4B44;
+  box-shadow: 0px 2px 5px 0px #b1b1b1;
+}
+.organizer-card:hover {
+  background: #f9f9f9;
+}
+.organizer-card img {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+.organizer-card .title {
+  margin: 1px 0;
+  font-size: 14px;
+  line-height: 1;
+  color: #265080;
+  font-family: "DarkerGrotesque-bold";
+}
+.organizer-card .para {
+  font-size: 18px;
+  color: #242222;
 }

@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\ContactFormMail;
+use App\Models\CampaignShare;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use DB;
@@ -65,14 +66,16 @@ class FrontendController extends Controller
         ->whatsapp();
 
         $campaign = Campaign::where('id','!=',$id)->whereStatus(1)->orderby('id','DESC')->get();
-        $data = Campaign::with('campaignimage')->where('id',$id)->first();
+        $data = Campaign::with('campaignimage','campaignshare')->where('id',$id)->first();
+        $chkshareids = CampaignShare::where('campaign_id',$id)->pluck('user_id');
+        // dd($chkshareid);
         $totalcollection = Transaction::where('campaign_id',$id)->sum('amount');
         
         $doners = Transaction::selectRaw('SUM(amount) as sumamount, user_id')->where([
             ['campaign_id','=', $id]
         ])->groupBy('user_id')->orderby('id','DESC')->limit(5)->get();
 
-        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners'));
+        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids'));
     }
 
     public function visitorContact(Request $request)
