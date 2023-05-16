@@ -139,6 +139,9 @@
                                         </td>
                                         
                                         <td style="text-align: center">
+                                            <a class="text-decoration-none bg-success text-white py-1 px-3 rounded mb-1" href="{{route('admin.fundraiserPay',$data->id)}}" target="blank">
+                                                Pay </a>
+                                                <br>
                                             <a href="{{route('admin.fundraiserProfile',$data->id)}}"> <i class="fa fa-eye" style="color: #26ab5b;font-size:16px;"> </i></a>
                                             <a id="EditBtn" rid="{{$data->id}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
                                             <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>

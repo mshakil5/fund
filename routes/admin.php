@@ -9,6 +9,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\WhyChooseUsController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\FundraiserController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -144,5 +145,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // all-data
     Route::get('/home-top-section', [MasterController::class, 'homeTopSection'])->name('admin.hometopsection');
     Route::post('/home-top-section', [MasterController::class, 'homeTopSectionUpdate']);
+
+
+    // payment
+    Route::get('/fundraiser-pay/{id}', [TransactionController::class, 'fundraiserPay'])->name('admin.fundraiserPay');
+    Route::post('/fundraiser-pay', [TransactionController::class, 'fundraiserPayStore'])->name('admin.fundraiserPaystore');
+
 });
 //admin part end

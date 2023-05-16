@@ -427,7 +427,9 @@
                                 @foreach ($data as $key => $data)
                                     <tr>
                                         <td style="text-align: center">{{ $key + 1 }}</td>
-                                        <td style="text-align: center">{{$data->title}}</td>
+                                        <td style="text-align: center">
+                                            <a href="{{route('admin.campaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
+                                        </td>
                                         <td style="text-align: center">{{$data->user->name}}</td>
                                         <td style="text-align: center">{{$data->country->name}}</td>
                                         <td style="text-align: center">{{$data->raising_goal}}</td>

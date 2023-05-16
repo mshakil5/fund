@@ -339,13 +339,77 @@
                 </div>
                 <div class="tab-pane fade" id="doc" role="tabpanel" aria-labelledby="doc-tab">
                     <div class="data-container">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                
-                                <h1>image modal goes here</h1>
+                        
+                        <div id="contentContainer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card" style="background-color: #fdf3ee">
+                                        <div class="card-header">
+                                            <h3> All Data</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-bordered table-hover" id="exdatatable">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center">ID</th>
+                                                        <th style="text-align: center">Title</th>
+                                                        <th style="text-align: center">Image</th>
+                                                        <th style="text-align: center">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($data->campaignimage as $key => $cimg)
+                                                        <tr>
+                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center">{{$data->title}}</td>
+                                                            <td style="text-align: center">
+                                                                @if ($cimg->image)
+                                                                <img src="{{asset('images/campaign/'.$cimg->image)}}" height="120px" width="220px" alt="">
+                                                                @endif
+                                                            </td>
+                                                            
+                                                            <td style="text-align: center">
+                                                                
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                        @if ($data->image)
+                                                        <tr>
+                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center">{{$data->title}}: Feature Image</td>
+                                                            <td style="text-align: center">
+                                                                
+                                                                <img src="{{asset('images/campaign/'.$data->image)}}" height="120px" width="220px" alt="">
+                                                                
+                                                            </td>
+                                                            <td style="text-align: center">
+                                                                
+                                                            </td>
+                                                        </tr>
+                                                        @endif
+                                                        @if ($data->bank_verification_doc)
+                                                        <tr>
+                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center">{{$data->title}}: Bank Document</td>
+                                                            <td style="text-align: center">
+                                                                
+                                                                <img src="{{asset('images/bank/'.$data->bank_verification_doc)}}" height="120px" width="220px" alt="">
+                                                                
+                                                            </td>
+                                                            <td style="text-align: center">
+                                                                
+                                                            </td>
+                                                        </tr>
+                                                        @endif
 
+                                                        
+
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <hr>
                         </div>
                     </div>
                 </div>
@@ -382,39 +446,49 @@
                                         <thead>
                                             <tr> 
                                                 <th scope="col">Date</th>
-                                                <th scope="col">Description</th>
+                                                <th scope="col">Transaction ID</th>
+                                                <th scope="col">Payment Process</th>
+                                                <th scope="col">User</th>
                                                 <th scope="col">Amount</th>
-                                                <th scope="col">Comments</th>
-                                                <th scope="col">Reference/Voucher no.</th>
-                                                <th scope="col">Balance</th>
+                                                <th scope="col">Tips</th>
+                                                <th scope="col">Commission</th>
+                                                <th scope="col">Total Amount</th>
                                             </tr>
                                         </thead>
                                     <tbody>
-                                        
+                                        @foreach ($data->transaction as $item)
                                         <tr> 
-                                            <td class="fs-16 txt-secondary">23/08/2022</td>
+                                            <td class="fs-16 txt-secondary">{{$item->date}}</td>
                                             <td>
                                                 <div class="d-flex flex-column">
-                                                    <span class="fs-20 txt-secondary fw-bold">Aim Habonim</span>
-                                                    <span class="fs-16 txt-secondary">Online donation</span>
+                                                    <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
+                                                    {{-- <span class="fs-16 txt-secondary">Online donation</span> --}}
                                                 </div>
                                             </td>
                                             <td class="fs-16 txt-secondary">
-                                                -£18.00
-                                                <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M10.0527 7.18393C9.96315 7.08574 9.84339 7.03085 9.71876 7.03085C9.59413 7.03085 9.47438 7.08574 9.38478 7.18393L5.96876 11.0621V0.656192C5.96876 0.515295 5.91938 0.380169 5.83147 0.28054C5.74356 0.180912 5.62433 0.124942 5.50001 0.124942C5.37569 0.124942 5.25646 0.180912 5.16856 0.28054C5.08065 0.380169 5.03126 0.515295 5.03126 0.656192V11.0621L1.61525 7.18393C1.52417 7.09921 1.40855 7.05592 1.29087 7.06247C1.17319 7.06902 1.06186 7.12494 0.978549 7.21937C0.895236 7.31379 0.84589 7.43995 0.84011 7.57333C0.834331 7.7067 0.87253 7.83774 0.947278 7.94096L5.16603 12.7222C5.2549 12.822 5.37493 12.8779 5.50001 12.8779C5.6251 12.8779 5.74512 12.822 5.834 12.7222L10.0527 7.94096C10.1408 7.84024 10.1901 7.7042 10.1901 7.56244C10.1901 7.42068 10.1408 7.28465 10.0527 7.18393Z" fill="#003057"/>
-                                                </svg> 
+                                                {{$item->payment_type}}
                                             </td>
                                             <td class="fs-16 txt-secondary">
-                                                **Campaign** Ride4Bonim 2022 Charity ref no 490 
+                                                {{$item->user->name}}
                                             </td>
                                             <td class="fs-16 txt-secondary">
-                                                1674651949-186
+                                                {{$item->amount}}
                                             </td>
                                             <td class="fs-16 txt-secondary">
-                                                -£18.00
+                                                {{$item->tips}}
+                                            </td> 
+                                            <td class="fs-16 txt-secondary">
+                                                {{$item->commission}}
+                                            </td> 
+                                            <td class="fs-16 txt-secondary">
+                                                {{$item->total_amount}}
                                             </td> 
                                         </tr> 
+                                        @endforeach
+                                        
+                                        
+
+
                                     </tbody>
                                 </table>
                                 </div>

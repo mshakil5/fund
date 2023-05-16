@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('date',255)->nullable();
             $table->string('tran_no',255)->nullable();
+            $table->string('tran_type',255)->nullable();
             $table->string('donation_type',255)->nullable();
             $table->string('donation_display_name',255)->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
@@ -39,6 +40,7 @@ return new class extends Migration
             $table->string('tips_percent',255)->nullable();
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('notification')->default(0);
+            $table->boolean('show_name')->default(1);
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();

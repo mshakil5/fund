@@ -71,9 +71,11 @@ class FrontendController extends Controller
         // dd($chkshareid);
         $totalcollection = Transaction::where('campaign_id',$id)->sum('amount');
         
-        $doners = Transaction::selectRaw('SUM(amount) as sumamount, user_id')->where([
+        $doners = Transaction::selectRaw('SUM(amount) as sumamount, donation_display_name')->where([
             ['campaign_id','=', $id]
-        ])->groupBy('user_id')->orderby('id','DESC')->limit(5)->get();
+        ])->groupBy('donation_display_name')->orderby('id','DESC')->limit(5)->get();
+
+        // dd($doners);
 
         return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids'));
     }

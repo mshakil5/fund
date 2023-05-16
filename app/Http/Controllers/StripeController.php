@@ -33,6 +33,7 @@ class StripeController extends Controller
         $stripetopup = new Transaction();
         $stripetopup->date = date('Y-m-d');
         $stripetopup->tran_no = date('his');
+        $stripetopup->tran_type = "In";
         $stripetopup->user_id = $request->donor_id;
         $stripetopup->campaign_id = $request->campaign_id;
         $stripetopup->commission = $request->c_amount;
@@ -43,8 +44,10 @@ class StripeController extends Controller
         $stripetopup->token = time();
         if ($request->displaynameshow == "yes") {
             $stripetopup->donation_display_name = "Kind Soul";
+            $stripetopup->show_name = "0";
         } else {
             $stripetopup->donation_display_name = $request->displayname;
+            $stripetopup->show_name = "1";
         }
         $stripetopup->donation_type = "Campaign";
         $stripetopup->description = "Donation";

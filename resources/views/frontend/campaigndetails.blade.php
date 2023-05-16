@@ -153,14 +153,14 @@
                             data-bs-target="#shareModal">Share</button>
                     </div>
                     @foreach ($doners as $doner)
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h5 class="user d-inline ms-2 fw-bold">
-                                {{$doner->user->name}}
-                            </h5>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="user d-inline ms-2 fw-bold">
+                                    {{$doner->donation_display_name}}
+                                </h5>
+                            </div>
+                            <h3 class="fw-bold">£{{$doner->sumamount}}</h3>
                         </div>
-                        <h3 class="fw-bold">${{$doner->sumamount}}</h3>
-                    </div>
                     @endforeach
                     
                     <div class="my-3">

@@ -128,7 +128,7 @@ class CampaignController extends Controller
         $users = User::select('id','name','email')->where('is_type','0')->get();
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $data = Campaign::orderby('id','DESC')->where('status','0')->get();
+        $data = Campaign::with('transaction','campaignimage','campaignshare')->orderby('id','DESC')->where('status','0')->get();
         return view('admin.campaign.index',compact('countries','source','data','users'));
     }
 
@@ -139,7 +139,7 @@ class CampaignController extends Controller
         $users = User::select('id','name','email')->where('is_type','0')->get();
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $data = Campaign::orderby('id','DESC')->where('end_date','>', $todate->format('Y-m-d'))->where('status','1')->get();
+        $data = Campaign::with('transaction','campaignimage','campaignshare')->orderby('id','DESC')->where('end_date','>', $todate->format('Y-m-d'))->where('status','1')->get();
         return view('admin.campaign.livecampaign',compact('countries','source','data','users'));
     }
 
@@ -150,7 +150,7 @@ class CampaignController extends Controller
         $users = User::select('id','name','email')->where('is_type','0')->get();
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $data = Campaign::orderby('id','DESC')->where('end_date','<', $todate->format('Y-m-d'))->get();
+        $data = Campaign::with('transaction','campaignimage','campaignshare')->orderby('id','DESC')->where('end_date','<', $todate->format('Y-m-d'))->get();
         return view('admin.campaign.closecampaign',compact('countries','source','data','users'));
     }
 
@@ -276,7 +276,8 @@ class CampaignController extends Controller
     public function viewCampaignByAdmin($id)
     {
         
-        $data = Campaign::with('campaignimage')->where('id', $id)->first();
+        $data = Campaign::with('transaction','campaignimage','campaignshare')->where('id', $id)->first();
+        // dd($data);
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
         return view('admin.campaign.view',compact('countries','source','data'));

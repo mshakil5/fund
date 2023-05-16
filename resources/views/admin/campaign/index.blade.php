@@ -123,13 +123,13 @@
                             </div>
                             <div class="col-lg-6">
                                 <div>
-                                    <label for="image" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Feature Image</label>
+                                    <label for="image" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Feature Image <small>(1000*700)</small> </label>
                                     <input type="file" name="fimage" class="form-control" id="fimage" required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div>
-                                    <label for="image" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Photo</label>
+                                    <label for="image" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Photo <small>(711*304)</small></label>
                                     <input type="file" name="image[]" class="form-control" id="image" multiple required>
                                 </div>
                             </div>

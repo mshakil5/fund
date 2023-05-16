@@ -55,7 +55,9 @@
                                         alt="" class="img-fluid">
                                 </div>
                                 <div class="col-lg-8">
-                                    <p class="para fs-6 mb-1 text-muted py-2">{!!$data->story!!}</p>
+                                    <p class="para fs-6 mb-1 text-muted py-2">
+                                        {{-- {{ Illuminate\Support\Str::limit($data->story, 20) }} --}}
+                                        {!! Illuminate\Support\Str::limit($data->story, 300) !!}</p>
                                     <b class="para mt-3 text-dark fs-6"> {{$data->title}} </b>
                                 </div>
                             </div>
