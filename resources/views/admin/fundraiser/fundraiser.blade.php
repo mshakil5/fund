@@ -116,6 +116,7 @@
                                 <th style="text-align: center">Email</th>
                                 <th style="text-align: center">Phone</th>
                                 <th style="text-align: center">Status</th>
+                                <th style="text-align: center">Campaign</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
                             </thead>
@@ -131,6 +132,10 @@
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input fundraiserstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="fundraiserstatus" @if ($data->status == 1) checked @endif >
                                             </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                        
+                                        <a href="{{route('admin.usercampaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">Campaign</a>
                                         </td>
                                         
                                         <td style="text-align: center">

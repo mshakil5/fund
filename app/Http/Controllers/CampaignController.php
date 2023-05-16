@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\FundraisingSource;
 use App\Models\Campaign;
+use App\Models\EmailContent;
+use App\Mail\ContactFormMail;
+use Carbon\Carbon;
 use DB;
+use Mail;
 use App\Models\CampaignImage;
 use App\Models\User;
 use Illuminate\support\Facades\Auth;
@@ -124,8 +128,30 @@ class CampaignController extends Controller
         $users = User::select('id','name','email')->where('is_type','0')->get();
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $data = Campaign::orderby('id','DESC')->get();
+        $data = Campaign::orderby('id','DESC')->where('status','0')->get();
         return view('admin.campaign.index',compact('countries','source','data','users'));
+    }
+
+    // live campaign by admin
+    public function getLiveCampaignByAdmin()
+    {
+        $todate = Carbon::now();
+        $users = User::select('id','name','email')->where('is_type','0')->get();
+        $countries = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $data = Campaign::orderby('id','DESC')->where('end_date','>', $todate->format('Y-m-d'))->where('status','1')->get();
+        return view('admin.campaign.livecampaign',compact('countries','source','data','users'));
+    }
+
+    // close campaign by admin
+    public function getCloseCampaignByAdmin()
+    {
+        $todate = Carbon::now();
+        $users = User::select('id','name','email')->where('is_type','0')->get();
+        $countries = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $data = Campaign::orderby('id','DESC')->where('end_date','<', $todate->format('Y-m-d'))->get();
+        return view('admin.campaign.closecampaign',compact('countries','source','data','users'));
     }
 
     // campaign store by admin
@@ -247,6 +273,16 @@ class CampaignController extends Controller
         }
     }
 
+    public function viewCampaignByAdmin($id)
+    {
+        
+        $data = Campaign::with('campaignimage')->where('id', $id)->first();
+        $countries = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        return view('admin.campaign.view',compact('countries','source','data'));
+        
+    }
+
     public function editCampaignByAdmin($id)
     {
         
@@ -254,6 +290,16 @@ class CampaignController extends Controller
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
         return view('admin.campaign.edit',compact('countries','source','data'));
+        
+    }
+
+    public function addinfoCampaignByAdmin($id)
+    {
+        
+        $data = Campaign::with('campaignimage')->where('id', $id)->first();
+        $countries = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        return view('admin.campaign.addinfo',compact('countries','source','data'));
         
     }
 
@@ -319,7 +365,6 @@ class CampaignController extends Controller
             $data->bank_routing = $request->bank_routing;
             $data->iban = $request->iban;
             
-            $data->status = "0";
             $data->updated_by = Auth::user()->id;
 
         if ($data->save()) {
@@ -352,6 +397,20 @@ class CampaignController extends Controller
             }
 
 
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+    }
+
+    public function updateCampaignInfoByAdmin(Request $request)
+    {
+        $data = Campaign::find($request->codeid);
+        $data->information = $request->information;
+        $data->updated_by = Auth::user()->id;
+
+        if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }else{
@@ -598,6 +657,7 @@ class CampaignController extends Controller
 
     public function startCampaign_dataStore(Request $request)
     {
+        // dd('controller');
         $step1dataForm = session()->get('step1data');
         $step2dataForm = session()->get('step2data');
         $step3dataForm = session()->get('step3data');
@@ -617,7 +677,6 @@ class CampaignController extends Controller
         $data->title = $step2dataForm['title'];
         $data->story = $step2dataForm['story'];
         $data->raising_goal = $step3dataForm['raising_goal'];
-        // $data->image = $request->image;
         $data->video_link = $step3dataForm['video_link'];
         $data->tagline = $step3dataForm['tagline'];
         $data->category = $step3dataForm['category'];
@@ -629,22 +688,16 @@ class CampaignController extends Controller
         $data->family_name = $step4dataForm['family_name'];
         $data->dob = $step4dataForm['dob'];
         $data->phone = $step4dataForm['phone'];
-        $data->country_address = $step4dataForm['country_address'];
-        $data->address = $step4dataForm['address'];
-        $data->city = $step4dataForm['city'];
+        $data->city = $step4dataForm['city']; // this city is house number
         $data->street_name = $step4dataForm['street_name'];
         $data->town = $step4dataForm['town'];
         $data->postcode = $step4dataForm['postcode'];
         $data->gov_issue_id = $step4dataForm['gov_issue_id'];
-        $data->currency = $request->currency;
         $data->name_of_account = $request->name_of_account;
-        $data->bank_account_country = $request->bank_account_country;
         $data->bank_name = $request->bank_name;
-        $data->bank_account_class = $request->bank_account_class;
-        $data->bank_account_type = $request->bank_account_type;
-        $data->bank_routing = $request->bank_routing;
-        $data->iban = $request->iban;
-        if ($request->bank_verification_doc != 'null') {
+        $data->bank_account_number = $request->bank_account_number;
+        $data->bank_sort_code = $request->bank_sort_code;
+        if (isset($request->bank_verification_doc)) {
             $request->validate([
                 'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
             ]);
@@ -659,6 +712,17 @@ class CampaignController extends Controller
 
             CampaignImage::whereNull("campaign_id")->where('user_id',Auth::user()->id)
                 ->update(["campaign_id" => $data->id]);
+
+
+            $mailmsg = EmailContent::where('title', 'campaign create by user')->first()->description;
+            $message = EmailContent::where('title', 'campaign success message')->first()->description;
+            $array['name'] = Auth::user()->name;
+            $array['email'] = Auth::user()->email;
+            $array['subject'] = "New Campaign Created";
+            $array['message'] = $mailmsg;
+            $array['contactmail'] = Auth::user()->email;
+            // Mail::to(Auth::user()->email)->send(new ContactFormMail($array));
+
             
             $request->session()->forget('step1data');
             $request->session()->forget('step2data');
@@ -668,7 +732,7 @@ class CampaignController extends Controller
             $request->session()->forget('step6data');
 
             return view('frontend.step7_new_campaign_confirmations')
-               ->with('success','Your campaign create successfully. Thank you.');
+               ->with('success',$message);
         }else{
             return view('frontend.step7_new_campaign_confirmations')
                ->with('error','Server error!!.');

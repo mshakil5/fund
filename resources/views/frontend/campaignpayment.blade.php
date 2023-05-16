@@ -250,7 +250,7 @@
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Donation Amount</label>
-                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' required>
+                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" required>
                                         </div>
                                     </div>
         

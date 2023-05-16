@@ -70,17 +70,17 @@
                                     </div>
                                     <div class="row my-3">
 
-                                            <div class="col-lg-6 ">
+                                            <div class="col-lg-6">
                                                 <label for="tagline" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Tagline</label>
                                                 <input type="text" name="tagline" value="{{ $step3dataForm['tagline'] ?? ''  }}" class="form-control" id="tagline">
                                             </div>
-                                            <div class="col-lg-6 ">
+                                            {{-- <div class="col-lg-6 ">
                                                 <label for="category" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Category </label>
                                                 <input type="text" name="category" class="form-control"  id="category" value="{{ $step3dataForm['category'] ?? ''  }}">
-                                            </div>
+                                            </div> --}}
 
                                             
-                                        <div class="col-lg-12 mb-3">
+                                        <div class="col-lg-6 mb-3">
                                             <label for="location" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Location </label>
                                             <input type="text" name="location" class="form-control" id="location" value="{{ $step3dataForm['location'] ?? ''  }}">
                                         </div>
@@ -89,7 +89,6 @@
                                             <label for="funding_type" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Funding Type</label>
                                             {{-- <input type="text" name="funding_type" class="form-control" id="funding_type" value="{{ $step3dataForm['funding_type'] ?? ''  }}"> --}}
                                             <select name="funding_type" class="form-control" id="funding_type">
-                                                <option value="">Select</option>
                                                 <option value="Partial" @if((isset($step3dataForm["funding_type"]))&&($step3dataForm["funding_type"]=="Partial")) selected @endif>Partial</option>
                                                 <option value="All or Nothing" @if((isset($step3dataForm["funding_type"]))&&($step3dataForm["funding_type"]=="All or Nothing")) selected @endif>All or Nothing</option>
                                             </select>

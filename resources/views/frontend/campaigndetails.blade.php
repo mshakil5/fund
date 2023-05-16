@@ -87,12 +87,39 @@
                     </div>
                     <div class="tab-pane fade p-4 bg-white" id="profile-tab-pane" role="tabpanel"
                         aria-labelledby="profile-tab" tabindex="0">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, deserunt a, nesciunt
-                        explicabo culpa officia aperiam repellat, enim q a, cumque saepe.
+                        {!!$data->information!!}
                     </div>
                     <div class="tab-pane fade p-4 bg-white" id="contact-tab-pane" role="tabpanel"
                         aria-labelledby="contact-tab" tabindex="0">
-                        Lorem ipsum dolor llat, enim quod veritatis fugit mollitia! Dicta, cumque saepe.
+                        <div class=" my-2 d-flex align-items-center justify-content-between">
+                            <div>
+                                <img src="https://via.placeholder.com/60x60.png" alt="" class="img-fluid rounded">
+                                <h5 class="user d-inline ms-2 fw-bold">
+                                    Martin Smith
+                                </h5>
+                            </div>
+                            
+                        </div><div class=" my-2 d-flex align-items-center justify-content-between">
+                            <div>
+                                <img src="https://via.placeholder.com/60x60.png" alt="" class="img-fluid rounded">
+                                <h5 class="user d-inline ms-2 fw-bold">
+                                    Martin Smith
+                                </h5>
+                            </div>
+                            
+                        </div>
+                        <div class="ermsg"></div>
+                        <div class="form-custom">
+                            <div class="title text-center txt-secondary">Comment</div>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3" id="message" name="message" placeholder="Message" required></textarea> 
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <button id="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">make comment</button>
+                            </div>
+                        </div>
+
                     </div>
                     
                 </div>

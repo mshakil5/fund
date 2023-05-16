@@ -78,7 +78,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div>
-                                                        <label for="source">Why you are fundrising?</label>
+                                                        <label for="source">Category</label>
                                                         <select name="source" id="source" class="form-control  select2" required>
                                                             <option value="">Select</option>
                                                             @foreach ($source as $source)
@@ -154,12 +154,12 @@
                                     <input type="text" name="tagline" class="form-control" id="tagline">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6">
                                 <div>
                                     <label for="category" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Category </label>
                                     <input type="text" name="category" class="form-control"  id="category">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-lg-6">
                                 <div>
                                     <label for="location" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Location </label>
@@ -177,7 +177,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div>
                                     <label for="end_date" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> End Date </label>
                                     <input type="date" name="end_date" class="form-control" id="end_date">
@@ -227,24 +227,22 @@
                                 
                                 
                             </div>
-                            <div class="col-lg-12">
+                            {{-- <div class="col-lg-12">
                                 <div>
                                     <label for="country_address" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Country </label>
                                     <input type="text" name="country_address" class="form-control" id="country_address" >
                                 </div>
-                                
-                                
                             </div>
                             <div class="col-lg-12">
                                 <div>
                                     <label for="address" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Address </label>
                                     <textarea name="address" id="address" class="form-control"></textarea>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-6">
                                 <div>
-                                    <label for="city" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">City</label>
+                                    <label for="city" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">House Number</label>
                                     <input type="text" name="city" class="form-control" id="city">
                                 </div>
                             </div>
@@ -286,18 +284,18 @@
                 <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                     <div class="data-container">
                         <div class="row">
-                            <div class="col-lg-6">      
+                            {{-- <div class="col-lg-6">      
                                 <div>
                                     <label for="currency" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Currency </label>
                                     <input type="text" name="currency" class="form-control" id="currency" required>
                                 </div>               
-                            </div>
-                            <div class="col-lg-6">
+                            </div> --}}
+                            {{-- <div class="col-lg-6">
                                 <div>
                                     <label for="bank_account_country" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Country </label>
                                     <input type="text" name="bank_account_country" class="form-control" id="bank_account_country" required>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-lg-6">
                                 <div>
                                     <label for="name_of_account" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Name of the account</label>
@@ -327,27 +325,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6" style="display:none">
-                                <div>
-                                    <label for="bank_account_class" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Bank Account Class </label>
-                                    <select name="bank_account_class" id="bank_account_class"  class="form-control" required>
-                                        <option value="">Select</option>
-                                        <option value="Personal">Personal</option>
-                                        <option value="Corporate">Corporate</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6" style="display:none">
-                                <div>
-                                    <label for="bank_account_type" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Bank Account Type </label>
-                                    <select name="bank_account_type" id="bank_account_type"  class="form-control" required>
-                                        <option value="">Select</option>
-                                        <option value="Checking">Checking</option>
-                                        <option value="Saving">Saving</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
+                            
+                            {{-- <div class="col-lg-12">
                                 <div>
                                     <label for="bank_routing" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Bank Routing </label>
                                     <select name="bank_routing" id="bank_routing"  class="form-control" required>
@@ -365,7 +344,7 @@
                                     <label for="iban" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">IBAN </label>
                                     <input type="text" name="iban" class="form-control" id="iban" required>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-6">
                                 <div>
@@ -427,7 +406,9 @@
                                 @foreach ($data as $key => $data)
                                     <tr>
                                         <td style="text-align: center">{{ $key + 1 }}</td>
-                                        <td style="text-align: center">{{$data->title}}</td>
+                                        <td style="text-align: center">
+                                            <a href="{{route('admin.campaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
+                                        </td>
                                         <td style="text-align: center">{{$data->user->name}}</td>
                                         <td style="text-align: center">{{$data->country->name}}</td>
                                         <td style="text-align: center">{{$data->raising_goal}}</td>
@@ -439,6 +420,9 @@
                                         </td>
                                         
                                         <td style="text-align: center">
+                                            
+                                            <a href="{{route('admin.addinfo',$data->id)}}"> <i class="fa fa-plus" style="color: rgb(116, 197, 133);font-size:16px;"> </i></a>
+
                                             <a href="{{route('admin.campaignEdit',$data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
                                             <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
 

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ContactMailController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\FundraisingSourceController;
+use App\Http\Controllers\Admin\EmailContentController;
 
 
 
@@ -56,6 +57,9 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/new-fundraiser-update', [UserController::class, 'newfundraiserupdate']);
     Route::get('/new-fundraiser/{id}', [UserController::class, 'newfundraiserdelete']);
 
+    
+    Route::get('/new-fundraiser-campaign/{id}', [UserController::class, 'fundraisersCampaign'])->name('admin.usercampaignView');
+
     // Route::post('/fundraiser-update', [UserController::class, 'fundraiserUpdate']);
     // fundraiser profile
     Route::get('/fundraiser-profile/{id}', [UserController::class, 'fundraiserProfile'])->name('admin.fundraiserProfile');
@@ -78,10 +82,17 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // campaign
     Route::get('/campaign', [CampaignController::class, 'getCampaignByAdmin'])->name('admin.campaign');
+    Route::get('/live-campaign', [CampaignController::class, 'getLiveCampaignByAdmin'])->name('admin.livecampaign');
+    Route::get('/close-campaign', [CampaignController::class, 'getCloseCampaignByAdmin'])->name('admin.closecampaign');
     Route::post('/campaign', [CampaignController::class, 'storeCampaignByAdmin']);
     Route::get('/campaign-edit/{id}', [CampaignController::class, 'editCampaignByAdmin'])->name('admin.campaignEdit');
+    Route::get('/campaign-addinfo/{id}', [CampaignController::class, 'addinfoCampaignByAdmin'])->name('admin.addinfo');
     Route::post('/campaign-update', [CampaignController::class, 'updateCampaignByAdmin']);
+    Route::post('/campaign-info-update', [CampaignController::class, 'updateCampaignInfoByAdmin']);
     Route::get('/campaign/{id}', [CampaignController::class, 'deleteCampaignByAdmin']);
+
+    // campaign view
+    Route::get('/campaign-view/{id}', [CampaignController::class, 'viewCampaignByAdmin'])->name('admin.campaignView');
 
     // active deactive campaign
     Route::get('active-campaign', [CampaignController::class, 'activeCampaign']);
@@ -120,6 +131,14 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/all-data', [MasterController::class, 'store']);
     Route::get('/all-data/{id}/edit', [MasterController::class, 'edit']);
     Route::put('/all-data/{id}', [MasterController::class, 'update']);
+
+    
+    // email-content
+    Route::get('/email-content', [EmailContentController::class, 'index'])->name('admin.emailcontent');
+    Route::post('/email-content', [EmailContentController::class, 'store']);
+    Route::get('/email-content/{id}/edit', [EmailContentController::class, 'edit']);
+    Route::put('/email-content/{id}', [EmailContentController::class, 'update']);
+    Route::get('/email-content/{id}', [EmailContentController::class, 'delete']);
 
 
     // all-data

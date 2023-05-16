@@ -18,7 +18,7 @@
                             <div class="title darkerGrotesque-bold lh-1 fs-1">
                                 @if (isset($success))
                                     <span class="login-head" role="alert">
-                                        <strong>{{ $success }}</strong>
+                                        <strong>{!! $success !!}</strong>
                                     </span>
                                 @endif
                                 @if (isset($error))

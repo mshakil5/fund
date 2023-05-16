@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Country;
+use App\Models\FundraisingSource;
+use Carbon\Carbon;
+use App\Models\Campaign;
 use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -230,5 +234,16 @@ class UserController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
         }
 
+    }
+
+    // close campaign by admin
+    public function fundraisersCampaign($id)
+    {
+        $todate = Carbon::now();
+        $countries = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $users = User::select('id','name','email')->where('is_type','0')->get();
+        $data = Campaign::orderby('id','DESC')->where('user_id',$id)->get();
+        return view('admin.campaign.index',compact('countries','source','data','users'));
     }
 }

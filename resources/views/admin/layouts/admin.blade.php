@@ -63,6 +63,8 @@
                         <div class="accordion-body">
                             <li><a href="{{route('admin.fundraisingsource')}}" class="nav-link {{ (request()->is('admin/fundraising-source*')) ? 'current' : '' }}">Fundraising Source</a></li>
                             <li><a href="{{route('admin.campaign')}}" class="nav-link {{ (request()->is('admin/campaign*')) ? 'current' : '' }}">New Campaign</a></li>
+                            <li><a href="{{route('admin.livecampaign')}}" class="nav-link {{ (request()->is('admin/live-campaign*')) ? 'current' : '' }}">Live Campaign</a></li>
+                            <li><a href="{{route('admin.closecampaign')}}" class="nav-link {{ (request()->is('admin/close-campaign*')) ? 'current' : '' }}">Close Campaign</a></li>
                         </div>
                       </div>
                     </div> 
@@ -75,6 +77,9 @@
                 <li><a href="{{route('admin.master')}}" class="nav-link {{ (request()->is('admin/all-data*')) ? 'current' : '' }}">All Data</a></li>
                 <li><a href="{{route('admin.hometopsection')}}" class="nav-link {{ (request()->is('admin/home-top-section*')) ? 'current' : '' }}">Homepage Top Section</a></li>
                 <li><a href="{{route('admin.contact-mail')}}" class="nav-link {{ (request()->is('admin/contact-mail*')) ? 'current' : '' }}">Contact Mail</a></li>
+                
+                <li><a href="{{route('admin.emailcontent')}}" class="nav-link {{ (request()->is('admin/email-content*')) ? 'current' : '' }}">Email Content</a></li>
+
                 {{-- <li><a href="order-voucher-books.html">Order voucher books</a></li>
                 <li><a href="tevini-card.html">Tevini card</a></li>
                 <li><a href="view-transactions.html">View transactions</a></li>

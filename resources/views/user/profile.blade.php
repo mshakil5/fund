@@ -20,7 +20,7 @@
                 <div class="row darkerGrotesque-semibold "> 
 
                         <p class="mb-1"> Name: {{ Auth::user()->name }} </p>
-                        <p class="mb-1"> Surname: {{ Auth::user()->surname }} </p>
+                        <p class="mb-1"> Surname: {{ Auth::user()->sur_name }} </p>
                         <p class="mb-1"> Phone: {{ Auth::user()->phone }} </p>
                         <p class="mb-1"> email: {{ Auth::user()->email }} </p>
                         <p class="mb-1"> House Number: {{ Auth::user()->house_number }} </p>
