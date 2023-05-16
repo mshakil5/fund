@@ -8,6 +8,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\FundraiserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CharityController;
 use App\Http\Controllers\StripeController;
@@ -102,6 +103,9 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/campaign-donate/{id}', [CampaignController::class, 'campaignDonate'])->name('frontend.campaignDonate');
 
     Route::post('/campaign-message', [FrontendController::class, 'campaignMessage'])->name('campaign.message');
+
+    // comment 
+    Route::post('/campaign-comment', [CommentController::class, 'campaignComment'])->name('campaign.comment');
     
     // Route::get('stripe', [StripeController::class, 'stripe']);
     Route::post('/stripe', [StripeController::class,'stripePyament'])->name("stripe.post");

@@ -91,32 +91,41 @@
                     </div>
                     <div class="tab-pane fade p-4 bg-white" id="contact-tab-pane" role="tabpanel"
                         aria-labelledby="contact-tab" tabindex="0">
+
+                        @foreach (\App\Models\Comment::where('campaign_id', $data->id)->orderby('id','DESC')->get(); as $comment)
                         <div class=" my-2 d-flex align-items-center justify-content-between">
                             <div>
-                                <img src="https://via.placeholder.com/60x60.png" alt="" class="img-fluid rounded">
                                 <h5 class="user d-inline ms-2 fw-bold">
-                                    Martin Smith
+                                    {{$comment->user->name}}
                                 </h5>
+                                <p>{{$comment->comment}}</p>
                             </div>
-                            
-                        </div><div class=" my-2 d-flex align-items-center justify-content-between">
-                            <div>
-                                <img src="https://via.placeholder.com/60x60.png" alt="" class="img-fluid rounded">
-                                <h5 class="user d-inline ms-2 fw-bold">
-                                    Martin Smith
-                                </h5>
-                            </div>
-                            
                         </div>
-                        <div class="ermsg"></div>
+                        @endforeach
+                        
+                        
+                        <div class="cmntermsg"></div>
                         <div class="form-custom">
                             <div class="title text-center txt-secondary">Comment</div>
                             <div class="form-group">
-                                <textarea class="form-control" rows="3" id="message" name="message" placeholder="Message" required></textarea> 
+                                <textarea class="form-control" rows="3" id="comment" name="comment" placeholder="Message" required></textarea> 
                             </div>
                             <br>
                             <div class="form-group">
-                                <button id="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">make comment</button>
+
+
+                                
+                            @if (Auth::user())
+                                <!-- Button trigger modal -->
+                                
+                                <button id="commentsubmit" class="btn-theme bg-primary d-block text-center mx-0 w-100"> Comment</button>
+                            @else
+                                <!-- Button trigger modal -->
+                                <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0 btn-contact" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    Comment
+                                </button>
+                            @endif
+
                             </div>
                         </div>
 
@@ -403,6 +412,33 @@
                                $(".ermsg").html(d.message);
                            }else if(d.status == 300){
                                $(".ermsg").html(d.message);
+                               window.setTimeout(function(){location.reload()},2000)
+                           }
+                       },
+                       error: function (d) {
+                           console.log(d);
+                       }
+                   });
+
+           });
+           // send mail end
+
+
+           //  make mail start
+           var cmnturl = "{{URL::to('/campaign-comment')}}";
+           $("#commentsubmit").click(function(){
+            
+                   var comment = $("#comment").val();
+                   var campaignid = $("#campaignid").val();
+                   $.ajax({
+                       url: cmnturl,
+                       method: "POST",
+                       data: {comment,campaignid},
+                       success: function (d) {
+                           if (d.status == 303) {
+                               $(".cmntermsg").html(d.message);
+                           }else if(d.status == 300){
+                               $(".cmntermsg").html(d.message);
                                window.setTimeout(function(){location.reload()},2000)
                            }
                        },
