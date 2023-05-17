@@ -14,6 +14,7 @@ use Mail;
 use App\Models\CampaignImage;
 use App\Models\User;
 use Illuminate\support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CampaignController extends Controller
 {
@@ -29,6 +30,27 @@ class CampaignController extends Controller
         $campaign = Campaign::where('id','!=',$id)->whereStatus(1)->orderby('id','DESC')->get();
         $data = Campaign::where('id',$id)->first();
         return view('frontend.campaignpayment', compact('data','campaign'));
+    }
+
+    public function downloadImage($id)
+    {
+        $imagename = CampaignImage::where('id',$id)->first()->image;
+        $filepath = public_path('images/campaign/').$imagename;
+        return response()->download($filepath);
+    }
+
+    public function downloadFeatureImage($id)
+    {
+        $imagename = Campaign::where('id',$id)->first()->image;
+        $filepath = public_path('images/campaign/').$imagename;
+        return response()->download($filepath);
+    }
+
+    public function downloadBankDoc($id)
+    {
+        $imagename = Campaign::where('id',$id)->first()->bank_verification_doc;
+        $filepath = public_path('images/bank/').$imagename;
+        return response()->download($filepath);
     }
 
     public function newCampaignStore(Request $request)

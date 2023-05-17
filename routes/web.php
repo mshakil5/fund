@@ -114,6 +114,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/referral/campaign', [FundraiserController::class, 'getCampaignReferralLink']);
     Route::post('/referral/campaign', [FundraiserController::class, 'storeCampaignReferralLink'])->name('user.confirmrefcapmaign');
 
+    
+
 });
 
 

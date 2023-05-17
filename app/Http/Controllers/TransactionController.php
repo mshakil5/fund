@@ -34,16 +34,13 @@ class TransactionController extends Controller
     {
         
         $t_id = time() . "-" . $request->user_id;
-
-
-
             $transaction = new Transaction();
             $transaction->date = date('Y-m-d');
             $transaction->tran_no = $t_id;
             $transaction->user_id = $request->user_id;
             $transaction->tran_type = "Out";
             $transaction->name = $request->source;
-            $transaction->amount = $request->balance;
+            $transaction->amount = $request->amount;
             $transaction->description = $request->description;
             $transaction->status = "1";
             $transaction->save();

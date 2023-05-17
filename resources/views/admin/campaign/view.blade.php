@@ -369,7 +369,7 @@
                                                             </td>
                                                             
                                                             <td style="text-align: center">
-                                                                
+                                                                <a href="{{ route('download.campaignimage',$cimg->id) }}" target="_blank"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -383,7 +383,7 @@
                                                                 
                                                             </td>
                                                             <td style="text-align: center">
-                                                                
+                                                                <a href="{{ route('download.featureimage',$data->id) }}" target="_blank"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i></a>
                                                             </td>
                                                         </tr>
                                                         @endif
@@ -398,6 +398,7 @@
                                                             </td>
                                                             <td style="text-align: center">
                                                                 
+                                                                <a href="{{ route('download.bankdoc',$data->id) }}" target="_blank"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i></a>
                                                             </td>
                                                         </tr>
                                                         @endif

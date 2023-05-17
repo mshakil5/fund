@@ -67,6 +67,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // fundraiser donation
     Route::get('/fundraiser-donation/{id}', [FundraiserController::class, 'fundraiserDonation'])->name('admin.fundraiserdonation');
+    Route::get('/fundraiser-transaction/{id}', [FundraiserController::class, 'fundraiserTransaction'])->name('admin.fundraisertran');
 
     // active deactive fundraiser
     Route::get('active-fundraiser', [UserController::class, 'activefundraiser']);
@@ -97,6 +98,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // active deactive campaign
     Route::get('active-campaign', [CampaignController::class, 'activeCampaign']);
+
+    // image download
+    Route::get('image-download/{id}', [CampaignController::class, 'downloadImage'])->name('download.campaignimage');
+    Route::get('feature-image-download/{id}', [CampaignController::class, 'downloadFeatureImage'])->name('download.featureimage');
+    Route::get('bankdoc-download/{id}', [CampaignController::class, 'downloadBankDoc'])->name('download.bankdoc');
     
 
     // photo

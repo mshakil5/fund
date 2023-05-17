@@ -5,7 +5,7 @@
 
 <a href="{{route('admin.fundraiserProfile',$id)}}" class="btn-theme bg-primary">Profile</a>
 <a href="{{route('admin.fundraiserdonation',$id)}}" class="btn-theme bg-primary">Donation</a>
-
+<a href="{{route('admin.fundraisertran',$id)}}" class="btn-theme bg-primary">Transaction</a>
     <hr>
 <!-- content area -->
 {{-- <section class="bleesed default">

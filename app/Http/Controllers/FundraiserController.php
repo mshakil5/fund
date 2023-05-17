@@ -63,14 +63,18 @@ class FundraiserController extends Controller
         
     }
 
-
-
-
-
     public function fundraiserDonation($id)
     {
         $data = Transaction::where('user_id', $id)->get();
         return view('admin.fundraiser.fundraiserdonation', compact('data','id'));
     }
+
+    public function fundraiserTransaction($id)
+    {
+        $data = Transaction::where('user_id', $id)->get();
+        return view('admin.fundraiser.fundraisertransaction', compact('data','id'));
+    }
+
+    
 
 }
