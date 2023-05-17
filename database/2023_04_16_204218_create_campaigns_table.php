@@ -64,6 +64,7 @@ return new class extends Migration
             $table->tinyInteger('admin_notification')->default(0);
             $table->tinyInteger('user_notification')->default(0);
             $table->tinyInteger('user_status')->default(0);
+            $table->boolean('homepage')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();

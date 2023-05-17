@@ -65,6 +65,7 @@
                             <li><a href="{{route('admin.campaign')}}" class="nav-link {{ (request()->is('admin/campaign*')) ? 'current' : '' }}">New Campaign</a></li>
                             <li><a href="{{route('admin.livecampaign')}}" class="nav-link {{ (request()->is('admin/live-campaign*')) ? 'current' : '' }}">Live Campaign</a></li>
                             <li><a href="{{route('admin.closecampaign')}}" class="nav-link {{ (request()->is('admin/close-campaign*')) ? 'current' : '' }}">Close Campaign</a></li>
+                            <li><a href="{{route('admin.givinglevel')}}" class="nav-link {{ (request()->is('admin/giving-level*')) ? 'current' : '' }}">Giving Level</a></li>
                         </div>
                       </div>
                     </div> 

@@ -420,6 +420,7 @@
                                 <th style="text-align: center">Country</th>
                                 <th style="text-align: center">Raising Goal</th>
                                 <th style="text-align: center">Status</th>
+                                <th style="text-align: center">Homepage</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
                             </thead>
@@ -439,12 +440,17 @@
                                                 <input class="form-check-input campaignstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="campaignstatus" @if ($data->status == 1) checked @endif >
                                             </div>
                                         </td>
+
+                                        <td style="text-align: center">
+                                            {{-- {{$data->status}} --}}
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input homepage" type="checkbox" role="switch"  data-id="{{$data->id}}" id="homepage" @if ($data->homepage == 1) checked @endif >
+                                            </div>
+                                        </td>
                                         
                                         <td style="text-align: center">
                                             <a href="{{route('admin.campaignEdit',$data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
                                             <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
-
-                                            
                                         </td>
                                     </tr>
                                 @endforeach
@@ -455,9 +461,6 @@
             </div>
         </div>
     </div>
-
-
-        
 </div>
 
 
@@ -480,6 +483,36 @@
               dataType: "json",
               url: url,
               data: {'status': status, 'id': id},
+              success: function(d){
+                // console.log(data.success)
+                if (d.status == 303) {
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }else if(d.status == 300){
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+          });
+      })
+    })
+
+    $(function() {
+      $('.homepage').change(function() {
+        var url = "{{URL::to('/admin/active-homepage-campaign')}}";
+          var homepage = $(this).prop('checked') == true ? 1 : 0;
+          var id = $(this).data('id');
+           console.log(id);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: url,
+              data: {'homepage': homepage, 'id': id},
               success: function(d){
                 // console.log(data.success)
                 if (d.status == 303) {

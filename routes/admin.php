@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\FundraisingSourceController;
 use App\Http\Controllers\Admin\EmailContentController;
+use App\Http\Controllers\Admin\GivingLevelController;
 
 
 
@@ -98,6 +99,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // active deactive campaign
     Route::get('active-campaign', [CampaignController::class, 'activeCampaign']);
+    Route::get('active-homepage-campaign', [CampaignController::class, 'activeHomepageCampaign']);
+    Route::get('active-comment', [CampaignController::class, 'activeComment']);
 
     // image download
     Route::get('image-download/{id}', [CampaignController::class, 'downloadImage'])->name('download.campaignimage');
@@ -156,6 +159,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // payment
     Route::get('/fundraiser-pay/{id}', [TransactionController::class, 'fundraiserPay'])->name('admin.fundraiserPay');
     Route::post('/fundraiser-pay', [TransactionController::class, 'fundraiserPayStore'])->name('admin.fundraiserPaystore');
+
+    // giving-level
+    Route::get('/giving-level', [GivingLevelController::class, 'index'])->name('admin.givinglevel');
+    Route::post('/giving-level', [GivingLevelController::class, 'store']);
+    Route::get('/giving-level/{id}/edit', [GivingLevelController::class, 'edit']);
+    Route::put('/giving-level/{id}', [GivingLevelController::class, 'update']);
+    Route::get('/giving-level/{id}', [GivingLevelController::class, 'delete']);
 
 });
 //admin part end

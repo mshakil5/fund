@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use DB;
 use Mail;
 use App\Models\CampaignImage;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -297,8 +298,7 @@ class CampaignController extends Controller
 
     public function viewCampaignByAdmin($id)
     {
-        
-        $data = Campaign::with('transaction','campaignimage','campaignshare')->where('id', $id)->first();
+        $data = Campaign::with('transaction','campaignimage','campaignshare','comment')->where('id', $id)->first();
         // dd($data);
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
@@ -455,7 +455,6 @@ class CampaignController extends Controller
         $data = Campaign::find($request->id);
         $data->status = $request->status;
         $data->save();
-
         if($request->status==1){
             $active = Campaign::find($request->id);
             $active->status = $request->status;
@@ -469,8 +468,49 @@ class CampaignController extends Controller
             $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
         }
-
     }
+
+    public function activeHomepageCampaign(Request $request)
+    {
+        $data = Campaign::find($request->id);
+        $data->homepage = $request->homepage;
+        $data->save();
+        if($request->homepage==1){
+            $active = Campaign::find($request->id);
+            $active->homepage = $request->homepage;
+            $active->save();
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            $deactive = Campaign::find($request->id);
+            $deactive->homepage = $request->homepage;
+            $deactive->save();
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+    }
+
+    public function activeComment(Request $request)
+    {
+        $data = Comment::find($request->id);
+        $data->status = $request->status;
+        $data->save();
+        if($request->status==1){
+            $active = Comment::find($request->id);
+            $active->status = $request->status;
+            $active->save();
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            $deactive = Comment::find($request->id);
+            $deactive->status = $request->status;
+            $deactive->save();
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+    }
+
+    
 
     // step 1 show
     public function step1_show_startCampaign()

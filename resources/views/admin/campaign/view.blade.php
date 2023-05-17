@@ -16,13 +16,12 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="ermsg"></div>
+            <div class="stsermsg"></div>
         </div>
     </div>
 
 
 <div id="addThisFormContainer">
-    
-    
     
     <div class="row ">
         <div class="col-lg-12">
@@ -56,6 +55,11 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="transaction-tab" data-bs-toggle="tab" data-bs-target="#transaction"
                         type="button" role="tab" aria-controls="transaction" aria-selected="false">Transaction</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="comment-tab" data-bs-toggle="tab" data-bs-target="#comment"
+                        type="button" role="tab" aria-controls="comment" aria-selected="false"> Comment</button>
                 </li>
 
             </ul>
@@ -353,6 +357,7 @@
                                                     <tr>
                                                         <th style="text-align: center">ID</th>
                                                         <th style="text-align: center">Title</th>
+                                                        <th style="text-align: center">Image Category</th>
                                                         <th style="text-align: center">Image</th>
                                                         <th style="text-align: center">Action</th>
                                                     </tr>
@@ -362,6 +367,7 @@
                                                         <tr>
                                                             <td style="text-align: center">{{ $key + 1 }}</td>
                                                             <td style="text-align: center">{{$data->title}}</td>
+                                                            <td style="text-align: center">Slider Image</td>
                                                             <td style="text-align: center">
                                                                 @if ($cimg->image)
                                                                 <img src="{{asset('images/campaign/'.$cimg->image)}}" height="120px" width="220px" alt="">
@@ -369,28 +375,33 @@
                                                             </td>
                                                             
                                                             <td style="text-align: center">
-                                                                <a href="{{ route('download.campaignimage',$cimg->id) }}" target="_blank"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i></a>
+                                                                <a href="{{ route('download.campaignimage',$cimg->id) }}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i>  Download</a>
+
+
+
                                                             </td>
                                                         </tr>
                                                     @endforeach
                                                         @if ($data->image)
                                                         <tr>
                                                             <td style="text-align: center">{{ $key + 1 }}</td>
-                                                            <td style="text-align: center">{{$data->title}}: Feature Image</td>
+                                                            <td style="text-align: center">{{$data->title}}</td>
+                                                            <td style="text-align: center"> Feature Image</td>
                                                             <td style="text-align: center">
                                                                 
                                                                 <img src="{{asset('images/campaign/'.$data->image)}}" height="120px" width="220px" alt="">
                                                                 
                                                             </td>
                                                             <td style="text-align: center">
-                                                                <a href="{{ route('download.featureimage',$data->id) }}" target="_blank"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i></a>
+                                                                <a href="{{ route('download.featureimage',$data->id) }}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i> Download</a>
                                                             </td>
                                                         </tr>
                                                         @endif
                                                         @if ($data->bank_verification_doc)
                                                         <tr>
                                                             <td style="text-align: center">{{ $key + 1 }}</td>
-                                                            <td style="text-align: center">{{$data->title}}: Bank Document</td>
+                                                            <td style="text-align: center">{{$data->title}}</td>
+                                                            <td style="text-align: center">Bank Document</td>
                                                             <td style="text-align: center">
                                                                 
                                                                 <img src="{{asset('images/bank/'.$data->bank_verification_doc)}}" height="120px" width="220px" alt="">
@@ -398,7 +409,7 @@
                                                             </td>
                                                             <td style="text-align: center">
                                                                 
-                                                                <a href="{{ route('download.bankdoc',$data->id) }}" target="_blank"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i></a>
+                                                                <a href="{{ route('download.bankdoc',$data->id) }}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i> Download</a>
                                                             </td>
                                                         </tr>
                                                         @endif
@@ -507,6 +518,57 @@
                         </div>
                     </div>
                 </div>
+
+                
+                <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="doc-tab">
+                    <div class="data-container">
+                        
+                        <div id="contentContainer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card" style="background-color: #fdf3ee">
+                                        <div class="card-header">
+                                            <h3> All Comment</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-bordered table-hover" id="exdatatable">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center">ID</th>
+                                                        <th style="text-align: center">Campaign Title</th>
+                                                        <th style="text-align: center">User</th>
+                                                        <th style="text-align: center">Comment</th>
+                                                        <th style="text-align: center">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($data->comment as $key => $comment)
+                                                        <tr>
+                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center">{{$data->title}}</td>
+                                                            <td style="text-align: center">
+                                                            {{$comment->user->name}}
+                                                            </td>
+                                                            <td style="text-align: center">
+                                                                {{$comment->comment}}
+                                                            </td>
+                                                            <td style="text-align: center">
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input commentstatus" type="checkbox" role="switch"  data-id="{{$comment->id}}" id="commentstatus" @if ($comment->status == 1) checked @endif >
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         {{-- <div class="col-lg-12">
@@ -528,6 +590,36 @@
     $('.summernote').summernote({
         height: 400
     });
+
+    $(function() {
+      $('.commentstatus').change(function() {
+        var url = "{{URL::to('/admin/active-comment')}}";
+          var status = $(this).prop('checked') == true ? 1 : 0;
+          var id = $(this).data('id');
+           console.log(id);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: url,
+              data: {'status': status, 'id': id},
+              success: function(d){
+                // console.log(data.success)
+                if (d.status == 303) {
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }else if(d.status == 300){
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+          });
+      })
+    })
 </script>
 <script>
     
