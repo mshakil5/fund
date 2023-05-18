@@ -58,8 +58,6 @@ Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('fronte
 
 Route::post('/contact-submit', [FrontendController::class, 'visitorContact'])->name('contact.submit');
 
-
-
 Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->name('frontend.campaignDetails');
 
 /*----------------------Charity Registration-----------------------*/
@@ -101,6 +99,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     // campaign donate
     Route::get('/campaign-donate/{id}', [CampaignController::class, 'campaignDonate'])->name('frontend.campaignDonate');
+    Route::get('/charity-donate/{id}', [CharityController::class, 'charityDonate'])->name('frontend.charityDonate');
 
     Route::post('/campaign-message', [FrontendController::class, 'campaignMessage'])->name('campaign.message');
 
@@ -109,7 +108,6 @@ Route::group(['middleware' => ['auth']], function(){
     
     // Route::get('stripe', [StripeController::class, 'stripe']);
     Route::post('/stripe', [StripeController::class,'stripePyament'])->name("stripe.post");
-
     
     Route::get('/referral/campaign', [FundraiserController::class, 'getCampaignReferralLink']);
     Route::post('/referral/campaign', [FundraiserController::class, 'storeCampaignReferralLink'])->name('user.confirmrefcapmaign');

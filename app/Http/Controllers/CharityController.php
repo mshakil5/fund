@@ -203,7 +203,6 @@ class CharityController extends Controller
 
     public function newCharitydelete($id)
     {
-
         if(User::destroy($id)){
             return response()->json(['success'=>true,'message'=>'User has been deleted successfully']);
         }else{
@@ -230,7 +229,13 @@ class CharityController extends Controller
             $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
         }
+    }
 
+    public function charityDonate($id)
+    {
+        $data = User::where('id',$id)->first();
+        // dd($data);
+        return view('frontend.charitypayment', compact('data'));
     }
 
     

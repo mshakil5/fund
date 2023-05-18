@@ -154,195 +154,112 @@
             </div>
             @endforeach
 
-
-            {{-- <div class="col-lg-4 col-md-6 ">
-                <div class="card-theme mb-3">
-                    <div class="topper">
-                        <a href="#" class="p-0">
-                            <img src="https://via.placeholder.com/1000x700.png">
-                        </a>
-                    </div>
-                    <div class="card-body ">
-                        <div class="inner">
-                            <div class="card-title text-start ">
-                                <a href="#">
-                                    Help Save Families in Yemen from Famine this Ramadan
-                                </a>
-                            </div>
-                            <div class="status d-flex py-2">
-                                <span class="d-flex align-items-center me-4">
-                                    <iconify-icon class="me-1" icon="ic:baseline-people-outline"></iconify-icon>
-                                    1051
-                                </span>
-                                <span class="d-flex align-items-center me-2">
-                                    <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 10 days
-                                    left
-                                </span>
-                            </div>
-                            <div class="progress " style="height: 7px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <div>
-                                    <h4 class="mb-1 text-dark fw-bold">$60,032</h4>
-                                    <h6 class="mb-1 text-dark  fw-bold">funded of $70K</h6>
-                                </div>
-                                <div>
-                                    <a href="#" class="btn-theme bg-primary">Donate Now</a>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-4 col-md-6 ">
-                <div class="card-theme mb-3">
-                    <div class="topper">
-                        <a href="#" class="p-0">
-                            <img src="https://via.placeholder.com/1000x700.png">
-                        </a>
-                    </div>
-                    <div class="card-body ">
-                        <div class="inner">
-                            <div class="card-title text-start ">
-                                <a href="#">
-                                    Help Save Families in Yemen from Famine this Ramadan
-                                </a>
-                            </div>
-                            <div class="status d-flex py-2">
-                                <span class="d-flex align-items-center me-4">
-                                    <iconify-icon class="me-1" icon="ic:baseline-people-outline"></iconify-icon>
-                                    1051
-                                </span>
-                                <span class="d-flex align-items-center me-2">
-                                    <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 10 days
-                                    left
-                                </span>
-                            </div>
-                            <div class="progress " style="height: 7px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <div>
-                                    <h4 class="mb-1 text-dark fw-bold">$60,032</h4>
-                                    <h6 class="mb-1 text-dark  fw-bold">funded of $70K</h6>
-                                </div>
-                                <div>
-                                    <a href="#" class="btn-theme bg-primary">Donate Now</a>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </div> --}}
-
-
-
         </div>
     </div>
 </section>
-{{-- <section class="banner py-4 d-flex align-items-center">
+
+
+<section class="campaign default">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 mx-auto">
-                <div class="row">
-                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                        <div class="inner w-75">
-                            <div class="intro-title">
-                                Lorem ipsum dolor sit amet.
-                            </div>
-                            <p class="txt-theme mb-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex,
-                                vel quia? Aliquam fugit magni blanditiis.</p>
-                            <div>
-                                <a href="{{ route('register')}}" class="btn-theme bg-secondary">Open an account</a>
-                                <a href="{{ route('frontend.work')}}" class="btn-theme bg-primary">How it works</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 d-flex align-items-center">
-                        <img src="https://via.placeholder.com/510x440.png" alt="" class="w-100">
-                    </div>
-                </div>
+        <div class="row mb-5">
+            <div class="title ">
+                We help charities, raise more
             </div>
         </div>
-    </div>
-</section>
-<section class="bleesed default">
-    <div class="container">
-        <div class="row d-flex align-items-center justify-content-center">
+        <br>
+        <div class="row"> 
 
-            <div class="title">We’re a not-for-profit company from Fundd Group</div>
-            <div class="para text-center mt-4">
-                <p> We don’t believe that business should profit from charity which is why we set up Fundd Money
-                    Giving, as a much needed not-for-profit alternative to challenge the status quo.</p>
-                <p>
-                    Are you ready to make a difference?
-                </p>
-                <a href="#" class="btn-theme bg-secondary mx-auto">Create an account</a>
-            </div>
+            @foreach ($charities as $charity)
+            <div class="col-lg-4 mb-3">
+                <div class="charity-card text-center">
+                    @if (isset($charity->photo))
+                        <img src="{{asset('images/'.$charity->photo)}}" class="img-circle">
+                    @else
+                        <img src="https://via.placeholder.com/100.png" class="img-circle">
+                    @endif
 
-
-        </div>
-    </div>
-</section> --}}
-
-{{-- <section class="campaign default">
-    <div class="container">
-        <div class="row">
-            <div class="title">
-                Featured Campaign
-            </div>
-        </div>
-        <div class="row">
-
-
-            @foreach ($campaign as $campaign)
-            <div class="col-lg-4 col-md-6 upperGap">
-                <div class="card-theme  ">
-                    <div class="topper">
-                        <img src="https://via.placeholder.com/100.png" alt="" class="rounded-circle">
-                    </div>
-                    <div class="card-body pt-5">
-                        <div class="inner">
-                            <a href="{{ route('frontend.campaignDetails',$campaign->id)}}">
-                                <div class="card-title">{{$campaign->title}}</div>
-                            </a>
-                            <div class="my-4">
-                                <p class="d-flex mb-0 justify-content-between flex-wrap">
-                                    <span>@if ($campaign->total_collection > 0) £{{$campaign->total_collection}} Raised @else @endif</span>
-                                    <span>Last day</span>
-                                </p>
-                                <p class="d-flex mb-0 justify-content-between flex-wrap">
-                                    <span>£{{$campaign->raising_goal}} Goal </span>
-                                    <span>Days left</span>
-                                </p>
-                            </div>
-                            <a href="{{ route('frontend.campaignDetails',$campaign->id)}}"
-                                class="btn-theme bg-primary mx-auto w-50 text-center d-block">Donate Now</a>
-                        </div>
+                    <div class="title">{{$charity->name}}</div>
+                    <div class="my-3">
+                        @if (Auth::user())
+                            <a href="{{ route('frontend.charityDonate',$charity->id)}}" class="btn-theme bg-primary">Donate Now</a>
+                        @else
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn-theme bg-primary" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Donate Now
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>
             @endforeach
             
+            
+
+
 
         </div>
     </div>
-</section> --}}
+</section>
 
-
+    <!--Login  Modal -->
+    <div  class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+    
+                @if(session()->has('message'))
+                <p class="alert alert-success"> {{ session()->get('message') }}</p>
+                @endif
+                 
+                <form method="POST" action="{{ route('logintodonate') }}" class="form-custom">
+                    @csrf
+    
+                    <div class="title text-center txt-secondary">LOGIN</div>
+                    <div class="form-group">
+                        <input type="hidden" name="charityid" id="charityid" value="">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Login </button>
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                         <a href="{{ route('charity.register')}}" class="btn-theme bg-secondary d-block text-center mx-0 w-100"> Apply for an account</a>
+                    </div>
+                </form>
+    
+    
+    
+            </div>
+          </div>
+        </div>
+    </div>
     
 @endsection
 
-@section('scripts')
+@section('script')
+<script>
+    $(document).on('click', '.btn-contact', function () {
+        charityid = $(this).attr('dataid');
+        $('#loginModal').find('.modal-body #charityid').val(charityid);
+    });
+</script>
 @endsection

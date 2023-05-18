@@ -22,7 +22,8 @@ class FrontendController extends Controller
         $todate = Carbon::now();
         $campaign = Campaign::with('transaction','campaignimage')->where('status','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
         // dd($campaign);
-        return view('frontend.index',compact('campaign','todate'));
+        $charities = User::select('photo','id','name')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('status','1')->get();
+        return view('frontend.index',compact('campaign','todate','charities'));
     }
 
     public function about()
@@ -76,6 +77,8 @@ class FrontendController extends Controller
         ])->groupBy('donation_display_name')->orderby('id','DESC')->limit(5)->get();
 
         // dd($doners);
+
+        
 
         return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids'));
     }

@@ -13,7 +13,7 @@
             <div class="title darkerGrotesque-bold lh-1">{{\App\Models\Master::where('name','about')->first()->title}}</div>
             <div class="para text-center mt-4">
                 {!! \App\Models\Master::where('name','about')->first()->description !!}
-                <a href="{{route('newcampaign')}}" class="btn-theme bg-secondary mx-auto">Fund Now</a>
+                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-secondary mx-auto">Fund Now</a>
             </div>
         </div>
     </div>
