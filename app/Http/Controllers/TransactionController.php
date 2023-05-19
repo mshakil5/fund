@@ -20,7 +20,9 @@ class TransactionController extends Controller
     // charity transaction 
     public function allCharityTransaction()
     {
-        return view('charity.alltransaction');
+        $data = Transaction::where('charity_id', Auth::user()->id)->get();
+        // dd($data);
+        return view('charity.alltransaction', compact('data'));
     }
 
     // charity transaction 
