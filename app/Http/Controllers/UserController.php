@@ -68,7 +68,23 @@ class UserController extends Controller
     // new fundraiser 
     public function newfundraiser()
     {
-        $data = User::where('is_type', '0')->orderby('id','DESC')->get();
+        $fundraiser = Campaign::select('id','user_id', 'status')->pluck('user_id');
+        $data = User::where('is_type', '0')->whereIn('id', $fundraiser)->orderby('id','DESC')->get();
+        return view('admin.fundraiser.fundraiser', compact('data'));
+    }
+
+    public function fundraiserBalance()
+    {
+        $fundraiser = Campaign::select('id','user_id', 'status')->pluck('user_id');
+        $data = User::where('is_type', '0')->whereIn('id', $fundraiser)->where('balance','>', 0)->orderby('id','DESC')->get();
+        return view('admin.fundraiser.fundraiser', compact('data'));
+    }
+
+    // all donor
+    public function getAllDonor()
+    {
+        $fundraiser = Campaign::select('id','user_id', 'status')->pluck('user_id');
+        $data = User::where('is_type', '0')->whereNotIn('id', $fundraiser)->orderby('id','DESC')->get();
         return view('admin.fundraiser.fundraiser', compact('data'));
     }
 

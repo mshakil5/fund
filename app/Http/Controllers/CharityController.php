@@ -90,6 +90,13 @@ class CharityController extends Controller
         return view('admin.charity.charity', compact('countries','data'));
     }
 
+    public function getCharityBalanceByAdmin()
+    {
+        $countries = Country::select('id', 'name')->get();
+        $data = User::where('is_type','2')->where('balance','>', 0)->get();
+        return view('admin.charity.charity', compact('countries','data'));
+    }
+
     public function newCharitystore(Request $request)
     {
         

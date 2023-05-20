@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use App\Models\Transaction;
-
+use App\Models\User;
 
 class StripeController extends Controller
 {
-    public function stripePyament(Request $request)
+    public function CampaignPyament(Request $request)
     {
+        //get campaign details
+        $campaign = Campaign::where('id',$request->campaign_id)->first();
+
+
         $totalamt = $request->amount;
         $amt = $request->amount - $request->c_amount - $request->tips_amount;
 
@@ -56,6 +61,13 @@ class StripeController extends Controller
         $stripetopup->notification = "0";
         $stripetopup->status = "0";
         $stripetopup->save();
+
+        // fundraiser balance update
+            // $fundraiser = User::find($campaign->user_id);
+            // $fundraiser->balance =  $fundraiser->balance + $amt;
+            // $fundraiser->save();
+        // fundraiser balance update end
+
         // Return the client secret to the frontend
         return response()->json([
             'client_secret' => $paymentIntent->client_secret,

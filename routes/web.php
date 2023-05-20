@@ -107,7 +107,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/campaign-comment', [CommentController::class, 'campaignComment'])->name('campaign.comment');
     
     // Route::get('stripe', [StripeController::class, 'stripe']);
-    Route::post('/stripe', [StripeController::class,'stripePyament'])->name("stripe.post");
+    Route::post('/campaign-payment', [StripeController::class,'CampaignPyament'])->name("stripe.post");
     Route::post('/charity-payment', [StripeController::class,'charityPyament'])->name("charitypayment");
     
     Route::get('/referral/campaign', [FundraiserController::class, 'getCampaignReferralLink']);

@@ -54,11 +54,14 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // create fundraiser from admin
     Route::get('/new-fundraiser', [UserController::class, 'newfundraiser'])->name('admin.newfundraiser');
+    Route::get('/fundraiser-balance', [UserController::class, 'fundraiserBalance'])->name('admin.fundraiserBalance');
     Route::post('/new-fundraiser', [UserController::class, 'newfundraiserstore']);
     Route::get('/new-fundraiser/{id}/edit', [UserController::class, 'newfundraiseredit']);
     Route::post('/new-fundraiser-update', [UserController::class, 'newfundraiserupdate']);
     Route::get('/new-fundraiser/{id}', [UserController::class, 'newfundraiserdelete']);
 
+    // donor
+    Route::get('/donor', [UserController::class, 'getAllDonor'])->name('admin.alldonor');
     
     Route::get('/new-fundraiser-campaign/{id}', [UserController::class, 'fundraisersCampaign'])->name('admin.usercampaignView');
 
@@ -75,6 +78,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // create charity from admin
     Route::get('/charity', [CharityController::class, 'getCharityByAdmin'])->name('admin.allcharity');
+    Route::get('/charity-balance', [CharityController::class, 'getCharityBalanceByAdmin'])->name('admin.charityBalance');
     Route::post('/charity', [CharityController::class, 'newCharitystore']);
     Route::get('/charity/{id}/edit', [CharityController::class, 'newCharityedit']);
     Route::post('/charity-update', [CharityController::class, 'newCharityupdate']);

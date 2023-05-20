@@ -425,7 +425,7 @@
       });
     });
   
-    var url = "{{URL::to('/stripe')}}";
+    var url = "{{URL::to('/campaign-payment')}}";
     // Function to confirm the PaymentIntent on the backend
     function confirmPayment(paymentMethodId) {
         if ($('#public').is(":checked")){

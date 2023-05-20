@@ -36,17 +36,51 @@
             <ul class="navigation">
                 <li><a href="{{route('admin.dashboard')}}" class="nav-link {{ (request()->is('admin/dashboard*')) ? 'current' : '' }}">Dashboard</a></li>
 
+                
+
                 <div class="accordion" id="dropdownLink">
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            All Users
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fundtab" aria-expanded="false" aria-controls="fundtab">
+                            Fundraisers
                         </button>
                       </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
+                      <div id="fundtab" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
                         <div class="accordion-body">
                             <li><a href="{{route('admin.newfundraiser')}}" class="nav-link {{ (request()->is('admin/new-fundraiser*')) ? 'current' : '' }}">Fundraiser</a></li>
+                            <li><a href="{{route('admin.fundraiserBalance')}}" class="nav-link {{ (request()->is('admin/fundraiser-balance*')) ? 'current' : '' }}">Fundraiser Balance</a></li>
+                        </div>
+                      </div>
+                    </div> 
+                </div>
+
+                <div class="accordion" id="dropdownLink">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#donortab" aria-expanded="false" aria-controls="donortab">
+                            Donors
+                        </button>
+                      </h2>
+                      <div id="donortab" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
+                        <div class="accordion-body">
+                            <li><a href="{{route('admin.alldonor')}}" class="nav-link {{ (request()->is('admin/donor*')) ? 'current' : '' }}">Donor</a></li>
+                            <li><a href="{{route('admin.alldonor')}}" class="nav-link {{ (request()->is('admin/donor*')) ? 'current' : '' }}">Donor Plus</a></li>
+                        </div>
+                      </div>
+                    </div> 
+                </div>
+
+                <div class="accordion" id="dropdownLink">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#charitytab" aria-expanded="false" aria-controls="charitytab">
+                            Charity
+                        </button>
+                      </h2>
+                      <div id="charitytab" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
+                        <div class="accordion-body">
                             <li><a href="{{route('admin.allcharity')}}" class="nav-link {{ (request()->is('admin/charity*')) ? 'current' : '' }}">Charity</a></li>
+                            <li><a href="{{route('admin.charityBalance')}}" class="nav-link {{ (request()->is('admin/charity-balance*')) ? 'current' : '' }}">Charity Balance</a></li>
                         </div>
                       </div>
                     </div> 
