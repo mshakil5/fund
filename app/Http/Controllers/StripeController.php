@@ -63,9 +63,9 @@ class StripeController extends Controller
         $stripetopup->save();
 
         // fundraiser balance update
-            // $fundraiser = User::find($campaign->user_id);
-            // $fundraiser->balance =  $fundraiser->balance + $amt;
-            // $fundraiser->save();
+            $fundraiser = User::find($campaign->user_id);
+            $fundraiser->balance =  $fundraiser->balance + $amt;
+            $fundraiser->save();
         // fundraiser balance update end
 
         // Return the client secret to the frontend

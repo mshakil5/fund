@@ -115,6 +115,7 @@
                                 <th style="text-align: center">Surname</th>
                                 <th style="text-align: center">Email</th>
                                 <th style="text-align: center">Phone</th>
+                                <th style="text-align: center">Balance</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Campaign</th>
                                 <th style="text-align: center">Action</th>
@@ -128,6 +129,7 @@
                                         <td style="text-align: center">{{$data->surname}}</td>
                                         <td style="text-align: center">{{$data->email}}</td>
                                         <td style="text-align: center">{{$data->phone}}</td>
+                                        <td style="text-align: center">{{$data->balance}}</td>
                                         <td style="text-align: center">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input fundraiserstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="fundraiserstatus" @if ($data->status == 1) checked @endif >

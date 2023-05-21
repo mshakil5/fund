@@ -44,8 +44,15 @@ class TransactionController extends Controller
             $transaction->name = $request->source;
             $transaction->amount = $request->amount;
             $transaction->description = $request->description;
+            $transaction->donation_type = "PayOut";
             $transaction->status = "1";
             $transaction->save();
+
+            // fundraiser balance update
+                $fundraiser = User::find($request->user_id);
+                $fundraiser->balance =  $fundraiser->balance - $request->amount;
+                $fundraiser->save();
+            // fundraiser balance update end
 
             // $contactmail = ContactMail::where('id', 1)->first()->name;
     
