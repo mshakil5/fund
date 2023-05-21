@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\GivingLevel;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -241,8 +242,9 @@ class CharityController extends Controller
     public function charityDonate($id)
     {
         $data = User::where('id',$id)->first();
-        // dd($data);
-        return view('frontend.charitypayment', compact('data'));
+        $givinglvls = GivingLevel::all();
+        // dd($givinglvls);
+        return view('frontend.charitypayment', compact('data','givinglvls'));
     }
 
     

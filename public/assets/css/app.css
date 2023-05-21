@@ -1200,3 +1200,67 @@ input[type=checkbox] {
   font-size: 18px;
   color: #242222;
 }
+
+
+.paymentMethodNew {
+  border-radius: 3px;
+}
+.paymentMethodNew:hover {
+  border-color: #18988B !important;
+}
+.paymentMethodNew .topper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.paymentMethodNew .topper .items {
+  display: flex;
+  align-items: center;
+}
+.paymentMethodNew .topper .items:nth-child(1) {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.paymentMethodNew .topper .items:nth-child(2) {
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+.paymentMethodNew .level {
+  border-radius: 3px;
+}
+.paymentMethodNew .level:hover {
+  cursor: pointer;
+  border-color: #18988B !important;
+}
+
+.paymentAmount:hover {
+  border-color: #18988B !important;
+}
+.paymentAmount .topper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.paymentAmount .topper .items {
+  display: flex;
+  align-items: center;
+}
+.paymentAmount .topper .items:nth-child(1) {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.paymentAmount .topper .items:nth-child(2) {
+  font-size: 1.5rem;
+  font-weight: bolder;
+}/*# sourceMappingURL=app.css.map */
+
+.input-custom {
+  height: 69px;
+  font-size: 5rem;
+  min-width: 70px;
+  max-width: 100%;
+  border: 0;
+  outline: 0;
+  font-weight: bold;
+  padding: 0 10px;
+}

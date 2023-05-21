@@ -63,19 +63,67 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 mt-2">
-                            <label class="para mt-2 text-dark fs-6 mb-2 fw-bold " for="">Enter Your
-                                donation</label>
-                            <input type="number" id="d_amount" name="d_amount" placeholder="£GBP" class="form-control py-3 border fs-1 fw-bold">
+                        
+                        <div class="col-md-12 my-3 ">
+                            <div class="paymentMethodNew border border-2 bg-white">
+                                <div class="topper p-3 border-bottom" id="lvlShow">
+                                    <div class="items">
+                                        <iconify-icon icon="zondicons:checkmark" class="txt-primary"></iconify-icon>
+                                        <span class="ms-2"> Giving Level</span>
+                                    </div>
+                                    <div class="items" id="charitytitle"> Level </div>
+                                </div>
+                                <div class="p-3 pt-0" id="givinglvlDiv">
+                                    <h4 class="text-center fs-4 fw-bold mb-3">Select a giving level:</h4>
+
+                                    <div class="d-flex justify-content-center border level para text-center p-3 border-2 btn-amount" amt="10" title="Just helping">
+                                        Just helping (choose amount next)
+                                    </div>
+
+                                    @foreach ($givinglvls as $item)
+                                    <div class="d-flex align-items-center level border p-3 border-2 my-2 py-2 btn-amount" amt="{{$item->amount}}" title="{{$item->title}}">
+                                        <div class="me-5"><span class="fw-bold txt-primary fs-3">£{{$item->amount}}</span>
+                                            <small class="text-muted fs-6">GBP</small>
+                                        </div>
+                                        <div class="fs-5 fw-bold">{{$item->title}} </div>
+                                    </div>
+                                    @endforeach
+                                    
+                                </div>
+                            </div>
+                            <div class="paymentAmount  border border-2 bg-white mt-3" id="amantDiv">
+                                <div class="topper p-3 border-bottom">
+                                    <div class="items">
+                                        <iconify-icon icon="zondicons:checkmark" class="txt-primary"></iconify-icon>
+                                        <span class="ms-2">Amount</span>
+                                    </div>
+                                    <div class="items"> £<span id="camntshowdiv"></span> </div>
+                                </div>
+                                <div class="p-3 w-100">
+                                    <p class="txt-secondary text-center fs-5 fw-bold">Adjust your amount here </p>
+
+                                    <div class="row">
+                                        <div class="col-md-8 text-center">
+                                            <div class="d-flex align-items-center justify-content-center w-75 mx-auto">
+                                                <div class="display-2">£ </div>
+                                                <input type="text" value="10" id="charityamount" name="charityamount" class="input-custom famount">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="" id="" class="form-control mt-4 para fs-6 mb-2 text-dark">
+                                                <option value="">GBP</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="d-flex justify-content-center">
+                                        <button class="btn btn-primary btn-theme mx-auto w-50 bg-primary">Continue </button>
+                                    </div> --}}
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-12 mt-3">
-                            <select name="tips" id="tips" class="form-control fs-6 fw-bold my-4">
-                                <option value="10" class="fs-6 fw-bold">10%</option>
-                                <option value="15" class="fs-6 fw-bold">15%</option>
-                                <option value="20" class="fs-6 fw-bold">20%</option>
-                                <option value="30" class="fs-6 fw-bold">30%</option>
-                            </select>
-                        </div>
+
+
+                        
 
 
                     </div>
@@ -260,15 +308,37 @@
 <script>
    $(document).ready(function() {
         //calculation end
-        $("#d_amount").keyup(function(){
-            var amount = Number($("#d_amount").val());
+        $("#charityamount").keyup(function(){
+            var amount = Number($("#charityamount").val());
+            var commission = (amount * 10)/100;
+            var net_amount = amount + commission;
+            $("#amount").val(net_amount.toFixed(2));
+            $("#c_amount").val(commission.toFixed(2));
+        });
+        //calculation end  
+
+        $("#amantDiv").hide();
+        $(document).on('click', '.btn-amount', function () {
+            $("#givinglvlDiv").hide();
+            $("#amantDiv").show();
+            amt = $(this).attr('amt');
+            title = $(this).attr('title');
+            $("#charityamount").val(amt);
+            $("#charitytitle").html(title);
+            $("#camntshowdiv").html(amt);
+            
+            var amount = parseInt(amt)
             var commission = (amount * 10)/100;
             var net_amount = amount + commission;
             
             $("#amount").val(net_amount.toFixed(2));
             $("#c_amount").val(commission.toFixed(2));
+
         });
-        //calculation end  
+
+        $(document).on('click', '#lvlShow', function () {
+            $("#givinglvlDiv").show();
+        });
     });   
 </script>
 <script>
@@ -337,7 +407,7 @@
         }
       });
     }
-  </script>
+</script>
 
 
 
