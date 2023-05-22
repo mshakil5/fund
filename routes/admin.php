@@ -172,6 +172,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     
     // event
     Route::get('/event', [EventController::class, 'getEvent'])->name('admin.event');
+    Route::get('/event-view/{id}', [EventController::class, 'viewEventByAdmin'])->name('admin.eventView');
 
 });
 //admin part end

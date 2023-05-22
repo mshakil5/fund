@@ -105,6 +105,25 @@
                     </div> 
                 </div>
 
+                <div class="accordion" id="dropdownLink">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEventTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Event
+                        </button>
+                      </h2>
+                      <div id="collapseEventTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
+                        <div class="accordion-body">
+                            
+                            <li><a href="{{route('admin.event')}}" class="nav-link {{ (request()->is('admin/event*')) ? 'current' : '' }}">New Event</a></li>
+                            <li><a href="#" class="nav-link {{ (request()->is('admin/live-campaign*')) ? 'current' : '' }}">Live Event</a></li>
+                            <li><a href="#" class="nav-link {{ (request()->is('admin/close-campaign*')) ? 'current' : '' }}">Close Event</a></li>
+                            
+                        </div>
+                      </div>
+                    </div> 
+                </div>
+
 
                 
                 <li><a href="{{url('admin/company-detail')}}" class="nav-link {{ (request()->is('admin/company-detail*')) ? 'current' : '' }}">Company Details</a></li>

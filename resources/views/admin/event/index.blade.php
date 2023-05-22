@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="pagetitle pb-2">
-                Campaign
+                Event
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="moneyIn-tab" data-bs-toggle="tab" data-bs-target="#moneyIn"
                         type="button" role="tab" aria-controls="moneyIn" aria-selected="false">
-                    Campaign Information
+                    Event Information
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -56,7 +56,7 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div>
-                                                        <label for="user_id">Select User</label>
+                                                        <label for="user_id" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Select User</label>
                                                         <select name="user_id" id="user_id" class="form-control select2" required>
                                                             <option value="">Select User</option>
                                                             @foreach ($users as $user)
@@ -387,16 +387,16 @@
                                     <tr>
                                         <td style="text-align: center">{{ $key + 1 }}</td>
                                         <td style="text-align: center">
-                                            <a href="{{route('admin.campaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
+                                            <a href="{{route('admin.eventView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
                                         </td>
                                         <td style="text-align: center">{{$data->user->name}}</td>
                                         <td style="text-align: center">{{$data->country->name}}</td>
                                         <td style="text-align: center">{{$data->raising_goal}}</td>
                                         <td style="text-align: center">
                                             {{-- {{$data->status}} --}}
-                                            <div class="form-check form-switch">
+                                            {{-- <div class="form-check form-switch">
                                                 <input class="form-check-input campaignstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="campaignstatus" @if ($data->status == 1) checked @endif >
-                                            </div>
+                                            </div> --}}
                                         </td>
                                         
                                         <td style="text-align: center">
@@ -486,7 +486,7 @@
         //header for csrf-token is must in laravel
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-            var url = "{{URL::to('/admin/campaign')}}";
+            var url = "{{URL::to('/admin/event')}}";
             // console.log(url);
             $("#addBtn").click(function(){
                 // fundraiser create 
