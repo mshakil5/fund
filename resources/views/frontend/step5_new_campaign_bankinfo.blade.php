@@ -29,7 +29,7 @@
 
                                     <div class="col-lg-12 ">
                                         <label for="name_of_account" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Name of the account</label>
-                                        <input type="text" name="name_of_account" class="form-control" id="name_of_account" value="{{ $step5dataForm['name_of_account'] ?? ''  }}" required>
+                                        <input type="text" name="name_of_account" class="form-control" id="name_of_account" value="{{ $step5dataForm['name_of_account'] ?? ''  }}">
                                     </div>
                                     {{-- <div class="col-lg-12 ">
                                         <label for="bank_account_country" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Country </label>
@@ -38,7 +38,7 @@
 
                                     <div class="col-lg-12 ">
                                         <label for="bank_name" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Name</label>
-                                        <input type="bank_name" name="bank_name" class="form-control" id="bank_name" value="{{ $step5dataForm['bank_name'] ?? ''  }}" required>
+                                        <input type="bank_name" name="bank_name" class="form-control" id="bank_name" value="{{ $step5dataForm['bank_name'] ?? ''  }}">
                                     </div>
                                     {{-- <div class="col-lg-6 ">
                                         <label for="bank_account_class" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Bank Account Class </label>
@@ -72,12 +72,12 @@
 
                                     <div class="col-lg-6">
                                         <label for="bank_account_number" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Account Number </label>
-                                        <input type="text" name="bank_account_number" class="form-control" id="bank_account_number" value="{{ $step5dataForm['bank_account_number'] ?? ''  }}" required>
+                                        <input type="text" name="bank_account_number" class="form-control" id="bank_account_number" value="{{ $step5dataForm['bank_account_number'] ?? ''  }}">
                                     </div>
 
                                     <div class="col-lg-6">
                                         <label for="bank_sort_code" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sort Code </label>
-                                        <input type="text" name="bank_sort_code" class="form-control" id="bank_sort_code" value="{{ $step5dataForm['bank_sort_code'] ?? ''  }}" required>
+                                        <input type="text" name="bank_sort_code" class="form-control" id="bank_sort_code" value="{{ $step5dataForm['bank_sort_code'] ?? ''  }}">
                                     </div>
                                     
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\WhyChooseUsController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\FundraiserController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -97,6 +98,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/campaign-update', [CampaignController::class, 'updateCampaignByAdmin']);
     Route::post('/campaign-info-update', [CampaignController::class, 'updateCampaignInfoByAdmin']);
     Route::get('/campaign/{id}', [CampaignController::class, 'deleteCampaignByAdmin']);
+    Route::post('/campaign-image-store', [CampaignController::class, 'campaignDocStoreByAdmin']);
+    Route::get('/campaign-image-delete/{id}', [CampaignController::class, 'deleteCampaignImageByAdmin']);
 
     // campaign view
     Route::get('/campaign-view/{id}', [CampaignController::class, 'viewCampaignByAdmin'])->name('admin.campaignView');
@@ -126,7 +129,6 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::put('/fundraising-source/{id}', [FundraisingSourceController::class, 'update']);
     Route::get('/fundraising-source/{id}', [FundraisingSourceController::class, 'delete']);
 
-
     // contact mail 
     Route::get('/contact-mail', [ContactMailController::class, 'index'])->name('admin.contact-mail');
     Route::get('/contact-mail/{id}/edit', [ContactMailController::class, 'edit']);
@@ -138,14 +140,12 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/why-choose-us/{id}/edit', [WhyChooseUsController::class, 'edit']);
     Route::put('/why-choose-us/{id}', [WhyChooseUsController::class, 'update']);
     Route::get('/why-choose-us/{id}', [WhyChooseUsController::class, 'delete']);
-
     
     // all-data
     Route::get('/all-data', [MasterController::class, 'index'])->name('admin.master');
     Route::post('/all-data', [MasterController::class, 'store']);
     Route::get('/all-data/{id}/edit', [MasterController::class, 'edit']);
     Route::put('/all-data/{id}', [MasterController::class, 'update']);
-
     
     // email-content
     Route::get('/email-content', [EmailContentController::class, 'index'])->name('admin.emailcontent');
@@ -154,11 +154,9 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::put('/email-content/{id}', [EmailContentController::class, 'update']);
     Route::get('/email-content/{id}', [EmailContentController::class, 'delete']);
 
-
     // all-data
     Route::get('/home-top-section', [MasterController::class, 'homeTopSection'])->name('admin.hometopsection');
     Route::post('/home-top-section', [MasterController::class, 'homeTopSectionUpdate']);
-
 
     // payment
     Route::get('/fundraiser-pay/{id}', [TransactionController::class, 'fundraiserPay'])->name('admin.fundraiserPay');
@@ -170,6 +168,10 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/giving-level/{id}/edit', [GivingLevelController::class, 'edit']);
     Route::put('/giving-level/{id}', [GivingLevelController::class, 'update']);
     Route::get('/giving-level/{id}', [GivingLevelController::class, 'delete']);
+
+    
+    // event
+    Route::get('/event', [EventController::class, 'getEvent'])->name('admin.event');
 
 });
 //admin part end

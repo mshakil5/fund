@@ -65,7 +65,6 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">Beneficiary</th>
                                 <th scope="col">Amount</th>
-                                <th scope="col">Annonimous Donation</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Display Name</th>
                                 <th scope="col">Status</th>
@@ -76,9 +75,17 @@
                             <tr>
                                 <td>{{$key + 1}}</td>
                                 <td>{{$item->date}}</td>
-                                <td>{{$item->campaign->title}}</td>
+                                <td>
+                                    @if (isset($item->campaign_id))
+                                        {{$item->campaign->title}}
+                                    @endif
+
+                                    @if (isset($item->charity_id))
+                                        {{$item->user->name}}
+                                    @endif
+
+                                </td>
                                 <td>{{$item->total_amount}}</td>
-                                <td>No</td>
                                 <td>{{$item->description}}</td>
                                 <td>{{$item->donation_display_name}}</td>
                                 <td>Confirm</td>

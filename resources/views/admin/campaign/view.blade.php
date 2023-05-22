@@ -74,6 +74,12 @@
                                     <div class="card-body">
                                         <div class="tile">
                                             <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div>
+                                                        <label for="user_id">Select User</label>
+                                                        <input type="text" class="form-control" value="{{ $data->user->name }}-{{ $data->user->email }}" readonly>
+                                                    </div>
+                                                </div>
                                                 <div class="col-lg-6">
                                                     
                                                     <div>
@@ -147,7 +153,7 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="image" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Photo</label>
-                                    <input type="file" name="image[]" class="form-control" id="image" multiple required>
+                                    <input type="file" name="image[]" class="form-control" id="image2" multiple required>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -343,6 +349,73 @@
                 </div>
                 <div class="tab-pane fade" id="doc" role="tabpanel" aria-labelledby="doc-tab">
                     <div class="data-container">
+
+                        <div id="addDocContainer" class="mt-5">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card" style="background-color: #fdf3ee">
+                                        <div class="card-header">
+                                            <h5>New Pages</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="ermsg">
+                                                </div>
+                                                <div class="col-md-12">
+                                                  <div class="tile">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                          {!! Form::open(['url' => 'admin/master/create','id'=>'createThisForm']) !!}
+                                                          {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
+                                                          @csrf
+                                                          {{-- <div>
+                                                              <label for="title">Title</label>
+                                                              <input type="text" id="title" name="title" class="form-control">
+                                                          </div> --}}
+
+                                                          <div>
+                                                            <label for="category">Category</label>
+                                                            <select name="category" id="category" class="form-control">
+                                                                <option value="1">Slider Image</option>
+                                                                <option value="2">Bank Document</option>
+                                                                <option value="3">Govt. Document</option>
+                                                            </select>
+                                                        </div>
+                        
+                                                          
+                                                            
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div>
+                                                                <label for="image">Image</label>
+                                                                <input class="form-control" id="image" name="image[]" type="file" multiple>
+                                                                <input type="hidden" id="campaign_id" name="campaign_id" value="{{ $data->id }}">
+                                                            </div>
+
+                                                            <div class="imgpreview">
+                                    
+                                                            </div>
+
+                                                        </div>
+                                                      </div>
+                                                      <div class="tile-footer mt-3">
+                                                          <input type="button" id="addBtn" value="Create" class="btn btn-primary">
+                                                          <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
+                                                          {!! Form::close() !!}
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            </div>
+                        
+                        </div>
+                        
+                        <button id="newBtn" type="button" class="btn-theme bg-primary">Add New</button>
                         
                         <div id="contentContainer">
                             <div class="row">
@@ -367,17 +440,23 @@
                                                         <tr>
                                                             <td style="text-align: center">{{ $key + 1 }}</td>
                                                             <td style="text-align: center">{{$data->title}}</td>
-                                                            <td style="text-align: center">Slider Image</td>
+                                                            <td style="text-align: center">{{$cimg->title}}</td>
                                                             <td style="text-align: center">
                                                                 @if ($cimg->image)
+                                                                @if ($cimg->title == "Bank")
+                                                                    
+                                                                <img src="{{asset('images/bank/'.$cimg->image)}}" height="120px" width="220px" alt="">
+                                                                @else
+                                                                    
                                                                 <img src="{{asset('images/campaign/'.$cimg->image)}}" height="120px" width="220px" alt="">
+                                                                @endif
                                                                 @endif
                                                             </td>
                                                             
                                                             <td style="text-align: center">
                                                                 <a href="{{ route('download.campaignimage',$cimg->id) }}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i>  Download</a>
 
-
+                                                                <a id="deleteBtn" rid="{{$cimg->id}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-trash-o" style="color: red;font-size:16px;"> </i> Delete</a>
 
                                                             </td>
                                                         </tr>
@@ -394,6 +473,7 @@
                                                             </td>
                                                             <td style="text-align: center">
                                                                 <a href="{{ route('download.featureimage',$data->id) }}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i> Download</a>
+                                                                
                                                             </td>
                                                         </tr>
                                                         @endif
@@ -523,7 +603,7 @@
                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="doc-tab">
                     <div class="data-container">
                         
-                        <div id="contentContainer">
+                        <div id="commentContainer">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card" style="background-color: #fdf3ee">
@@ -586,6 +666,7 @@
 
 @endsection
 @section('script')
+
 <script type="text/javascript">
     $('.summernote').summernote({
         height: 400
@@ -623,33 +704,141 @@
 </script>
 <script>
     
+    var imgStoreFile = [];
     var storedFiles = [];
     $(document).ready(function () {
         
-       
+        $("#addDocContainer").hide();
+            $("#newBtn").click(function(){
+                clearform();
+                $("#newBtn").hide(100);
+                $("#addDocContainer").show(300);
+
+            });
+            $("#FormCloseBtn").click(function(){
+                $("#addDocContainer").hide(200);
+                $("#newBtn").show(100);
+                clearform();
+            });
+            //header for csrf-token is must in laravel
+            $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+            //
+            var imgurl = "{{URL::to('/admin/campaign-image-store')}}";
+            var dlturl = "{{URL::to('/admin/campaign-image-delete')}}";
+            // console.log(url);
+            $("#addBtn").click(function(){
+                
+                if($(this).val() == 'Create') {
+                    
+                    var form_data = new FormData();
+                    for(var i=0, len=imgStoreFile.length; i<len; i++) {
+                        form_data.append('image[]', imgStoreFile[i]);
+                    }
+                    // form_data.append("title", $("#title").val());
+                    form_data.append("category", $("#category").val());
+                    form_data.append("campaign_id", $("#campaign_id").val());
+                    $.ajax({
+                      url: imgurl,
+                      method: "POST",
+                      contentType: false,
+                      processData: false,
+                      data:form_data,
+                      success: function (d) {
+                        console.log(d);
+                          if (d.status == 303) {
+                              $(".ermsg").html(d.message);
+                          }else if(d.status == 300){
+                              $(".ermsg").html(d.message);
+                                window.setTimeout(function(){location.reload()},2000)
+                          }
+                      },
+                      error: function (d) {
+                          console.log(d);
+                      }
+                  });
+                }
+                //create  end
+                
+            });
+            //Edit
+
+            //Delete
+            $("#contentContainer").on('click','#deleteBtn', function(){
+                if(!confirm('Sure?')) return;
+                codeid = $(this).attr('rid');
+                info_url = dlturl + '/'+codeid;
+                $.ajax({
+                    url:info_url,
+                    method: "GET",
+                    type: "DELETE",
+                    data:{
+                    },
+                    success: function(d){
+                        if(d.success) {
+                            alert(d.message);
+                            location.reload();
+                        }
+                    },
+                    error:function(d){
+                        console.log(d);
+                    }
+                });
+            });
+            //Delete
+
+            function clearform(){
+                $('#createThisForm')[0].reset();
+                $("#addBtn").val('Create');
+            }
 
     });
 
     // images
+        /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
+        // $(document).on('change','#image',function(){
+        //     len_files = $("#image").prop("files").length;
+        //     var construc = "<div class='row'>";
+        //     for (var i = 0; i < len_files; i++) {
+        //         var file_data2 = $("#image").prop("files")[i];
+        //         storedFiles.push(file_data2);
+        //         construc += '<div class="col-3 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+        //             'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
+        //     }
+        //     construc += "</div>";
+        //     $('.preview2').append(construc);
+        // });
+
+        // $(".preview2").on('click','span.imageremove2',function(){
+        //     var trash = $(this).data("file");
+        //     for(var i=0;i<storedFiles.length;i++) {
+        //         if(storedFiles[i].name === trash) {
+        //             storedFiles.splice(i,1);
+        //             break;
+        //         }
+        //     }
+        //     $(this).parent().remove();
+
+        // });
+
         /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
         $(document).on('change','#image',function(){
             len_files = $("#image").prop("files").length;
             var construc = "<div class='row'>";
             for (var i = 0; i < len_files; i++) {
                 var file_data2 = $("#image").prop("files")[i];
-                storedFiles.push(file_data2);
-                construc += '<div class="col-3 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+                imgStoreFile.push(file_data2);
+                construc += '<div class="col-6 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
                     'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
             }
             construc += "</div>";
-            $('.preview2').append(construc);
+            $('.imgpreview').append(construc);
         });
 
-        $(".preview2").on('click','span.imageremove2',function(){
+        $(".imgpreview").on('click','span.imageremove2',function(){
             var trash = $(this).data("file");
-            for(var i=0;i<storedFiles.length;i++) {
-                if(storedFiles[i].name === trash) {
-                    storedFiles.splice(i,1);
+            for(var i=0;i<imgStoreFile.length;i++) {
+                if(imgStoreFile[i].name === trash) {
+                    imgStoreFile.splice(i,1);
                     break;
                 }
             }

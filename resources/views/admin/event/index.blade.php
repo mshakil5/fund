@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <!-- content area -->
 <div class="content">
     <div class="row">
@@ -12,16 +11,13 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-lg-12">
-            <div class="ermsg"></div>
+            <div class="ermsg">
+            </div>
         </div>
     </div>
-
-
 <div id="addThisFormContainer">
-    
     
     
     <div class="row ">
@@ -55,58 +51,33 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card" style="background-color: #fdf3ee">
-                                
                                     <div class="card-body">
                                         <div class="tile">
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div>
                                                         <label for="user_id">Select User</label>
-                                                        <input type="text" class="form-control" value="{{ $data->user->name }}-{{ $data->user->email }}" readonly>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    
-                                                    <div>
-                                                        <label for="name">Select Your Country</label>
-                                                        <select name="country" id="country" class="form-control select2" required>
-                                                            <option value="">Select Country</option>
-                                                            @foreach ($countries as $cntry)
-                                                            <option value="{{$cntry->id}}" @if((isset($data->country_id))&&($data->country_id==$cntry->id)) selected @endif>{{$cntry->name}}</option>
+                                                        <select name="user_id" id="user_id" class="form-control select2" required>
+                                                            <option value="">Select User</option>
+                                                            @foreach ($users as $user)
+                                                            <option value="{{$user->id}}">{{$user->name}}-{{$user->sur_name}}-{{$user->email}}{{$user->clientid}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    
-                                                    <div>
-                                                        <label for="source">Category</label>
-                                                        
-                                                        <select name="source" id="source" class="form-control  select2" required>
-                                                            <option value="">Select</option>
-                                                            <@foreach ($source as $source)
-                                                            <option value="{{$source->id}}" @if((isset($data->fundraising_source_id))&&($data->fundraising_source_id==$source->id)) selected @endif>{{$source->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    
-                
-                                                </div>
+                                                
+                                                
                                                 <div class="col-lg-12">
                                                     <div>
                                                         <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Fundriser title</label>
-                                                        <input type="text" name="title" class="form-control" id="title" value="{{ $data->title }}" required>
-                                                        <input type="hidden" name="codeid" class="form-control" id="codeid" value="{{ $data->id }}">
+                                                        <input type="text" name="title" class="form-control" id="title">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-12">
-
                                                     <div>
                                                         <label for="story" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell your story </label>
-                                                        <textarea name="story" id="story" class="form-control summernote" required>{{ $data->story }}</textarea>
+                                                        <textarea name="story" id="story" class="form-control summernote"></textarea>
                                                     </div>
                                                 </div>
 
@@ -127,7 +98,7 @@
                             <div class="col-lg-12">      
                                 <div>
                                     <label for="raising_goal" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">How much would you like to raise?</label>
-                                    <input type="number" class="form-control" placeholder="Your starting goal" value="{{ $data->raising_goal }}" id="raising_goal" name="raising_goal">
+                                    <input type="number" class="form-control" placeholder="Your starting goal" id="raising_goal" name="raising_goal">
                                 </div>               
                             </div>
                             <div class="col-lg-6">
@@ -144,12 +115,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="preview2">
-                                    <div class="row">
-                                        @foreach ($data->campaignimage as $img)
-                                            <div class="col-3 singleImage my-3"><span id="{{$img->id}}" data-file="{{$img->image}}" class="btn btn-sm btn-danger imageremove2">×</span><img width="120px" height="auto" src="{{asset('images/campaign/'.$img->image)}}"  alt="Image"></div>
-                                        @endforeach
-                                        
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div>
@@ -158,26 +124,26 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Video Link</label>
-                                    <input type="text" name="video_link" class="form-control" id="video_link"  value="{{ $data->video_link }}">
+                                    <input type="text" name="video_link" class="form-control" id="video_link">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="tagline" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Tagline</label>
-                                    <input type="text" name="tagline" value="{{ $data->tagline}}" class="form-control" id="tagline">
+                                    <input type="text" name="tagline" class="form-control" id="tagline">
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-6" style="display: none">
+                            {{-- <div class="col-lg-6">
                                 <div>
                                     <label for="category" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Category </label>
-                                    <input type="text" name="category" class="form-control"  id="category" value="{{ $data->category }}">
+                                    <input type="text" name="category" class="form-control"  id="category">
                                 </div>
                             </div> --}}
                             <div class="col-lg-6">
                                 <div>
                                     <label for="location" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Location </label>
-                                    <input type="text" name="location" class="form-control" id="location" value="{{ $data->location }}">
+                                    <input type="text" name="location" class="form-control" id="location">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -185,16 +151,16 @@
                                     <label for="funding_type" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Funding Type</label>
                                     <select name="funding_type" class="form-control" id="funding_type">
                                         <option value="">Select</option>
-                                        <option value="Partial" @if ($data->funding_type == "Partial") selected @endif>Partial</option>
-                                        <option value="All or Nothing" @if ($data->funding_type == "All or Nothing") selected @endif>All or Nothing</option>
+                                        <option value="Partial">Partial</option>
+                                        <option value="All or Nothing">All or Nothing</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div>
                                     <label for="end_date" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> End Date </label>
-                                    <input type="date" name="end_date" class="form-control" id="end_date" value="{{ $data->end_date  }}">
+                                    <input type="date" name="end_date" class="form-control" id="end_date">
                                 </div>
                             </div>
                             <hr>
@@ -209,26 +175,26 @@
                             <div class="col-lg-12">      
                                 <div>
                                     <label for="email" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Email</label>
-                                    <input type="email" class="form-control" placeholder="Your email" id="email" name="email" value="{{ $data->email }}" required>
+                                    <input type="email" class="form-control" placeholder="Your email" id="email" name="email">
                                 </div>               
                             </div>
                             <div class="col-lg-6">
                                 <div>
                                     <label for="name" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Name</label>
-                                    <input type="text" name="name" class="form-control" id="name" value="{{ $data->name }}" required>
+                                    <input type="text" name="name" class="form-control" id="name">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div>
                                     <label for="family_name" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Family Name </label>
-                                    <input type="text" name="family_name" class="form-control" id="family_name" value="{{ $data->family_name }}" required>
+                                    <input type="text" name="family_name" class="form-control" id="family_name">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="dob" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Date of birth</label>
-                                    <input type="date" name="dob" class="form-control" id="dob" value="{{ $data->dob }}" required>
+                                    <input type="date" name="dob" class="form-control" id="dob">
                                 </div>
                                 
                                 
@@ -236,7 +202,7 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="phone" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Phone Number </label>
-                                    <input type="text" name="phone" class="form-control" id="phone" value="{{ $data->phone }}" required>
+                                    <input type="text" name="phone" class="form-control" id="phone">
                                 </div>
                                 
                                 
@@ -244,49 +210,48 @@
                             {{-- <div class="col-lg-12">
                                 <div>
                                     <label for="country_address" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Country </label>
-                                    <input type="text" name="country_address" class="form-control" id="country_address" value="{{ $data->country_address }}" required>
+                                    <input type="text" name="country_address" class="form-control" id="country_address" >
                                 </div>
-                            </div> --}}
-
-                            {{-- <div class="col-lg-12">
+                            </div>
+                            <div class="col-lg-12">
                                 <div>
                                     <label for="address" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Address </label>
-                                    <textarea name="address" id="address" class="form-control" required>{{ $data->address  }}</textarea>
+                                    <textarea name="address" id="address" class="form-control"></textarea>
                                 </div>
                             </div> --}}
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="city" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">House Number</label>
-                                    <input type="text" name="city" class="form-control" id="city" value="{{ $data->city  }}" required>
+                                    <input type="text" name="city" class="form-control" id="city">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="street_name" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Street Name</label>
-                                    <input type="text" name="street_name" class="form-control" id="street_name" value="{{ $data->street_name  }}" required>
+                                    <input type="text" name="street_name" class="form-control" id="street_name">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="town" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Town </label>
-                                    <input type="text" name="town" class="form-control" id="town" value="{{ $data->town }}" required>
+                                    <input type="text" name="town" class="form-control" id="town">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="postcode" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Post code </label>
-                                    <input type="text" name="postcode" class="form-control" id="postcode" value="{{ $data->postcode  }}" required>
+                                    <input type="text" name="postcode" class="form-control" id="postcode">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div>
                                     <label for="gov_issue_id" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Government Issued ID</label>
-                                    <input type="text" name="gov_issue_id" class="form-control" id="gov_issue_id" value="{{ $data->gov_issue_id  }}" required>
+                                    <input type="file" name="gov_issue_id" class="form-control" id="gov_issue_id">
                                 </div>
                             </div>
                             
@@ -302,19 +267,19 @@
                             {{-- <div class="col-lg-6">      
                                 <div>
                                     <label for="currency" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Currency </label>
-                                    <input type="text" name="currency" class="form-control" id="currency" value="{{ $data->currency }}" required>
+                                    <input type="text" name="currency" class="form-control" id="currency" required>
                                 </div>               
                             </div> --}}
                             {{-- <div class="col-lg-6">
                                 <div>
                                     <label for="bank_account_country" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Country </label>
-                                    <input type="text" name="bank_account_country" class="form-control" id="bank_account_country" value="{{ $data->bank_account_country }}" required>
+                                    <input type="text" name="bank_account_country" class="form-control" id="bank_account_country" required>
                                 </div>
                             </div> --}}
                             <div class="col-lg-6">
                                 <div>
                                     <label for="name_of_account" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Name of the account</label>
-                                    <input type="text" name="name_of_account" class="form-control" id="name_of_account" value="{{ $data->name_of_account }}" required>
+                                    <input type="text" name="name_of_account" class="form-control" id="name_of_account" required>
                                 </div>
                             </div>
                             
@@ -322,21 +287,21 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="bank_name" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Name</label>
-                                    <input type="bank_name" name="bank_name" class="form-control" id="bank_name" value="{{ $data->bank_name }}" required>
+                                    <input type="bank_name" name="bank_name" class="form-control" id="bank_name" required>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="bank_account_number" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Account Number</label>
-                                    <input type="text" name="bank_account_number" class="form-control" id="bank_account_number" value="{{ $data->bank_account_number }}" required>
+                                    <input type="text" name="bank_account_number" class="form-control" id="bank_account_number" required>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="bank_sort_code" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Sort Code</label>
-                                    <input type="text" name="bank_sort_code" class="form-control" id="bank_sort_code" value="{{ $data->bank_sort_code }}" required>
+                                    <input type="text" name="bank_sort_code" class="form-control" id="bank_sort_code" required>
                                 </div>
                             </div>
 
@@ -346,22 +311,22 @@
                                     <label for="bank_routing" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Bank Routing </label>
                                     <select name="bank_routing" id="bank_routing"  class="form-control" required>
                                         <option value="">Select</option>
-                                        <option value="SWIFT"  @if((isset($data->bank_routing))&&($data->bank_routing=="SWIFT")) selected @endif>SWIFT</option>
-                                        <option value="BIC" @if((isset($data->bank_routing))&&($data->bank_routing=="BIC")) selected @endif>BIC</option>
-                                        <option value="Sort Code" @if((isset($data->bank_routing))&&($data->bank_routing=="Sort Code")) selected @endif>Sort Code</option>
-                                        <option value="BSB" @if((isset($data->bank_routing))&&($data->bank_routing=="BSB")) selected @endif>BSB</option>
+                                        <option value="SWIFT">SWIFT</option>
+                                        <option value="BIC">BIC</option>
+                                        <option value="Sort Code">Sort Code</option>
+                                        <option value="BSB">BSB</option>
                                     </select>
                                 </div>
-                            </div> --}}
+                            </div>
 
-                            {{-- <div class="col-lg-6">
+                            <div class="col-lg-6">
                                 <div>
                                     <label for="iban" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">IBAN </label>
-                                    <input type="text" name="iban" class="form-control" id="iban" value="{{ $data->iban }}" required>
+                                    <input type="text" name="iban" class="form-control" id="iban" required>
                                 </div>
                             </div> --}}
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div>
                                     <label for="bank_verification_doc" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Verification Document</label>
                                     <input type="file" name="bank_verification_doc" class="form-control" id="bank_verification_doc">
@@ -386,13 +351,73 @@
             </div>
         </div>
         <div class="col-lg-12">
-            <a href="{{route('admin.campaign')}}" class="btn-theme bg-secondary fs-16 fw-700">Back</a>
-            <a id="upBtn" class="btn-theme bg-primary fs-16 fw-700">Update</a>
+            <input type="button" id="addBtn" value="Create" class="btn-theme bg-primary fs-16 fw-700">
+            <input type="button" id="FormCloseBtn" value="Close" class="btn-theme bg-secondary">
         </div>
     </div>
 
 
 </div>
+
+<button id="newBtn" type="button" class="btn-theme bg-primary">Add New</button>
+<div class="stsermsg"></div>
+    <hr>
+    <div id="contentContainer">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" style="background-color: #fdf3ee">
+                    <div class="card-header">
+                        <h3> All Data</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="example">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">SL</th>
+                                <th style="text-align: center">Title</th>
+                                <th style="text-align: center">Username</th>
+                                <th style="text-align: center">Country</th>
+                                <th style="text-align: center">Raising Goal</th>
+                                <th style="text-align: center">Status</th>
+                                <th style="text-align: center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $key => $data)
+                                    <tr>
+                                        <td style="text-align: center">{{ $key + 1 }}</td>
+                                        <td style="text-align: center">
+                                            <a href="{{route('admin.campaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
+                                        </td>
+                                        <td style="text-align: center">{{$data->user->name}}</td>
+                                        <td style="text-align: center">{{$data->country->name}}</td>
+                                        <td style="text-align: center">{{$data->raising_goal}}</td>
+                                        <td style="text-align: center">
+                                            {{-- {{$data->status}} --}}
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input campaignstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="campaignstatus" @if ($data->status == 1) checked @endif >
+                                            </div>
+                                        </td>
+                                        
+                                        <td style="text-align: center">
+                                            
+                                            <a href="{{route('admin.addinfo',$data->id)}}"> <i class="fa fa-plus" style="color: rgb(116, 197, 133);font-size:16px;"> </i></a>
+
+                                            <a href="{{route('admin.campaignEdit',$data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
+                                            <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
+
+                                            
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
         
 </div>
@@ -402,21 +427,70 @@
 @section('script')
 <script type="text/javascript">
     $('.summernote').summernote({
-        height: 400
+        height: 200
     });
+    
+    $(document).ready(function () {
+        $('.select2').select2();
+    });
+</script>
+<script>
+    $(function() {
+      $('.campaignstatus').change(function() {
+        var url = "{{URL::to('/admin/active-campaign')}}";
+          var status = $(this).prop('checked') == true ? 1 : 0;
+          var id = $(this).data('id');
+           console.log(id);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: url,
+              data: {'status': status, 'id': id},
+              success: function(d){
+                // console.log(data.success)
+                if (d.status == 303) {
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }else if(d.status == 300){
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+          });
+      })
+    })
 </script>
 <script>
     
     var storedFiles = [];
     $(document).ready(function () {
-        
+
+        $("#addThisFormContainer").hide();
+            $("#newBtn").click(function(){
+                // clearform();
+                $("#newBtn").hide(100);
+                $("#addThisFormContainer").show(300);
+
+            });
+            $("#FormCloseBtn").click(function(){
+                $("#addThisFormContainer").hide(200);
+                $("#newBtn").show(100);
+                // clearform();
+            });
+
         //header for csrf-token is must in laravel
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-            // var url = "{{URL::to('/admin/campaign')}}";
-            var updateurl = "{{URL::to('/admin/campaign-update')}}";
+            var url = "{{URL::to('/admin/campaign')}}";
             // console.log(url);
-            $("#upBtn").click(function(){
+            $("#addBtn").click(function(){
+                // fundraiser create 
+                if($(this).val() == 'Create') {
                     var file_data = $('#fimage').prop('files')[0];
                     if(typeof file_data === 'undefined'){
                         file_data = 'null';
@@ -425,6 +499,11 @@
                     var bank_verification_doc = $('#bank_verification_doc').prop('files')[0];
                     if(typeof bank_verification_doc === 'undefined'){
                         bank_verification_doc = 'null';
+                    }
+
+                    var gov_issue_id = $('#gov_issue_id').prop('files')[0];
+                    if(typeof gov_issue_id === 'undefined'){
+                        gov_issue_id = 'null';
                     }
 
                     var form_data = new FormData();
@@ -436,8 +515,6 @@
                     form_data.append("country", $("#country").val());
                     form_data.append("title", $("#title").val());
                     form_data.append("story", $("#story").val());
-
-
                     form_data.append("raising_goal", $("#raising_goal").val());
                     form_data.append("video_link", $("#video_link").val());
                     form_data.append("tagline", $("#tagline").val());
@@ -445,8 +522,6 @@
                     form_data.append("location", $("#location").val());
                     form_data.append("funding_type", $("#funding_type").val());
                     form_data.append("end_date", $("#end_date").val());
-
-
                     form_data.append("email", $("#email").val());
                     form_data.append("name", $("#name").val());
                     form_data.append("family_name", $("#family_name").val());
@@ -458,9 +533,7 @@
                     form_data.append("street_name", $("#street_name").val());
                     form_data.append("town", $("#town").val());
                     form_data.append("postcode", $("#postcode").val());
-                    form_data.append("gov_issue_id", $("#gov_issue_id").val());
-
-
+                    // form_data.append("gov_issue_id", $("#gov_issue_id").val());
                     form_data.append("currency", $("#currency").val());
                     form_data.append("bank_account_country", $("#bank_account_country").val());
                     form_data.append("name_of_account", $("#name_of_account").val());
@@ -472,11 +545,11 @@
                     form_data.append("bank_routing", $("#bank_routing").val());
                     form_data.append("iban", $("#iban").val());
                     form_data.append('bank_verification_doc', bank_verification_doc);
-                    
-                    form_data.append("codeid", $("#codeid").val());
+                    form_data.append('gov_issue_id', gov_issue_id);
+                    form_data.append("user_id", $("#user_id").val());
                     
                     $.ajax({
-                        url: updateurl,
+                        url: url,
                         method: "POST",
                         contentType: false,
                         processData: false,
@@ -494,9 +567,44 @@
                             console.log(d);
                         }
                     });
-                //Update
+                }
+                // fundraiser create 
+                
 
             });
+
+            
+
+            //Delete
+            $("#contentContainer").on('click','#deleteBtn', function(){
+                if(!confirm('Sure?')) return;
+                codeid = $(this).attr('rid');
+                info_url = url + '/'+codeid;
+                $.ajax({
+                    url:info_url,
+                    method: "GET",
+                    type: "DELETE",
+                    data:{
+                    },
+                    success: function(d){
+                        if(d.success) {
+                            alert(d.message);
+                            location.reload();
+                        }
+                    },
+                    error:function(d){
+                        console.log(d);
+                    }
+                });
+            });
+            //Delete
+
+            
+
+            function clearform(){
+                $('#createThisForm')[0].reset();
+                $("#addBtn").val('Create');
+            }
 
     });
 
@@ -526,7 +634,6 @@
             $(this).parent().remove();
 
         });
-
 
     
 </script>

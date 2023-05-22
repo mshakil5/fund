@@ -6,8 +6,10 @@
 <div class="content">
     <div class="row">
         <div class="col-lg-12">
+            <a href="{{route('admin.newfundraiser')}}" class="btn-theme bg-primary">Back</a>
+                                
             <div class="pagetitle pb-2">
-                Contact Tevini
+                Pay fundraiser
             </div>
         </div>
     </div>

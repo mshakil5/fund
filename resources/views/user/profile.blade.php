@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
-                                    <input class="form-control fs-5" type="text" id="surname" name="surname" value="{{Auth::user()->surname}}">
+                                    <input class="form-control fs-5" type="text" id="sur_name" name="sur_name" value="{{Auth::user()->sur_name}}">
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -159,7 +159,7 @@
                 var form_data = new FormData();
                 form_data.append('image', file_data);
                 form_data.append("name", $("#name").val());
-                form_data.append("surname", $("#surname").val());
+                form_data.append("sur_name", $("#sur_name").val());
                 form_data.append("phone", $("#phone").val());
                 form_data.append("email", $("#email").val());
                 form_data.append("house_number", $("#house_number").val());

@@ -224,15 +224,7 @@ class CampaignController extends Controller
             $data->image= $imageName;
         }
 
-        if($request->bank_verification_doc != 'null'){
-            $request->validate([
-                'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
-            ]);
-            $rand = mt_rand(100000, 999999);
-            $imagedocName = time(). $rand .'.'.$request->bank_verification_doc->extension();
-            $request->bank_verification_doc->move(public_path('images/campaign'), $imagedocName);
-            $data->bank_verification_doc = $imagedocName;
-        }
+        
         
             $data->title = $request->title;
             $data->country_id = $request->country;
@@ -256,7 +248,7 @@ class CampaignController extends Controller
             $data->street_name = $request->street_name;
             $data->town = $request->town;
             $data->postcode = $request->postcode;
-            $data->gov_issue_id = $request->gov_issue_id;
+            // $data->gov_issue_id = $request->gov_issue_id;
             $data->currency = $request->currency;
             $data->bank_account_country = $request->bank_account_country;
             $data->name_of_account = $request->name_of_account;
@@ -281,11 +273,40 @@ class CampaignController extends Controller
                     //insert into picture table
                     $pic = new CampaignImage();
                     $pic->image = $imageName;
+                    $pic->title = "Slider";
                     $pic->campaign_id = $data->id;
                     $pic->user_id = Auth::user()->id;
                     $pic->created_by = Auth::user()->id;
                     $pic->save();
                 }
+            }
+
+            if($request->bank_verification_doc != 'null'){
+                $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$request->bank_verification_doc->extension();
+                    $request->bank_verification_doc->move(public_path('images/bank'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->title = "Bank";
+                    $pic->campaign_id = $data->id;
+                    $pic->user_id = Auth::user()->id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+            }
+
+            if($request->gov_issue_id != 'null'){
+                $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$request->gov_issue_id->extension();
+                    $request->gov_issue_id->move(public_path('images/campaign'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->title = "Govt";
+                    $pic->campaign_id = $data->id;
+                    $pic->user_id = Auth::user()->id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
             }
 
 
@@ -438,6 +459,84 @@ class CampaignController extends Controller
             return response()->json(['status'=> 300,'message'=>$message]);
         }else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+    }
+
+    public function campaignDocStoreByAdmin(Request $request)
+    {
+
+        $reqall = $request->image;
+
+        if(empty($request->category)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Category \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+ 
+
+
+        if ($request->image) {
+            if ($request->category == 1) {
+                foreach ($request->image as $key => $img) {
+                    // dd($key,  $img);
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/campaign'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->title = "Slider";
+                    $pic->user_id = Auth::user()->id;
+                    $pic->campaign_id = $request->campaign_id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            } else if ($request->category == 2) {
+                foreach ($request->image as $key => $img) {
+                    // dd($key,  $img);
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/bank'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->title = "Bank";
+                    $pic->user_id = Auth::user()->id;
+                    $pic->campaign_id = $request->campaign_id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            }else{
+                foreach ($request->image as $key => $img) {
+                    // dd($key,  $img);
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/campaign'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->title = "Govt";
+                    $pic->user_id = Auth::user()->id;
+                    $pic->campaign_id = $request->campaign_id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            }
+            
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Store Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+
+        }else{
+            return response()->json(['success'=>false,'message'=>'Server Error!!']);
+        }
+    }
+
+    public function deleteCampaignImageByAdmin($id)
+    {
+        if(CampaignImage::destroy($id)){
+            return response()->json(['success'=>true,'message'=>'Campaign Document has been deleted successfully']);
+        }else{
+            return response()->json(['success'=>false,'message'=>'Delete Failed']);
         }
     }
 
@@ -637,6 +736,7 @@ class CampaignController extends Controller
                 //insert into picture table
                 $pic = new CampaignImage();
                 $pic->image = $imageName;
+                $pic->title = "Slider";
                 $pic->user_id = Auth::user()->id;
                 $pic->created_by = Auth::user()->id;
                 $pic->save();
@@ -671,7 +771,46 @@ class CampaignController extends Controller
     public function step4_post_CampaignPersonalInfo(Request $request)
     {
         
-        $step4data = $request->all();
+        $step4data = [
+            "email" => $request->email, 
+            "name" => $request->name,
+            "family_name" => $request->family_name,
+            "dob" => $request->dob,
+            "phone" => $request->phone,
+            "city" => $request->city,
+            "street_name" => $request->street_name,
+            "town" => $request->town,
+            "postcode" => $request->postcode
+        ];
+
+        if ($request->gov_issue_id) {
+            $chkimg = CampaignImage::whereNull('campaign_id')->where('title','Govt')->where('user_id',Auth::user()->id)->get();
+            if (isset($chkimg)) {
+                foreach ($chkimg as $key => $camimg) {
+                    $image_path = public_path('images/campaign/'.$camimg->image);
+                    if(file_exists($image_path)){
+                        unlink($image_path);
+                    }
+                }
+                
+            }
+            DB::table('campaign_images')->whereNull('campaign_id')->where('title','Govt')->where('user_id',Auth::user()->id)->delete();
+            // $media= [];
+            foreach ($request->gov_issue_id as $key => $img) {
+                // dd($key,  $img);
+                $rand = mt_rand(100000, 999999);
+                $imageName = time(). $rand .'.'.$img->extension();
+                $img->move(public_path('images/campaign'), $imageName);
+                //insert into picture table
+                $pic = new CampaignImage();
+                $pic->image = $imageName;
+                $pic->title = "Govt";
+                $pic->user_id = Auth::user()->id;
+                $pic->created_by = Auth::user()->id;
+                $pic->save();
+            }
+        }
+
         session()->put('step4data', $step4data);
 
         $step5dataForm = session()->get('step5data');
@@ -682,6 +821,21 @@ class CampaignController extends Controller
         }
         return view('frontend.step5_new_campaign_bankinfo');
     }
+
+    // public function step4_post_CampaignPersonalInfo(Request $request)
+    // {
+        
+    //     $step4data = $request->all();
+    //     session()->put('step4data', $step4data);
+
+    //     $step5dataForm = session()->get('step5data');
+
+    //     if ($step5dataForm != null) {
+
+    //         return view('frontend.step5_new_campaign_bankinfo',compact('step5dataForm'));
+    //     }
+    //     return view('frontend.step5_new_campaign_bankinfo');
+    // }
 
     public function step5_show_startCampaignBankInfo(Request $request)
     {
@@ -755,26 +909,41 @@ class CampaignController extends Controller
         $data->street_name = $step4dataForm['street_name'];
         $data->town = $step4dataForm['town'];
         $data->postcode = $step4dataForm['postcode'];
-        $data->gov_issue_id = $step4dataForm['gov_issue_id'];
+        // $data->gov_issue_id = $step4dataForm['gov_issue_id'];
         $data->name_of_account = $request->name_of_account;
         $data->bank_name = $request->bank_name;
         $data->bank_account_number = $request->bank_account_number;
         $data->bank_sort_code = $request->bank_sort_code;
-        if (isset($request->bank_verification_doc)) {
-            $request->validate([
-                'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
-            ]);
-            $rand = mt_rand(100000, 999999);
-            $imageName = time(). $rand .'.'.$request->bank_verification_doc->extension();
-            $request->bank_verification_doc->move(public_path('images/bank'), $imageName);
-            $data->bank_verification_doc= $imageName;
-        }
+        // if (isset($request->bank_verification_doc)) {
+        //     $request->validate([
+        //         'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+        //     ]);
+        //     $rand = mt_rand(100000, 999999);
+        //     $imageName = time(). $rand .'.'.$request->bank_verification_doc->extension();
+        //     $request->bank_verification_doc->move(public_path('images/bank'), $imageName);
+        //     $data->bank_verification_doc= $imageName;
+        // }
         $data->status = '0';
 
         if ($data->save()) {
 
             CampaignImage::whereNull("campaign_id")->where('user_id',Auth::user()->id)
                 ->update(["campaign_id" => $data->id]);
+
+        // image
+        if (isset($request->bank_verification_doc)) {
+            $bank = new CampaignImage();
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->bank_verification_doc->extension();
+            $request->bank_verification_doc->move(public_path('images/bank'), $imageName);
+            $bank->image= $imageName;
+            $bank->campaign_id = $data->id;
+            $bank->title = "Bank";
+            $bank->user_id = Auth::user()->id;
+            $bank->created_by = Auth::user()->id;
+            $bank->save();
+        }
+        // end
 
 
             $mailmsg = EmailContent::where('title', 'campaign create by user')->first()->description;

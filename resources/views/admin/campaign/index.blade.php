@@ -60,7 +60,7 @@
                                                         <select name="user_id" id="user_id" class="form-control select2" required>
                                                             <option value="">Select User</option>
                                                             @foreach ($users as $user)
-                                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                            <option value="{{$user->id}}">{{$user->name}}-{{$user->sur_name}}-{{$user->email}}{{$user->clientid}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -70,9 +70,10 @@
                                                         <label for="name">Select Your Country</label>
                                                         <select name="country" id="country" class="form-control select2" required>
                                                             <option value="">Select Country</option>
-                                                            @foreach ($countries as $cntry)
+                                                            <option value="225">UNITED KINGDOM</option>
+                                                            {{-- @foreach ($countries as $cntry)
                                                             <option value="{{$cntry->id}}">{{$cntry->name}}</option>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                         </select>
                                                     </div>
                                                 </div>
@@ -271,7 +272,7 @@
                             <div class="col-lg-12">
                                 <div>
                                     <label for="gov_issue_id" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Government Issued ID</label>
-                                    <input type="text" name="gov_issue_id" class="form-control" id="gov_issue_id">
+                                    <input type="file" name="gov_issue_id" class="form-control" id="gov_issue_id">
                                 </div>
                             </div>
                             
@@ -449,6 +450,10 @@
     $('.summernote').summernote({
         height: 200
     });
+    
+    $(document).ready(function () {
+        $('.select2').select2();
+    });
 </script>
 <script>
     $(function() {
@@ -517,6 +522,11 @@
                         bank_verification_doc = 'null';
                     }
 
+                    var gov_issue_id = $('#gov_issue_id').prop('files')[0];
+                    if(typeof gov_issue_id === 'undefined'){
+                        gov_issue_id = 'null';
+                    }
+
                     var form_data = new FormData();
                     for(var i=0, len=storedFiles.length; i<len; i++) {
                         form_data.append('image[]', storedFiles[i]);
@@ -544,7 +554,7 @@
                     form_data.append("street_name", $("#street_name").val());
                     form_data.append("town", $("#town").val());
                     form_data.append("postcode", $("#postcode").val());
-                    form_data.append("gov_issue_id", $("#gov_issue_id").val());
+                    // form_data.append("gov_issue_id", $("#gov_issue_id").val());
                     form_data.append("currency", $("#currency").val());
                     form_data.append("bank_account_country", $("#bank_account_country").val());
                     form_data.append("name_of_account", $("#name_of_account").val());
@@ -556,6 +566,7 @@
                     form_data.append("bank_routing", $("#bank_routing").val());
                     form_data.append("iban", $("#iban").val());
                     form_data.append('bank_verification_doc', bank_verification_doc);
+                    form_data.append('gov_issue_id', gov_issue_id);
                     form_data.append("user_id", $("#user_id").val());
                     
                     $.ajax({

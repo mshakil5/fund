@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-lg-9 mx-auto">
+                        <div class="col-lg-12 mx-auto">
                             <div class="title darkerGrotesque-bold lh-1 fs-3">Tell us a bit more about your fundriser
                             </div>
                             <h5 class="para text-center mt-3 text-muted fs-6">

@@ -29,7 +29,16 @@
                             <tr>
                                 <td>{{$key + 1}}</td>
                                 <td>{{$item->date}}</td>
-                                <td>{{$item->campaign->title}}</td>
+                                <td>
+                                    @if (isset($item->campaign_id))
+                                        {{$item->campaign->title}}
+                                    @endif
+
+                                    @if (isset($item->charity_id))
+                                        {{$item->user->name}}
+                                    @endif
+
+                                </td>
                                 <td>{{$item->total_amount}}</td>
                                 <td>No</td>
                                 <td>{{$item->description}}</td>

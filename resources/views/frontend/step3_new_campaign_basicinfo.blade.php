@@ -35,7 +35,7 @@
                                             <li class="list-group-item">A mailing address in the united kingdom</li>
                                         </ul>
                                     </div>
-                                    <div class="title darkerGrotesque-bold lh-1 fs-3 txt-secondary">Add a cover photo or video
+                                    <div class="title darkerGrotesque-bold lh-1 fs-3 txt-secondary">Add a cover photos  and videos 
                                     </div>
                                     <h5 class="para text-center mt-3 text-muted fs-6">
                                         Who are you fundrising for
@@ -57,7 +57,7 @@
 
                                     </div>
                                     
-                                    <div class="title darkerGrotesque-bold lh-1 fs-3 txt-secondary">Tell donor why you are fundrising </div>
+                                    {{-- <div class="title darkerGrotesque-bold lh-1 fs-3 txt-secondary">Tell donor why you are fundrising </div> --}}
                                     <h5 class="para text-center mt-3 text-muted fs-6">
                                         Some idea to help you start writing
                                     </h5>
@@ -65,7 +65,7 @@
                                         <ul class="list-group list-group-numbered">
                                             <li class="list-group-item">Introduce yourself and what you are raising funds for</li>
                                             <li class="list-group-item">Describe why it's important to you</li>
-                                            <li class="list-group-item">Explain how the funds will be used</li>
+                                            {{-- <li class="list-group-item">Explain how the funds will be used</li> --}}
                                         </ul>
                                     </div>
                                     <div class="row my-3">

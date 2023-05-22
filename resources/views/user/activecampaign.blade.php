@@ -53,7 +53,7 @@
                                     <td>{{$data->title}} </td>
                                     <td>{{$data->country->name}} </td>
                                     <td>{{ \App\Models\FundraisingSource::where('id',$data->fundraising_source_id)->first()->name}} </td>
-                                    <td>${{$data->raising_goal}}</td>
+                                    <td>£{{$data->raising_goal}}</td>
                                     <td> @if ($data->status == 1) Active @else Deactive @endif </td> 
                                     <td>
                                         <!-- Button trigger modal -->

@@ -32,13 +32,14 @@
                                         <label for="" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Select your country</label>
                                         <select name="country" id="country" class="form-control darkerGrotesque-bold fs-5  darkerGrotesque-medium select2" required>
                                             <option value="">Select Country</option>
-                                            @foreach ($country as $cntry)
+                                            <option value="225">UNITED KINGDOM</option>
+                                            {{-- @foreach ($country as $cntry)
                                             <option value="{{$cntry->id}}" @if((isset($step2Data["country"]))&&($step2Data["country"]==$cntry->id)) selected @endif>{{$cntry->name}}</option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </div>
                                     <div class="col-lg-6 ">
-                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Why you are fundrising? </label>
+                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold"> Campaign category </label>
                                         <select name="source" id="source" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2" required>
                                             <option value="">Select</option>
                                             <@foreach ($source as $source)
@@ -51,11 +52,11 @@
 
                                 <div class="row my-3">
                                     <div class="col-lg-12 mb-3">
-                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Fundriser title</label>
+                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Campaign Title</label>
                                         <input type="text" name="title" class="form-control" id="title" value="{{ $step2Data['title'] ?? '' }}" required>
                                     </div>
                                     <div class="col-lg-12 ">
-                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell your story </label>
+                                        <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell donor why you are fundraising </label>
                                         <textarea name="story" id="story" class="form-control summernote" required>{{ $step2Data['story'] ?? '' }}</textarea>
                                     </div>
 

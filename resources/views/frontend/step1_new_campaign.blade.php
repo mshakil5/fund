@@ -21,7 +21,7 @@
                     </div>
                     
                     <div class="row ">
-                        <div class="col-lg-9 mx-auto">
+                        <div class="col-lg-12 mx-auto">
 
                             <ul class="nav nav-tabs mt-5 border-0 py-4 justify-content-center  bg-transparent" id="myTab"
                                 role="tablist">
