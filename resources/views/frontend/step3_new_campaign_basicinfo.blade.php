@@ -15,7 +15,7 @@
                     
                     <div class="row mt-4">
                         <div class="col-lg-9 mx-auto">
-                            <div class="title darkerGrotesque-bold lh-1 fs-3">Tell us a bit more about basic information
+                            <div class="title darkerGrotesque-bold lh-1 fs-3">
                             </div>
                             <form action="{{route('campaignBasicInfo_post')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
