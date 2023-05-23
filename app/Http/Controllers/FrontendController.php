@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Mail;
 use App\Mail\ContactFormMail;
 use App\Models\CampaignShare;
+use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use DB;
@@ -23,7 +24,13 @@ class FrontendController extends Controller
         $campaign = Campaign::with('transaction','campaignimage')->where('status','1')->where('homepage','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
         // dd($campaign);
         $charities = User::select('photo','id','name')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('status','1')->get();
-        return view('frontend.index',compact('campaign','todate','charities'));
+
+        
+        $events = Event::with('eventimage')->where('status','1')->orderby('id','DESC')->get();
+        // dd($events);
+
+
+        return view('frontend.index',compact('campaign','todate','charities','events'));
     }
 
     public function about()
