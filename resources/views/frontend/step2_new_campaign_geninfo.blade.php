@@ -55,6 +55,17 @@
                                         <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Campaign Title</label>
                                         <input type="text" name="title" class="form-control" id="title" value="{{ $step2Data['title'] ?? '' }}" required>
                                     </div>
+                                    <h5 class="para text-center mt-3 text-muted fs-6">
+                                        Some idea to help you start writing
+                                    </h5>
+                                    <div class="alert  para text-muted fs-6 shadow-sm" role="alert">
+                                        <ul class="list-group list-group-numbered">
+                                            <li class="list-group-item">Introduce yourself and what you are raising funds for</li>
+                                            <li class="list-group-item">Describe why it's important to you</li>
+                                            <li class="list-group-item">Explain how the funds will be used</li>
+                                        </ul>
+                                    </div>
+                                    
                                     <div class="col-lg-12 ">
                                         <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell donor why you are fundraising </label>
                                         <textarea name="story" id="story" class="form-control summernote" required>{{ $step2Data['story'] ?? '' }}</textarea>

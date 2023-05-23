@@ -58,16 +58,7 @@
                                     </div>
                                     
                                     {{-- <div class="title darkerGrotesque-bold lh-1 fs-3 txt-secondary">Tell donor why you are fundrising </div> --}}
-                                    <h5 class="para text-center mt-3 text-muted fs-6">
-                                        Some idea to help you start writing
-                                    </h5>
-                                    <div class="alert  para text-muted fs-6 shadow-sm" role="alert">
-                                        <ul class="list-group list-group-numbered">
-                                            <li class="list-group-item">Introduce yourself and what you are raising funds for</li>
-                                            <li class="list-group-item">Describe why it's important to you</li>
-                                            {{-- <li class="list-group-item">Explain how the funds will be used</li> --}}
-                                        </ul>
-                                    </div>
+                                    
                                     <div class="row my-3">
 
                                             <div class="col-lg-6">
