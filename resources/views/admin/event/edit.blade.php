@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <!-- content area -->
 <div class="content">
     <div class="row">
@@ -9,15 +10,18 @@
             <div class="pagetitle pb-2">
                 Event
             </div>
+            <div class="ermsg"></div>
         </div>
     </div>
-    <div class="row">
+
+    {{-- <div class="row">
         <div class="col-lg-12">
-            <div class="ermsg">
-            </div>
         </div>
-    </div>
+    </div> --}}
+
+
 <div id="addThisFormContainer">
+    
     
     
     <div class="row ">
@@ -39,7 +43,7 @@
                         data-bs-target="#moneyOut" type="button" role="tab" aria-controls="moneyOut"
                         aria-selected="false">Event Summery</button>
                 </li>
-                
+
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="transaction" role="tabpanel"
@@ -48,18 +52,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card" style="background-color: #fdf3ee">
+                                
                                     <div class="card-body">
                                         <div class="tile">
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div>
-                                                        <label for="user_id" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Select User</label>
-                                                        <select name="user_id" id="user_id" class="form-control select2" required>
-                                                            <option value="">Select User</option>
-                                                            @foreach ($users as $user)
-                                                            <option value="{{$user->id}}">{{$user->name}}-{{$user->sur_name}}-{{$user->email}}{{$user->clientid}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <label for="user_id">Select User</label>
+                                                        <input type="text" class="form-control" value="{{ $data->user->name }}-{{ $data->user->email }}" readonly>
                                                     </div>
                                                 </div>
                                                 
@@ -67,31 +67,31 @@
                                                 <div class="col-lg-12">
                                                     <div>
                                                         <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event title</label>
-                                                        <input type="text" name="title" class="form-control" id="title">
+                                                        <input type="text" name="title" class="form-control" id="title" value="{{$data->title}}">
+                                                        <input type="hidden" name="codeid" class="form-control" id="codeid" value="{{$data->id}}">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-6">
                                                     <div>
                                                         <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event Type</label>
-                                                        <input type="text" name="event_type" class="form-control" id="event_type">
+                                                        <input type="text" name="event_type" class="form-control" id="event_type" value="{{$data->event_type}}">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-6">
                                                     <div>
                                                         <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event Category</label>
-                                                        <input type="text" name="category" class="form-control" id="category">
+                                                        <input type="text" name="category" class="form-control" id="category" value="{{$data->category}}">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-12">
                                                     <div>
                                                         <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tags</label>
-                                                        <input type="text" name="tagline" class="form-control" id="tagline">
+                                                        <input type="text" name="tagline" class="form-control" id="tagline" value="{{$data->tagline}}">
                                                     </div>
                                                 </div>
-                                                
 
                                             </div>
                                         </div>
@@ -107,10 +107,11 @@
                 <div class="tab-pane fade" id="moneyIn" role="tabpanel" aria-labelledby="moneyIn-tab">
                     <div class="data-container">
                         <div class="row">
+                            
                             <div class="col-lg-12">      
                                 <div>
                                     <label for="location" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Location</label>
-                                    <input type="text" class="form-control" placeholder="Location" id="location" name="location">
+                                    <input type="text" class="form-control" placeholder="Location" id="location" name="location" value="{{$data->location}}">
                                 </div>               
                             </div>
                             <div class="col-lg-6">
@@ -127,7 +128,12 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="preview2">
-                                    
+                                    <div class="row">
+                                        @foreach ($data->eventimage as $img)
+                                            <div class="col-3 singleImage my-3"><span id="{{$img->id}}" data-file="{{$img->image}}" class="btn btn-sm btn-danger imageremove2">×</span><img width="120px" height="auto" src="{{asset('images/event/'.$img->image)}}"  alt="Image"></div>
+                                        @endforeach
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div>
@@ -136,31 +142,31 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event Start Time</label>
-                                    <input type="datetime-local" id="event_start_date" name="event_start_date" class="form-control" />
+                                    <input type="datetime-local" id="event_start_date" name="event_start_date" class="form-control" value="{{$data->event_start_date}}" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div>
                                     <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event End Time</label>
-                                    <input type="datetime-local" id="event_end_date" name="event_end_date" class="form-control" />
+                                    <input type="datetime-local" id="event_end_date" name="event_end_date" class="form-control" value="{{$data->event_end_date}}" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div>
                                     <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sale Start Time</label>
-                                    <input type="datetime-local" id="sale_start_date" name="sale_start_date" class="form-control" />
+                                    <input type="datetime-local" id="sale_start_date" name="sale_start_date" class="form-control" value="{{$data->sale_start_date}}" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div>
                                     <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sale End Time</label>
-                                    <input type="datetime-local" id="sale_end_date" name="sale_end_date" class="form-control" />
+                                    <input type="datetime-local" id="sale_end_date" name="sale_end_date" class="form-control" value="{{$data->sale_end_date}}" />
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div>
                                     <label for="price" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Price </label>
-                                    <input type="number" name="price" class="form-control" id="price">
+                                    <input type="number" name="price" class="form-control" id="price" value="{{$data->price}}">
                                 </div>
                             </div>
                             <hr>
@@ -172,21 +178,20 @@
                 <div class="tab-pane fade" id="moneyOut" role="tabpanel" aria-labelledby="moneyOut-tab">
                     <div class="data-container">
                         <div class="row">
+                            
                             <div class="col-lg-12">      
                                 <div>
                                     <label for="summery" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Summery</label>
-                                    <input type="text" class="form-control" placeholder="Summery" id="summery" name="summery">
+                                    <input type="text" class="form-control" placeholder="Summery" id="summery" name="summery" value="{{$data->summery}}">
                                 </div>               
                             </div>
 
                             <div class="col-lg-12">
                                 <div>
                                     <label for="description" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event Description</label>
-                                    <textarea name="description" id="description" class="form-control summernote"></textarea>
+                                    <textarea name="description" id="description" class="form-control summernote">{!! $data->description !!}</textarea>
                                 </div>
                             </div>
-                            
-                            
                             
                             <hr>
                     
@@ -194,84 +199,16 @@
                         
                     </div>
                 </div>
-                
             </div>
         </div>
         <div class="col-lg-12">
-            <input type="button" id="addBtn" value="Create" class="btn-theme bg-primary fs-16 fw-700">
-            <input type="button" id="FormCloseBtn" value="Close" class="btn-theme bg-secondary">
+            <a href="{{route('admin.event')}}" class="btn-theme bg-secondary fs-16 fw-700">Back</a>
+            <a id="upBtn" class="btn-theme bg-primary fs-16 fw-700">Update</a>
         </div>
     </div>
 
 
 </div>
-
-<button id="newBtn" type="button" class="btn-theme bg-primary">Add New</button>
-<div class="stsermsg"></div>
-    <hr>
-    <div id="contentContainer">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="background-color: #fdf3ee">
-                    <div class="card-header">
-                        <h3> All Data</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-hover" id="example">
-                            <thead>
-                            <tr>
-                                <th style="text-align: center">SL</th>
-                                <th style="text-align: center">Title</th>
-                                <th style="text-align: center">Event Organizer</th>
-                                <th style="text-align: center">Category</th>
-                                <th style="text-align: center">Event Start </th>
-                                <th style="text-align: center">Event Start </th>
-                                <th style="text-align: center">Sale Start </th>
-                                <th style="text-align: center">Sale End </th>
-                                <th style="text-align: center">Price</th>
-                                <th style="text-align: center">Status</th>
-                                <th style="text-align: center">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data as $key => $data)
-                                    <tr>
-                                        <td style="text-align: center">{{ $key + 1 }}</td>
-                                        <td style="text-align: center">
-                                            <a href="{{route('admin.eventView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
-                                        </td>
-                                        <td style="text-align: center">{{$data->user->name}}</td>
-                                        <td style="text-align: center">{{$data->category}}</td>
-                                        <td style="text-align: center">{{$data->event_start_date}}</td>
-                                        <td style="text-align: center">{{$data->event_end_date}}</td>
-                                        <td style="text-align: center">{{$data->sale_start_date}}</td>
-                                        <td style="text-align: center">{{$data->sale_end_date}}</td>
-
-                                        <td style="text-align: center">{{$data->price}}</td>
-                                        <td style="text-align: center">
-                                            {{-- {{$data->status}} --}}
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input eventstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="eventstatus" @if ($data->status == 1) checked @endif >
-                                            </div>
-                                        </td>
-                                        
-                                        <td style="text-align: center">
-
-                                            <a href="{{route('admin.eventEdit',$data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
-                                            <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
-
-                                            
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
         
 </div>
@@ -281,70 +218,21 @@
 @section('script')
 <script type="text/javascript">
     $('.summernote').summernote({
-        height: 200
+        height: 400
     });
-    
-    $(document).ready(function () {
-        $('.select2').select2();
-    });
-</script>
-<script>
-    $(function() {
-      $('.eventstatus').change(function() {
-        var url = "{{URL::to('/admin/active-event')}}";
-          var status = $(this).prop('checked') == true ? 1 : 0;
-          var id = $(this).data('id');
-           console.log(id);
-          $.ajax({
-              type: "GET",
-              dataType: "json",
-              url: url,
-              data: {'status': status, 'id': id},
-              success: function(d){
-                // console.log(data.success)
-                if (d.status == 303) {
-                        pagetop();
-                        $(".stsermsg").html(d.message);
-                        window.setTimeout(function(){location.reload()},2000)
-                    }else if(d.status == 300){
-                        pagetop();
-                        $(".stsermsg").html(d.message);
-                        window.setTimeout(function(){location.reload()},2000)
-                    }
-                },
-                error: function (d) {
-                    console.log(d);
-                }
-          });
-      })
-    })
 </script>
 <script>
     
     var storedFiles = [];
     $(document).ready(function () {
-
-        $("#addThisFormContainer").hide();
-            $("#newBtn").click(function(){
-                // clearform();
-                $("#newBtn").hide(100);
-                $("#addThisFormContainer").show(300);
-
-            });
-            $("#FormCloseBtn").click(function(){
-                $("#addThisFormContainer").hide(200);
-                $("#newBtn").show(100);
-                // clearform();
-            });
-
+        
         //header for csrf-token is must in laravel
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-            var url = "{{URL::to('/admin/event')}}";
+            
+            var updateurl = "{{URL::to('/admin/event-update')}}";
             // console.log(url);
-            $("#addBtn").click(function(){
-                // fundraiser create 
-                if($(this).val() == 'Create') {
+            $("#upBtn").click(function(){
                     var file_data = $('#fimage').prop('files')[0];
                     if(typeof file_data === 'undefined'){
                         file_data = 'null';
@@ -371,13 +259,16 @@
                     form_data.append("description", $("#description").val());
                     form_data.append("user_id", $("#user_id").val());
                     
+                    form_data.append("codeid", $("#codeid").val());
+                    
                     $.ajax({
-                        url: url,
+                        url: updateurl,
                         method: "POST",
                         contentType: false,
                         processData: false,
                         data:form_data,
                         success: function (d) {
+                            console.log(d);
                             if (d.status == 303) {
                                 $(".ermsg").html(d.message);
                             }else if(d.status == 300){
@@ -390,44 +281,9 @@
                             console.log(d);
                         }
                     });
-                }
-                // fundraiser create 
-                
+                //Update
 
             });
-
-            
-
-            //Delete
-            $("#contentContainer").on('click','#deleteBtn', function(){
-                if(!confirm('Sure?')) return;
-                codeid = $(this).attr('rid');
-                info_url = url + '/'+codeid;
-                $.ajax({
-                    url:info_url,
-                    method: "GET",
-                    type: "DELETE",
-                    data:{
-                    },
-                    success: function(d){
-                        if(d.success) {
-                            alert(d.message);
-                            location.reload();
-                        }
-                    },
-                    error:function(d){
-                        console.log(d);
-                    }
-                });
-            });
-            //Delete
-
-            
-
-            function clearform(){
-                $('#createThisForm')[0].reset();
-                $("#addBtn").val('Create');
-            }
 
     });
 
@@ -457,6 +313,7 @@
             $(this).parent().remove();
 
         });
+
 
     
 </script>

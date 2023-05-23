@@ -12,6 +12,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CharityController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -44,20 +45,17 @@ Auth::routes();
 Route::post('/loginto', [LoginController::class, 'loginToDonate'])->name('logintodonate');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
 Route::get('/work', [FrontendController::class, 'work'])->name('frontend.work');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
 Route::get('/privacy', [FrontendController::class, 'privacy'])->name('frontend.privacy');
 Route::get('/terms', [FrontendController::class, 'terms'])->name('frontend.terms');
-
 Route::get('/non-profit', [FrontendController::class, 'nonprofit'])->name('frontend.nonprofit');
 Route::get('/individual', [FrontendController::class, 'individual'])->name('frontend.individual');
 Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('frontend.fundriser');
 
 Route::post('/contact-submit', [FrontendController::class, 'visitorContact'])->name('contact.submit');
-
 Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->name('frontend.campaignDetails');
 
 /*----------------------Charity Registration-----------------------*/
@@ -134,6 +132,15 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('all-transaction', [TransactionController::class, 'allTransaction'])->name('user.alltransaction');
     Route::get('start-a-new-campaign', [CampaignController::class, 'newCampaign'])->name('user.newcampaign');
     Route::post('fund-raise', [CampaignController::class, 'newCampaignStore'])->name('user.newcampaignstore');
+
+    
+    Route::get('my-event', [EventController::class, 'getEventByUser'])->name('user.myevent');
+    // start a new event
+    Route::get('/start-a-new-event', [EventController::class, 'start_new_event'])->name('start_new_event');
+    Route::post('create-a-event', [EventController::class, 'eventCreateByUser']);
+
+    Route::get('/event-edit/{id}', [EventController::class, 'eventEditByUser'])->name('user.eventEdit');
+    Route::post('update-event', [EventController::class, 'eventUpdateByUser']);
 });
   
 /*------------------------------------------

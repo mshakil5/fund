@@ -51,6 +51,7 @@
     <script src="{{ asset('assets/js/bootstrap-5.bundle.min.js')}}"></script>
     <script src="{{ asset('assets/js/iconify.min.js')}}"></script>
     <script src="{{ asset('assets/js/app.js')}}"></script>
+    <script src="{{ asset('assets/js/jquery.easing.min.js')}}" type="text/javascript"></script>
     <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> -->
     <!-- <script src="./js/slick.min.js" type="text/javascript"></script> -->
 

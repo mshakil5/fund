@@ -173,6 +173,10 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // event
     Route::get('/event', [EventController::class, 'getEvent'])->name('admin.event');
     Route::get('/event-view/{id}', [EventController::class, 'viewEventByAdmin'])->name('admin.eventView');
+    Route::post('/event', [EventController::class, 'storeEventByAdmin']);
+    Route::get('active-event', [EventController::class, 'activeEvent']);
+    Route::get('/event-edit/{id}', [EventController::class, 'editEventByAdmin'])->name('admin.eventEdit');
+    Route::post('/event-update', [EventController::class, 'updateEventByAdmin']);
 
 });
 //admin part end

@@ -103,20 +103,7 @@ class CampaignController extends Controller
         $data->fundraising_source_id = $request->source;
         $data->country_id = $request->country;
         $data->fundraising_for = "yourself";
-        // image
-        // if ($request->image) {
-        //     foreach ($request->image as $key => $image) {
-        //         if ($key == 0) {
-        //             $rand = mt_rand(100000, 999999);
-        //             $name = time() . "_" . Auth::id() . "_" . $rand . "." . $image->getClientOriginalExtension();
-        //             //move image to postimages folder
-        //             $image->move(public_path() . '/images/', $name);
-        //             //insert into picture table
-        //             $data->image = $name;
-        //         }
-        //     }
-        // }
-        // end
+        
         $data->status = "0";
         $data->created_by = Auth::user()->id;
         if ($data->save()) {

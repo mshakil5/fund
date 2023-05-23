@@ -95,7 +95,9 @@
                                         <li><a class="dropdown-item" href="{{ route('user.refcampaign')}}">Reffered campaign </a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.donationhistory')}}">Donation you have made</a></li>
                                         <li><a class="dropdown-item" href="{{ route('newcampaign_show')}}">Start a new fundrising</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('user.alltransaction')}}">All Statements</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.myevent')}}">Your event </a></li>
+                                        <li><a class="dropdown-item" href="{{ route('start_new_event')}}">Start a new event</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.alltransaction')}}">All statement</a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.profile')}}">Account settings</a> </li>
                                         <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign Out</a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
