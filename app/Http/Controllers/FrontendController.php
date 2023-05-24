@@ -236,4 +236,21 @@ class FrontendController extends Controller
             return response()->json(['status'=> 300,'message'=>$message]);
         
     }
+
+    public function eventDetails($id)
+    {
+        $shareComponent = \Share::page(
+            URL::current(),
+            'Your share text comes here',
+        )
+        ->facebook()
+        ->twitter()
+        ->whatsapp();
+
+        $data = Event::with('eventimage')->where('id',$id)->first();
+        
+
+        // dd($doners);
+        return view('frontend.eventdetails', compact('data','shareComponent'));
+    }
 }

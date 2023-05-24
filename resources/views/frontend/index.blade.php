@@ -88,7 +88,24 @@
     </div>
 </section>
 
-<section class="campaign default">
+<section class="show-events">
+    <div class="container-fluid p-0">
+        <div class="row "> 
+            <div class="event">
+               <a href="#" class="d-block p-0">
+                <img src="{{ asset('assets/images/Events Management festival image.jpg')}}" alt="">
+               </a>
+              <div class="action">
+                <p class="w-50 text-center para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo et labore placeat eius quam fugiat iure. Consectetur eveniet aspernatur cupiditate sapiente repellat omnis!</p>
+               
+                <a href="#" class=" btn btn-theme bg-primary eventAction ">Action Button</a>
+              </div>
+            </div> 
+        </div>
+    </div>
+</section>
+
+<section class="campaign default" style="display:none">
     <div class="container">
         <div class="row">
             <div class="title">
@@ -144,6 +161,7 @@
     </div>
 </section>
 
+<!--Campaign Section -->
 <section class="campaign default">
     <div class="container">
         <div class="row">
@@ -216,7 +234,63 @@
     </div>
 </section>
 
+<!--Event Section -->
+<section class="campaign default">
+    <div class="container">
+        <div class="row">
+            <div class="title">
+                Featured Events
+            </div>
+        </div>
+        <div class="row mt-5"> 
 
+            @foreach ($events as $event) 
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="card-theme mb-3">
+                    <div class="topper d-flex align-items-center justify-content-center">
+                        <a href="{{ route('frontend.eventDetails',$event->id)}}" class="p-0 d-block">
+                            <img src="{{asset('images/event/'.$event->image)}}">
+                        </a>
+                    </div>
+                    <div class="card-body ">
+                        <div class="inner">
+                            <div class="card-title text-start ">
+                                <a href="{{ route('frontend.eventDetails',$event->id)}}">
+                                    {{$event->title}}
+                                </a>
+                            </div>
+                           <div class="d-flex justify-content-between">
+                            <small class="darkerGrotesque-bold txt-secondary">
+                                {{ \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY')}} -  <span class=" darkerGrotesque-bold txt-primary">
+                                  @if ($event->price > 0) £{{$event->price}} @else Free @endif  
+                                </span> 
+                               </small>
+                              
+                           </div>
+                           <h5 class="mb-0 darkerGrotesque-semibold mb-2">
+                          <span class="txt-primary"> Venue:</span>
+                          {{$event->venue_name}}
+                           </h5> 
+                           <h5 class="mb-0 darkerGrotesque-semibold mb-3">
+                           Location:  <small class="text-muted"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</small>
+                           </h5> 
+                           
+                           <div class="w-100 text-center">
+                            <a href="{{ route('frontend.eventDetails',$event->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">See Details</a>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            @endforeach
+            
+
+
+        </div>
+    </div>
+</section>
+
+<!--charity section -->
 <section class="campaign default">
     <div class="container">
         <div class="row mb-5">
@@ -259,57 +333,57 @@
     </div>
 </section>
 
-    <!--Login  Modal -->
-    <div  class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-    
-                @if(session()->has('message'))
-                <p class="alert alert-success"> {{ session()->get('message') }}</p>
-                @endif
-                 
-                <form method="POST" action="{{ route('logintodonate') }}" class="form-custom">
-                    @csrf
-    
-                    <div class="title text-center txt-secondary">LOGIN</div>
-                    <div class="form-group">
-                        <input type="hidden" name="charityid" id="charityid" value="">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    
-                    <br>
-                    <div class="form-group">
-                        <button type="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Login </button>
-                    </div>
-                    <div class="form-group d-flex justify-content-center">
-                         <a href="{{ route('charity.register')}}" class="btn-theme bg-secondary d-block text-center mx-0 w-100"> Apply for an account</a>
-                    </div>
-                </form>
-    
-    
-    
-            </div>
-          </div>
+<!--Login  Modal -->
+<div  class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            @if(session()->has('message'))
+            <p class="alert alert-success"> {{ session()->get('message') }}</p>
+            @endif
+                
+            <form method="POST" action="{{ route('logintodonate') }}" class="form-custom">
+                @csrf
+
+                <div class="title text-center txt-secondary">LOGIN</div>
+                <div class="form-group">
+                    <input type="hidden" name="charityid" id="charityid" value="">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Login </button>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                        <a href="{{ route('charity.register')}}" class="btn-theme bg-secondary d-block text-center mx-0 w-100"> Apply for an account</a>
+                </div>
+            </form>
+
+
+
+        </div>
         </div>
     </div>
+</div>
     
 @endsection
 

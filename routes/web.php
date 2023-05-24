@@ -58,6 +58,8 @@ Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('fronte
 Route::post('/contact-submit', [FrontendController::class, 'visitorContact'])->name('contact.submit');
 Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->name('frontend.campaignDetails');
 
+Route::get('/event/{id}', [FrontendController::class, 'eventDetails'])->name('frontend.eventDetails');
+
 /*----------------------Charity Registration-----------------------*/
 Route::get('/charity-registration', [CharityController::class, 'charity'])->name('charity.register');
 Route::post('/charity-registration', [CharityController::class, 'charityregistration'])->name('charity.registration');
