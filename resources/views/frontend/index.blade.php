@@ -88,78 +88,26 @@
     </div>
 </section>
 
+@if (isset($singleevent))
 <section class="show-events">
     <div class="container-fluid p-0">
         <div class="row "> 
             <div class="event">
-               <a href="#" class="d-block p-0">
-                <img src="{{ asset('assets/images/Events Management festival image.jpg')}}" alt="">
+               <a href="{{ route('frontend.eventDetails',$singleevent->id)}}" class="d-block p-0">
+                <img src="{{asset('images/event/'.$singleevent->image)}}" alt="">
                </a>
               <div class="action">
-                <p class="w-50 text-center para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo et labore placeat eius quam fugiat iure. Consectetur eveniet aspernatur cupiditate sapiente repellat omnis!</p>
+                <p class="w-50 text-center para">{{$singleevent->summery}}</p>
                
-                <a href="#" class=" btn btn-theme bg-primary eventAction ">Action Button</a>
+                <a href="{{ route('frontend.eventDetails',$singleevent->id)}}" class=" btn btn-theme bg-primary eventAction ">Action Button</a>
               </div>
             </div> 
         </div>
     </div>
 </section>
-
-<section class="campaign default" style="display:none">
-    <div class="container">
-        <div class="row">
-            <div class="title">
-                Featured Event
-            </div>
-        </div>
-        <div class="row mt-5">
-            @foreach ($events as $event) 
-            <div class="col-md-4 col-sm-6 ">
-                <div class="card-theme mb-3">                     
-                    <div class="topper d-flex align-items-center justify-content-center">
-                        <a href="{{ route('frontend.campaignDetails',$event->id)}}" class="p-0 d-block w-100">
-                            <img src="{{asset('images/event/'.$event->image)}}">
-                        </a>
-                    </div>
-                    <div class="card-body ">
-                        <div class="inner">
-                            <div class="card-title text-start ">
-                                <a href="{{ route('frontend.campaignDetails',$event->id)}}">
-                                    {{$event->title}}
-                                </a>
-                            </div>
-                            <div class="status d-flex py-2">
-                                <span class="d-flex align-items-center me-4">
-                                    <iconify-icon class="me-1" icon="ic:baseline-people-outline"></iconify-icon>
-                                    {{-- {{$total_donar}} --}}
-                                </span>
-                                <span class="d-flex align-items-center me-2">
-                                    <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 
-                                    {{-- {{ $event->event_start_date->format('d/m/Y') }} --}}
-                                </span>
-                            </div>
-
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <div>
-                                    <h4 class="mb-1 text-dark fw-bold"> test </h4>
-                                    <h6 class="mb-1 text-dark  fw-bold">funded of £100</h6>
-                                </div>
-                                <div>
-                                    <a href="{{ route('frontend.campaignDetails',$event->id)}}" class="btn-theme bg-primary">Donate Now</a>
-                                </div>
-                            </div>
+@endif
 
 
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            @endforeach
-
-        </div>
-    </div>
-</section>
 
 <!--Campaign Section -->
 <section class="campaign default">

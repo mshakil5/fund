@@ -27,10 +27,11 @@ class FrontendController extends Controller
 
         
         $events = Event::with('eventimage')->where('status','1')->orderby('id','DESC')->get();
-        // dd($events);
+        $singleevent = Event::with('eventimage')->where('status','1')->orderby('id','DESC')->limit(1)->first();
+        // dd($singleevent);
 
 
-        return view('frontend.index',compact('campaign','todate','charities','events'));
+        return view('frontend.index',compact('campaign','todate','charities','events','singleevent'));
     }
 
     public function about()
