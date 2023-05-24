@@ -94,14 +94,11 @@
             </div>
         </div>
         <div class="row mt-5">
-            @foreach ($events as $event)
-
-            
-
-            <div class="col-lg-4 col-md-6 ">
-                <div class="card-theme mb-3">
+            @foreach ($events as $event) 
+            <div class="col-md-4 col-sm-6 ">
+                <div class="card-theme mb-3">                     
                     <div class="topper d-flex align-items-center justify-content-center">
-                        <a href="{{ route('frontend.campaignDetails',$event->id)}}" class="p-0 d-block">
+                        <a href="{{ route('frontend.campaignDetails',$event->id)}}" class="p-0 d-block w-100">
                             <img src="{{asset('images/event/'.$event->image)}}">
                         </a>
                     </div>
@@ -166,10 +163,10 @@
                 $total_donar = $campaign->transaction->count();
             @endphp
 
-            <div class="col-lg-4 col-md-6 ">
+            <div class="col-md-4 col-sm-6">
                 <div class="card-theme mb-3">
                     <div class="topper d-flex align-items-center justify-content-center">
-                        <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block">
+                        <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
                             <img src="{{asset('images/campaign/'.$campaign->image)}}">
                         </a>
                     </div>
