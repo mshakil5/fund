@@ -291,7 +291,7 @@
 </section>
 
 <!--charity section -->
-<section class="campaign default">
+<section class="campaign default" style="display: none">
     <div class="container">
         <div class="row mb-5">
             <div class="title ">
