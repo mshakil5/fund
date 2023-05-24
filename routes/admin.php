@@ -103,6 +103,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // campaign view
     Route::get('/campaign-view/{id}', [CampaignController::class, 'viewCampaignByAdmin'])->name('admin.campaignView');
+    Route::get('/transaction-view/{id}', [CampaignController::class, 'viewTransactionCampaignByAdmin'])->name('admin.transactionView');
 
     // active deactive campaign
     Route::get('active-campaign', [CampaignController::class, 'activeCampaign']);

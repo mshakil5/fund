@@ -32,7 +32,7 @@
                                         <label for="" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Select your country</label>
                                         <select name="country" id="country" class="form-control darkerGrotesque-bold fs-5  darkerGrotesque-medium select2" required>
                                             <option value="">Select Country</option>
-                                            <option value="225">UNITED KINGDOM</option>
+                                            <option value="225" selected>UNITED KINGDOM</option>
                                             {{-- @foreach ($country as $cntry)
                                             <option value="{{$cntry->id}}" @if((isset($step2Data["country"]))&&($step2Data["country"]==$cntry->id)) selected @endif>{{$cntry->name}}</option>
                                             @endforeach --}}
@@ -65,7 +65,7 @@
                                             <li class="list-group-item">Explain how the funds will be used</li>
                                         </ul>
                                     </div>
-                                    
+
                                     <div class="col-lg-12 ">
                                         <label for="" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Tell donor why you are fundraising </label>
                                         <textarea name="story" id="story" class="form-control summernote" required>{{ $step2Data['story'] ?? '' }}</textarea>

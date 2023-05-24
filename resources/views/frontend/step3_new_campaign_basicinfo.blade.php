@@ -35,11 +35,11 @@
                                             <li class="list-group-item">A mailing address in the united kingdom</li>
                                         </ul>
                                     </div>
-                                    <div class="title darkerGrotesque-bold lh-1 fs-3 txt-secondary">Add a cover photos  and videos 
-                                    </div>
-                                    <h5 class="para text-center mt-3 text-muted fs-6">
+                                    {{-- <div class="title darkerGrotesque-bold lh-1 fs-3 txt-secondary">Add a cover photos  and videos 
+                                    </div> --}}
+                                    {{-- <h5 class="para text-center mt-3 text-muted fs-6">
                                         Who are you fundrising for
-                                    </h5>
+                                    </h5> --}}
                                     <div class="row my-3">
                                         <div class="col-lg-6 ">
                                             <label for="image" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Upload Photo</label>

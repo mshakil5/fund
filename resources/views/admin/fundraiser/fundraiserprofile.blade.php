@@ -52,7 +52,7 @@
                                     <div class="form-group mb-3">
                                         <label for="">Surname</label>
                                         <div class="d-flex align-items-center">
-                                            <input type="text" class="form-control me-3" name="surname" id="surname" value="{{$data->surname}}" placeholder="Landau">
+                                            <input type="text" class="form-control me-3" name="sur_name" id="sur_name" value="{{$data->sur_name}}" placeholder="Landau">
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                     var form_data = new FormData();
                     form_data.append('image', file_data);
                     form_data.append("name", $("#name").val());
-                    form_data.append("surname", $("#surname").val());
+                    form_data.append("sur_name", $("#sur_name").val());
                     form_data.append("email", $("#email").val());
                     form_data.append("phone", $("#phone").val());
                     form_data.append("house_number", $("#house_number").val());

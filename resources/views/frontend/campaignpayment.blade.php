@@ -55,10 +55,10 @@
                                         alt="" class="img-fluid">
                                 </div>
                                 <div class="col-lg-8">
+                                    <b class="para mt-3 text-dark fs-6"> {{$data->title}} </b>
                                     <p class="para fs-6 mb-1 text-muted py-2">
                                         {{-- {{ Illuminate\Support\Str::limit($data->story, 20) }} --}}
                                         {!! Illuminate\Support\Str::limit($data->story, 300) !!}</p>
-                                    <b class="para mt-3 text-dark fs-6"> {{$data->title}} </b>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                              
                             </p>
                             <p class="para fs-6 mb-2 text-dark">
-                                Because LaunchGood doesn't charge a platform fee, we rely on
+                                Because Gogiving doesn't charge a platform fee, we rely on
                                 the generosity of donors like you to continue to help more people. Thank you for
                                 including a contribution of:
                             </p>
@@ -93,7 +93,7 @@
                             <p class="my-2 d-flex align-items-center ">
                                 <input type="checkbox" class="me-2" name="" id="newsletter">
                                 <label for="newsletter" class=" fs-6 text-dark para text-muted">
-                                    <d class="txt-primary">Add me to the LaunchGood newsletter.</d>  stay updated with our global community.
+                                    <d class="txt-primary">Add me to the Gogiving newsletter.</d>  stay updated with our global community.
                                 </label>
                             </p>
                             <p class="my-2 d-flex align-items-center ">

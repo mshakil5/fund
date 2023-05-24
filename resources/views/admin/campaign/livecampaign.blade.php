@@ -417,8 +417,8 @@
                                 <th style="text-align: center">SL</th>
                                 <th style="text-align: center">Title</th>
                                 <th style="text-align: center">Username</th>
-                                <th style="text-align: center">Country</th>
-                                <th style="text-align: center">Raising Goal</th>
+                                <th style="text-align: center">Target goal</th>
+                                <th style="text-align: center">Raised goal</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Homepage</th>
                                 <th style="text-align: center">Action</th>
@@ -432,8 +432,10 @@
                                             <a href="{{route('admin.campaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
                                         </td>
                                         <td style="text-align: center">{{$data->user->name}}</td>
-                                        <td style="text-align: center">{{$data->country->name}}</td>
-                                        <td style="text-align: center">{{$data->raising_goal}}</td>
+                                        <td style="text-align: center">£{{$data->raising_goal}}</td>
+                                        <td style="text-align: center">
+                                            <a href="{{route('admin.transactionView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">£{{$data->total_collection}}</a>
+                                        </td>
                                         <td style="text-align: center">
                                             {{-- {{$data->status}} --}}
                                             <div class="form-check form-switch">

@@ -68,6 +68,12 @@ class StripeController extends Controller
             $fundraiser->save();
         // fundraiser balance update end
 
+        // campaign total collection update
+            $campaign = Campaign::find($request->campaign_id);
+            $campaign->total_collection = $campaign->total_collection + $amt;
+            $campaign->save();
+        // campaign total collection update end
+
         // Return the client secret to the frontend
         return response()->json([
             'client_secret' => $paymentIntent->client_secret,

@@ -15,7 +15,7 @@
                     
                     <div class="row mt-4">
                         <div class="col-lg-9 mx-auto">
-                            <div class="title darkerGrotesque-bold lh-1 fs-3">Tell us a bit more about your bank information
+                            <div class="title darkerGrotesque-bold lh-1 fs-3">Bank information
                             </div>
                             <form action="{{route('campaignConfirmation_post')}}" method="POST" enctype="multipart/form-data">
                                 @csrf

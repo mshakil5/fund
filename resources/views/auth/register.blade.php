@@ -13,7 +13,7 @@
             <div class="col-lg-10 mx-auto authBox">
                 <div class="row">
                     <div class="col-lg-7 d-flex align-items-center justify-content-center">
-                        <img src="https://via.placeholder.com/510x540.png" alt="" class="w-100">
+                        <img src="{{ asset('assets/images/log in page 1.svg')}}" alt="" class="w-100">
                     </div>
                     <div class="col-lg-5"> 
 

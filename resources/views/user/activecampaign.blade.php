@@ -38,9 +38,8 @@
                             <tr>
                                 <th scope="col"> Date</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">Country</th>
-                                <th scope="col">Source</th>
-                                <th scope="col">Amount</th>
+                                <th scope="col">Target Goal</th>
+                                <th scope="col">Raised Goal</th>
                                 <th scope="col">Status</th> 
                                 <th scope="col">Assign</th>
                                 <th scope="col">Action</th>
@@ -50,10 +49,11 @@
                             @foreach ($data as $data)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y') }}</td>
-                                    <td>{{$data->title}} </td>
-                                    <td>{{$data->country->name}} </td>
-                                    <td>{{ \App\Models\FundraisingSource::where('id',$data->fundraising_source_id)->first()->name}} </td>
+                                    <td>
+                                        <a href="{{route('frontend.campaignDetails',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center" target="blank">{{$data->title}}</a>
+                                    </td>
                                     <td>£{{$data->raising_goal}}</td>
+                                    <td>£{{$data->total_collection}}</td>
                                     <td> @if ($data->status == 1) Active @else Deactive @endif </td> 
                                     <td>
                                         <!-- Button trigger modal -->

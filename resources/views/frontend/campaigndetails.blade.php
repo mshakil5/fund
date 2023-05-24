@@ -44,7 +44,7 @@
                             <div class="carousel-item">
                                 <a href="{{$data->video_link}}" class="video" target="_blank" title="This is a video">
                                     <video width="711" height="304" autoplay controls>
-                                        <source src="{{asset('112.mp4')}}" type="video/mp4">
+                                        <source src="{{$data->video_link}}" type="video/mp4">
                                     </video>
                                 </a>
                                 {{-- <video width="711" height="304" autoplay controls>

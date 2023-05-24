@@ -15,7 +15,7 @@
                     
                     <div class="row mt-4">
                         <div class="col-lg-9 mx-auto">
-                            <div class="title darkerGrotesque-bold lh-1 fs-3">Tell us a bit more about your personal information
+                            <div class="title darkerGrotesque-bold lh-1 fs-3 mb-2">Tell us a bit more about your personal information
                             </div>
                             <form action="{{route('campaignPersonalInfo_post')}}" method="POST" enctype="multipart/form-data">
                                 @csrf

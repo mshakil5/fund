@@ -966,6 +966,7 @@ body::-webkit-scrollbar-thumb {
 
 .fundriser {
   padding-top: 50px;
+  background: #fff7f2;
 }
 .fundriser .inner {
   background: #fff7f2;
@@ -1200,12 +1201,11 @@ input[type=checkbox] {
 /*form styles*/
 #msform {
   margin: 50px auto;
-  text-align: center;
+  text-align: right;
   position: relative;
 }
 
 #msform fieldset {
-  background: white;
   border: 0 none;
   border-radius: 3px;
   box-shadow: 1px 0 20px 7px rgba(0, 0, 0, 0.05);
@@ -1223,7 +1223,8 @@ input[type=checkbox] {
 }
 
 /*inputs*/
-#msform input, #msform textarea {
+#msform input,
+#msform textarea {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -1242,14 +1243,15 @@ input[type=checkbox] {
   font-weight: bold;
   color: white;
   border: 0 none;
-  border-radius: 1px;
+  border-radius: 7px;
+  padding: 10px 15px;
   cursor: pointer;
-  padding: 10px 5px;
   margin: 10px 5px;
 }
 
-#msform .action-button:hover, #msform .action-button:focus {
-  box-shadow: 0 0 0 2px white, 0 0 0 3px #18988B;
+#msform .action-button:hover,
+#msform .action-button:focus {
+  background: #003057;
 }
 
 /*headings*/
@@ -1307,7 +1309,8 @@ input[type=checkbox] {
   position: absolute;
   left: -50%;
   top: 9px;
-  z-index: -1; /*put it behind the numbers*/
+  z-index: -1;
+  /*put it behind the numbers*/
 }
 
 #progressbar li:first-child:after {
@@ -1317,12 +1320,19 @@ input[type=checkbox] {
 
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
-#progressbar li.active:before, #progressbar li.active:after {
+#progressbar li.active:before,
+#progressbar li.active:after {
   background: #18988B;
   color: white;
 }
 
 .form-container {
   position: relative;
-  min-height: 680px;
+  min-height: 100vh;
+  margin-bottom: 50px;
+}
+@media (max-width: 768px) {
+  .form-container {
+    min-height: 100vh;
+  }
 }/*# sourceMappingURL=app.css.map */

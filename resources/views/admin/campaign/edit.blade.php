@@ -47,6 +47,10 @@
                     <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending"
                         type="button" role="tab" aria-controls="pending" aria-selected="false">Bank Information</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="doc-tab" data-bs-toggle="tab" data-bs-target="#doc"
+                        type="button" role="tab" aria-controls="doc" aria-selected="false">All Document</button>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="transaction" role="tabpanel"
@@ -383,9 +387,167 @@
                         
                     </div>
                 </div>
+                <div class="tab-pane fade" id="doc" role="tabpanel" aria-labelledby="doc-tab">
+                    <div class="data-container">
+
+                        <div id="addDocContainer" class="mt-5">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card" style="background-color: #fdf3ee">
+                                        <div class="card-header">
+                                            <h5>New Pages</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="ermsg">
+                                                </div>
+                                                <div class="col-md-12">
+                                                  <div class="tile">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                          {!! Form::open(['url' => 'admin/master/create','id'=>'createThisForm']) !!}
+                                                          {!! Form::hidden('codeid','', ['id' => 'codeid']) !!}
+                                                          @csrf
+                                                          {{-- <div>
+                                                              <label for="title">Title</label>
+                                                              <input type="text" id="title" name="title" class="form-control">
+                                                          </div> --}}
+
+                                                          <div>
+                                                            <label for="category">Category</label>
+                                                            <select name="category" id="category" class="form-control">
+                                                                <option value="1">Slider Image</option>
+                                                                <option value="2">Bank Document</option>
+                                                                <option value="3">Govt. Document</option>
+                                                            </select>
+                                                        </div>
+                        
+                                                          
+                                                            
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div>
+                                                                <label for="image">Image</label>
+                                                                <input class="form-control" id="image" name="image[]" type="file" multiple>
+                                                                <input type="hidden" id="campaign_id" name="campaign_id" value="{{ $data->id }}">
+                                                            </div>
+
+                                                            <div class="imgpreview">
+                                    
+                                                            </div>
+
+                                                        </div>
+                                                      </div>
+                                                      <div class="tile-footer mt-3">
+                                                          <input type="button" id="addBtn" value="Create" class="btn btn-primary">
+                                                          <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
+                                                          {!! Form::close() !!}
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            </div>
+                        
+                        </div>
+                        
+                        <button id="newBtn" type="button" class="btn-theme bg-primary">Add New</button>
+                        
+                        <div id="contentContainer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card" style="background-color: #fdf3ee">
+                                        <div class="card-header">
+                                            <h3> All Data</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-bordered table-hover" id="exdatatable">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center">ID</th>
+                                                        <th style="text-align: center">Title</th>
+                                                        <th style="text-align: center">Image Category</th>
+                                                        <th style="text-align: center">Image</th>
+                                                        <th style="text-align: center">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($data->campaignimage as $key => $cimg)
+                                                        <tr>
+                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center">{{$data->title}}</td>
+                                                            <td style="text-align: center">{{$cimg->title}}</td>
+                                                            <td style="text-align: center">
+                                                                @if ($cimg->image)
+                                                                @if ($cimg->title == "Bank")
+                                                                    
+                                                                <img src="{{asset('images/bank/'.$cimg->image)}}" height="120px" width="220px" alt="">
+                                                                @else
+                                                                    
+                                                                <img src="{{asset('images/campaign/'.$cimg->image)}}" height="120px" width="220px" alt="">
+                                                                @endif
+                                                                @endif
+                                                            </td>
+                                                            
+                                                            <td style="text-align: center">
+                                                                <a href="{{ route('download.campaignimage',$cimg->id) }}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i>  Download</a>
+
+                                                                <a id="deleteBtn" rid="{{$cimg->id}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-trash-o" style="color: red;font-size:16px;"> </i> Delete</a>
+
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                        @if ($data->image)
+                                                        <tr>
+                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center">{{$data->title}}</td>
+                                                            <td style="text-align: center"> Feature Image</td>
+                                                            <td style="text-align: center">
+                                                                
+                                                                <img src="{{asset('images/campaign/'.$data->image)}}" height="120px" width="220px" alt="">
+                                                                
+                                                            </td>
+                                                            <td style="text-align: center">
+                                                                <a href="{{ route('download.featureimage',$data->id) }}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i> Download</a>
+                                                                
+                                                            </td>
+                                                        </tr>
+                                                        @endif
+                                                        @if ($data->bank_verification_doc)
+                                                        <tr>
+                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center">{{$data->title}}</td>
+                                                            <td style="text-align: center">Bank Document</td>
+                                                            <td style="text-align: center">
+                                                                
+                                                                <img src="{{asset('images/bank/'.$data->bank_verification_doc)}}" height="120px" width="220px" alt="">
+                                                                
+                                                            </td>
+                                                            <td style="text-align: center">
+                                                                
+                                                                <a href="{{ route('download.bankdoc',$data->id) }}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i> Download</a>
+                                                            </td>
+                                                        </tr>
+                                                        @endif
+
+                                                        
+
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12 mb-5">
             <a href="{{route('admin.campaign')}}" class="btn-theme bg-secondary fs-16 fw-700">Back</a>
             <a id="upBtn" class="btn-theme bg-primary fs-16 fw-700">Update</a>
         </div>
@@ -409,12 +571,27 @@
     
     var storedFiles = [];
     $(document).ready(function () {
+
+        $("#addDocContainer").hide();
+        $("#newBtn").click(function(){
+            clearform();
+            $("#newBtn").hide(100);
+            $("#addDocContainer").show(300);
+        });
+        $("#FormCloseBtn").click(function(){
+            $("#addDocContainer").hide(200);
+            $("#newBtn").show(100);
+            clearform();
+        });
+
         
         //header for csrf-token is must in laravel
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
             // var url = "{{URL::to('/admin/campaign')}}";
             var updateurl = "{{URL::to('/admin/campaign-update')}}";
+            var imgurl = "{{URL::to('/admin/campaign-image-store')}}";
+            var dlturl = "{{URL::to('/admin/campaign-image-delete')}}";
             // console.log(url);
             $("#upBtn").click(function(){
                     var file_data = $('#fimage').prop('files')[0];
@@ -497,6 +674,73 @@
                 //Update
 
             });
+
+
+            // console.log(url);
+            $("#addBtn").click(function(){
+                
+                if($(this).val() == 'Create') {
+                    
+                    var form_data = new FormData();
+                    for(var i=0, len=imgStoreFile.length; i<len; i++) {
+                        form_data.append('image[]', imgStoreFile[i]);
+                    }
+                    // form_data.append("title", $("#title").val());
+                    form_data.append("category", $("#category").val());
+                    form_data.append("campaign_id", $("#campaign_id").val());
+                    $.ajax({
+                      url: imgurl,
+                      method: "POST",
+                      contentType: false,
+                      processData: false,
+                      data:form_data,
+                      success: function (d) {
+                        console.log(d);
+                          if (d.status == 303) {
+                              $(".ermsg").html(d.message);
+                          }else if(d.status == 300){
+                              $(".ermsg").html(d.message);
+                                window.setTimeout(function(){location.reload()},2000)
+                          }
+                      },
+                      error: function (d) {
+                          console.log(d);
+                      }
+                  });
+                }
+                //create  end
+                
+            });
+            //Edit
+
+            //Delete
+            $("#contentContainer").on('click','#deleteBtn', function(){
+                if(!confirm('Sure?')) return;
+                codeid = $(this).attr('rid');
+                info_url = dlturl + '/'+codeid;
+                $.ajax({
+                    url:info_url,
+                    method: "GET",
+                    type: "DELETE",
+                    data:{
+                    },
+                    success: function(d){
+                        if(d.success) {
+                            alert(d.message);
+                            location.reload();
+                        }
+                    },
+                    error:function(d){
+                        console.log(d);
+                    }
+                });
+            });
+            //Delete
+
+            function clearform(){
+                $('#createThisForm')[0].reset();
+                $("#addBtn").val('Create');
+            }
 
     });
 

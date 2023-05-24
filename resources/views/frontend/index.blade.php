@@ -79,6 +79,8 @@
             <div class="para text-center mt-4">
                 {!! \App\Models\Master::where('name','homepage2ndsection')->first()->description !!}
                 <a href="{{route('register')}}" class="btn-theme bg-secondary mx-auto">Create an account</a>
+                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary mx-auto">Start A new fundriser</a>
+                <a href="{{route('start_new_event')}}" class="btn-theme bg-secondary mx-auto">Create A new event</a>
             </div>
 
 

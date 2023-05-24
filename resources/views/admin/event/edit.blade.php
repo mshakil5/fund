@@ -27,15 +27,23 @@
     <div class="row ">
         <div class="col-lg-12">
             <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+
+
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="transaction-tab" data-bs-toggle="tab"
                         data-bs-target="#transaction" type="button" role="tab" aria-controls="transaction"
                         aria-selected="true">Basic Information</button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="location-tab" data-bs-toggle="tab" data-bs-target="#location"
+                        type="button" role="tab" aria-controls="location" aria-selected="false">
+                    Events Location & times
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="moneyIn-tab" data-bs-toggle="tab" data-bs-target="#moneyIn"
                         type="button" role="tab" aria-controls="moneyIn" aria-selected="false">
-                    Event Photos and Time
+                    Events Photo & Others
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -43,6 +51,7 @@
                         data-bs-target="#moneyOut" type="button" role="tab" aria-controls="moneyOut"
                         aria-selected="false">Event Summery</button>
                 </li>
+
 
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -63,12 +72,18 @@
                                                     </div>
                                                 </div>
                                                 
-                                                
                                                 <div class="col-lg-12">
                                                     <div>
                                                         <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event title</label>
                                                         <input type="text" name="title" class="form-control" id="title" value="{{$data->title}}">
                                                         <input type="hidden" name="codeid" class="form-control" id="codeid" value="{{$data->id}}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div>
+                                                        <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Organizer</label>
+                                                        <input type="text" name="organizer" class="form-control" id="organizer" value="{{$data->title}}">
                                                     </div>
                                                 </div>
 
@@ -104,16 +119,75 @@
                         
                     </div>
                 </div>
+                <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+                    <div class="data-container">
+                        <div class="row">
+                            <div class="col-lg-12">      
+                                <div>
+                                    <label for="venue_name" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Venue Name</label>
+                                    <input type="text" class="form-control" id="venue_name" name="venue_name" value="{{$data->venue_name}}">
+                                </div>               
+                            </div>
+                            <div class="col-lg-4">      
+                                <div>
+                                    <label for="house_number" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">House Number</label>
+                                    <input type="text" placeholder="House Number" id="house_number" name="house_number" class="form-control" value="{{$data->house_number}}">
+                                </div>               
+                            </div>
+
+                            
+                            <div class="col-lg-4">      
+                                <div>
+                                    <label for="road_name" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Street Name</label>
+                                    <input type="text" placeholder="Road Name" id="road_name" name="road_name" class="form-control" value="{{$data->road_name}}">
+                                </div>               
+                            </div>
+
+                            
+                            <div class="col-lg-4">      
+                                <div>
+                                    <label for="town" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Town</label>
+                                    <input type="text" placeholder="city" id="town" name="town" class="form-control" value="{{$data->town}}">
+                                </div>               
+                            </div>
+
+                            
+                            <div class="col-lg-4">      
+                                <div>
+                                    <label for="postcode" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Postcode</label>
+                                    <input type="number" id="postcode" name="postcode" placeholder="Postal code" class="form-control" value="{{$data->postcode}}">
+                                </div>               
+                            </div>
+
+                            
+                            <div class="col-lg-4">      
+                                <div>
+                                    <label for="country" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Country</label>
+                                    <input type="text" placeholder="Country" id="country" name="country" class="form-control" value="{{$data->country}}">
+                                </div>               
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event Start Time</label>
+                                    <input type="datetime-local" id="event_start_date" name="event_start_date" class="form-control" value="{{$data->event_start_date}}" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event End Time</label>
+                                    <input type="datetime-local" id="event_end_date" name="event_end_date" class="form-control" value="{{$data->event_end_date}}" />
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="moneyIn" role="tabpanel" aria-labelledby="moneyIn-tab">
                     <div class="data-container">
                         <div class="row">
                             
-                            <div class="col-lg-12">      
-                                <div>
-                                    <label for="location" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Location</label>
-                                    <input type="text" class="form-control" placeholder="Location" id="location" name="location" value="{{$data->location}}">
-                                </div>               
-                            </div>
+                            
                             <div class="col-lg-6">
                                 <div>
                                     <label for="image" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Upload Feature Image <small>(1000*700)</small> </label>
@@ -136,49 +210,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                
-                            </div>
-                            <div class="col-lg-6">
-                                <div>
-                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event Start Time</label>
-                                    <input type="datetime-local" id="event_start_date" name="event_start_date" class="form-control" value="{{$data->event_start_date}}" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div>
-                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Event End Time</label>
-                                    <input type="datetime-local" id="event_end_date" name="event_end_date" class="form-control" value="{{$data->event_end_date}}" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div>
-                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sale Start Time</label>
-                                    <input type="datetime-local" id="sale_start_date" name="sale_start_date" class="form-control" value="{{$data->sale_start_date}}" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div>
-                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sale End Time</label>
-                                    <input type="datetime-local" id="sale_end_date" name="sale_end_date" class="form-control" value="{{$data->sale_end_date}}" />
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div>
-                                    <label for="price" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Price </label>
-                                    <input type="number" name="price" class="form-control" id="price" value="{{$data->price}}">
-                                </div>
-                            </div>
-                            <hr>
-                    
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="moneyOut" role="tabpanel" aria-labelledby="moneyOut-tab">
-                    <div class="data-container">
-                        <div class="row">
                             
+
                             <div class="col-lg-12">      
                                 <div>
                                     <label for="summery" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Summery</label>
@@ -192,11 +225,47 @@
                                     <textarea name="description" id="description" class="form-control summernote">{!! $data->description !!}</textarea>
                                 </div>
                             </div>
-                            
+
                             <hr>
-                    
                         </div>
                         
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="moneyOut" role="tabpanel" aria-labelledby="moneyOut-tab">
+                    <div class="data-container">
+                        <div class="row">
+                            
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sale Start Time</label>
+                                    <input type="datetime-local" id="sale_start_date" name="sale_start_date" class="form-control" value="{{$data->sale_start_date}}" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sale End Time</label>
+                                    <input type="datetime-local" id="sale_end_date" name="sale_end_date" class="form-control" value="{{$data->sale_end_date}}" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="price" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Price </label>
+                                    <input type="number" name="price" class="form-control" id="price" value="{{$data->price}}">
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="quantity" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Quantity </label>
+                                    <input type="number" name="quantity" class="form-control" id="quantity" value="{{$data->quantity}}">
+                                </div>
+                            </div>
+
+
+                            
+                            <hr>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,16 +316,21 @@
                     form_data.append("title", $("#title").val());
                     form_data.append("category", $("#category").val());
                     form_data.append("tagline", $("#tagline").val());
-
-                    form_data.append("location", $("#location").val());
+                    form_data.append("organizer", $("#organizer").val());
+                    form_data.append("venue_name", $("#venue_name").val());
+                    form_data.append("house_number", $("#house_number").val());
+                    form_data.append("road_name", $("#road_name").val());
+                    form_data.append("country", $("#country").val());
+                    form_data.append("town", $("#town").val());
+                    form_data.append("postcode", $("#postcode").val());
                     form_data.append("event_start_date", $("#event_start_date").val());
                     form_data.append("event_end_date", $("#event_end_date").val());
+                    form_data.append("summery", $("#summery").val());
+                    form_data.append("description", $("#description").val());
+                    form_data.append("quantity", $("#quantity").val());
                     form_data.append("price", $("#price").val());
                     form_data.append("sale_end_date", $("#sale_end_date").val());
                     form_data.append("sale_start_date", $("#sale_start_date").val());
-
-                    form_data.append("summery", $("#summery").val());
-                    form_data.append("description", $("#description").val());
                     form_data.append("user_id", $("#user_id").val());
                     
                     form_data.append("codeid", $("#codeid").val());

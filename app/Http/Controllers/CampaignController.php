@@ -247,6 +247,7 @@ class CampaignController extends Controller
             $data->bank_account_type = $request->bank_account_type;
             $data->bank_routing = $request->bank_routing;
             $data->iban = $request->iban;
+            $data->fundraising_for = "yourself";
             
             $data->status = "0";
             $data->updated_by = Auth::user()->id;
@@ -311,6 +312,13 @@ class CampaignController extends Controller
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
         return view('admin.campaign.view',compact('countries','source','data'));
+        
+    }
+
+    public function viewTransactionCampaignByAdmin($id)
+    {
+        $data = Campaign::with('transaction','campaignimage','campaignshare','comment')->where('id', $id)->first();
+        return view('admin.campaign.tranview',compact('data'));
         
     }
 
@@ -401,16 +409,6 @@ class CampaignController extends Controller
         if ($data->save()) {
 
             if ($request->image) {
-                $chkimg = CampaignImage::where('campaign_id', $request->codeid)->get();
-                if (isset($chkimg)) {
-                    foreach ($chkimg as $key => $camimg) {
-                        $image_path = public_path('images/campaign/'.$camimg->image);
-                        if(file_exists($image_path)){
-                            unlink($image_path);
-                        }
-                    }
-                }
-                DB::table('campaign_images')->where('campaign_id', $request->codeid)->delete();
                 
                 foreach ($request->image as $key => $img) {
                     
@@ -901,15 +899,7 @@ class CampaignController extends Controller
         $data->bank_name = $request->bank_name;
         $data->bank_account_number = $request->bank_account_number;
         $data->bank_sort_code = $request->bank_sort_code;
-        // if (isset($request->bank_verification_doc)) {
-        //     $request->validate([
-        //         'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
-        //     ]);
-        //     $rand = mt_rand(100000, 999999);
-        //     $imageName = time(). $rand .'.'.$request->bank_verification_doc->extension();
-        //     $request->bank_verification_doc->move(public_path('images/bank'), $imageName);
-        //     $data->bank_verification_doc= $imageName;
-        // }
+        $data->fundraising_for = "yourself";
         $data->status = '0';
 
         if ($data->save()) {

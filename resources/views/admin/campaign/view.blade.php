@@ -509,90 +509,7 @@
                     <div class="data-container">
                         <div class="row">
                             <div class="col-lg-12">
-                                
-                                
-                        <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="alltransaction-tab" data-bs-toggle="tab"
-                                    data-bs-target="#alltransaction" type="button" role="tab" aria-controls="alltransaction"
-                                    aria-selected="true">All transaction</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="moneyIn-tab" data-bs-toggle="tab" data-bs-target="#moneyIn"
-                                    type="button" role="tab" aria-controls="moneyIn" aria-selected="false">Money
-                                    in</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="moneyOut-tab" data-bs-toggle="tab"
-                                    data-bs-target="#moneyOut" type="button" role="tab" aria-controls="moneyOut"
-                                    aria-selected="false">Money out</button>
-                            </li>
-                            
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-
-                            <div class="tab-pane fade show active" id="alltransaction" role="tabpanel"
-                                aria-labelledby="alltransaction-tab">
-                                <div class="data-container">
-                                    <table class="table table-theme mt-4">
-                                        <thead>
-                                            <tr> 
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Transaction ID</th>
-                                                <th scope="col">Payment Process</th>
-                                                <th scope="col">User</th>
-                                                <th scope="col">Amount</th>
-                                                <th scope="col">Tips</th>
-                                                <th scope="col">Commission</th>
-                                                <th scope="col">Total Amount</th>
-                                            </tr>
-                                        </thead>
-                                    <tbody>
-                                        @foreach ($data->transaction as $item)
-                                        <tr> 
-                                            <td class="fs-16 txt-secondary">{{$item->date}}</td>
-                                            <td>
-                                                <div class="d-flex flex-column">
-                                                    <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
-                                                    {{-- <span class="fs-16 txt-secondary">Online donation</span> --}}
-                                                </div>
-                                            </td>
-                                            <td class="fs-16 txt-secondary">
-                                                {{$item->payment_type}}
-                                            </td>
-                                            <td class="fs-16 txt-secondary">
-                                                {{$item->user->name}}
-                                            </td>
-                                            <td class="fs-16 txt-secondary">
-                                                {{$item->amount}}
-                                            </td>
-                                            <td class="fs-16 txt-secondary">
-                                                {{$item->tips}}
-                                            </td> 
-                                            <td class="fs-16 txt-secondary">
-                                                {{$item->commission}}
-                                            </td> 
-                                            <td class="fs-16 txt-secondary">
-                                                {{$item->total_amount}}
-                                            </td> 
-                                        </tr> 
-                                        @endforeach
-                                        
-                                        
-
-
-                                    </tbody>
-                                </table>
-                                </div>
-                              
-                            </div>
-                            <div class="tab-pane fade" id="moneyIn" role="tabpanel" aria-labelledby="moneyIn-tab">..moneyIn.
-                            </div>
-                            <div class="tab-pane fade" id="moneyOut" role="tabpanel" aria-labelledby="moneyOut-tab">..moneyOut.
-                            </div>
-                            
-                        </div>
-
+                                @include('admin.campaign.alltranview')
                             </div>
                             <hr>
                         </div>
@@ -672,6 +589,15 @@
         height: 400
     });
 
+    $(document).ready(function() {
+        $('#example1, #example2, #example3').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+    });
+
     $(function() {
       $('.commentstatus').change(function() {
         var url = "{{URL::to('/admin/active-comment')}}";
@@ -708,12 +634,11 @@
     var storedFiles = [];
     $(document).ready(function () {
         
-        $("#addDocContainer").hide();
+            $("#addDocContainer").hide();
             $("#newBtn").click(function(){
                 clearform();
                 $("#newBtn").hide(100);
                 $("#addDocContainer").show(300);
-
             });
             $("#FormCloseBtn").click(function(){
                 $("#addDocContainer").hide(200);
