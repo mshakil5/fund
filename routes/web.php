@@ -144,6 +144,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::post('create-a-event', [EventController::class, 'eventCreateByUser']);
 
     Route::get('/event-edit/{id}', [EventController::class, 'eventEditByUser'])->name('user.eventEdit');
+    Route::get('/event-ticket-sale/{id}', [EventController::class, 'eventTicketSaleShowByUser'])->name('user.eventTicketSales');
     Route::post('update-event', [EventController::class, 'eventUpdateByUser']);
 });
   

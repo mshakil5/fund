@@ -34,7 +34,7 @@
             <div class="col-lg-12 mb-4 mt-5">
                  
                 <div class="table-responsive fs-5 shadow-sm  ">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="example">
                         <thead>
                             <tr>
                                 <th scope="col">Title</th>
@@ -44,6 +44,9 @@
                                 <th scope="col">Sale Start Date </th>
                                 <th scope="col">Sale End Date </th>
                                 <th scope="col">Price</th>
+                                <th scope="col">Number of ticket</th>
+                                <th scope="col">Sold</th>
+                                <th scope="col">Available</th>
                                 <th scope="col">Status</th> 
                                 <th scope="col">Action</th>
                             </tr>
@@ -52,20 +55,25 @@
                             @foreach ($data as $data)
                                 <tr>
                                     {{-- <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y') }}</td> --}}
-                                    <td>{{$data->title}} </td>
+                                    <td>
+                                        <a href="{{route('frontend.eventDetails',$data->id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
+                                    </td>
                                     <td>{{$data->category}} </td>
-                                    <td>{{$data->event_start_date}} </td>
-                                    <td>{{$data->event_end_date}} </td>
-                                    <td>{{$data->sale_start_date}} </td>
-                                    <td>{{$data->sale_end_date}} </td>
+                                    <td>{{ \Carbon\Carbon::parse($data->event_start_date)->format('d/m/Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($data->event_end_date)->format('d/m/Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($data->sale_start_date)->format('d/m/Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($data->sale_end_date)->format('d/m/Y') }}</td>
                                     
                                     <td>£{{$data->price}}</td>
+                                    <td>{{$data->quantity}}</td>
+                                    <td>{{$data->sold}}</td>
+                                    <td>{{$data->available}}</td>
                                     <td> @if ($data->status == 1) Active @else Deactive @endif </td>
                                     <td class="d-flex align-items-center">
                                         <a href="{{route('user.eventEdit', $data->id)}}" class="px-2">
                                             <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
                                         </a>
-                                        <a href="#" class="px-2" title="view all transaction">
+                                        <a href="{{route('user.eventTicketSales', $data->id)}}" class="px-2" title="view all transaction">
                                             <iconify-icon icon="ic:outline-remove-red-eye"></iconify-icon>
                                         </a>
                                     </td>

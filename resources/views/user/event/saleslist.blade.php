@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> All Ticket you have purchased</h2>
+                <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> All Ticket you have sold</h2>
             </div>
             <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5">
 
@@ -47,28 +47,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $data)
+                            @foreach ($data->eventticket as $sale)
                             <tr>
-                                <td class="fs-16 txt-primary">{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y') }}</td>
+                                <td class="fs-16 txt-primary">{{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}</td>
                                 <td>
                                     <div class="d-flex flex-column">
-                                        <span class="fs-20 txt-primary fw-bold">{{$data->tran_no}}</span>
+                                        <span class="fs-20 txt-primary fw-bold">{{$sale->tran_no}}</span>
                                     </div>
                                 </td>
                                 <td class="fs-16 txt-primary">
-                                    <a href="{{route('frontend.eventDetails',$data->event_id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->event->title}}</a>
+                                    <a href="{{route('frontend.eventDetails',$sale->event_id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$sale->event->title}}</a>
                                 </td>
                                 <td class="fs-16 txt-primary">
-                                    {{$data->event->event_start_date}}
+                                    {{$sale->event->event_start_date}}
                                 </td>
                                 <td class="fs-16 txt-primary">
-                                    {{$data->event->event_end_date}}
+                                    {{$sale->event->event_end_date}}
                                 </td>
                                 <td class="fs-16 txt-primary">
-                                    {{$data->quantity}}
+                                    {{$sale->quantity}}
                                 </td>
                                 <td class="fs-16 txt-primary">
-                                    {{ number_format($data->total_amount, 2) }}
+                                    {{ number_format($sale->total_amount, 2) }}
                                 </td>
                                 {{-- <td class="fs-16 txt-primary">
                                     <a href="#" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i>  Download</a>

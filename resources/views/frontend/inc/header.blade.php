@@ -96,7 +96,7 @@
                                         <li><a class="dropdown-item" href="{{ route('user.donationhistory')}}">Donation you have made</a></li>
                                         <li><a class="dropdown-item" href="{{ route('newcampaign_show')}}">Start a new fundrising</a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.myevent')}}">Your event </a></li>
-                                        <li><a class="dropdown-item" href="{{ route('user.eventdocument')}}">Event Record </a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.eventdocument')}}">Purchase History </a></li>
                                         <li><a class="dropdown-item" href="{{ route('start_new_event')}}">Start a new event</a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.alltransaction')}}">All statement</a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.profile')}}">Account settings</a> </li>
