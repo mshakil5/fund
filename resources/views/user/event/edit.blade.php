@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="col-md-3 text-start">
                                             <label for="" class="fs-5 fw-bold ">Postal code</label>
-                                            <input type="number" id="postcode" name="postcode" placeholder="Postal code" class="form-control" value="{{$data->postcode}}">
+                                            <input type="text" id="postcode" name="postcode" placeholder="Postal code" class="form-control" value="{{$data->postcode}}">
                                         </div>
                                     </div>
                                     <div class="row">

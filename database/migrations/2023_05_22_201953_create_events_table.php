@@ -39,6 +39,8 @@ return new class extends Migration
             $table->string('quantity',191)->nullable();
             $table->double('price',10,2)->nullable();
             $table->double('total_collection',10,2)->nullable();
+            $table->integer('sold',191)->nullable();
+            $table->integer('available',191)->nullable();
             $table->string('name_of_account')->nullable();
             $table->string('bank_account_country')->nullable();
             $table->string('bank_name')->nullable();

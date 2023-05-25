@@ -155,7 +155,7 @@
                             <div class="col-lg-4">      
                                 <div>
                                     <label for="postcode" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Postcode</label>
-                                    <input type="number" id="postcode" name="postcode" placeholder="Postal code" class="form-control" value="{{$data->postcode}}">
+                                    <input type="text" id="postcode" name="postcode" placeholder="Postal code" class="form-control" value="{{$data->postcode}}">
                                 </div>               
                             </div>
 
