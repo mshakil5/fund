@@ -3,7 +3,7 @@
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light py-0 ">
                 <a class="navbar-brand" href="{{ route('homepage')}}">
-                    <img src="{{ asset('images/company/'.\App\Models\CompanyDetail::where('id',1)->first()->header_logo)}}" class="py-2 img-fluid mx-auto" width="200px">
+                    <img src="{{ asset('images/company/'.\App\Models\CompanyDetail::where('id',1)->first()->header_logo)}}" class="py-2 img-fluid mx-auto" width="120px">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -92,10 +92,11 @@
                                     </a>
                                     <ul class="dropdown-menu border-0 shadow-lg " aria-labelledby="dropdownItem">
                                         <li><a class="dropdown-item" href="{{ route('user.activecampaign')}}">Your campaign </a></li>
-                                        <li><a class="dropdown-item" href="{{ route('user.refcampaign')}}">Reffered campaign </a></li>
+                                        {{-- <li><a class="dropdown-item" href="{{ route('user.refcampaign')}}">Reffered campaign </a></li> --}}
                                         <li><a class="dropdown-item" href="{{ route('user.donationhistory')}}">Donation you have made</a></li>
                                         <li><a class="dropdown-item" href="{{ route('newcampaign_show')}}">Start a new fundrising</a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.myevent')}}">Your event </a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.eventdocument')}}">Event Record </a></li>
                                         <li><a class="dropdown-item" href="{{ route('start_new_event')}}">Start a new event</a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.alltransaction')}}">All statement</a></li>
                                         <li><a class="dropdown-item" href="{{ route('user.profile')}}">Account settings</a> </li>

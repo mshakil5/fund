@@ -330,7 +330,6 @@
             var amount = parseInt(amt)
             var commission = (amount * 10)/100;
             var net_amount = amount + commission;
-            
             $("#amount").val(net_amount.toFixed(2));
             $("#c_amount").val(commission.toFixed(2));
 

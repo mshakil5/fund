@@ -99,6 +99,8 @@ class LoginController extends Controller
                 return redirect()->route('frontend.campaignDetails',$request->campaignid);
             } elseif (isset($request->charityid)) {
                 return redirect()->route('frontend.charityDonate',$request->charityid);
+            } elseif (isset($request->eventid)) {
+                return redirect()->route('frontend.eventDetails',$request->eventid);
             } else {
                 return redirect()->route('frontend.campaignDonate',$request->campaignid);
             }

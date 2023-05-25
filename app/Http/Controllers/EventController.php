@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\EventImage;
+use App\Models\TicketSale;
 use App\Models\User;
 use Illuminate\support\Facades\Auth;
 
@@ -25,8 +26,14 @@ class EventController extends Controller
     public function getEventByUser()
     {
         $data = Event::where('user_id', Auth::user()->id)->orderby('id','DESC')->get();
-        $users = User::select('id','name','email')->where('is_type','0')->get();
-        return view('user.event.index',compact('data','users'));
+        return view('user.event.index',compact('data'));
+    }
+
+    public function getEventDocByUser()
+    {
+        $event = Event::where('user_id', Auth::user()->id)->orderby('id','DESC')->get();
+        $data = TicketSale::where('user_id', Auth::user()->id)->get();
+        return view('user.event.document',compact('data','event'));
     }
 
     public function eventCreateByUser(Request $request)
@@ -107,7 +114,7 @@ class EventController extends Controller
         $data->town = $request->town;
         $data->postcode = $request->postcode;
         $data->quantity = $request->quantity;
-
+        $data->available = $request->quantity;
         $data->event_start_date = $request->event_start_date;
         $data->event_end_date = $request->event_end_date;
         $data->price = $request->price;
@@ -236,6 +243,7 @@ class EventController extends Controller
         $data->town = $request->town;
         $data->postcode = $request->postcode;
         $data->quantity = $request->quantity;
+        $data->available = $request->quantity;
         $data->event_start_date = $request->event_start_date;
         $data->event_end_date = $request->event_end_date;
         $data->price = $request->price;
@@ -360,6 +368,7 @@ class EventController extends Controller
         $data->town = $request->town;
         $data->postcode = $request->postcode;
         $data->quantity = $request->quantity;
+        $data->available = $request->quantity;
         $data->event_start_date = $request->event_start_date;
         $data->event_end_date = $request->event_end_date;
         $data->price = $request->price;
@@ -510,6 +519,7 @@ class EventController extends Controller
         $data->town = $request->town;
         $data->postcode = $request->postcode;
         $data->quantity = $request->quantity;
+        $data->available = $request->quantity;
         $data->event_start_date = $request->event_start_date;
         $data->event_end_date = $request->event_end_date;
         $data->price = $request->price;

@@ -4,7 +4,8 @@
 
 <section class="bleesed default py-5">
     <div class="container"> 
-        <div class="row mt-5">
+
+        <div class="row mt-2">
             <div class="col-lg-6">
                 <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> List of event</h2>
             </div>
@@ -40,10 +41,8 @@
                                 <th scope="col">Category</th>
                                 <th scope="col">Event Start Date </th>
                                 <th scope="col">Event End Date </th>
-
                                 <th scope="col">Sale Start Date </th>
                                 <th scope="col">Sale End Date </th>
-                                
                                 <th scope="col">Price</th>
                                 <th scope="col">Status</th> 
                                 <th scope="col">Action</th>

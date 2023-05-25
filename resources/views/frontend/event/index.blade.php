@@ -81,7 +81,7 @@
                                     <h5 class="txt-primary mb-4 text-center "> Events Location & times</h5>
                                     <div class="row">
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold ">Venue name:</label>
+                                            <label for="venue_name" class="fs-5 fw-bold ">Venue name:</label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" placeholder="Venue name" class="form-control" id="venue_name" name="venue_name">
@@ -94,16 +94,16 @@
                                     </div> 
                                     <div class="row">
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold "></label>
+                                            <label for="house_number" class="fs-5 fw-bold "></label>
                                         </div> 
                                         <div class="col-md-9">
                                             <div class="row">
                                                 <div class="col-md-6 text-start">
-                                                    <label for="" class="fs-5 fw-bold ">House Number</label>
+                                                    <label for="house_number" class="fs-5 fw-bold ">House Number</label>
                                                     <input type="text" placeholder="House Number" id="house_number" name="house_number" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 text-start">
-                                                    <label for="" class="fs-5 fw-bold ">Road Name</label>
+                                                    <label for="road_name" class="fs-5 fw-bold ">Road Name</label>
                                                     <input type="text" placeholder="Road Name" id="road_name" name="road_name" class="form-control">
                                                 </div>
                                             </div>
@@ -113,19 +113,19 @@
 
                                     <div class="row">
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold "></label>
+                                            <label for="town" class="fs-5 fw-bold "></label>
                                         </div> 
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold ">Town/city</label>
+                                            <label for="town" class="fs-5 fw-bold ">Town/city</label>
                                             <input type="text" placeholder="city" id="town" name="town" class="form-control">
                                         </div>
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold ">Country</label>
+                                            <label for="country" class="fs-5 fw-bold ">Country</label>
                                             <input type="text" placeholder="Country" id="country" name="country" class="form-control">
                                         </div>
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold ">Postal code</label>
-                                            <input type="number" id="postcode" name="postcode" placeholder="Postal code" class="form-control">
+                                            <label for="postcode" class="fs-5 fw-bold ">Postal code</label>
+                                            <input type="text" id="postcode" name="postcode" placeholder="Postal code" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -133,13 +133,13 @@
                                         <div class="col-md-9">
                                             <div class="row">
                                                 <div class="col-md-6 text-start">
-                                                    <label for="" class="fs-5 fw-bold ">
+                                                    <label for="event_start_date" class="fs-5 fw-bold ">
                                                         Event Start:
                                                     </label>
                                                     <input type="datetime-local" id="event_start_date" name="event_start_date" class="form-control" />
                                                 </div>
                                                 <div class="col-md-6 text-start">
-                                                    <label for="" class="fs-5 fw-bold ">
+                                                    <label for="event_end_date" class="fs-5 fw-bold ">
                                                         Event End:
                                                     </label>
                                                     <input type="datetime-local" id="event_end_date" name="event_end_date" class="form-control" />
@@ -160,31 +160,31 @@
 
                                     <div class="row">
                                         <div class="col-md-4 text-start">
-                                            <label for="" class="fs-5 fw-bold ">
+                                            <label for="image" class="fs-5 fw-bold ">
                                                 Upload Event photo:
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <label for="" class="w-100 text-start fs-6  txt-secondary">
+                                            <label for="image" class="w-100 text-start fs-6  txt-secondary">
                                                 <input type="file" name="image" class="form-control" id="image" multiple> 
                                             </label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4 text-start">
-                                            <label for="" class="fs-5 fw-bold ">
+                                            <label for="fimage" class="fs-5 fw-bold ">
                                                 Upload Event Feature photo:
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <label for="" class="w-100 text-start fs-6  txt-secondary">
+                                            <label for="fimage" class="w-100 text-start fs-6  txt-secondary">
                                                 <input type="file" name="fimage" class="form-control" id="fimage"> 
                                             </label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold ">
+                                            <label for="summery" class="fs-5 fw-bold ">
                                                 Event summery:
                                             </label>
                                         </div>
@@ -194,7 +194,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold ">
+                                            <label for="description" class="fs-5 fw-bold ">
                                                 Event description:
                                             </label>
                                         </div>

@@ -109,6 +109,7 @@ Route::group(['middleware' => ['auth']], function(){
     // Route::get('stripe', [StripeController::class, 'stripe']);
     Route::post('/campaign-payment', [StripeController::class,'CampaignPyament'])->name("stripe.post");
     Route::post('/charity-payment', [StripeController::class,'charityPyament'])->name("charitypayment");
+    Route::post('/event-payment', [StripeController::class,'eventPyament'])->name("eventpayment");
     
     Route::get('/referral/campaign', [FundraiserController::class, 'getCampaignReferralLink']);
     Route::post('/referral/campaign', [FundraiserController::class, 'storeCampaignReferralLink'])->name('user.confirmrefcapmaign');
@@ -137,6 +138,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
 
     
     Route::get('my-event', [EventController::class, 'getEventByUser'])->name('user.myevent');
+    Route::get('my-event-document', [EventController::class, 'getEventDocByUser'])->name('user.eventdocument');
     // start a new event
     Route::get('/start-a-new-event', [EventController::class, 'start_new_event'])->name('start_new_event');
     Route::post('create-a-event', [EventController::class, 'eventCreateByUser']);

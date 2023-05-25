@@ -83,9 +83,10 @@
             </div>
         </div>
         <div class="row"> 
-            <div class="col-lg-6 mx-auto mt-2">
-                <a href="{{ route('newcampaign_show')}}" class="btn-theme bg-primary mx-auto w-50 text-center d-block">Create New Campaign</a>
-            </div> 
+            <div class="d-flex align-items-center justify-content-center"> 
+                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary">Create New Campaign</a>
+                <a href="{{ route('user.refcampaign')}}" class="btn-theme bg-secondary">Reffered Campaign</a>
+            </div>
         </div>
     </div>
 </section>

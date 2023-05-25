@@ -21,6 +21,10 @@
                 <h1 class="darkerGrotesque-bold mb-0">{{$data->title}}</h1>
                 <p class="fs-5 mb-0 darkerGrotesque-bold txt-primary">{{$data->organizer}}</p>
                 <h5 class="darkerGrotesque-semibold lh-1 fs-5 mt-3 text-dark">
+                    <span class="darkerGrotesque-bold">Available :</span>
+                    <span class="text-muted">{{$data->available}}</span>
+                </h5>
+                <h5 class="darkerGrotesque-semibold lh-1 fs-5 mt-3 text-dark">
                     <span class="darkerGrotesque-bold">Summery :</span>
                     <span class="text-muted">{{$data->summery}}</span>
                 </h5>
@@ -99,7 +103,7 @@
                     <div class="row mb-4">
                         <a id="backBtn" class="text-start btn btn-theme bg-primary"><iconify-icon icon="material-symbols:arrow-back-rounded" class="text-white fs-4"></iconify-icon> Back</a>
                     </div>
-                    <div class="  ">
+                    <div class="border shadow-sm p-3 rounded">
                         <div class="title darkerGrotesque-bold lh-1 fs-3">Payment Mathods</div>
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent" id="myTab" role="tablist">
                             <li class="nav-item fs-5 mx-2" role="presentation">
@@ -243,28 +247,96 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <h4 class="darkerGrotesque-bold mb-0">General Admission</h4>
                             <div class="d-flex">
-                                <button class="btn btn-sm btn-theme bg-primary text-white">
+                                <button class="btn btn-sm btn-theme bg-primary text-white cart-qty-minus ">
                                     <iconify-icon icon="typcn:minus"></iconify-icon>
                                 </button>
-                                <span class="mx-2 fs-4 darkerGrotesque-bold">1</span>
-                                <button class="btn btn-sm btn-theme bg-primary px-3 text-white">
+                                <span class="mx-2 fs-4 darkerGrotesque-bold showqty" id="showqty">
+                                    1
+                                </span>
+                                <button class="btn btn-sm btn-theme bg-primary px-3 text-white cart-qty-plus">
                                     <iconify-icon icon="typcn:plus"></iconify-icon>
                                 </button>
+                                <input type="number" id="qty" name="qty" value="1" hidden>
+                                <input type="number" id="regular_price" name="regular_price" value="{{$data->price}}" hidden>
+                                <input type="number" id="pamount" name="pamount" value="{{$data->price}}" hidden>
                             </div>
                         </div> 
                         
-                        <h4 class="darkerGrotesque-bold my-3 txt-primary">£{{ number_format($data->price, 2) }}</h4>
+                        <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
+
                     </div>
-                   <a id="chkoutBtn" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Checkout</a>
+                    @if ($data->status == 1)
+                        @if (Auth::user())
+                            <a id="chkoutBtn" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Checkout</a>
+                        @else
+                            <!-- Button trigger modal -->
+                            <button type="button"  class="btn btn-theme bg-secondary w-100 mt-2 mx-auto" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Checkout
+                            </button>
+                        @endif
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+    <!--Login  Modal -->
+    <div  class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+    
+                @if(session()->has('message'))
+                <p class="alert alert-success"> {{ session()->get('message') }}</p>
+                @endif
+                 
+                <form method="POST" action="{{ route('logintodonate') }}" class="form-custom">
+                    @csrf
+    
+                    <div class="title text-center txt-secondary">LOGIN</div>
+                    <div class="form-group">
+                        <input type="hidden" name="eventid" id="eventid" value="{{$data->id}}">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Login </button>
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                         <a href="{{ route('register')}}" class="btn-theme bg-secondary d-block text-center mx-0 w-100"> Apply for an account</a>
+                    </div>
+                </form>
+    
+    
+    
+            </div>
+          </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
+
 <script>
 $(document).ready(function () {
 
@@ -279,6 +351,43 @@ $(document).ready(function () {
         $("#paymentSection").hide(200);
         $("#eventDesc").show(200);
         $("#chkoutBtn").show(200);
+    });
+    //calculation end 
+
+    $(".cart-qty-plus").click(function(){
+        var qty = Number($("#qty").val());
+        var pamount = Number($("#regular_price").val());
+        var addqty = qty+1;
+        var tamount = addqty * pamount;
+        $("#qty").val(addqty);
+        $("#pamount").val(tamount);
+        $("#showqty").html(addqty);
+        $("#amtshow").html(tamount.toFixed(2));
+
+        var commission = (tamount * 10)/100;
+        var net_amount = tamount + commission;
+        $("#amount").val(net_amount.toFixed(2));
+        $("#c_amount").val(commission.toFixed(2));
+
+    });
+
+    $(".cart-qty-minus").click(function(){
+        var qty = Number($("#qty").val());
+        var pamount = Number($("#regular_price").val());
+        var addqty = qty-1;
+        if (addqty < 1) {
+            var addqty = 1;
+        }
+        var tamount = addqty * pamount;
+        $("#qty").val(addqty);
+        $("#pamount").val(tamount);
+        $("#amtshow").html(tamount.toFixed(2));
+        $("#showqty").html(addqty);
+        
+        var commission = (tamount * 10)/100;
+        var net_amount = tamount + commission;
+        $("#amount").val(net_amount.toFixed(2));
+        $("#c_amount").val(commission.toFixed(2));
     });
 
 });
@@ -317,6 +426,7 @@ $(document).ready(function () {
     function confirmPayment(paymentMethodId) {
         
         var amount = $("#amount").val();
+        var quantity = $("#qty").val();
         var cardHolderName = $("#cardholder-name").val();
         var event_id = $("#event_id").val();
         var c_amount = $("#c_amount").val();
@@ -329,7 +439,7 @@ $(document).ready(function () {
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
 
-        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount })
+        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity })
       }).then(function(response) {
         return response.json();
       }).then(function(data) {

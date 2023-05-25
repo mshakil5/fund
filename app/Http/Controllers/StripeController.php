@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use App\Models\Transaction;
+use App\Models\EventTransaction;
+use App\Models\TicketSale;
 use App\Models\User;
 
 class StripeController extends Controller
@@ -111,6 +114,66 @@ class StripeController extends Controller
         $stripetopup->token = time();
         $stripetopup->donation_type = "Charity";
         $stripetopup->description = "Charity Donation";
+        $stripetopup->payment_type = "Stripe";
+        $stripetopup->notification = "0";
+        $stripetopup->status = "0";
+        $stripetopup->save();
+        // Return the client secret to the frontend
+        return response()->json([
+            'client_secret' => $paymentIntent->client_secret,
+        ]);
+    }
+
+    public function eventPyament(Request $request)
+    {
+        $totalamt = $request->amount;
+        $amt = $request->amount - $request->c_amount;
+
+        // Set your Stripe secret key
+        Stripe::setApiKey('sk_test_51N5D0QHyRsekXzKiOlfECHaMZZbQrelnyJjv2gNbL9YYEdq7LcWl4TLCZGjPStqsPrRCgAlaBTIpLUHl9F9rbtuY00ABjR2fFL');
+
+        // Create a PaymentIntent with the required amount and currency
+        $paymentIntent = PaymentIntent::create([
+            'amount' => $totalamt * 100, // replace with your desired amount
+            'currency' => 'GBP', // replace with your desired currency
+            'payment_method' => $request->input('payment_method_id'),
+            "description" => "Donation",
+            'confirm' => true,
+            'confirmation_method' => 'manual',
+        ]);
+
+        $sales = new TicketSale();
+        $sales->date = date('Y-m-d');
+        $sales->tran_no = date('his');
+        $sales->user_id = Auth::user()->id;
+        $sales->event_id = $request->event_id;
+        $sales->commission = $request->c_amount;
+        $sales->amount = $amt;
+        $sales->total_amount = $request->amount;
+        $sales->quantity = $request->quantity;
+        $sales->payment_type = "Stripe";
+        $sales->user_notification = "0";
+        $sales->admin_notification = "0";
+        $sales->status = "0";
+        $sales->save();
+
+        $event = Event::find($request->event_id);
+        $event->available = $event->available-$request->quantity;
+        $event->sold = $event->sold+$request->quantity;
+        $event->save();
+
+
+        $stripetopup = new EventTransaction();
+        $stripetopup->date = date('Y-m-d');
+        $stripetopup->tran_no = date('his');
+        $stripetopup->tran_type = "In";
+        $stripetopup->user_id = Auth::user()->id;
+        $stripetopup->event_id = $request->event_id;
+        $stripetopup->commission = $request->c_amount;
+        $stripetopup->amount = $amt;
+        $stripetopup->total_amount = $request->amount;
+        $stripetopup->token = time();
+        $stripetopup->description = "Event Payment";
         $stripetopup->payment_type = "Stripe";
         $stripetopup->notification = "0";
         $stripetopup->status = "0";
