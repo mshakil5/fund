@@ -14,11 +14,11 @@
         display: inline-block;
     }          
     div#social-links ul li a {
-        padding: 20px;
+        padding: 14px;
         border: 1px solid #ccc;
         margin: 1px;
-        font-size: 30px;
-        color: #222;
+        font-size: 72px;
+        color: #0c4c45;
         background-color: #ccc;
     }
 </style>

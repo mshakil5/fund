@@ -4,7 +4,23 @@
 @endsection
 
 @section('content')
-
+<style>
+    div#social-links {
+        margin: 0 auto;
+        max-width: 500px;
+    }
+    div#social-links ul li {
+        display: inline-block;
+    }          
+    div#social-links ul li a {
+        padding: 14px;
+        border: 1px solid #ccc;
+        margin: 1px;
+        font-size: 72px;
+        color: #0c4c45;
+        background-color: #ccc;
+    }
+</style>
 <div class="eventDetails">
     <div class="eventBg">
         <div class="eventBanner container">
@@ -274,9 +290,22 @@
                                 Checkout
                             </button>
                         @endif
+                        <button class="btn btn-theme bg-primary w-100 mt-2 mx-auto" data-bs-toggle="modal"
+                            data-bs-target="#shareModal">Share</button>
                     @endif
                 </div>
+
+                <div class="border shadow-sm p-3 rounded mt-2">
+                    <div class="p-3 border border-1 rounded shadow-sm bg-white text-center">
+                            {!! QrCode::size(250)->generate(URL::current()) !!}
+                    </div>
+                </div>
             </div>
+
+            
+
+
+
         </div>
     </div>
 </div>
@@ -333,10 +362,48 @@
         </div>
     </div>
 
+    <!-- share modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content fs-5 darkerGrotesque-semibold ">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-4" id="shareModalLabel">Help by sharing</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-dark lh-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima ratione excepturi accusamus!</p>
+                    <hr>
+                    <div class="shareIcons">
+                        {!! $shareComponent !!}
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="text" class="form-control fs-5"  id="myInput" style="height:46px;" value="{{ URL::current() }}">
+                        <button class="btn btn-theme bg-primary"  onclick="copyTextFS()">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
+<script>
+    function copyTextFS() {
+        // Get the text field
+        var copyText = document.getElementById("myInput");
 
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        // Alert the copied text
+        alert("Copied the text: " + copyText.value);
+    }
+</script>
 <script>
 $(document).ready(function () {
 
