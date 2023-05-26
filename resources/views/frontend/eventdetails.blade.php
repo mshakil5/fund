@@ -21,6 +21,11 @@
         background-color: #ccc;
     }
 </style>
+
+@php
+    $cardprice = $data->price + ($data->price * .10);
+    $cardpriceshow = $data->price;
+@endphp
 <div class="eventDetails">
     <div class="eventBg">
         <div class="eventBanner container">
@@ -122,17 +127,21 @@
                     <div class="border shadow-sm p-3 rounded">
                         <div class="title darkerGrotesque-bold lh-1 fs-3">Payment Mathods</div>
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent" id="myTab" role="tablist">
+
                             <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="paypal">
-                                    <div class="nav-link shadow-sm d-flex align-items-center justify-content-center rounded active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab" aria-controls="home" aria-selected="true">
+                                    <div class="nav-link shadow-sm d-flex align-items-center justify-content-center rounded active"
+                                        id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
+                                        aria-controls="home" aria-selected="true">
                                         <div class="fw-bold d-flex align-items-center">
                                             <input type="radio" class="d-none" id="paypal" value="paypal"
                                                 name="paymentMethod">
-                                            <iconify-icon class="px-2 py-2" icon="ps:paypal"></iconify-icon>
+                                            <iconify-icon class="px-2 py-2" icon="ps:paypal"></iconify-icon> 
                                         </div>
                                     </div>
                                 </label>
                             </li>
+
                             <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="google_pay">
                                     <div class="nav-link shadow-sm d-flex align-items-center justify-content-center rounded" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab" aria-controls="profile" aria-selected="false">
@@ -157,8 +166,16 @@
                         <div class="tab-content shadow-sm" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
-
-                                api comes here
+                                {{-- <h5>Pay with paypal</h5> --}}
+                                <form action="{{route('payment')}}" method="post" class="title ">
+                                    @csrf
+                                    <input type="hidden" name="amount" value="{{$data->price}}">
+                                    <button type="submit" class="btn btn-secondary btn-theme mx-auto w-50 bg-secondary">
+                                        <img src="{{ asset('paypal.png')}}" alt="" style="height: 65px; border-radius:5px;">
+                                    </button>
+                                </form>
+                                
+                                
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 
@@ -177,8 +194,8 @@
                                 <form id="payment-form">
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Donation Amount</label>
-                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" required>
+                                            <label class='control-label'>Amount</label>
+                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" value="{{ number_format($cardprice, 2) }}" required>
                                         </div>
                                     </div>
         

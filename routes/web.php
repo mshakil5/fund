@@ -13,6 +13,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CharityController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -115,6 +116,10 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/referral/campaign', [FundraiserController::class, 'storeCampaignReferralLink'])->name('user.confirmrefcapmaign');
 
     
+    // paypal payments
+    Route::post('pay', [PaypalController::class, 'pay'])->name('payment');
+    Route::get('success', [PaypalController::class, 'success']);
+    Route::get('error', [PaypalController::class, 'error']);
 
 });
 
@@ -146,6 +151,8 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('/event-edit/{id}', [EventController::class, 'eventEditByUser'])->name('user.eventEdit');
     Route::get('/event-ticket-sale/{id}', [EventController::class, 'eventTicketSaleShowByUser'])->name('user.eventTicketSales');
     Route::post('update-event', [EventController::class, 'eventUpdateByUser']);
+
+
 });
   
 /*------------------------------------------
