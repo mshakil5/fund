@@ -2,9 +2,20 @@
 @section('content')
 
 
-<section class="bleesed default py-5">
+<section class="bleesed">
     <div class="container"> 
-        <div class="row mt-5">
+        <div class="row">
+            
+            <div class="row my-4">
+                <div class="col-md-12 button-cutom-link ">
+                    <a href="{{ route('user.activecampaign')}}" class="btn-link">Your campaign</a>
+                    <a href="{{ route('user.refcampaign')}}" class="btn-link">Reffered campaign</a>
+                    <a href="{{ route('user.alltransaction')}}" class="btn-link">All statement</a>
+                    <a href="{{ route('newcampaign_show')}}" class="btn-link">Create a new campaign</a>
+                    <a href="{{ route('user.donationhistory')}}" class="btn-link">Donation you have made</a>
+                </div>
+            </div>
+            
             <div class="col-lg-6">
                 <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> List of active campaign</h2>
             </div>

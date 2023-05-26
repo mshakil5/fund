@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
+use Mail;
 use Stripe\PaymentIntent;
 use App\Models\Transaction;
 use App\Models\EventTransaction;
 use App\Models\TicketSale;
 use App\Models\User;
+use App\Mail\PaymentMail;
+use App\Mail\ContactFormMail;
 
 class StripeController extends Controller
 {
@@ -179,6 +182,16 @@ class StripeController extends Controller
         $stripetopup->status = "0";
         $stripetopup->save();
         // Return the client secret to the frontend
+
+        $contactmail = "kazimuhammadullah@gmail.com";
+        $array['name'] = "shakil";
+        $array['email'] = "kmushakil71@gmail.com";
+        $array['subject'] = "Event ticket purchase confirmation";
+        $array['message'] = "Event Message";
+        $array['contactmail'] = $contactmail;
+        Mail::to($contactmail)->send(new PaymentMail($array));
+
+
         return response()->json([
             'client_secret' => $paymentIntent->client_secret,
         ]);

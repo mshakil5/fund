@@ -1329,3 +1329,22 @@ input[type=checkbox] {
 #msform .action-button:focus {
   background: #003057;
 }
+
+.button-cutom-link .btn-link {
+  padding: 3px 10px;
+  margin: 0 8px 0 0;
+  border-radius: 5px;
+  font-size: 18px;
+  background: #003057;
+  color: #FFF7F2;
+  text-decoration: none;
+  transform: scale(1) !important;
+  position: relative;
+  display: inline-flex;
+  transition: transform 0.3s ease-in-out;
+  font-family: "DarkerGrotesque-semibold";
+}
+.button-cutom-link:hover .btn-link:not(:hover) {
+  color: #18988B;
+  transform: scale(1.09) !important;
+}

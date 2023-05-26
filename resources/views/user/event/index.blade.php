@@ -5,10 +5,19 @@
 @section('content')
 
 
-<section class="bleesed default py-5">
+<section class="bleesed">
     <div class="container"> 
 
-        <div class="row mt-2">
+        <div class="row">
+            <div class="row my-4">
+                <div class="col-md-12 button-cutom-link ">
+                    <a href="{{ route('user.myevent')}}" class="btn-link">Your event</a>
+                    <a href="#" class="btn-link">All statement</a>
+                    <a href="{{ route('start_new_event')}}" class="btn-link">Start a new event</a>
+                    <a href="{{ route('user.eventdocument')}}" class="btn-link">Purchase History </a>
+                </div>
+            </div>
+
             <div class="col-lg-6">
                 <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> List of event</h2>
             </div>

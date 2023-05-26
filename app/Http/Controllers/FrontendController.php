@@ -10,11 +10,13 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Mail;
 use App\Mail\ContactFormMail;
+use App\Mail\PaymentMail;
 use App\Models\CampaignShare;
 use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
