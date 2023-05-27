@@ -238,43 +238,64 @@
     </div>
 </section>
 
-<!--charity section -->
-<section class="campaign default" style="display: none">
+
+<section class="campaign">
     <div class="container">
-        <div class="row mb-5">
-            <div class="title ">
+        <div class="row">
+            <div class="title">
                 We help charities, raise more
             </div>
         </div>
-        <br>
-        <div class="row"> 
+        <div class="row mt-5"> 
 
             @foreach ($charities as $charity)
-            <div class="col-lg-4 mb-3">
-                <div class="charity-card text-center">
-                    @if (isset($charity->photo))
-                        <img src="{{asset('images/'.$charity->photo)}}" class="img-circle">
-                    @else
-                        <img src="https://via.placeholder.com/100.png" class="img-circle">
-                    @endif
-
-                    <div class="title">{{$charity->name}}</div>
-                    <div class="my-3">
-                        @if (Auth::user())
-                            <a href="{{ route('frontend.charityDonate',$charity->id)}}" class="btn-theme bg-primary">Donate Now</a>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="card-theme mb-3">
+                    <div class="topper d-flex align-items-center justify-content-center">
+                        @if (isset($charity->photo))
+                            <a href="" class="p-0 d-block">
+                                <img src="{{asset('images/'.$charity->photo)}}">
+                            </a>
                         @else
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn-theme bg-primary btn-contact" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Donate Now
-                            </button>
+                            <img src="https://via.placeholder.com/100.png">
                         @endif
                     </div>
+                    <div class="card-body ">
+                        <div class="inner">
+                            <div class="card-title text-start ">
+                                                                
+                                @if (Auth::user())
+                                    <a href="{{ route('frontend.charityDonate',$charity->id)}}">{{$charity->name}}</a>
+                                @else
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        {{$charity->name}}
+                                    </button>
+                                @endif
+                            </div>
+                           <h5 class="mb-0 darkerGrotesque-semibold mb-3">
+                           Location:  <small class="text-muted"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</small>
+                           </h5> 
+                           
+                           <div class="w-100 text-center">
+
+                            <div class="">
+                                @if (Auth::user())
+                                    <a href="{{ route('frontend.charityDonate',$charity->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">Donate Now</a>
+                                @else
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        Donate Now
+                                    </button>
+                                @endif
+                            </div>
+                           </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div> 
             @endforeach
             
-            
-
 
 
         </div>
