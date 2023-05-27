@@ -153,5 +153,7 @@ class PaypalController extends Controller
     public function error()
     {
         return 'User declined the payment!';   
+        
+        return view('frontend.paypalerror');
     }
 }
