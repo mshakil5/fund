@@ -136,8 +136,9 @@ class PaypalController extends Controller
                 Mail::to($contactmail)
                     ->cc($ccEmails)
                     ->send(new ContactFormMail($array));
-
-                return "Payment is Successfull. Your Transaction Id is : " . $arr['id'];
+                    
+                $tranid = $arr['id'];
+                return view('frontend.paypalsuccess', compact('tranid'))
 
             }
             else{
