@@ -268,9 +268,9 @@
                                     <a href="{{ route('frontend.charityDonate',$charity->id)}}">{{$charity->name}}</a>
                                 @else
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    <a dataid="{{$charity->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
                                         {{$charity->name}}
-                                    </button>
+                                    </a>
                                 @endif
                             </div>
                            <h5 class="mb-0 darkerGrotesque-semibold mb-3">

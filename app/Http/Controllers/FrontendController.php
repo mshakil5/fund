@@ -144,8 +144,6 @@ class FrontendController extends Controller
             exit();
         }
 
-      
-
         $contactmail = ContactMail::where('id', 1)->first()->email;
 
         $contact = new Contact();
@@ -162,6 +160,20 @@ class FrontendController extends Controller
             $array['contactmail'] = $contactmail;
             Mail::to($contactmail)
             ->send(new ContactFormMail($array));
+
+            
+            $mail['name'] = $request->name;
+            $mail['email'] = $request->email;
+            $mail['subject'] = $request->subject;
+            $mail['message'] = $request->message;
+            $mail['contactmail'] = $contactmail;
+
+            $email_to = "fahim.amin71@gmail.com";
+            Mail::send('email.becomeagent', compact('mail'), function($message)use($mail,$email_to) {
+                $message->from('info@fancybeautyhairprofessional.com', 'Test International');
+                $message->to($email_to)
+                ->subject($mail["subject"]);
+                });
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Message Send Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
@@ -223,10 +235,7 @@ class FrontendController extends Controller
 
       
         $userid = Campaign::where('id',$request->campaignid)->first()->user_id;
-
         $contactmail = User::where('id', $userid)->first()->email;
-
-        
 
             $array['name'] = $request->name;
             $array['email'] = $request->email;
