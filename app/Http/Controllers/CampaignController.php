@@ -14,6 +14,7 @@ use Mail;
 use App\Models\CampaignImage;
 use App\Models\Comment;
 use App\Models\User;
+use App\Models\ContactMail;
 use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -536,6 +537,11 @@ class CampaignController extends Controller
 
     public function activeCampaign(Request $request)
     {
+        
+        $campaign = Campaign::where('id',$request->id)->first();
+        $eventuser = User::where('id', $campaign->user_id)->first();
+
+
         $data = Campaign::find($request->id);
         $data->status = $request->status;
         $data->save();
@@ -543,6 +549,23 @@ class CampaignController extends Controller
             $active = Campaign::find($request->id);
             $active->status = $request->status;
             $active->save();
+
+            
+            $adminmail = ContactMail::where('id', 1)->first()->email;
+            $contactmail = $eventuser->email;
+            $ccEmails = [$adminmail];
+            $msg = EmailContent::where('title','=','campaign_active_email')->first()->description;
+            
+            $array['name'] = $eventuser->name;
+            $array['email'] = $eventuser->email;
+            $array['subject'] = "Your campaign active successfully";
+            $array['message'] = $msg;
+            $array['contactmail'] = $contactmail;
+            Mail::to($contactmail)
+                ->cc($ccEmails)
+                ->send(new ContactFormMail($array));
+
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }else{

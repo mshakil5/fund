@@ -7,6 +7,10 @@ use App\Models\Event;
 use App\Models\EventImage;
 use App\Models\TicketSale;
 use App\Models\User;
+use Mail;
+use App\Models\EmailContent;
+use App\Mail\ContactFormMail;
+use App\Models\ContactMail;
 use Illuminate\support\Facades\Auth;
 
 class EventController extends Controller
@@ -422,6 +426,8 @@ class EventController extends Controller
 
     public function activeEvent(Request $request)
     {
+        $event = Event::where('id',$request->id)->first();
+        $eventuser = User::where('id', $event->user_id)->first();
         $data = Event::find($request->id);
         $data->status = $request->status;
         $data->save();
@@ -429,6 +435,22 @@ class EventController extends Controller
             $active = Event::find($request->id);
             $active->status = $request->status;
             $active->save();
+
+            $adminmail = ContactMail::where('id', 1)->first()->email;
+            $contactmail = $eventuser->email;
+            $ccEmails = [$adminmail];
+            $msg = EmailContent::where('title','=','event_active_email')->first()->description;
+            
+            $array['name'] = $eventuser->name;
+            $array['email'] = $eventuser->email;
+            $array['subject'] = "Your event active successfully";
+            $array['message'] = $msg;
+            $array['contactmail'] = $contactmail;
+            Mail::to($contactmail)
+                ->cc($ccEmails)
+                ->send(new ContactFormMail($array));
+
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }else{
