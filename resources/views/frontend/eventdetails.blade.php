@@ -1,5 +1,8 @@
 @extends('frontend.layouts.master')
 
+@section('title')
+ {{$data->title}}
+@endsection
 @section('css')
 @endsection
 
@@ -23,7 +26,7 @@
 </style>
 
 @php
-    $cardprice = $data->price + ($data->price * .10);
+    $pricewithSCs = $data->price + ($data->price * .10);
     $cardpriceshow = $data->price;
 @endphp
 <div class="eventDetails">
@@ -171,10 +174,11 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
                                 {{-- <h5>Pay with paypal</h5> --}}
-                                <form action="{{ route('payment') }}" method="POST" class="title ">
+                                <form action="{{ route('payment') }}" method="POST" class="title">
                                     @csrf
-                                    <input type="hidden" name="amount" value="{{$data->price}}">
+                                    <input type="hidden" name="amount" id="paypalamount" value="{{$pricewithSCs}}">
                                     <input type="hidden" name="event_id" value="{{$data->id}}">
+                                    <input type="hidden" name="paypalqty" id="paypalqty" value="1">
                                     <button type="submit" class="btn btn-secondary btn-theme mx-auto w-50 bg-secondary">
                                         <img src="{{ asset('paypal.png')}}" alt="" style="height: 65px; border-radius:5px;">
                                     </button>
@@ -200,7 +204,7 @@
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Amount</label>
-                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" value="{{ number_format($cardprice, 2) }}" required>
+                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" value="{{ number_format($pricewithSCs, 2) }}" required>
                                         </div>
                                     </div>
         
@@ -397,7 +401,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-dark lh-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima ratione excepturi accusamus!</p>
+                    <p class="text-dark lh-1">{{$data->title}}</p>
                     <hr>
                     <div class="shareIcons">
                         {!! $shareComponent !!}
@@ -459,6 +463,7 @@ $(document).ready(function () {
         var addqty = qty+1;
         var tamount = addqty * pamount;
         $("#qty").val(addqty);
+        $("#paypalqty").val(addqty);
         $("#pamount").val(tamount);
         $("#showqty").html(addqty);
         $("#amtshow").html(tamount.toFixed(2));
@@ -466,6 +471,7 @@ $(document).ready(function () {
         var commission = (tamount * 10)/100;
         var net_amount = tamount + commission;
         $("#amount").val(net_amount.toFixed(2));
+        $("#paypalamount").val(net_amount.toFixed(2));
         $("#c_amount").val(commission.toFixed(2));
 
     });
@@ -486,6 +492,7 @@ $(document).ready(function () {
         var commission = (tamount * 10)/100;
         var net_amount = tamount + commission;
         $("#amount").val(net_amount.toFixed(2));
+        $("#paypalamount").val(net_amount.toFixed(2));
         $("#c_amount").val(commission.toFixed(2));
     });
 

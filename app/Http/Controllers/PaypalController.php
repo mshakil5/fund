@@ -10,6 +10,11 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\PaymentMail;
+use App\Mail\ContactFormMail;
+use App\Models\EmailContent;
+use Mail;
+use App\Models\ContactMail;
 
 class PaypalController extends Controller
 {
@@ -26,6 +31,7 @@ class PaypalController extends Controller
     {
 
         session(['event_id' => $request->event_id]);
+        session(['paypalqty' => $request->paypalqty]);
 
         try {
 
@@ -57,8 +63,10 @@ class PaypalController extends Controller
             ));
 
             $event_id = session('event_id');
+            $paypalqty = session('paypalqty');
 
             $request->session()->forget('event_id');
+            $request->session()->forget('paypalqty');
 
             $response = $transaction->send();
 
@@ -87,36 +95,47 @@ class PaypalController extends Controller
                 $sales->commission = "00";
                 $sales->amount = $amount;
                 $sales->total_amount = $amount;
-                $sales->quantity = 1;
+                $sales->quantity = $paypalqty;
                 $sales->payment_type = "Paypal";
                 $sales->user_notification = "0";
                 $sales->admin_notification = "0";
                 $sales->status = "0";
                 $sales->save();
 
-                // $event = Event::find($request->event_id);
-                // $event->available = $event->available-$request->quantity;
-                // $event->sold = $event->sold+$request->quantity;
-                // $event->save();
+                $event = Event::find($request->event_id);
+                $event->available = $event->available-$request->quantity;
+                $event->sold = $event->sold+$request->quantity;
+                $event->save();
 
+                $stripetopup = new EventTransaction();
+                $stripetopup->date = date('Y-m-d');
+                $stripetopup->tran_no = date('his');
+                $stripetopup->tran_type = "In";
+                $stripetopup->user_id = Auth::user()->id;
+                $stripetopup->event_id = $request->event_id;
+                $stripetopup->commission = $request->c_amount;
+                $stripetopup->amount = $request->amount;
+                $stripetopup->total_amount = $request->amount;
+                $stripetopup->token = time();
+                $stripetopup->description = "Event Payment";
+                $stripetopup->payment_type = "Paypal";
+                $stripetopup->notification = "0";
+                $stripetopup->status = "0";
+                $stripetopup->save();
 
-                // $stripetopup = new EventTransaction();
-                // $stripetopup->date = date('Y-m-d');
-                // $stripetopup->tran_no = date('his');
-                // $stripetopup->tran_type = "In";
-                // $stripetopup->user_id = Auth::user()->id;
-                // $stripetopup->event_id = $request->event_id;
-                // $stripetopup->commission = $request->c_amount;
-                // $stripetopup->amount = $amt;
-                // $stripetopup->total_amount = $request->amount;
-                // $stripetopup->token = time();
-                // $stripetopup->description = "Event Payment";
-                // $stripetopup->payment_type = "Stripe";
-                // $stripetopup->notification = "0";
-                // $stripetopup->status = "0";
-                // $stripetopup->save();
-
-
+                $adminmail = ContactMail::where('id', 1)->first()->email;
+                $contactmail = Auth::user()->email;
+                $ccEmails = [$adminmail];
+                $msg = EmailContent::where('title','=','event_email_message')->first()->description;
+                
+                $array['name'] = Auth::user()->name;
+                $array['email'] = Auth::user()->email;
+                $array['subject'] = "Event ticket purchase confirmation";
+                $array['message'] = $msg;
+                $array['contactmail'] = $contactmail;
+                Mail::to($contactmail)
+                    ->cc($ccEmails)
+                    ->send(new ContactFormMail($array));
 
                 return "Payment is Successfull. Your Transaction Id is : " . $arr['id'];
 

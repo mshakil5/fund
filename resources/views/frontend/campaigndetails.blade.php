@@ -232,8 +232,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-dark lh-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima ratione
-                        excepturi accusamus!</p>
+                    <p class="text-dark lh-1">Sharing the donation link is a simple yet impactful way to make a difference.</p>
                     <hr>
                     <div class="shareIcons">
                         {!! $shareComponent !!}

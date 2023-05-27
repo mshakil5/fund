@@ -190,7 +190,6 @@ class StripeController extends Controller
         $ccEmails = [$adminmail];
         $msg = EmailContent::where('title','=','event_email_message')->first()->description;
         
-        
         $array['name'] = Auth::user()->name;
         $array['email'] = Auth::user()->email;
         $array['subject'] = "Event ticket purchase confirmation";
