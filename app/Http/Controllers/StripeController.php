@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\ContactMail;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Stripe;
@@ -14,6 +15,7 @@ use App\Models\Transaction;
 use App\Models\EventTransaction;
 use App\Models\TicketSale;
 use App\Models\User;
+use App\Models\EmailContent;
 use App\Mail\PaymentMail;
 use App\Mail\ContactFormMail;
 
@@ -182,14 +184,21 @@ class StripeController extends Controller
         $stripetopup->status = "0";
         $stripetopup->save();
         // Return the client secret to the frontend
-
-        $contactmail = "kazimuhammadullah@gmail.com";
-        $array['name'] = "shakil";
-        $array['email'] = "kmushakil71@gmail.com";
+        
+        $adminmail = ContactMail::where('id', 1)->first()->email;
+        $contactmail = Auth::user()->email;
+        $ccEmails = [$adminmail];
+        $msg = EmailContent::where('title','=','event_email_message')->first()->description;
+        
+        
+        $array['name'] = Auth::user()->name;
+        $array['email'] = Auth::user()->email;
         $array['subject'] = "Event ticket purchase confirmation";
-        $array['message'] = "Event Message";
+        $array['message'] = $msg;
         $array['contactmail'] = $contactmail;
-        Mail::to($contactmail)->send(new PaymentMail($array));
+        Mail::to($contactmail)
+            ->cc($ccEmails)
+            ->send(new ContactFormMail($array));
 
 
         return response()->json([

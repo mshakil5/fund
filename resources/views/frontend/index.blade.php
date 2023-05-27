@@ -10,19 +10,19 @@
         <div class="row">
             <div class="col-lg-12 mx-auto">
                 <div class="row">
-                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <div class="col-md-6 d-flex align-items-center justify-content-center column-hide">
                         <div class="inner w-75">
                             <div class="intro-title">
                                 {{\App\Models\Slider::where('id','1')->first()->left_title}}
                             </div>
                             <p class="txt-theme mb-4">{{\App\Models\Slider::where('id','1')->first()->left_description}}</p>
-                            <div>
+                            <div class="mobile-adjust-action">
                                 <a href="{{route('register')}}" class="btn-theme bg-secondary">Open an account</a>
                                 <a href="{{route('frontend.work')}}" class="btn-theme bg-primary">How it works</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 steps my-5  ">
+                    <div class="col-md-6 steps my-5">
                         <div class="w-100 px-3">
                             <div class="row mb-4">
                                 <h3 class="  lh-1 fw-bold" style="color:#265080;">
@@ -110,7 +110,7 @@
 
 
 <!--Campaign Section -->
-<section class="campaign default">
+<section class="campaign ">
     <div class="container">
         <div class="row">
             <div class="title">
@@ -183,7 +183,7 @@
 </section>
 
 <!--Event Section -->
-<section class="campaign default">
+<section class="campaign ">
     <div class="container">
         <div class="row">
             <div class="title">
@@ -245,6 +245,9 @@
             <div class="title">
                 We help charities, raise more
             </div>
+            @if(session()->has('error'))
+            <p class="alert alert-danger"> {{ session()->get('error') }}</p>
+            @endif
         </div>
         <div class="row mt-5"> 
 
@@ -268,13 +271,14 @@
                                     <a href="{{ route('frontend.charityDonate',$charity->id)}}">{{$charity->name}}</a>
                                 @else
                                     <!-- Button trigger modal -->
-                                    <a dataid="{{$charity->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    <a class="btn-contact" dataid="{{$charity->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
                                         {{$charity->name}}
                                     </a>
                                 @endif
                             </div>
                            <h5 class="mb-0 darkerGrotesque-semibold mb-3">
-                           Location:  <small class="text-muted"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</small>
+                            <iconify-icon icon="bx:map"></iconify-icon>
+                            <small class="text-muted"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</small>
                            </h5> 
                            
                            <div class="w-100 text-center">
@@ -284,7 +288,7 @@
                                     <a href="{{ route('frontend.charityDonate',$charity->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">Donate Now</a>
                                 @else
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    <button type="button" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5 btn-contact" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
                                         Donate Now
                                     </button>
                                 @endif
@@ -359,8 +363,9 @@
 @section('script')
 <script>
     $(document).on('click', '.btn-contact', function () {
-        charityid = $(this).attr('dataid');
-        $('#loginModal').find('.modal-body #charityid').val(charityid);
+        $charityid = $(this).attr('dataid');
+        console.log($charityid);
+        $('#loginModal').find('.modal-body #charityid').val($charityid);
     });
 </script>
 @endsection

@@ -43,7 +43,7 @@
                                       </div>
                                 </div>
                               </div>
-                              <div class="tile-footer">
+                              <div class="tile-footer mt-2">
                                   <input type="button" id="addBtn" value="Create" class="btn btn-primary">
                                   <input type="button" id="FormCloseBtn" value="Close" class="btn btn-warning">
                                   {!! Form::close() !!}
@@ -108,16 +108,10 @@
 @endsection
 @section('script')
 
-<script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
     <script>
         $(document).ready(function () {
             $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
-                $("#description").addClass("ckeditor");
-                for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                } 
-                 CKEDITOR.replace( 'description' );
                 clearform();
                 $("#newBtn").hide(100);
                 $("#addThisFormContainer").show(300);
@@ -137,9 +131,6 @@
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
-                    for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                    } 
                     
                     var form_data = new FormData();
                     form_data.append("title", $("#title").val());
@@ -166,12 +157,8 @@
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
-                    for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                    } 
                     
                     var form_data = new FormData();
-                    form_data.append("title", $("#title").val());
                     form_data.append("description", $("#description").val());
                     form_data.append('_method', 'put');
                     $.ajax({
@@ -249,17 +236,14 @@
             });
             //Delete  
             function populateForm(data){
-                for ( instance in CKEDITOR.instances ) {
-                    CKEDITOR.instances[instance].updateElement();
-                    } 
+                
                 $("#description").val(data.description);
-                 CKEDITOR.replace( 'description' );
                 $("#title").val(data.title);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');
                 $("#addThisFormContainer").show(300);
                 $("#newBtn").hide(100);
-                $("#titlediv").hide(100);
+                $('#title').prop('readonly', true);
             }
             function clearform(){
                 $('#createThisForm')[0].reset();

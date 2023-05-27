@@ -25,6 +25,13 @@ class PaymentMail extends Mailable
      }
 
     /**
+     * Get the message content definition.
+     *
+     * @return \Illuminate\Mail\Mailables\Content
+     */
+    
+
+    /**
      * Get the attachments for the message.
      *
      * @return array
@@ -32,10 +39,9 @@ class PaymentMail extends Mailable
     
      public function build()
      {
-         return $this->from('info@fancybeautyhairprofessional.com', 'Gogiving')
-         ->to($this->array['contactmail'], 'Gogiving')
-         ->subject('New contact message form Gogiving')
-         ->markdown('emails.paymentmail');
+        return $this->from('do-not-reply@taxdocs.co.uk', 'Gogiving')
+                    ->subject($this->array['subject'])
+                    ->markdown('emails.paymentmail');
  
      }
 }

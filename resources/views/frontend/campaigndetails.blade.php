@@ -27,6 +27,9 @@
     <div class="container">
         <div class="row">
             <h3 class="fw-bold txt-primary mb-4">{{$data->title}}</h3>
+            @if(session()->has('error'))
+                <p class="alert alert-danger"> {{ session()->get('error') }}</p>
+                @endif
             <div class="col-lg-8">
                 <div class="popup-gallery shadow-sm p-4 bg-white">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">

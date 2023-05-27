@@ -86,7 +86,7 @@ class LoginController extends Controller
     public function loginToDonate(Request $request)
     {   
         $input = $request->all();
-        // dd($request->campaignid);
+        // dd($input);
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
@@ -106,8 +106,21 @@ class LoginController extends Controller
             }
             
         }else{
-            return redirect()->route('frontend.campaignDetails',$request->campaignid)
+
+            if (isset($request->campaignid)) {
+                return redirect()->route('frontend.campaignDetails',$request->campaignid)
                 ->with('error','Email-Address And Password Are Wrong.')->with('error_code', 5);
+            } elseif (isset($request->charityid)) {
+                return redirect()->route('login')
+                ->with('error','Email-Address And Password Are Wrong.')->with('error_code', 5);
+            } elseif (isset($request->eventid)) {
+                return redirect()->route('frontend.eventDetails',$request->eventid)
+                ->with('error','Email-Address And Password Are Wrong.')->with('error_code', 5);
+            } else {
+                return redirect()->route('homepage');
+            }
+
+            
         }
           
     }

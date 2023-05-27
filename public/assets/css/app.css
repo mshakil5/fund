@@ -145,7 +145,7 @@ body {
 }
 
 .default {
-  padding: 90px 0;
+  padding: 45px 0;
 }
 @media (max-width: 768px) {
   .default {
@@ -265,7 +265,7 @@ body {
   background: #fff7f2;
 }
 .campaign .title, .why-donors .title {
-  font-size: 3.9rem;
+  font-size: 3.4rem;
   text-align: center;
   line-height: 1;
   color: #18988B;
@@ -897,7 +897,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .title {
-  font-size: 3.9rem;
+  font-size: 3.4rem;
   text-align: center;
   line-height: 1;
   color: #265080;
@@ -1192,15 +1192,7 @@ input[type=checkbox] {
     display: none !important;
   }
 }
-.mobile-adjust-action {
-  display: none;
-}
 
-@media (max-width: 768px) {
-  .mobile-adjust-action {
-    display: block !important;
-  }
-}
 .eventDetails {
   background: #FFF7F2;
 }
@@ -1347,4 +1339,14 @@ input[type=checkbox] {
 .button-cutom-link:hover .btn-link:not(:hover) {
   color: #18988B;
   transform: scale(1.09) !important;
+}
+
+.mobile-adjust-action {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-adjust-action {
+    display: block !important;
+  }
 }

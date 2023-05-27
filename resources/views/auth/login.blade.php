@@ -19,6 +19,9 @@
                         @if(session()->has('message'))
                         <p class="alert alert-success"> {{ session()->get('message') }}</p>
                         @endif
+                        @if(session()->has('error'))
+                        <p class="alert alert-danger"> {{ session()->get('error') }}</p>
+                        @endif
                          
                         <form method="POST" action="{{ route('login') }}" class="form-custom mt-5">
                             @csrf

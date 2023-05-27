@@ -38,6 +38,10 @@
             {{-- event details section  --}}
             <div class="col-md-8 mt-5 " id="eventDesc">
 
+                @if(session()->has('error'))
+                <p class="alert alert-danger"> {{ session()->get('error') }}</p>
+                @endif
+
                 <h3 class="mb-0 darkerGrotesque-semibold txt-secondary">{{ \Carbon\Carbon::parse($data->event_start_date)->isoFormat('MMM Do YYYY')}}</h3>
                 <h1 class="darkerGrotesque-bold mb-0">{{$data->title}}</h1>
                 <p class="fs-5 mb-0 darkerGrotesque-bold txt-primary">{{$data->organizer}}</p>
@@ -340,6 +344,10 @@
                 @if(session()->has('message'))
                 <p class="alert alert-success"> {{ session()->get('message') }}</p>
                 @endif
+
+                @if(session()->has('error'))
+                <p class="alert alert-danger"> {{ session()->get('error') }}</p>
+                @endif
                  
                 <form method="POST" action="{{ route('logintodonate') }}" class="form-custom">
                     @csrf
@@ -401,6 +409,12 @@
             </div>
         </div>
     </div>
+
+    @if(!empty(Session::get('error')) && Session::get('error_code') == 5)
+    <script>
+        $('#loginModal').modal('show');
+    </script>
+    @endif
 
 @endsection
 
@@ -546,4 +560,5 @@ $(document).ready(function () {
       });
     }
 </script>
+
 @endsection

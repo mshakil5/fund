@@ -43,11 +43,9 @@ class EmailContentController extends Controller
     public function update(Request $request, $id)
     {
         $data = EmailContent::find($id);
-        
-            $data->title = $request->title;
-            $data->description = $request->description;
-            $data->status = "0";
-            $data->updated_by = Auth::user()->id;
+        $data->description = $request->description;
+        $data->status = "0";
+        $data->updated_by = Auth::user()->id;
 
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
