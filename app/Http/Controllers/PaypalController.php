@@ -7,6 +7,7 @@ use Omnipay\Omnipay;
 use App\Models\EventTransaction;
 use App\Models\TicketSale;
 use App\Models\User;
+use App\Models\Event;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,9 @@ class PaypalController extends Controller
 
     public function pay(Request $request)
     {
+
+        session(['event_id' => $request->event_id]);
+
         try {
 
             $response = $this->gateway->purchase(array(
@@ -52,11 +56,18 @@ class PaypalController extends Controller
                 'transactionReference' => $request->input('paymentId')
             ));
 
+            $event_id = session('event_id');
+
+            $request->session()->forget('event_id');
+
             $response = $transaction->send();
 
             if ($response->isSuccessful()) {
 
                 $arr = $response->getData();
+
+
+                $amount = $arr['transactions'][0]['amount']['total'];
 
                 $payment = new Payment();
                 $payment->payment_id = $arr['id'];
@@ -65,8 +76,47 @@ class PaypalController extends Controller
                 $payment->amount = $arr['transactions'][0]['amount']['total'];
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr['state'];
-
                 $payment->save();
+
+
+                $sales = new TicketSale();
+                $sales->date = date('Y-m-d');
+                $sales->tran_no = date('his');
+                $sales->user_id = Auth::user()->id;
+                $sales->event_id =  $event_id;
+                $sales->commission = "00";
+                $sales->amount = $amount;
+                $sales->total_amount = $amount;
+                $sales->quantity = 1;
+                $sales->payment_type = "Paypal";
+                $sales->user_notification = "0";
+                $sales->admin_notification = "0";
+                $sales->status = "0";
+                $sales->save();
+
+                // $event = Event::find($request->event_id);
+                // $event->available = $event->available-$request->quantity;
+                // $event->sold = $event->sold+$request->quantity;
+                // $event->save();
+
+
+                // $stripetopup = new EventTransaction();
+                // $stripetopup->date = date('Y-m-d');
+                // $stripetopup->tran_no = date('his');
+                // $stripetopup->tran_type = "In";
+                // $stripetopup->user_id = Auth::user()->id;
+                // $stripetopup->event_id = $request->event_id;
+                // $stripetopup->commission = $request->c_amount;
+                // $stripetopup->amount = $amt;
+                // $stripetopup->total_amount = $request->amount;
+                // $stripetopup->token = time();
+                // $stripetopup->description = "Event Payment";
+                // $stripetopup->payment_type = "Stripe";
+                // $stripetopup->notification = "0";
+                // $stripetopup->status = "0";
+                // $stripetopup->save();
+
+
 
                 return "Payment is Successfull. Your Transaction Id is : " . $arr['id'];
 

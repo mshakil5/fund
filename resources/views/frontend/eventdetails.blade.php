@@ -167,9 +167,10 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
                                 {{-- <h5>Pay with paypal</h5> --}}
-                                <form action="{{route('payment')}}" method="post" class="title ">
+                                <form action="{{ route('payment') }}" method="POST" class="title ">
                                     @csrf
                                     <input type="hidden" name="amount" value="{{$data->price}}">
+                                    <input type="hidden" name="event_id" value="{{$data->id}}">
                                     <button type="submit" class="btn btn-secondary btn-theme mx-auto w-50 bg-secondary">
                                         <img src="{{ asset('paypal.png')}}" alt="" style="height: 65px; border-radius:5px;">
                                     </button>
