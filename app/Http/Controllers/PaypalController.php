@@ -102,7 +102,7 @@ class PaypalController extends Controller
                 $sales->status = "0";
                 $sales->save();
 
-                $event = Event::find($request->event_id);
+                $event = Event::find($event_id);
                 $event->available = $event->available-$request->quantity;
                 $event->sold = $event->sold+$request->quantity;
                 $event->save();
@@ -112,7 +112,7 @@ class PaypalController extends Controller
                 $stripetopup->tran_no = date('his');
                 $stripetopup->tran_type = "In";
                 $stripetopup->user_id = Auth::user()->id;
-                $stripetopup->event_id = $request->event_id;
+                $stripetopup->event_id = $event_id;
                 $stripetopup->commission = $request->c_amount;
                 $stripetopup->amount = $request->amount;
                 $stripetopup->total_amount = $request->amount;
