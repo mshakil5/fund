@@ -8,7 +8,7 @@
 
 
 
-<section class="how-we-works default">
+<section class="how-we-works default" style="display: none">
     <div class="container">
         <div class="row flex-column">
             {{-- <img src="@if (isset(\App\Models\Master::where('name','work')->first()->image))
