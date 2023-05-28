@@ -11,18 +11,18 @@
 <section class="how-we-works default">
     <div class="container">
         <div class="row flex-column">
-            <img src="@if (isset(\App\Models\Master::where('name','work')->first()->image))
-            {{asset('images/'.\App\Models\Master::where('name','work')->first()->image)}} @else https://via.placeholder.com/260.png @endif" style="width:260px;" class=" mx-auto"/> <br>
+            {{-- <img src="@if (isset(\App\Models\Master::where('name','work')->first()->image))
+            {{asset('images/'.\App\Models\Master::where('name','work')->first()->image)}} @else https://via.placeholder.com/260.png @endif" style="width:260px;" class=" mx-auto"/> <br> --}}
             <div class="title darkerGrotesque-bold lh-1">{{\App\Models\Master::where('name','work')->first()->title}}</div>
             <div class="para text-center mt-4">
                 {!! \App\Models\Master::where('name','work')->first()->description !!} 
             </div>
-            <a href="#" class="btn-theme bg-secondary mx-auto mt-4">Fund Now</a>
+            <a href="{{route('newcampaign_show')}}" class="btn-theme bg-secondary mx-auto mt-4">Start your campaign</a>
         </div>
     </div>
 </section>
 
-<section class="  py-5">
+<section class="  py-5" style="display: none">
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto">
@@ -51,42 +51,6 @@
                     </div>
                     @endforeach
                     
-
-
-
-                    {{-- <div class="col-lg-6 mb-5 ">
-                        <div class="row">
-                            <div class="col-lg-4 d-flex align-items-center text-center">
-                                <img src="https://via.placeholder.com/160.png" class="me-3 img-fluid" />
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="paratitle">Lorem, ipsum.</div>
-                            <div class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius perferendis natus voluptas magni voluptatem .</div>
-                            </div>
-                        </div> 
-                    </div>
-                    <div class="col-lg-6 mb-5 ">
-                        <div class="row">
-                            <div class="col-lg-4 d-flex align-items-center text-center">
-                                <img src="https://via.placeholder.com/160.png" class="me-3 img-fluid" />
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="paratitle">Lorem, ipsum.</div>
-                            <div class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius perferendis natus voluptas magni voluptatem .</div>
-                            </div>
-                        </div> 
-                    </div>
-                    <div class="col-lg-6 mb-5 ">
-                        <div class="row">
-                            <div class="col-lg-4 d-flex align-items-center text-center">
-                                <img src="https://via.placeholder.com/160.png" class="me-3 img-fluid" />
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="paratitle">Lorem, ipsum.</div>
-                            <div class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius perferendis natus voluptas magni voluptatem .</div>
-                            </div>
-                        </div> 
-                    </div> --}}
                    
                 </div>
             </div>
@@ -98,7 +62,7 @@
     <div class="container">
         <div class="row">
             <div class="title txt-primary">
-                Frequently asked questions:
+                Frequently asked questions
             </div>
             <br>
             <div class="mt-5">
@@ -181,7 +145,7 @@
                 </div> 
             </div>
             <div class="w-100 d-flex align-items-center justify-content-center">
-                <a href="#" class="mx-auto mt-5 btn-theme bg-secondary ">Ask another question</a>
+                <a href="{{route('frontend.contact')}}" class="mx-auto mt-5 btn-theme bg-secondary ">Still have questions?</a>
             </div>
         </div>
     </div>
