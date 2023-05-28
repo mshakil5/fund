@@ -90,26 +90,26 @@
                                 <option value="30" class="fs-6 fw-bold">30%</option>
                             </select>
 
-                            <p class="my-2 d-flex align-items-center ">
+                            {{-- <p class="my-2 d-flex align-items-center ">
                                 <input type="checkbox" class="me-2" name="" id="newsletter">
                                 <label for="newsletter" class=" fs-6 text-dark para text-muted">
                                     <d class="txt-primary">Add me to the Gogiving newsletter.</d>  stay updated with our global community.
                                 </label>
-                            </p>
-                            <p class="my-2 d-flex align-items-center ">
+                            </p> --}}
+                            {{-- <p class="my-2 d-flex align-items-center ">
                                 <input type="checkbox" class="me-2" name="" id="receipts">
                                 <label  for="receipts"class=" fs-6 text-dark para text-muted">
                                     <d class="txt-primary">Share my email & card billing address </d> to receive receipts for tax-deductible donations
                                 </label>
-                            </p>
-                            <p class="my-2 d-flex align-items-center ">
+                            </p> --}}
+                            {{-- <p class="my-2 d-flex align-items-center ">
                                 <input type="checkbox" class="me-2" name="" id="campaign">
                                 <label  for="campaign"class=" fs-6 text-dark para text-muted">
                                     <d class="txt-primary">Share my email address with this campaign creator
                                     </d>
                                     to receive marketing emails.
                                 </label>
-                            </p>
+                            </p> --}}
                             {{-- <div class="text-center mt-4">
                                 <h3 class="fw-bold txt-secondary">Total : £45.90</h3>
                                 <a href="#" class="btn btn-theme bg-secondary  mx-auto ">
@@ -132,12 +132,12 @@
                                 Dont display my name publicly on fundriser
                             </label>
                         </div>
-                        <div class="col-md-6  d-flex align-items-center lh-1 my-1">
+                        {{-- <div class="col-md-6  d-flex align-items-center lh-1 my-1">
                             <input type="checkbox" id="updates">
                             <label for="updates" class="fs-5 fw-bold ps-2 text-dark flex-1"> Yes signme up to here updates
                                 from gogiving about how to change people lives.
                             </label>
-                        </div>
+                        </div> --}}
                        </div>
                         <div class="col-md-12 my-2 ">
                             <h4 class="fw-bold txt-secondary my-3">Your donation</h4>

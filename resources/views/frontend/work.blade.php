@@ -22,6 +22,104 @@
     </div>
 </section>
 
+<section class="default contactInfo ">
+    <div class="container">
+        <div class="row col-md-10 mx-auto">
+            <div class="title darkerGrotesque-bold lh-1 mb-5">How we works</div>
+            <div class="col-lg-4 d-flex flex-column align-items-center">
+                <div class="work-box text-center">
+                    <img src="{{ asset('assets/images/healthcare.png')}}" width="100px">
+                    <div class="fs-4 d-flex align-items-center darkerGrotesque-bold">
+                        <div class="numbering"><iconify-icon icon="material-symbols:filter-1" class="fs-1 txt-primary "></iconify-icon></div>
+                        <div class="txt-secondary">
+                            Start your fundraiser
+                        </div>
+                    </div>
+                    <ul class="work-list mt-3 bg-light rounded-3 p-3 shadow-sm">
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Set your fundraiser goal
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Tell your story
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Add a picture or video
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Watch a video tutorial
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex flex-column align-items-center">
+                <div class="work-box text-center">
+                    <img src="{{ asset('assets/images/friends.png')}}" width="100px">
+                    <div class="fs-4 d-flex align-items-center darkerGrotesque-bold">
+                        <div class="numbering"><iconify-icon class="fs-1 txt-primary "
+                            icon="material-symbols:filter-2"></iconify-icon></div>
+                        <div class="txt-secondary">
+                            Share with friends
+                        </div>
+                    </div>
+                    <ul class="work-list mt-3 bg-light rounded-3 p-3 shadow-sm">
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Set your fundraiser goal
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Tell your story
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Add a picture or video
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Watch a video tutorial
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex flex-column align-items-center">
+                <div class="work-box text-center">
+                    <img src="{{ asset('assets/images/system-update.png')}}" width="100px">
+                    <div class="fs-4 d-flex align-items-center darkerGrotesque-bold">
+                        <div class="numbering"><iconify-icon class="fs-1 txt-primary "
+                            icon="material-symbols:filter-3"></iconify-icon></div>
+                        <div class="txt-secondary">
+                            Manage donations
+                        </div>
+                    </div>
+                    <ul class="work-list mt-3 bg-light rounded-3 p-3 shadow-sm">
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Set your fundraiser goal
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Tell your story
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Add a picture or video
+                        </li>
+                        <li>
+                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
+                            Watch a video tutorial
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <section class="  py-5" style="display: none">
     <div class="container">
         <div class="row">
