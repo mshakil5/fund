@@ -27,7 +27,7 @@
                         <p class="alert alert-warning"> {{ session()->get('any') }}</p>
                         @endif
                     <h4>
-                        To get started, we need to pre-qualify you for onboarding with Shamaazi. Please complete the following fields and provide supporting documents for your charity.
+                        Please complete the following fields and provide supporting documents for your charity.
                     </h4>
                     <div class="row">
                         <div class="col-lg-10  mx-auto">
@@ -194,9 +194,7 @@
 
                             <div class="col-lg-12 mt-3">
                                 <p class="para mb-3 text-muted fs-6 ">
-                                    <input type="checkbox" class="me-2" required>I agree to the <a href="#" style="text-decoration: none;color:#212529"> Terms & Conditions. </a><br>
-
-                                    We confirm that any funds we raise on any Shamaazi service will not be used inside areas of the world sanctioned by the UK, US, UN or the EU.
+                                    <input type="checkbox" class="me-2" required>I agree to the <a href="{{route('frontend.terms')}}" style="text-decoration: none;color:#212529"> Terms & Conditions. </a><br>
                                 </p>
                             </div>
                             
