@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
+use App\Models\Transaction;
+use App\Models\Campaign;
 use App\Models\EventTransaction;
 use App\Models\TicketSale;
 use App\Models\User;
@@ -29,12 +31,10 @@ class PaypalController extends Controller
 
     public function pay(Request $request)
     {
-
         session(['event_id' => $request->event_id]);
         session(['paypalqty' => $request->paypalqty]);
 
         try {
-
             $response = $this->gateway->purchase(array(
                 'amount' => $request->amount,
                 'currency' => env('PAYPAL_CURRENCY'),
@@ -71,13 +71,11 @@ class PaypalController extends Controller
             $response = $transaction->send();
 
             if ($response->isSuccessful()) {
-
                 $arr = $response->getData();
-
-
                 $amount = $arr['transactions'][0]['amount']['total'];
 
                 $payment = new Payment();
+                $payment->event_id = $event_id;
                 $payment->payment_id = $arr['id'];
                 $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
                 $payment->payer_email = $arr['payer']['payer_info']['email'];
@@ -85,7 +83,6 @@ class PaypalController extends Controller
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr['state'];
                 $payment->save();
-
 
                 $sales = new TicketSale();
                 $sales->date = date('Y-m-d');
@@ -128,14 +125,17 @@ class PaypalController extends Controller
                 $ccEmails = [$adminmail];
                 $msg = EmailContent::where('title','=','event_email_message')->first()->description;
                 
-                $array['name'] = Auth::user()->name;
-                $array['email'] = Auth::user()->email;
-                $array['subject'] = "Event ticket purchase confirmation";
-                $array['message'] = $msg;
-                $array['contactmail'] = $contactmail;
-                Mail::to($contactmail)
-                    ->cc($ccEmails)
-                    ->send(new ContactFormMail($array));
+                if ($msg) {
+                    $array['name'] = Auth::user()->name;
+                    $array['email'] = Auth::user()->email;
+                    $array['subject'] = "Event ticket purchase confirmation";
+                    $array['message'] = $msg;
+                    $array['contactmail'] = $contactmail;
+                    Mail::to($contactmail)
+                        ->cc($ccEmails)
+                        ->send(new ContactFormMail($array));
+                }
+                
 
                 $tranid = $arr['id'];
                 return view('frontend.paypalsuccess', compact('tranid'));
@@ -151,6 +151,141 @@ class PaypalController extends Controller
     }
 
     public function error()
+    {
+        return 'User declined the payment!';   
+        
+        return view('frontend.paypalerror');
+    }
+
+
+    // campaign payment function
+    public function campaignpaymentpay(Request $request)
+    {
+        session(['campaign_id' => $request->campaign_id]);
+        session(['paypalcommission' => $request->paypalcommission]);
+        session(['paypaltips' => $request->paypaltips]);
+
+        try {
+            $response = $this->gateway->purchase(array(
+                'amount' => $request->amount,
+                'currency' => env('PAYPAL_CURRENCY'),
+                'returnUrl' => url('campaign-success'),
+                'cancelUrl' => url('campaign-error')
+            ))->send();
+
+            if ($response->isRedirect()) {
+                $response->redirect();
+            }
+            else{
+                return $response->getMessage();
+            }
+
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function campaignpaymentsuccess(Request $request)
+    {
+        if ($request->input('paymentId') && $request->input('PayerID')) {
+            $transaction = $this->gateway->completePurchase(array(
+                'payer_id' => $request->input('PayerID'),
+                'transactionReference' => $request->input('paymentId')
+            ));
+
+            $campaign_id = session('campaign_id');
+            $paypaltips = session('paypaltips');
+            $paypalcommission = session('paypalcommission');
+
+            $request->session()->forget('campaign_id');
+            $request->session()->forget('paypaltips');
+            $request->session()->forget('paypalcommission');
+
+            $response = $transaction->send();
+
+            if ($response->isSuccessful()) {
+                $arr = $response->getData();
+                $amount = $arr['transactions'][0]['amount']['total'];
+
+                $payment = new Payment();
+                $payment->campaign_id = $campaign_id;
+                $payment->payment_id = $arr['id'];
+                $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
+                $payment->payer_email = $arr['payer']['payer_info']['email'];
+                $payment->amount = $arr['transactions'][0]['amount']['total'];
+                $payment->currency = env('PAYPAL_CURRENCY');
+                $payment->payment_status = $arr['state'];
+                $payment->save();
+
+
+                $stripetopup = new Transaction();
+                $stripetopup->date = date('Y-m-d');
+                $stripetopup->tran_no = date('his');
+                $stripetopup->tran_type = "In";
+                $stripetopup->user_id = Auth::user()->id;
+                $stripetopup->campaign_id = $campaign_id;
+                $stripetopup->commission = $paypalcommission;
+                $stripetopup->tips_percent = "10";
+                $stripetopup->tips = $paypaltips;
+                $stripetopup->amount = $amount - $paypalcommission - $paypaltips;
+                $stripetopup->total_amount = $request->amount;
+                $stripetopup->token = time();
+                // if ($request->displaynameshow == "yes") {
+                //     $stripetopup->donation_display_name = "Kind Soul";
+                //     $stripetopup->show_name = "0";
+                // } else {
+                //     $stripetopup->donation_display_name = $request->displayname;
+                //     $stripetopup->show_name = "1";
+                // }
+                $stripetopup->donation_type = "Campaign";
+                $stripetopup->description = "Donation";
+                $stripetopup->payment_type = "Paypal";
+                $stripetopup->notification = "0";
+                $stripetopup->status = "0";
+                $stripetopup->save();
+
+                // fundraiser balance update
+                    $fundraiser = User::find(Auth::user()->id);
+                    $fundraiser->balance =  $fundraiser->balance + $amount - $paypalcommission - $paypaltips;
+                    $fundraiser->save();
+                // fundraiser balance update end
+
+                // campaign total collection update
+                    $campaign = Campaign::find($campaign_id);
+                    $campaign->total_collection = $campaign->total_collection + $amount - $paypalcommission - $paypaltips;
+                    $campaign->save();
+                // campaign total collection update end
+
+                $adminmail = ContactMail::where('id', 1)->first()->email;
+                $contactmail = Auth::user()->email;
+                $ccEmails = [$adminmail];
+                $msg = EmailContent::where('title','=','event_email_message')->first()->description;
+                if (isset($msg)) {
+                    $array['name'] = Auth::user()->name;
+                    $array['email'] = Auth::user()->email;
+                    $array['subject'] = "Campaign Payment confirmation";
+                    $array['message'] = $msg;
+                    $array['contactmail'] = $contactmail;
+                    Mail::to($contactmail)
+                        ->cc($ccEmails)
+                        ->send(new ContactFormMail($array));
+                }
+                
+
+                $tranid = $arr['id'];
+                return view('frontend.paypalsuccess', compact('tranid'));
+
+            }
+            else{
+                return $response->getMessage();
+            }
+        }
+        else{
+            return 'Payment declined!!';
+        }
+    }
+
+    public function campaignpaymenterror()
     {
         return 'User declined the payment!';   
         

@@ -90,55 +90,19 @@
                                 <option value="30" class="fs-6 fw-bold">30%</option>
                             </select>
 
-                            {{-- <p class="my-2 d-flex align-items-center ">
-                                <input type="checkbox" class="me-2" name="" id="newsletter">
-                                <label for="newsletter" class=" fs-6 text-dark para text-muted">
-                                    <d class="txt-primary">Add me to the Gogiving newsletter.</d>  stay updated with our global community.
-                                </label>
-                            </p> --}}
-                            {{-- <p class="my-2 d-flex align-items-center ">
-                                <input type="checkbox" class="me-2" name="" id="receipts">
-                                <label  for="receipts"class=" fs-6 text-dark para text-muted">
-                                    <d class="txt-primary">Share my email & card billing address </d> to receive receipts for tax-deductible donations
-                                </label>
-                            </p> --}}
-                            {{-- <p class="my-2 d-flex align-items-center ">
-                                <input type="checkbox" class="me-2" name="" id="campaign">
-                                <label  for="campaign"class=" fs-6 text-dark para text-muted">
-                                    <d class="txt-primary">Share my email address with this campaign creator
-                                    </d>
-                                    to receive marketing emails.
-                                </label>
-                            </p> --}}
-                            {{-- <div class="text-center mt-4">
-                                <h3 class="fw-bold txt-secondary">Total : £45.90</h3>
-                                <a href="#" class="btn btn-theme bg-secondary  mx-auto ">
-                                    <iconify-icon icon="logos:google-icon" class="me-1 w-50"></iconify-icon>
-                                    Pay
-                                </a>
-                            </div> --}}
                         </div>
 
 
                     </div>
-                    <div class="  ">
-                        
-                        
-
-                       <div class="row my-3">
-                        <div class="col-md-6 d-flex align-items-center  lh-1  my-1">
-                            <input type="checkbox" id="public">
-                            <label for="public" class="fs-5 fw-bold ps-2 text-dark flex-1">
-                                Dont display my name publicly on fundriser
-                            </label>
+                    <div class="">
+                        <div class="row my-3">
+                            <div class="col-md-6 d-flex align-items-center  lh-1  my-1">
+                                <input type="checkbox" id="public">
+                                <label for="public" class="fs-5 fw-bold ps-2 text-dark flex-1">
+                                    Dont display my name publicly on fundriser
+                                </label>
+                            </div>
                         </div>
-                        {{-- <div class="col-md-6  d-flex align-items-center lh-1 my-1">
-                            <input type="checkbox" id="updates">
-                            <label for="updates" class="fs-5 fw-bold ps-2 text-dark flex-1"> Yes signme up to here updates
-                                from gogiving about how to change people lives.
-                            </label>
-                        </div> --}}
-                       </div>
                         <div class="col-md-12 my-2 ">
                             <h4 class="fw-bold txt-secondary my-3">Your donation</h4>
                             <hr class="my-1">
@@ -232,7 +196,19 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
 
-                                api comes here
+                                <form action="{{ route('campaignpayment') }}" method="POST" class="title">
+                                    @csrf
+                                    <input type="hidden" name="amount" id="paypalamount" value="">
+                                    <input type="hidden" name="campaign_id" value="{{$data->id}}">
+                                    <input type="hidden" name="paypaltips" id="paypaltips" value="">
+                                    <input type="hidden" name="paypalcommission" id="paypalcommission" value="">
+                                    <button type="submit" class="btn btn-secondary btn-theme mx-auto w-50 bg-secondary">
+                                        <img src="{{ asset('paypal.png')}}" alt="" style="height: 65px; border-radius:5px;">
+                                    </button>
+                                </form>
+                                
+
+
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 
@@ -373,8 +349,11 @@
             // $("#donation_commission").html("£"+ commission.toFixed(2));
             $("#net_donation_amount").html("£"+ net_amount.toFixed(2));
             $("#amount").val(net_amount.toFixed(2));
+            $("#paypalamount").val(net_amount.toFixed(2));
             $("#c_amount").val(commission.toFixed(2));
+            $("#paypalcommission").val(commission.toFixed(2));
             $("#tips_amount").val(total_tips.toFixed(2));
+            $("#paypaltips").val(total_tips.toFixed(2));
         });
         //calculation end  
         //calculation end
@@ -392,8 +371,11 @@
             // $("#donation_commission").html("£"+ commission.toFixed(2));
             $("#net_donation_amount").html("£"+ net_amount.toFixed(2));
             $("#amount").val(net_amount.toFixed(2));
+            $("#paypalamount").val(net_amount.toFixed(2));
             $("#c_amount").val(commission.toFixed(2));
+            $("#paypalcommission").val(commission.toFixed(2));
             $("#tips_amount").val(total_tips.toFixed(2));
+            $("#paypaltips").val(total_tips.toFixed(2));
         });
         //calculation end  
     });   

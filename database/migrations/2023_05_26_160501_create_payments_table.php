@@ -19,6 +19,10 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('event_id')->unsigned()->nullable();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->bigInteger('campaign_id')->unsigned()->nullable();
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
+            $table->bigInteger('charity_id')->unsigned()->nullable();
+            $table->foreign('charity_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('payment_id');
             $table->string('payer_id');
             $table->string('payer_email');
