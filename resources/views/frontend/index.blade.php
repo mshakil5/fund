@@ -16,7 +16,9 @@
                                 {{\App\Models\Slider::where('id','1')->first()->left_title}}
                             </div>
                             <p class="txt-theme mb-4">{{\App\Models\Slider::where('id','1')->first()->left_description}}</p>
-                            <div class="mobile-adjust-action">
+                        
+
+                            <div class="">
                                 <a href="{{route('register')}}" class="btn-theme bg-secondary">Open an account</a>
                                 <a href="{{route('frontend.work')}}" class="btn-theme bg-primary">How it works</a>
                             </div>
@@ -62,6 +64,11 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="mobile-adjust-action mt-5 text-center">
+                                <a href="{{route('register')}}" class="btn-theme bg-secondary">Open an account</a>
+                                <a href="{{route('frontend.work')}}" class="btn-theme bg-primary">How it works</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,9 +82,11 @@
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
 
-            <div class="title">{{\App\Models\Master::where('name','homepage2ndsection')->first()->title}}</div>
-            <div class="para text-center mt-4">
+            <div class="title w-75 darkerGrotesque-bold">{{\App\Models\Master::where('name','homepage2ndsection')->first()->title}}</div>
+            <div class="para text-center mt-4 txt-theme">
+
                 {!! \App\Models\Master::where('name','homepage2ndsection')->first()->description !!}
+
                 <a href="{{route('register')}}" class="btn-theme bg-secondary mx-auto">Create an account</a>
                 <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary mx-auto">Start A new fundriser</a>
                 <a href="{{route('start_new_event')}}" class="btn-theme bg-secondary mx-auto">Create A new event</a>
@@ -110,7 +119,7 @@
 
 
 <!--Campaign Section -->
-<section class="campaign ">
+<section class="campaign default">
     <div class="container">
         <div class="row">
             <div class="title">
@@ -183,7 +192,7 @@
 </section>
 
 <!--Event Section -->
-<section class="campaign ">
+<section class="bleesed default">
     <div class="container">
         <div class="row">
             <div class="title">
@@ -200,27 +209,30 @@
                             <img src="{{asset('images/event/'.$event->image)}}">
                         </a>
                     </div>
-                    <div class="card-body ">
-                        <div class="inner">
-                            <div class="card-title text-start ">
+
+                    
+                    <div class="card-body  bg-light fs-4 text-center">
+                        <div class="inner" style="font-size: 22px;">
+                            <div class="card-title  ">
                                 <a href="{{ route('frontend.eventDetails',$event->id)}}">
                                     {{$event->title}}
                                 </a>
                             </div>
-                           <div class="d-flex justify-content-between">
-                            <small class="darkerGrotesque-bold txt-secondary">
+                           <div class="d-flex justify-content-center align-items-center">
+                            <span class="darkerGrotesque-bold txt-secondary text-center">
+                                
                                 {{ \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY')}} -  <span class=" darkerGrotesque-bold txt-primary">
-                                  @if ($event->price > 0) £{{$event->price}} @else Free @endif  
-                                </span> 
-                               </small>
+                                    @if ($event->price > 0) £{{$event->price}} @else Free @endif  
+                                  </span> 
+                                </span>
                               
                            </div>
-                           <h5 class="mb-0 darkerGrotesque-semibold mb-2">
-                          <span class="txt-primary"> Venue:</span>
-                          {{$event->venue_name}}
+                           <h5 class="mb-0 darkerGrotesque-semibold mb-0">
+                            <span class="txt-primary"> Venue:</span>
+                            Las Vagas
                            </h5> 
-                           <h5 class="mb-0 darkerGrotesque-semibold mb-3">
-                           Location:  <small class="text-muted"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</small>
+                           <h5 class="mb-0 darkerGrotesque-semibold mb-2">
+                           Location:  <span class="text-muted"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</span>
                            </h5> 
                            
                            <div class="w-100 text-center">
@@ -228,6 +240,10 @@
                            </div>
                         </div>
                     </div>
+
+
+
+
                 </div>
             </div> 
             @endforeach
@@ -239,7 +255,7 @@
 </section>
 
 
-<section class="campaign">
+<section class="campaign default">
     <div class="container">
         <div class="row">
             <div class="title">
@@ -263,22 +279,22 @@
                             <img src="https://via.placeholder.com/100.png">
                         @endif
                     </div>
-                    <div class="card-body ">
+                    <div class="card-body bg-light text-center">
                         <div class="inner">
-                            <div class="card-title text-start ">
+                            <div class="card-title ">
                                                                 
                                 @if (Auth::user())
                                     <a href="{{ route('frontend.charityDonate',$charity->id)}}">{{$charity->name}}</a>
                                 @else
                                     <!-- Button trigger modal -->
                                     <a class="btn-contact" dataid="{{$charity->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                        {{$charity->name}}
+                                        {{$charity->name}} 
                                     </a>
                                 @endif
                             </div>
                            <h5 class="mb-0 darkerGrotesque-semibold mb-3">
                             <iconify-icon icon="bx:map"></iconify-icon>
-                            <small class="text-muted"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</small>
+                            <span class="text-dark"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
                            </h5> 
                            
                            <div class="w-100 text-center">

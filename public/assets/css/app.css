@@ -133,6 +133,7 @@ a {
   font-family: "Roboto-Regular";
   font-weight: 500;
   font-size: 19px;
+  line-height: 1.3;
 }
 
 .how-we-works {
@@ -145,7 +146,7 @@ body {
 }
 
 .default {
-  padding: 45px 0;
+  padding: 60px 0;
 }
 @media (max-width: 768px) {
   .default {
@@ -223,11 +224,12 @@ body {
   }
 }
 .banner .intro-title {
-  font-size: 70px;
-  font-family: "DarkerGrotesque-bold";
-  color: #265080;
-  line-height: 1;
-  margin-bottom: 25px;
+    font-size: 4.6rem;
+    font-family: "DarkerGrotesque-bold";
+    color: #265080;
+    line-height: 0.8;
+    margin-bottom: 12px;
+    font-weight: bold;
 }
 @media (max-width: 768px) {
   .banner .intro-title {

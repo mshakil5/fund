@@ -25,7 +25,7 @@ class FrontendController extends Controller
         $todate = Carbon::now();
         $campaign = Campaign::with('transaction','campaignimage')->where('status','1')->where('homepage','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
         // dd($campaign);
-        $charities = User::select('photo','id','name')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('status','1')->get();
+        $charities = User::select('photo','id','name','postcode','town','street_name','house_number')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('status','1')->get();
 
         
         $events = Event::with('eventimage')->where('status','1')->orderby('id','DESC')->get();
