@@ -123,7 +123,7 @@ class PaypalController extends Controller
                 $adminmail = ContactMail::where('id', 1)->first()->email;
                 $contactmail = Auth::user()->email;
                 $ccEmails = [$adminmail];
-                $msg = EmailContent::where('title','=','event_email_message')->first()->description;
+                $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
                 
                 if ($msg) {
                     $array['name'] = Auth::user()->name;
@@ -259,7 +259,8 @@ class PaypalController extends Controller
                 $adminmail = ContactMail::where('id', 1)->first()->email;
                 $contactmail = Auth::user()->email;
                 $ccEmails = [$adminmail];
-                $msg = EmailContent::where('title','=','event_email_message')->first()->description;
+                // $msg = "Campaign Payment confirmation";
+                $msg = EmailContent::where('title','=','campaign_donation_email_message')->first()->description;
                 if (isset($msg)) {
                     $array['name'] = Auth::user()->name;
                     $array['email'] = Auth::user()->email;

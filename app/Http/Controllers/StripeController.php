@@ -82,6 +82,22 @@ class StripeController extends Controller
             $campaign->save();
         // campaign total collection update end
 
+                $adminmail = ContactMail::where('id', 1)->first()->email;
+                $contactmail = Auth::user()->email;
+                $ccEmails = [$adminmail];
+                // $msg = "Campaign Payment confirmation";
+                $msg = EmailContent::where('title','=','campaign_donation_email_message')->first()->description;
+                if (isset($msg)) {
+                    $array['name'] = Auth::user()->name;
+                    $array['email'] = Auth::user()->email;
+                    $array['subject'] = "Campaign Payment confirmation";
+                    $array['message'] = $msg;
+                    $array['contactmail'] = $contactmail;
+                    Mail::to($contactmail)
+                        ->cc($ccEmails)
+                        ->send(new ContactFormMail($array));
+                }
+
         // Return the client secret to the frontend
         return response()->json([
             'client_secret' => $paymentIntent->client_secret,
@@ -188,7 +204,7 @@ class StripeController extends Controller
         $adminmail = ContactMail::where('id', 1)->first()->email;
         $contactmail = Auth::user()->email;
         $ccEmails = [$adminmail];
-        $msg = EmailContent::where('title','=','event_email_message')->first()->description;
+        $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
         
         if (isset($msg)) {
             $array['name'] = Auth::user()->name;
