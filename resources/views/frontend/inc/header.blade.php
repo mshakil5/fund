@@ -30,12 +30,12 @@
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{route('frontend.work')}}">how we works</a>
                         </li> --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('frontend.contact')}}">Contact </a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('frontend.nonprofit')}}">Non Profit </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('frontend.contact')}}">Contact </a>
                         </li>
                         
 
