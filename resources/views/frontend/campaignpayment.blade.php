@@ -135,7 +135,7 @@
                         <div class="col-md-6  d-flex align-items-center lh-1 my-1">
                             <input type="checkbox" id="updates">
                             <label for="updates" class="fs-5 fw-bold ps-2 text-dark flex-1"> Yes signme up to here updates
-                                from taxdocs about how to change people lives.
+                                from gogiving about how to change people lives.
                             </label>
                         </div>
                        </div>
