@@ -18,15 +18,19 @@
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> How we works</a></li>
                     <li class="mb-2"><a href="{{route('frontend.about')}}" class=""> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> About</a></li>
-                    <li class="mb-2"><a href="how-we-works.html#faq" class=""> <iconify-icon
-                                class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> FAQs</a></li>
-                    <li class="mb-2"><a href="{{route('frontend.fundriser')}}" class=""> <iconify-icon
+                    <li class="mb-2"><a href="{{route('newcampaign_show')}}" class=""> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Start fundrising</a>
                     </li>
                     <li class="mb-2">
                         <a href="{{route('frontend.terms')}}" class=""> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Terms & conditions</a>
                     </li>
+                    <li class="mb-2">
+                        <a href="{{route('frontend.privacy')}}" class=""> <iconify-icon
+                                class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon>Privacy & Policy</a>
+                    </li>
+                    {{-- <li class="mb-2"><a href="how-we-works.html#faq" class=""> <iconify-icon
+                                class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> FAQs</a></li> --}}
                 </ul>
             </div>
             <div class=" col-md-3 mb-3">

@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                        <img src="https://via.placeholder.com/520.png" alt="" class="w-100">
+                        {{-- <img src="https://via.placeholder.com/520.png" alt="" class="w-100"> --}}
                     </div><div class="col-lg-6">
                       
                         <div class="theme-para ">

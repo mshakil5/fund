@@ -51,9 +51,26 @@ class FrontendController extends Controller
         return view('frontend.contact');
     }
 
+    public function terms()
+    {
+        return view('frontend.terms');
+    }
+
+    public function privacy()
+    {
+        return view('frontend.privacy');
+    }
+
+    public function faq()
+    {
+        return view('frontend.faq');
+    }
+
     public function nonprofit()
     {
-        return view('frontend.nonprofit');
+        $charities = User::select('photo','id','name','postcode','town','street_name','house_number')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('status','1')->get();
+
+        return view('frontend.nonprofit',compact('charities'));
     }
 
     public function individual()

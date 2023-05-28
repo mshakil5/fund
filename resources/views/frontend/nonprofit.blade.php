@@ -14,16 +14,85 @@
             <div class="para text-center mt-4">
                 {!! \App\Models\Master::where('name','nonprofit1')->first()->description !!}
             </div>
-            <div class="searchBox p-0 mt-3">
+            {{-- <div class="searchBox p-0 mt-3">
                 <input placeholder="Search..." type="text">
                 <button data-bs-toggle="modal" data-bs-target="#searchFundrisers">
                     <iconify-icon icon="quill:search"></iconify-icon>
                 </button>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>
+
+
+<!--charities-->
 <section class="campaign default">
+    <div class="container">
+        <div class="row">
+            <div class="title">
+                We help charities, raise more
+            </div>
+            @if(session()->has('error'))
+            <p class="alert alert-danger"> {{ session()->get('error') }}</p>
+            @endif
+        </div>
+        <div class="row mt-5"> 
+
+            @foreach ($charities as $charity)
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="card-theme mb-3">
+                    <div class="topper d-flex align-items-center justify-content-center">
+                        @if (isset($charity->photo))
+                            <a href="" class="p-0 d-block">
+                                <img src="{{asset('images/'.$charity->photo)}}">
+                            </a>
+                        @else
+                            <img src="https://via.placeholder.com/100.png">
+                        @endif
+                    </div>
+                    <div class="card-body bg-light text-center">
+                        <div class="inner">
+                            <div class="card-title ">           
+                                @if (Auth::user())
+                                    <a href="{{ route('frontend.charityDonate',$charity->id)}}">{{$charity->name}}</a>
+                                @else
+                                    <!-- Button trigger modal -->
+                                    <a class="btn-contact" dataid="{{$charity->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        {{$charity->name}} 
+                                    </a>
+                                @endif
+                            </div>
+                           <h5 class="mb-0 darkerGrotesque-semibold mb-3 d-flex align-items-center justify-content-center" style="min-height:45px;">
+                            <iconify-icon icon="bx:map"></iconify-icon>
+                            <span class="text-dark"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
+                           </h5> 
+                           
+                           <div class="w-100 text-center">
+
+                            <div class="">
+                                @if (Auth::user())
+                                    <a href="{{ route('frontend.charityDonate',$charity->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">Donate Now</a>
+                                @else
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5 btn-contact" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        Donate Now
+                                    </button>
+                                @endif
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            @endforeach
+        </div>
+    </div>
+</section>
+
+
+
+
+{{-- <section class="campaign default">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto">
@@ -136,7 +205,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 
 

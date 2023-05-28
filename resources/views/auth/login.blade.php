@@ -12,10 +12,23 @@
         <div class="row my-5">
             <div class="col-lg-10 mx-auto authBox">
                 <div class="row">
-                    <div class="col-lg-7 d-flex align-items-center justify-content-center">
-                        <img src="{{ asset('assets/images/log in page 1.svg')}}" alt="" class="w-100">
+                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                        {{-- <img src="{{ asset('assets/images/log in page 1.svg')}}" alt="" class="w-100"> --}}
+
+                        
+
+                        <div class="form-theme"> 
+                            <div class="flex items-center justify-end mt-4">
+                                <a href="#">
+                                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png">
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-lg-5"> 
+                    <div class="col-lg-6 align-items-center justify-content-center"> 
+
+             
                         @if(session()->has('message'))
                         <p class="alert alert-success"> {{ session()->get('message') }}</p>
                         @endif
@@ -59,9 +72,13 @@
                             </div>
                             <div class="form-group d-flex justify-content-center">
                                 <span class="txt-primary fs-20 me-2 ">or</span>
-                                 <a href="{{ route('register')}}" class="theme-link"> Apply for an account</a>
+                                 <a href="{{ route('register')}}" class="theme-link"> Open an account</a>
                             </div>
                         </form>
+                         
+
+
+
                     </div>
                    
                 </div>

@@ -13,12 +13,25 @@
             <div class="title darkerGrotesque-bold lh-1">{{\App\Models\Master::where('name','about')->first()->title}}</div>
             <div class="para text-center mt-4">
                 {!! \App\Models\Master::where('name','about')->first()->description !!}
-                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-secondary mx-auto">Fund Now</a>
+                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-secondary mx-auto">Start fundraising</a>
             </div>
         </div>
     </div>
 </section> 
-<section class="campaign default">
+
+<section class="how-we-works default">
+    <div class="container">
+        <div class="row flex-column">
+            <div class="title darkerGrotesque-bold lh-1">{{\App\Models\Master::where('name','work')->first()->title}}</div>
+            <div class="para text-center mt-4">
+                {!! \App\Models\Master::where('name','work')->first()->description !!} 
+            </div>
+            <a href="{{route('newcampaign_show')}}" class="btn-theme bg-secondary mx-auto mt-4">Start your campaign</a>
+        </div>
+    </div>
+</section>
+
+{{-- <section class="campaign default" >
     <div class="container">
         <div class="row mb-5">
             <div class="title ">
@@ -56,7 +69,7 @@
             </div> 
         </div>
     </div>
-</section>
+</section> --}}
 
 
 @endsection

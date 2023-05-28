@@ -33,11 +33,11 @@
                                             <input type="hidden" name="fund_raising_type" class="form-control" id="fund_raising_type" value="yourself">
                                             
                                             @if (Auth::user())
-                                            <button type="submit" class="fw-bold" style="border: none;background: #18988b;color: white;">Your Self</button>
+                                            <button type="submit" class="fw-bold" style="border: none;background: #18988b;color: white;">Your Self/Someone Else</button>
                                             @else
                                             <!-- Button trigger modal -->
                                             <button type="button"  class="fw-bold" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                            Your Self
+                                            Your Self/Someone Else
                                             </button>
                                             @endif
                                             
@@ -45,15 +45,16 @@
                                         </div>
                                     </form>
                                 </li>
-                                <li class="nav-item fs-5 mx-2" role="presentation">
+                                {{-- <li class="nav-item fs-5 mx-2" role="presentation">
                                     <div class="nav-link shadow-sm d-flex align-items-center justify-content-center" id="profile-tab" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
                                         <div class="fw-bold">Someone Else</div>
                                     </div>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item fs-5 mx-2" role="presentation">
-                                    <div class="nav-link shadow-sm d-flex align-items-center justify-content-center" id="contact-tab" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
+                                    {{-- <div class="nav-link shadow-sm d-flex align-items-center justify-content-center" id="contact-tab" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
                                         <div class="fw-bold">Charity</div>
-                                    </div>
+                                    </div> --}}
+                                    <a href="{{route('frontend.nonprofit')}}" class="nav-link shadow-sm d-flex align-items-center justify-content-center">Charity</a>
                                 </li>
                             </ul>
                             {{-- <div class="tab-content shadow-sm">

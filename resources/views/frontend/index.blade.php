@@ -229,7 +229,7 @@
                            </div>
                            <h5 class="mb-0 darkerGrotesque-semibold mb-0">
                             <span class="txt-primary"> Venue:</span>
-                            Las Vagas
+                            {{$event->venue_name}}
                            </h5> 
                            <h5 class="mb-0 darkerGrotesque-semibold mb-2">
                            Location:  <span class="text-muted"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</span>
@@ -254,7 +254,7 @@
     </div>
 </section>
 
-
+<!--charities-->
 <section class="campaign default">
     <div class="container">
         <div class="row">

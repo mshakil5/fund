@@ -5,6 +5,11 @@
 
 @section('content')
 
+<style>
+    .pagetitle{
+        font-size: 30px;
+    }
+</style>
 <section class="auth py-4">
     <div class="container">
        
@@ -26,7 +31,7 @@
                         @if(session()->has('any'))
                         <p class="alert alert-warning"> {{ session()->get('any') }}</p>
                         @endif
-                    <h4>
+                    <h4 class="text-center">
                         Please complete the following fields and provide supporting documents for your charity.
                     </h4>
                     <div class="row">
