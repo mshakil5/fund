@@ -20,7 +20,7 @@
                 <div class="row darkerGrotesque-semibold "> 
 
                         <p class="mb-1"> Name: {{ Auth::user()->name }} </p>
-                        <p class="mb-1"> Surname: {{ Auth::user()->surname }} </p>
+                        <p class="mb-1"> Surname: {{ Auth::user()->sur_name }} </p>
                         <p class="mb-1"> Phone: {{ Auth::user()->phone }} </p>
                         <p class="mb-1"> email: {{ Auth::user()->email }} </p>
                         <p class="mb-1"> House Number: {{ Auth::user()->house_number }} </p>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-lg-4" style="display: none">
                                 <div class="form-group mb-3">
-                                    <input class="form-control fs-5" type="text" id="surname" name="surname" value="{{Auth::user()->surname}}" placeholder="Username">
+                                    <input class="form-control fs-5" type="text" id="sur_name" name="sur_name" value="{{Auth::user()->sur_name}}" placeholder="Surname">
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -203,7 +203,7 @@
         //header for csrf-token is must in laravel
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-            var url = "{{URL::to('/user/profile-update')}}";
+            var url = "{{URL::to('/charity/profile-update')}}";
             // console.log(url);
             $("#updateBtn").click(function(){
                 var file_data = $('#image').prop('files')[0];
@@ -213,7 +213,7 @@
                 var form_data = new FormData();
                 form_data.append('image', file_data);
                 form_data.append("name", $("#name").val());
-                form_data.append("surname", $("#surname").val());
+                form_data.append("sur_name", $("#sur_name").val());
                 form_data.append("phone", $("#phone").val());
                 form_data.append("email", $("#email").val());
                 form_data.append("house_number", $("#house_number").val());

@@ -108,10 +108,16 @@
 @endsection
 @section('script')
 
+<script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
     <script>
         $(document).ready(function () {
             $("#addThisFormContainer").hide();
             $("#newBtn").click(function(){
+                $("#description").addClass("ckeditor");
+                for ( instance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[instance].updateElement();
+                } 
+                 CKEDITOR.replace( 'description' );
                 clearform();
                 $("#newBtn").hide(100);
                 $("#addThisFormContainer").show(300);
@@ -131,6 +137,9 @@
             $("#addBtn").click(function(){
             //   alert("#addBtn");
                 if($(this).val() == 'Create') {
+                    for ( instance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[instance].updateElement();
+                    } 
                     
                     var form_data = new FormData();
                     form_data.append("title", $("#title").val());
@@ -157,6 +166,9 @@
                 //create  end
                 //Update
                 if($(this).val() == 'Update'){
+                    for ( instance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[instance].updateElement();
+                    }  
                     
                     var form_data = new FormData();
                     form_data.append("description", $("#description").val());
@@ -236,8 +248,11 @@
             });
             //Delete  
             function populateForm(data){
-                
+                for ( instance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[instance].updateElement();
+                    } 
                 $("#description").val(data.description);
+                 CKEDITOR.replace( 'description' );
                 $("#title").val(data.title);
                 $("#codeid").val(data.id);
                 $("#addBtn").val('Update');

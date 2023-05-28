@@ -164,6 +164,7 @@ All Agent Routes List
 Route::group(['prefix' =>'charity/', 'middleware' => ['auth', 'is_agent']], function(){
   
     Route::get('charity-profile', [HomeController::class, 'charityHome'])->name('charity.profile');
+    Route::post('profile-update', [UserController::class, 'updateProfile'])->name('user.updateprofile');
     Route::get('all-transaction', [TransactionController::class, 'allCharityTransaction'])->name('charity.alltransaction');
 });
   
