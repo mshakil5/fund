@@ -87,9 +87,9 @@
 
                 {!! \App\Models\Master::where('name','homepage2ndsection')->first()->description !!}
 
-                <a href="{{route('register')}}" class="btn-theme bg-secondary mx-auto">Create an account</a>
-                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary mx-auto">Start A new fundriser</a>
-                <a href="{{route('start_new_event')}}" class="btn-theme bg-secondary mx-auto">Create A new event</a>
+                <a href="{{route('charity.register')}}" class="btn-theme bg-secondary mx-auto">Register your charity</a>
+                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary mx-auto">Start fundraising</a>
+                <a href="{{route('start_new_event')}}" class="btn-theme bg-secondary mx-auto">Create new event</a>
             </div>
 
 
@@ -281,8 +281,7 @@
                     </div>
                     <div class="card-body bg-light text-center">
                         <div class="inner">
-                            <div class="card-title ">
-                                                                
+                            <div class="card-title ">           
                                 @if (Auth::user())
                                     <a href="{{ route('frontend.charityDonate',$charity->id)}}">{{$charity->name}}</a>
                                 @else
@@ -292,7 +291,7 @@
                                     </a>
                                 @endif
                             </div>
-                           <h5 class="mb-0 darkerGrotesque-semibold mb-3">
+                           <h5 class="mb-0 darkerGrotesque-semibold mb-3 d-flex align-items-center justify-content-center" style="min-height:45px;">
                             <iconify-icon icon="bx:map"></iconify-icon>
                             <span class="text-dark"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
                            </h5> 

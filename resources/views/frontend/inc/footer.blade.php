@@ -31,12 +31,10 @@
             </div>
             <div class=" col-md-3 mb-3">
                 <h4 class="txt-primary fw-bold mb-3 darkerGrotesque-semibold">Contact</h4>
-                <p class="mb-1 darkerGrotesque-semibold "><iconify-icon class="txt-primary"
+                <p class="mb-1 darkerGrotesque-semibold d-flex align-items-center"><iconify-icon class="txt-primary pe-2"
                         icon="ic:baseline-local-phone"></iconify-icon> Phone: {{\App\Models\CompanyDetail::where('id',1)->first()->phone1 }}</p>
-                <p class="mb-1 darkerGrotesque-semibold "><iconify-icon class="txt-primary"
-                        icon="tabler:brand-whatsapp"></iconify-icon> Whatsapp: {{\App\Models\CompanyDetail::where('id',1)->first()->phone1 }} </p>
-                <p class="mb-1 darkerGrotesque-semibold "><iconify-icon class="txt-primary"
-                        icon="ic:outline-email"></iconify-icon> Email: {{\App\Models\CompanyDetail::where('id',1)->first()->email1 }}</p>
+                <p class="mb-1 darkerGrotesque-semibold d-flex align-items-center"><iconify-icon class="txt-primary pe-2" icon="tabler:brand-whatsapp"></iconify-icon> Whatsapp: {{\App\Models\CompanyDetail::where('id',1)->first()->phone1 }} </p>
+                <p class="mb-1 darkerGrotesque-semibold d-flex align-items-center"><iconify-icon class="txt-primary pe-2" icon="ic:outline-email"></iconify-icon> Email: {{\App\Models\CompanyDetail::where('id',1)->first()->email1 }}</p>
             </div>
             <div class=" col-md-3 mb-3">
                 <form>

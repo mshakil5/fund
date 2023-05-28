@@ -14,17 +14,32 @@
                     <ul class="navbar-nav ms-auto navCustom">
                         <!-- "me-auto" for left align | "ms-auto" for right align | "mx-auto" for center align--->
 
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('newcampaign_show')}}">Start fundraising </a>
+                        </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{{route('charity.register')}}">Register your charity </a>
+                        </li>
+
+
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{route('frontend.about')}}">About </a>
-                        </li>
-                        <li class="nav-item">
+                        </li> --}}
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{route('frontend.work')}}">how we works</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('frontend.contact')}}">Contact </a>
                         </li>
-                        <li class="nav-item dropdown">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('frontend.nonprofit')}}">Non Profit </a>
+                        </li>
+                        
+
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownItem" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Fundraisers
@@ -37,7 +52,7 @@
                                 <li><a class="dropdown-item" href="{{route('charity.register')}}">Charity Register </a></li>
                                 @endif
                             </ul>
-                        </li>
+                        </li> --}}
 
                         
 

@@ -21,7 +21,7 @@
                 </button>
             </div> -->
             <div class="d-flex align-items-center justify-content-center"> 
-                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary">Start A new fundriser</a>
+                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary">Start fundraising</a>
                 <a href="{{route('start_new_event')}}" class="btn-theme bg-secondary">Create A new event</a>
             </div>
             <div class="d-flex align-items-center justify-content-center"> 
