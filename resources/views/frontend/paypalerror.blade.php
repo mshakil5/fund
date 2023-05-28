@@ -14,7 +14,7 @@
                 
             </div>
             <div class="para text-center mt-4">
-                {{ \App\Models\EmailContent::where('title','=','event_email_message')->first()->description }}
+                {{ \App\Models\EmailContent::where('title','=','paypal_error_message')->first()->description }}
             </div>
         </div>
     </div>
