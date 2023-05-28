@@ -228,7 +228,7 @@ class PaypalController extends Controller
                 $stripetopup->tips_percent = "10";
                 $stripetopup->tips = $paypaltips;
                 $stripetopup->amount = $amount - $paypalcommission - $paypaltips;
-                $stripetopup->total_amount = $request->amount;
+                $stripetopup->total_amount = $amount;
                 $stripetopup->token = time();
                 // if ($request->displaynameshow == "yes") {
                 //     $stripetopup->donation_display_name = "Kind Soul";
