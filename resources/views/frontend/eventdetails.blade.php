@@ -381,7 +381,7 @@
                         <button type="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Login </button>
                     </div>
                     <div class="form-group d-flex justify-content-center">
-                         <a href="{{ route('register')}}" class="btn-theme bg-secondary d-block text-center mx-0 w-100"> Apply for an account</a>
+                         <a href="{{ route('register')}}" class="btn-theme bg-secondary d-block text-center mx-0 w-100"> Open an account</a>
                     </div>
                 </form>
     

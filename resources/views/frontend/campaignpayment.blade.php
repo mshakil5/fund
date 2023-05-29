@@ -140,13 +140,22 @@
                             id="myTab" role="tablist">
                             <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="paypal">
-                                    <div class="nav-link shadow-sm d-flex align-items-center justify-content-center active"
+                                    <div class="nav-link shadow-sm d-flex align-items-center justify-content-center"
                                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
                                         aria-controls="home" aria-selected="true">
                                         <div class="fw-bold d-flex align-items-center">
-                                            <input type="radio" class="d-none" id="paypal" value="paypal"
-                                                name="paymentMethod">
-                                            <iconify-icon class="px-2" icon="ps:paypal"></iconify-icon> paypal
+                                            <form action="{{ route('campaignpayment') }}" method="POST" class="title">
+                                                @csrf
+                                                <input type="hidden" name="amount" id="paypalamount" value="">
+                                                <input type="hidden" name="campaign_id" value="{{$data->id}}">
+                                                <input type="hidden" name="paypaltips" id="paypaltips" value="">
+                                                <input type="hidden" name="paypalcommission" id="paypalcommission" value="">
+                                                <input type="hidden" name="pdisplayname" id="pdisplayname" value="{{Auth::user()->name}}">
+            
+                                                <button type="submit" class="btn mx-auto">
+                                                    <img src="{{ asset('paypal.png')}}" alt="" style="height: 50px; border-radius:5px;">
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </label>
@@ -158,11 +167,8 @@
                                         aria-controls="profile" aria-selected="false">
 
                                         <div class="fw-bold d-flex align-items-center">
-                                            <input type="radio" class="d-none" id="google_pay" value="google_pay"
-                                                name="paymentMethod">
-                                            <iconify-icon class="px-2"
-                                                icon="flat-color-icons:google"></iconify-icon>
-                                            Pay
+                                            <input type="radio" class="d-none" id="google_pay" value="google_pay" name="paymentMethod">
+                                            <img src="{{ asset('stripe.png')}}" alt="" style="height: 50px; border-radius:5px;">
                                         </div>
 
                                     </div>
@@ -196,18 +202,7 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
 
-                                <form action="{{ route('campaignpayment') }}" method="POST" class="title">
-                                    @csrf
-                                    <input type="hidden" name="amount" id="paypalamount" value="">
-                                    <input type="hidden" name="campaign_id" value="{{$data->id}}">
-                                    <input type="hidden" name="paypaltips" id="paypaltips" value="">
-                                    <input type="hidden" name="paypalcommission" id="paypalcommission" value="">
-                                    <input type="hidden" name="pdisplayname" id="pdisplayname" value="{{Auth::user()->name}}">
-
-                                    <button type="submit" class="btn btn-secondary btn-theme mx-auto w-50 bg-secondary">
-                                        <img src="{{ asset('paypal.png')}}" alt="" style="height: 65px; border-radius:5px;">
-                                    </button>
-                                </form>
+                                
                                 
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
