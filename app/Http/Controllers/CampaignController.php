@@ -617,6 +617,15 @@ class CampaignController extends Controller
         }
     }
 
+    public function campaignEdit($id)
+    {
+        // dd($id);
+        $countries = Country::select('id','name')->get();
+        $source = FundraisingSource::select('id','name')->get();
+        $data = Campaign::with('transaction','campaignimage','campaignshare','comment')->where('id', $id)->first();
+        return view('user.campaignedit', compact('data','source','countries'));
+    }
+
     
 
     // step 1 show

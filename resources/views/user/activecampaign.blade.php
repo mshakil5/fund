@@ -2,7 +2,7 @@
 @section('content')
 
 
-<section class="bleesed">
+<section class="bleesed default">
     <div class="container"> 
         <div class="row">
             
@@ -73,7 +73,7 @@
                                         </button>
                                     </td> 
                                     <td class="d-flex align-items-center">
-                                        <a href="#" class="px-2">
+                                        <a href="{{route('user.campaignedit', $data->id)}}" class="px-2">
                                             <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
                                         </a>
                                         <a href="#" class="px-2" title="view all transaction">

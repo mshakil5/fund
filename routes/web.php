@@ -147,6 +147,11 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('start-a-new-campaign', [CampaignController::class, 'newCampaign'])->name('user.newcampaign');
     Route::post('fund-raise', [CampaignController::class, 'newCampaignStore'])->name('user.newcampaignstore');
 
+
+    // campaign edit 
+    Route::get('campaign-edit/{id}', [CampaignController::class, 'campaignEdit'])->name('user.campaignedit');
+
+
     
     Route::get('my-event', [EventController::class, 'getEventByUser'])->name('user.myevent');
     Route::get('my-event-document', [EventController::class, 'getEventDocByUser'])->name('user.eventdocument');

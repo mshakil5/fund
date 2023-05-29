@@ -68,15 +68,15 @@
                     <ul class="work-list mt-3 bg-light rounded-3 p-3 shadow-sm">
                         <li>
                             <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
-                            Set your fundraiser goal
+                            Send emails
                         </li>
                         <li>
                             <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
-                            Tell your story
+                            Send text messages
                         </li>
                         <li>
                             <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
-                            Add a picture or video
+                            Share on social media
                         </li>
                         <li>
                             <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
@@ -98,20 +98,17 @@
                     <ul class="work-list mt-3 bg-light rounded-3 p-3 shadow-sm">
                         <li>
                             <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
-                            Set your fundraiser goal
+                            Accept donations
                         </li>
                         <li>
                             <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
-                            Tell your story
+                            Thank donors
                         </li>
                         <li>
                             <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
-                            Add a picture or video
+                            Withdraw funds
                         </li>
-                        <li>
-                            <iconify-icon icon="ic:round-play-arrow"></iconify-icon>
-                            Watch a video tutorial
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
