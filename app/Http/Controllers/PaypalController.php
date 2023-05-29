@@ -164,6 +164,7 @@ class PaypalController extends Controller
         session(['campaign_id' => $request->campaign_id]);
         session(['paypalcommission' => $request->paypalcommission]);
         session(['paypaltips' => $request->paypaltips]);
+        session(['pdisplayname' => $request->pdisplayname]);
 
         try {
             $response = $this->gateway->purchase(array(
@@ -196,10 +197,12 @@ class PaypalController extends Controller
             $campaign_id = session('campaign_id');
             $paypaltips = session('paypaltips');
             $paypalcommission = session('paypalcommission');
+            $pdisplayname = session('pdisplayname');
 
             $request->session()->forget('campaign_id');
             $request->session()->forget('paypaltips');
             $request->session()->forget('paypalcommission');
+            $request->session()->forget('pdisplayname');
 
             $response = $transaction->send();
 
@@ -230,13 +233,13 @@ class PaypalController extends Controller
                 $stripetopup->amount = $amount - $paypalcommission - $paypaltips;
                 $stripetopup->total_amount = $amount;
                 $stripetopup->token = time();
-                // if ($request->displaynameshow == "yes") {
-                //     $stripetopup->donation_display_name = "Kind Soul";
-                //     $stripetopup->show_name = "0";
-                // } else {
-                //     $stripetopup->donation_display_name = $request->displayname;
-                //     $stripetopup->show_name = "1";
-                // }
+                if ($pdisplayname == "Kind Soul") {
+                    $stripetopup->donation_display_name = "Kind Soul";
+                    $stripetopup->show_name = "0";
+                } else {
+                    $stripetopup->donation_display_name = $pdisplayname;
+                    $stripetopup->show_name = "1";
+                }
                 $stripetopup->donation_type = "Campaign";
                 $stripetopup->description = "Donation";
                 $stripetopup->payment_type = "Paypal";

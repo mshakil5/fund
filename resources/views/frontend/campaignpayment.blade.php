@@ -96,10 +96,10 @@
                     </div>
                     <div class="">
                         <div class="row my-3">
-                            <div class="col-md-6 d-flex align-items-center  lh-1  my-1">
-                                <input type="checkbox" id="public">
-                                <label for="public" class="fs-5 fw-bold ps-2 text-dark flex-1">
-                                    Dont display my name publicly on fundriser
+                            <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
+                                <input type="checkbox" id="public" class="publicbtn">
+                                <label for="public" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
+                                    Dont display my name publicly on fundriser.
                                 </label>
                             </div>
                         </div>
@@ -202,13 +202,13 @@
                                     <input type="hidden" name="campaign_id" value="{{$data->id}}">
                                     <input type="hidden" name="paypaltips" id="paypaltips" value="">
                                     <input type="hidden" name="paypalcommission" id="paypalcommission" value="">
+                                    <input type="hidden" name="pdisplayname" id="pdisplayname" value="{{Auth::user()->name}}">
+
                                     <button type="submit" class="btn btn-secondary btn-theme mx-auto w-50 bg-secondary">
                                         <img src="{{ asset('paypal.png')}}" alt="" style="height: 65px; border-radius:5px;">
                                     </button>
                                 </form>
                                 
-
-
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 
@@ -378,6 +378,17 @@
             $("#paypaltips").val(total_tips.toFixed(2));
         });
         //calculation end  
+
+        $(document).on('click', '.publicbtn', function () {
+            if ($('#public').is(":checked")){
+                var displayname = "Kind Soul";
+            }else{
+                var displayname = $('#editable').text();
+            }
+            $("#pdisplayname").val(displayname);
+        });
+
+
     });   
 </script>
 <script>
