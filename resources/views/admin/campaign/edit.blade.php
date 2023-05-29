@@ -570,6 +570,7 @@
 <script>
     
     var storedFiles = [];
+    var imgStoreFile = [];
     $(document).ready(function () {
 
         $("#addDocContainer").hide();
@@ -764,6 +765,31 @@
             for(var i=0;i<storedFiles.length;i++) {
                 if(storedFiles[i].name === trash) {
                     storedFiles.splice(i,1);
+                    break;
+                }
+            }
+            $(this).parent().remove();
+
+        });
+
+        $(document).on('change','#image',function(){
+            len_files = $("#image").prop("files").length;
+            var construc = "<div class='row'>";
+            for (var i = 0; i < len_files; i++) {
+                var file_data2 = $("#image").prop("files")[i];
+                imgStoreFile.push(file_data2);
+                construc += '<div class="col-6 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+                    'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
+            }
+            construc += "</div>";
+            $('.imgpreview').append(construc);
+        });
+
+        $(".imgpreview").on('click','span.imageremove2',function(){
+            var trash = $(this).data("file");
+            for(var i=0;i<imgStoreFile.length;i++) {
+                if(imgStoreFile[i].name === trash) {
+                    imgStoreFile.splice(i,1);
                     break;
                 }
             }

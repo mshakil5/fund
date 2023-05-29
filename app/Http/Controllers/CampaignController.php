@@ -459,8 +459,6 @@ class CampaignController extends Controller
             exit();
         }
  
-
-
         if ($request->image) {
             if ($request->category == 1) {
                 foreach ($request->image as $key => $img) {
@@ -494,6 +492,73 @@ class CampaignController extends Controller
                 }
             }else{
                 foreach ($request->image as $key => $img) {
+                    // dd($key,  $img);
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/campaign'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->title = "Govt";
+                    $pic->user_id = Auth::user()->id;
+                    $pic->campaign_id = $request->campaign_id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            }
+            
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Store Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+
+        }else{
+            return response()->json(['success'=>false,'message'=>'Server Error!!']);
+        }
+    }
+
+    public function campaignDocStoreByUser(Request $request)
+    {
+
+        $reqall = $request->docimage;
+
+        if(empty($request->category)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Category \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+ 
+        if ($request->docimage) {
+            if ($request->category == 1) {
+                foreach ($request->docimage as $key => $img) {
+                    // dd($key,  $img);
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/campaign'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->title = "Slider";
+                    $pic->user_id = Auth::user()->id;
+                    $pic->campaign_id = $request->campaign_id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            } else if ($request->category == 2) {
+                foreach ($request->docimage as $key => $img) {
+                    // dd($key,  $img);
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/bank'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->title = "Bank";
+                    $pic->user_id = Auth::user()->id;
+                    $pic->campaign_id = $request->campaign_id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            }else{
+                foreach ($request->docimage as $key => $img) {
                     // dd($key,  $img);
                     $rand = mt_rand(100000, 999999);
                     $imageName = time(). $rand .'.'.$img->extension();
@@ -624,6 +689,95 @@ class CampaignController extends Controller
         $source = FundraisingSource::select('id','name')->get();
         $data = Campaign::with('transaction','campaignimage','campaignshare','comment')->where('id', $id)->first();
         return view('user.campaignedit', compact('data','source','countries'));
+    }
+
+    public function updateCampaignByUser(Request $request)
+    {
+        $data = Campaign::find($request->codeid);
+        if($request->fimage != 'null'){
+            $request->validate([
+                'fimage' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->fimage->extension();
+            $request->fimage->move(public_path('images/campaign'), $imageName);
+            $data->image= $imageName;
+        }
+
+        if($request->bank_verification_doc != 'null'){
+            $request->validate([
+                'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imagedocName = time(). $rand .'.'.$request->bank_verification_doc->extension();
+            $request->bank_verification_doc->move(public_path('images/campaign'), $imagedocName);
+            $data->bank_verification_doc = $imagedocName;
+        }
+        
+            $data->title = $request->title;
+            $data->fundraising_source_id = $request->source;
+            $data->story = $request->story;
+
+            $data->raising_goal = $request->raising_goal;
+            $data->video_link = $request->video_link;
+            $data->tagline = $request->tagline;
+            $data->category = $request->category;
+            $data->location = $request->location;
+            $data->funding_type = $request->funding_type;
+            $data->end_date = $request->end_date;
+
+
+            $data->name = $request->name;
+            $data->family_name = $request->family_name;
+            $data->dob = $request->dob;
+            $data->phone = $request->phone;
+            $data->country_address = $request->country_address;
+            $data->address = $request->address;
+            $data->city = $request->city;
+            $data->street_name = $request->street_name;
+            $data->town = $request->town;
+            $data->postcode = $request->postcode;
+            $data->gov_issue_id = $request->gov_issue_id;
+
+            $data->currency = $request->currency;
+            $data->bank_account_country = $request->bank_account_country;
+            $data->name_of_account = $request->name_of_account;
+            $data->bank_name = $request->bank_name;
+            $data->bank_account_number = $request->bank_account_number;
+            $data->bank_sort_code = $request->bank_sort_code;
+
+            $data->bank_account_class = $request->bank_account_class;
+            $data->bank_account_type = $request->bank_account_type;
+            $data->bank_routing = $request->bank_routing;
+            $data->iban = $request->iban;
+            
+            $data->updated_by = Auth::user()->id;
+
+        if ($data->save()) {
+
+            if ($request->image) {
+                
+                foreach ($request->image as $key => $img) {
+                    
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/campaign'), $imageName);
+                    //insert into picture table
+                    $pic = new CampaignImage();
+                    $pic->image = $imageName;
+                    $pic->campaign_id = $data->id;
+                    $pic->user_id = Auth::user()->id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            }
+
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
     }
 
     

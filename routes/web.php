@@ -127,6 +127,12 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('campaign-success', [PaypalController::class, 'campaignpaymentsuccess']);
     Route::get('campaign-error', [PaypalController::class, 'campaignpaymenterror']);
 
+    
+    // image download
+    Route::get('image-download/{id}', [CampaignController::class, 'downloadImage'])->name('download.campaignimage');
+    Route::get('feature-image-download/{id}', [CampaignController::class, 'downloadFeatureImage'])->name('download.featureimage');
+    Route::get('bankdoc-download/{id}', [CampaignController::class, 'downloadBankDoc'])->name('download.bankdoc');
+
 });
 
 
@@ -147,6 +153,9 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('start-a-new-campaign', [CampaignController::class, 'newCampaign'])->name('user.newcampaign');
     Route::post('fund-raise', [CampaignController::class, 'newCampaignStore'])->name('user.newcampaignstore');
 
+    Route::post('/campaign-update', [CampaignController::class, 'updateCampaignByUser']);
+    Route::post('/campaign-image-store', [CampaignController::class, 'campaignDocStoreByUser']);
+    Route::get('/campaign-image-delete/{id}', [CampaignController::class, 'deleteCampaignImageByAdmin']);
 
     // campaign edit 
     Route::get('campaign-edit/{id}', [CampaignController::class, 'campaignEdit'])->name('user.campaignedit');

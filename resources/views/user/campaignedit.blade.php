@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> Your All Transactions</h2>
+                
             </div>
             <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5">
 
@@ -27,6 +28,9 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="row">
+            <div class="ermsg"></div>
         </div>
         <div class="row ">
             <div class="col-lg-12">
@@ -210,7 +214,7 @@
                                 <div class="col-lg-12">      
                                     <div>
                                         <label for="email" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Email</label>
-                                        <input type="email" class="form-control" placeholder="Your email" id="email" name="email" value="{{ $data->email }}" required>
+                                        <input type="email" class="form-control" placeholder="Your email" id="email" name="email" value="{{ $data->email }}" required readonly>
                                     </div>               
                                 </div>
                                 <div class="col-lg-6">
@@ -350,7 +354,7 @@
                     <div class="tab-pane fade" id="allDoc" role="tabpanel" aria-labelledby="allDoc-tab">
                         <div class="data-container">
 
-                            <div id="addDocContainer" class="mt-2">
+                            <div id="addDocContainer" class="mt-2 mb-5">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="card">
@@ -388,7 +392,7 @@
                                                             <div class="col-lg-6">
                                                                 <div>
                                                                     <label for="image">Image</label>
-                                                                    <input class="form-control" id="image" name="image[]" type="file" multiple>
+                                                                    <input class="form-control" id="docimage" name="docimage[]" type="file" multiple>
                                                                     <input type="hidden" id="campaign_id" name="campaign_id" value="{{ $data->id }}">
                                                                 </div>
     
@@ -509,7 +513,7 @@
                 </div>
                 
                 <div class="col-lg-12 mb-5">
-                    <a href="" class="btn-theme bg-secondary fs-16 fw-700">Back</a>
+                    <a href="{{route('user.activecampaign')}}" class="btn-theme bg-secondary fs-16 fw-700">Back</a>
                     <a id="upBtn" class="btn-theme bg-primary fs-16 fw-700">Update</a>
                 </div>
             </div>
@@ -530,6 +534,7 @@
 <script>
     
     var storedFiles = [];
+    var imgStoreFile = [];
     $(document).ready(function () {
 
         $("#addDocContainer").hide();
@@ -570,7 +575,7 @@
                     }
                     form_data.append('fimage', file_data);
                     form_data.append("source", $("#source").val());
-                    form_data.append("country", $("#country").val());
+                    // form_data.append("country", $("#country").val());
                     form_data.append("title", $("#title").val());
                     form_data.append("story", $("#story").val());
 
@@ -584,7 +589,7 @@
                     form_data.append("end_date", $("#end_date").val());
 
 
-                    form_data.append("email", $("#email").val());
+                    // form_data.append("email", $("#email").val());
                     form_data.append("name", $("#name").val());
                     form_data.append("family_name", $("#family_name").val());
                     form_data.append("dob", $("#dob").val());
@@ -643,7 +648,7 @@
                     
                     var form_data = new FormData();
                     for(var i=0, len=imgStoreFile.length; i<len; i++) {
-                        form_data.append('image[]', imgStoreFile[i]);
+                        form_data.append('docimage[]', imgStoreFile[i]);
                     }
                     // form_data.append("title", $("#title").val());
                     form_data.append("category", $("#category").val());
@@ -724,6 +729,31 @@
             for(var i=0;i<storedFiles.length;i++) {
                 if(storedFiles[i].name === trash) {
                     storedFiles.splice(i,1);
+                    break;
+                }
+            }
+            $(this).parent().remove();
+
+        });
+
+        $(document).on('change','#docimage',function(){
+            len_files = $("#docimage").prop("files").length;
+            var construc = "<div class='row'>";
+            for (var i = 0; i < len_files; i++) {
+                var file_data2 = $("#docimage").prop("files")[i];
+                imgStoreFile.push(file_data2);
+                construc += '<div class="col-6 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+                    'btn-sm btn-danger docimageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
+            }
+            construc += "</div>";
+            $('.imgpreview').append(construc);
+        });
+
+        $(".imgpreview").on('click','span.docimageremove2',function(){
+            var trash = $(this).data("file");
+            for(var i=0;i<imgStoreFile.length;i++) {
+                if(imgStoreFile[i].name === trash) {
+                    imgStoreFile.splice(i,1);
                     break;
                 }
             }

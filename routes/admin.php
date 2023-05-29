@@ -110,10 +110,6 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('active-homepage-campaign', [CampaignController::class, 'activeHomepageCampaign']);
     Route::get('active-comment', [CampaignController::class, 'activeComment']);
 
-    // image download
-    Route::get('image-download/{id}', [CampaignController::class, 'downloadImage'])->name('download.campaignimage');
-    Route::get('feature-image-download/{id}', [CampaignController::class, 'downloadFeatureImage'])->name('download.featureimage');
-    Route::get('bankdoc-download/{id}', [CampaignController::class, 'downloadBankDoc'])->name('download.bankdoc');
     
 
     // photo
