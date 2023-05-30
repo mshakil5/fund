@@ -100,38 +100,77 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th>
+                                        <th scope="col">Transaction ID</th>
                                         <th scope="col">Description</th>
-                                        <th scope="col">Comments</th>
-                                        <th scope="col">Transaction no.</th>
-                                        <th scope="col">Amount</th>
+                                        <th scope="col">Dr Amount</th>
+                                        <th scope="col">Total Dr Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="fs-16 txt-primary">22/08/2022</td>
+                                    @foreach ($data->transaction as $item)
+                                    @if ($item->tran_type == "In")
+                                    <tr> 
+                                        <td class="fs-16 txt-secondary">{{$item->date}}</td>
                                         <td>
                                             <div class="d-flex flex-column">
-                                                <span class="fs-20 txt-primary fw-bold">Initact Solutions Ltd</span>
-                                                <span class="fs-16 txt-primary">Company donation</span>
+                                                <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
                                             </div>
                                         </td>
-                                        <td class="fs-16 txt-primary">
-                                            None
+                                        <td class="fs-16 txt-secondary">
+                                            {{$item->description}}
                                         </td>
-                                        <td class="fs-16 txt-primary">
-                                            None
+                                        <td class="fs-16 txt-secondary">
+                                            {{ number_format($item->amount, 2) }}
                                         </td>
-                                        <td class="fs-16 txt-primary">
-                                            £20.00
+                    
+                                        <td class="fs-16 txt-secondary">
+                                            {{ number_format($item->amount, 2) }}
                                         </td>
-                                    </tr>
+                                    </tr> 
+                                    @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
 
                     </div>
                     <div class="tab-pane fade" id="moneyOut" role="tabpanel" aria-labelledby="moneyOut-tab">
-                        
+                        <div class="data-container">
+                            <table class="table table-theme mt-4" id="example3">
+                                <thead>
+                                    <tr> 
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Transaction ID</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Cr Amount</th>
+                                        <th scope="col">Total Cr Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data->transaction as $item)
+                                    @if ($item->tran_type == "Out")
+                                    <tr> 
+                                        <td class="fs-16 txt-secondary">{{$item->date}}</td>
+                                        <td>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="fs-16 txt-secondary">
+                                            {{$item->description}}
+                                        </td>
+                                        <td class="fs-16 txt-secondary">
+                                            {{ number_format($item->amount, 2) }}
+                                        </td>
+                                        <td class="fs-16 txt-secondary">
+                                            {{ number_format($item->amount, 2) }}
+                                        </td>
+                                    </tr> 
+                                    @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>
