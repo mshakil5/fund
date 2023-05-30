@@ -67,8 +67,11 @@
                                         <th scope="col">Balance</th>
                                     </tr>
                                 </thead>
+                                <?php
+                                    $tbalance = $totalInAmount - $totalOutAmount;
+                                ?>
                                 <tbody>
-                                        @foreach ($data->transaction as $item)
+                                        @foreach ($data as $item)
                                         <tr> 
                                             <td class="fs-16 txt-secondary">{{$item->date}}</td>
                                             <td>
@@ -87,8 +90,15 @@
                                                 @if ($item->tran_type == "Out") {{ number_format($item->amount, 2) }} @endif
                                             </td> 
                                             <td class="fs-16 txt-secondary">
-                                                Balance Show here
+                                                £{{ number_format($tbalance, 2) }}
                                             </td> 
+                                            @php
+                                            if ($item->tran_type == "In") {
+                                                $tbalance = $tbalance - $item->amount;
+                                            } else {
+                                                $tbalance = $tbalance + $item->amount;
+                                            }
+                                            @endphp
                                         </tr> 
                                         @endforeach
                                 </tbody>
@@ -108,8 +118,13 @@
                                         <th scope="col">Total Dr Amount</th>
                                     </tr>
                                 </thead>
+                                
+                                <?php
+                                    $tDrbalance = $totalInAmount;
+                                ?>
+
                                 <tbody>
-                                    @foreach ($data->transaction as $item)
+                                    @foreach ($data as $item)
                                     @if ($item->tran_type == "In")
                                     <tr> 
                                         <td class="fs-16 txt-secondary">{{$item->date}}</td>
@@ -126,8 +141,14 @@
                                         </td>
                     
                                         <td class="fs-16 txt-secondary">
-                                            {{ number_format($item->amount, 2) }}
+                                            £{{ number_format($tDrbalance, 2) }}
                                         </td>
+                                        
+                                        @php
+                                        if ($item->tran_type == "In") {
+                                            $tDrbalance = $tDrbalance - $item->amount;
+                                        }
+                                        @endphp
                                     </tr> 
                                     @endif
                                     @endforeach
@@ -148,8 +169,11 @@
                                         <th scope="col">Total Cr Amount</th>
                                     </tr>
                                 </thead>
+                                <?php
+                                    $tCrbalance = $totalOutAmount;
+                                ?>
                                 <tbody>
-                                    @foreach ($data->transaction as $item)
+                                    @foreach ($data as $item)
                                     @if ($item->tran_type == "Out")
                                     <tr> 
                                         <td class="fs-16 txt-secondary">{{$item->date}}</td>
@@ -165,9 +189,16 @@
                                             {{ number_format($item->amount, 2) }}
                                         </td>
                                         <td class="fs-16 txt-secondary">
-                                            {{ number_format($item->amount, 2) }}
+                                            £{{ number_format($tCrbalance, 2) }}
                                         </td>
                                     </tr> 
+                                    
+                                        @php
+                                        if ($item->tran_type == "Out") {
+                                            $tDrbalance = $tDrbalance + $item->amount;
+                                        }
+                                        @endphp
+
                                     @endif
                                     @endforeach
                                 </tbody>

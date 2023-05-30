@@ -15,6 +15,7 @@ use App\Models\CampaignImage;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\ContactMail;
+use App\Models\Transaction;
 use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -584,9 +585,11 @@ class CampaignController extends Controller
 
     public function getCamTranByUser($id)
     {
-        $data = Campaign::with('transaction','campaignimage','campaignshare','comment')->where('id', $id)->first();
-        // dd($data);
-        return view('user.campaigntran',compact('data'));
+        $data = Transaction::where('campaign_id', $id)->orderby('id','DESC')->get();
+        $totalInAmount = Transaction::where('campaign_id', $id)->where('tran_type','In')->sum('amount');
+        $totalOutAmount = Transaction::where('campaign_id', $id)->where('tran_type','Out')->sum('amount');
+        // dd($totalInAmount);
+        return view('user.campaigntran',compact('data','totalOutAmount','totalInAmount'));
         
     }
 
