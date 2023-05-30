@@ -124,7 +124,7 @@
                 Featured Campaign
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-4">
             @foreach ($campaign as $campaign)
 
             @php
@@ -197,7 +197,7 @@
                 Featured Events
             </div>
         </div>
-        <div class="row mt-5"> 
+        <div class="row mt-4"> 
 
             @foreach ($events as $event) 
             <div class="col-md-4 col-sm-6 col-xs-12">
@@ -263,7 +263,7 @@
             <p class="alert alert-danger"> {{ session()->get('error') }}</p>
             @endif
         </div>
-        <div class="row mt-5"> 
+        <div class="row mt-4"> 
 
             @foreach ($charities as $charity)
             <div class="col-md-3 col-sm-6 col-xs-12">

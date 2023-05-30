@@ -264,8 +264,8 @@ body {
   background: #fff7f2;
 }
 .campaign .title, .why-donors .title {
-  font-size: 3.4rem;
-  text-align: center;
+  font-size: 32px;
+  text-align: left;
   line-height: 1;
   color: #18988B;
   font-family: "DarkerGrotesque-bold";
