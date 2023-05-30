@@ -5,6 +5,8 @@
 
 <section class="bleesed default">
     <div class="container">
+        
+
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> Your All Transactions</h2>

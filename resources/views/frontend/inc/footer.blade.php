@@ -12,21 +12,21 @@
             </div>
             <div class=" col-md-3 mb-3">
                 <ul class="footer-link ">
-                    <li class="mb-2"><a href="{{ route('homepage')}}" class=""> 
+                    <li class="mb-2"><a href="{{ route('homepage')}}" class="d-flex align-items-center"> 
                         <iconify-icon   class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Home</a></li>
-                    <li class="mb-2"><a href="{{route('frontend.work')}}" class=""> <iconify-icon
+                    <li class="mb-2"><a href="{{route('frontend.work')}}" class="d-flex align-items-center"> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> How we works</a></li>
-                    <li class="mb-2"><a href="{{route('frontend.about')}}" class=""> <iconify-icon
+                    <li class="mb-2"><a href="{{route('frontend.about')}}" class="d-flex align-items-center"> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> About</a></li>
-                    <li class="mb-2"><a href="{{route('newcampaign_show')}}" class=""> <iconify-icon
+                    <li class="mb-2"><a href="{{route('newcampaign_show')}}" class="d-flex align-items-center"> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Start fundrising</a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{route('frontend.terms')}}" class=""> <iconify-icon
+                        <a href="{{route('frontend.terms')}}" class="d-flex align-items-center"> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Terms & conditions</a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{route('frontend.privacy')}}" class=""> <iconify-icon
+                        <a href="{{route('frontend.privacy')}}" class="d-flex align-items-center"> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon>Privacy & Policy</a>
                     </li>
                     {{-- <li class="mb-2"><a href="how-we-works.html#faq" class=""> <iconify-icon
@@ -56,14 +56,13 @@
         </div>
     </div>
 </footer>
-<div class="footer-bottom">
+<div class="footer-bottom text-center">
     <div class="container">
         <div class="row">
-            <div class="d-flex flex-column flex-sm-row justify-content-between py-3">
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-3 align-items-center">
                 <small class="mb-0 text-dark  ">© 2022 Company, Inc. All rights reserved.</small>
-                <ul class="social">
-                    <li><a href=""><iconify-icon class="txt-primary" icon="ic:baseline-facebook"></iconify-icon></a>
-                    </li>
+                <ul class="social p-0">
+                    <li><a href=""><iconify-icon class="txt-primary" icon="ic:baseline-facebook"></iconify-icon></a></li>
                     <li><a href=""><iconify-icon class="txt-primary" icon="mdi:twitter"></iconify-icon></a></li>
                     <li><a href=""><iconify-icon class="txt-primary" icon="mdi:pinterest"></iconify-icon></a></li>
                     <li><a href=""><iconify-icon class="txt-primary" icon="mdi:linkedin"></iconify-icon></a></li>

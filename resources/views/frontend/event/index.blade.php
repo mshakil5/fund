@@ -30,7 +30,7 @@
                             <form id="msform">
                                 <fieldset>
                                     <h3 class="fs-subtitle para fs-6 txt-secondary text-center mb-0"> Step 1</h3>
-                                    <h5 class="txt-primary mb-4 text-center ">Basic Events Info</h5>
+                                    <h5 class="txt-primary mb-4 text-center fs-4">Basic Events Info</h5>
                                     <div class="row">
                                         <div class="col-md-3 text-start">
                                             <label for="" class="fs-5 fw-bold ">Event Title: </label>
@@ -78,7 +78,7 @@
 
                                 <fieldset>
                                     <h3 class="fs-subtitle para fs-6 txt-secondary mb-0 text-center "> Step 2</h3>
-                                    <h5 class="txt-primary mb-4 text-center "> Events Location & times</h5>
+                                    <h5 class="txt-primary mb-4 text-center fs-4"> Events Location & times</h5>
                                     <div class="row">
                                         <div class="col-md-3 text-start">
                                             <label for="venue_name" class="fs-5 fw-bold ">Venue name:</label>
@@ -156,7 +156,7 @@
 
                                 <fieldset>
                                     <h3 class="fs-subtitle para fs-6 txt-secondary mb-0 text-center "> Step 3</h3>
-                                    <h5 class="txt-primary mb-4 text-center "> Events Photo & Others</h5>
+                                    <h5 class="txt-primary mb-4 text-center fs-4"> Events Photo & Others</h5>
 
                                     <div class="row">
                                         <div class="col-md-4 text-start">
@@ -211,7 +211,7 @@
 
                                 <fieldset>
                                     <h3 class="fs-subtitle para fs-6 txt-secondary mb-0 text-center "> Step 4</h3>
-                                    <h5 class="txt-primary mb-4 text-center "> Create ticket </h5>
+                                    <h5 class="txt-primary mb-4 text-center fs-4"> Create ticket </h5>
 
                                     <div class="row"> 
                                         <div class="col-md-3 text-start">

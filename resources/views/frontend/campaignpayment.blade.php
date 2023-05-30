@@ -38,6 +38,12 @@
 
 <section class="fundriser my-2 py-4">
     <div class="container">
+        
+        <!-- Image loader -->
+        <div id='loading' style='display:none ;'>
+            <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+        </div>
+        <!-- Image loader -->
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="inner p-4">
@@ -332,6 +338,8 @@
     form.addEventListener('submit', function(event) {
       event.preventDefault();
   
+      $("#loading").show();
+
       // Create a PaymentMethod and confirm the PaymentIntent on the backend
       stripe.createPaymentMethod('card', cardElement).then(function(result) {
         if (result.error) {
@@ -379,11 +387,16 @@
         if (data.client_secret) {
           stripe.confirmCardPayment(data.client_secret).then(function(result) {
             if (result.error) {
+                
+                $("#loading").hide();
+
                 $(".ermsg").html("<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>"+result.error.message+"</b></div>");
               // Handle errors (e.g. authentication required)
               console.error(result.error);
             } else {
               // Payment successful
+                $("#loading").hide();
+                
               $(".ermsg").html("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Payment Successfull.</b></div>");
               console.log(result.paymentIntent);
               window.setTimeout(function(){location.reload()},2000)

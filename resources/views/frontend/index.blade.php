@@ -84,12 +84,10 @@
 
             <div class="title w-75 darkerGrotesque-bold">{{\App\Models\Master::where('name','homepage2ndsection')->first()->title}}</div>
             <div class="para text-center mt-4 txt-theme">
-
                 {!! \App\Models\Master::where('name','homepage2ndsection')->first()->description !!}
-
-                <a href="{{route('charity.register')}}" class="btn-theme bg-secondary mx-auto">Register your charity</a>
-                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary mx-auto">Start fundraising</a>
-                <a href="{{route('start_new_event')}}" class="btn-theme bg-secondary mx-auto">Create new event</a>
+                <a href="{{route('charity.register')}}" class="btn-theme bg-secondary mx-auto fs-6 py-2">Register your charity</a>
+                <a href="{{route('newcampaign_show')}}" class="btn-theme bg-primary mx-auto fs-6 py-2">Start fundraising</a>
+                <a href="{{route('start_new_event')}}" class="btn-theme bg-secondary mx-auto fs-6 py-2">Create new event</a>
             </div>
 
 
