@@ -146,7 +146,7 @@
                                         
                                         @php
                                         if ($item->tran_type == "In") {
-                                            $tDrbalance = $tDrbalance - $item->amount;
+                                            $tDrbalance = $tDrbalance + $item->amount;
                                         }
                                         @endphp
                                     </tr> 
@@ -191,14 +191,12 @@
                                         <td class="fs-16 txt-secondary">
                                             £{{ number_format($tCrbalance, 2) }}
                                         </td>
-                                    </tr> 
-                                    
                                         @php
                                         if ($item->tran_type == "Out") {
-                                            $tDrbalance = $tDrbalance + $item->amount;
+                                            $tCrbalance = $tCrbalance + $item->amount;
                                         }
                                         @endphp
-
+                                    </tr> 
                                     @endif
                                     @endforeach
                                 </tbody>

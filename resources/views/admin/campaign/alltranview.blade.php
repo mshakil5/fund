@@ -51,48 +51,52 @@
                         <th scope="col">Balance</th>
                     </tr>
                 </thead>
-            <tbody>
-                @foreach ($data->transaction as $item)
-                <tr> 
-                    <td class="fs-16 txt-secondary">{{$item->date}}</td>
-                    <td>
-                        <div class="d-flex flex-column">
-                            <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
-                            {{-- <span class="fs-16 txt-secondary">Online donation</span> --}}
-                        </div>
-                    </td>
-                    <td class="fs-16 txt-secondary">
-                        {{$item->payment_type}}
-                    </td>
-                    {{-- <td class="fs-16 txt-secondary">
-                        {{$item->user->name}}
-                    </td> --}}
-                    
-                    <td class="fs-16 txt-secondary">
-                        {{ number_format($item->tips, 2) }}
-                    </td> 
-                    <td class="fs-16 txt-secondary">
-                        {{ number_format($item->commission, 2) }}
-                    </td> 
-                    <td class="fs-16 txt-secondary">
-                        {{ number_format($item->total_amount, 2) }}
-                    </td> 
-
-
-                    <td class="fs-16 txt-secondary">
-                        @if ($item->tran_type == "In") {{ number_format($item->amount, 2) }} @endif
-                    </td> 
-                    <td class="fs-16 txt-secondary">
-                        @if ($item->tran_type == "Out") {{ number_format($item->amount, 2) }} @endif
-                    </td> 
-                    <td class="fs-16 txt-secondary">
-                        Balance Show here
-                    </td> 
-                </tr> 
-                @endforeach
-            </tbody>
-        </table>
-        </div>
+                <?php
+                    $tbalance = $totalInAmount - $totalOutAmount;
+                ?>
+                <tbody>
+                    @foreach ($transaction as $item)
+                    <tr> 
+                        <td class="fs-16 txt-secondary">{{$item->date}}</td>
+                        <td>
+                            <div class="d-flex flex-column">
+                                <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
+                            </div>
+                        </td>
+                        <td class="fs-16 txt-secondary">
+                            {{$item->payment_type}}
+                        </td>
+                        
+                        <td class="fs-16 txt-secondary">
+                            {{ number_format($item->tips, 2) }}
+                        </td> 
+                        <td class="fs-16 txt-secondary">
+                            {{ number_format($item->commission, 2) }}
+                        </td> 
+                        <td class="fs-16 txt-secondary">
+                            {{ number_format($item->total_amount, 2) }}
+                        </td> 
+                        <td class="fs-16 txt-secondary">
+                            @if ($item->tran_type == "In") {{ number_format($item->amount, 2) }} @endif
+                        </td> 
+                        <td class="fs-16 txt-secondary">
+                            @if ($item->tran_type == "Out") {{ number_format($item->amount, 2) }} @endif
+                        </td> 
+                        <td class="fs-16 txt-secondary">
+                            £{{ number_format($tbalance, 2) }}
+                        </td> 
+                        @php
+                        if ($item->tran_type == "In") {
+                            $tbalance = $tbalance - $item->amount;
+                        } else {
+                            $tbalance = $tbalance + $item->amount;
+                        }
+                        @endphp
+                    </tr> 
+                    @endforeach
+                </tbody>
+            </table>
+            </div>
     
     </div>
     <div class="tab-pane fade" id="moneyIn" role="tabpanel" aria-labelledby="moneyIn-tab">
@@ -107,30 +111,39 @@
                         <th scope="col">Total Dr Amount</th>
                     </tr>
                 </thead>
-            <tbody>
-                @foreach ($data->transaction as $item)
-                @if ($item->tran_type == "In")
-                <tr> 
-                    <td class="fs-16 txt-secondary">{{$item->date}}</td>
-                    <td>
-                        <div class="d-flex flex-column">
-                            <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
-                        </div>
-                    </td>
-                    <td class="fs-16 txt-secondary">
-                        {{$item->description}}
-                    </td>
-                    <td class="fs-16 txt-secondary">
-                        {{ number_format($item->amount, 2) }}
-                    </td>
+                <?php
+                    $tDrbalance = $totalInAmount;
+                ?>
+                <tbody>
+                    @foreach ($transaction as $item)
+                    @if ($item->tran_type == "In")
+                    <tr> 
+                        <td class="fs-16 txt-secondary">{{$item->date}}</td>
+                        <td>
+                            <div class="d-flex flex-column">
+                                <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
+                            </div>
+                        </td>
+                        <td class="fs-16 txt-secondary">
+                            {{$item->description}}
+                        </td>
+                        <td class="fs-16 txt-secondary">
+                            {{ number_format($item->amount, 2) }}
+                        </td>
 
-                    <td class="fs-16 txt-secondary">
-                        {{ number_format($item->amount, 2) }}
-                    </td>
-                </tr> 
-                @endif
-                @endforeach
-            </tbody>
+                        <td class="fs-16 txt-secondary">
+                            £{{ number_format($tDrbalance, 2) }}
+                        </td>
+                        
+                        @php
+                        if ($item->tran_type == "In") {
+                            $tDrbalance = $tDrbalance - $item->amount;
+                        }
+                        @endphp
+                    </tr> 
+                    @endif
+                    @endforeach
+                </tbody>
         </table>
         </div>
     </div>
@@ -146,30 +159,38 @@
                         <th scope="col">Total Cr Amount</th>
                     </tr>
                 </thead>
-            <tbody>
-                @foreach ($data->transaction as $item)
-                @if ($item->tran_type == "Out")
-                <tr> 
-                    <td class="fs-16 txt-secondary">{{$item->date}}</td>
-                    <td>
-                        <div class="d-flex flex-column">
-                            <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
-                        </div>
-                    </td>
-                    <td class="fs-16 txt-secondary">
-                        {{$item->description}}
-                    </td>
-                    <td class="fs-16 txt-secondary">
-                        {{ number_format($item->amount, 2) }}
-                    </td>
+                <?php
+                    $tCrbalance = $totalOutAmount;
+                ?>
+                <tbody>
+                    @foreach ($transaction as $item)
+                    @if ($item->tran_type == "Out")
+                    <tr> 
+                        <td class="fs-16 txt-secondary">{{$item->date}}</td>
+                        <td>
+                            <div class="d-flex flex-column">
+                                <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
+                            </div>
+                        </td>
+                        <td class="fs-16 txt-secondary">
+                            {{$item->description}}
+                        </td>
+                        <td class="fs-16 txt-secondary">
+                            {{ number_format($item->amount, 2) }}
+                        </td>
 
-                    <td class="fs-16 txt-secondary">
-                        {{ number_format($item->amount, 2) }}
-                    </td>
-                </tr> 
-                @endif
-                @endforeach
-            </tbody>
+                        <td class="fs-16 txt-secondary">
+                            £{{ number_format($tCrbalance, 2) }}
+                        </td>
+                        @php
+                        if ($item->tran_type == "Out") {
+                            $tCrbalance = $tCrbalance - $item->amount;
+                        }
+                        @endphp
+                    </tr> 
+                    @endif
+                    @endforeach
+                </tbody>
         </table>
         </div>
     </div>

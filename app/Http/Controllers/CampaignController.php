@@ -310,17 +310,25 @@ class CampaignController extends Controller
     public function viewCampaignByAdmin($id)
     {
         $data = Campaign::with('transaction','campaignimage','campaignshare','comment')->where('id', $id)->first();
-        // dd($data);
+        
+        $transaction = Transaction::where('campaign_id', $id)->orderby('id','DESC')->get();
+        $totalInAmount = Transaction::where('campaign_id', $id)->where('tran_type','In')->sum('amount');
+        $totalOutAmount = Transaction::where('campaign_id', $id)->where('tran_type','Out')->sum('amount');
+        
+
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        return view('admin.campaign.view',compact('countries','source','data'));
+        return view('admin.campaign.view',compact('countries','source','data','transaction','totalInAmount','totalOutAmount'));
         
     }
 
     public function viewTransactionCampaignByAdmin($id)
     {
         $data = Campaign::with('transaction','campaignimage','campaignshare','comment')->where('id', $id)->first();
-        return view('admin.campaign.tranview',compact('data'));
+        $transaction = Transaction::where('campaign_id', $id)->orderby('id','DESC')->get();
+        $totalInAmount = Transaction::where('campaign_id', $id)->where('tran_type','In')->sum('amount');
+        $totalOutAmount = Transaction::where('campaign_id', $id)->where('tran_type','Out')->sum('amount');
+        return view('admin.campaign.tranview',compact('data','transaction','totalInAmount','totalOutAmount'));
         
     }
 
