@@ -76,7 +76,7 @@
                                         <a href="{{route('user.campaignedit', $data->id)}}" class="px-2">
                                             <iconify-icon class="txt-primary" icon="mdi:pencil-outline"></iconify-icon>
                                         </a>
-                                        <a href="#" class="px-2" title="view all transaction">
+                                        <a href="{{ route('user.camtransaction',$data->id)}}" class="px-2" title="view all transaction">
                                             <iconify-icon icon="ic:outline-remove-red-eye"></iconify-icon>
                                         </a>
                                         {{-- <a href="#" class="px-2">

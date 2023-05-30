@@ -136,8 +136,7 @@
 
                         <div class="title darkerGrotesque-bold lh-1 fs-3 mt-2">Payment Mathods </div>
 
-                        <ul class="nav nav-tabs mt-2 border-0 py-4 justify-content-center  bg-transparent"
-                            id="myTab" role="tablist">
+                        <ul class="nav nav-tabs mt-2 border-0 py-4 justify-content-center  bg-transparent" id="paymentTab" role="tablist">
                             <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="paypal">
                                     <div class="nav-link shadow-sm d-flex align-items-center justify-content-center"
@@ -174,22 +173,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="nav-item fs-5 mx-2" role="presentation">
-                                <label for="credit_card">
-                                    <div class="nav-link shadow-sm d-flex align-items-center justify-content-center"
-                                        id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" role="tab"
-                                        aria-controls="contact" aria-selected="false">
-
-                                        <div class="fw-bold d-flex align-items-center">
-                                            <input type="radio" class="d-none" id="credit_card" value="credit_card"
-                                                name="paymentMethod">
-                                            <iconify-icon class="px-2"
-                                                icon="fluent-emoji-flat:credit-card"></iconify-icon> credit card
-                                        </div>
-
-                                    </div>
-                                </label>
-                            </li>
+                            
                         </ul>
 
                         @if (Session::has('success'))
@@ -202,9 +186,8 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
 
-                                
-                                
                             </div>
+
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 
                                 <div class="ermsg">
@@ -246,57 +229,7 @@
 
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                <form action="">
-                                    <div class="row ">
-                                        <div class="col-lg-6 ">
-                                            <input type="email" class="form-control fs-5 mb-3 " placeholder="Email">
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <input type="text" class="form-control fs-5 mb-3 "
-                                                placeholder="First name">
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <input type="text" class="form-control fs-5 mb-3 "
-                                                placeholder="last name">
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <input type="checkbox" id="billing">
-                                            <label for="billing" class="fs-5  ps-1 mb-1">Use a
-                                                billing name</label>
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <input type="number" class="form-control fs-5 mb-3 "
-                                                placeholder="Card number">
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <input type="date" class="form-control fs-5 mb-3 " placeholder="mm/yy">
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <input type="text" class="form-control fs-5 mb-3 " placeholder="CVV">
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <input type="number" class="form-control fs-5 mb-3 "
-                                                placeholder="Postal Code">
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <input type="text" class="form-control fs-5 mb-3 "
-                                                placeholder="Name on card">
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                           <select name="" class="form-control fs-5 mb-3" id="">
-                                            <option value="">Countrys</option>
-                                           </select>
-                                        </div>
-                                        <div class="col-lg-12  ">
-                                            <input type="checkbox" id="donation">
-                                            <label for="donation" class="fs-5 fw-bold ps-1">Save card for future
-                                                donation
-                                            </label>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            
                         </div>
 
 

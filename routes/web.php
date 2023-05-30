@@ -157,6 +157,9 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::post('/campaign-image-store', [CampaignController::class, 'campaignDocStoreByUser']);
     Route::get('/campaign-image-delete/{id}', [CampaignController::class, 'deleteCampaignImageByAdmin']);
 
+    
+    Route::get('/campaign-transaction/{id}', [CampaignController::class, 'getCamTranByUser'])->name('user.camtransaction');
+
     // campaign edit 
     Route::get('campaign-edit/{id}', [CampaignController::class, 'campaignEdit'])->name('user.campaignedit');
 

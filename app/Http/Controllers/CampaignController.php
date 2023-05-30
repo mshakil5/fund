@@ -582,6 +582,14 @@ class CampaignController extends Controller
         }
     }
 
+    public function getCamTranByUser($id)
+    {
+        $data = Campaign::with('transaction','campaignimage','campaignshare','comment')->where('id', $id)->first();
+        // dd($data);
+        return view('user.campaigntran',compact('data'));
+        
+    }
+
     public function deleteCampaignImageByAdmin($id)
     {
         if(CampaignImage::destroy($id)){

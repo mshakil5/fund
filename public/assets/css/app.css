@@ -1405,3 +1405,25 @@ input[type=checkbox] {
   font-size: 1.2rem !important; 
   line-height: 0.5 !important;   
 }
+
+#paymentTab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  padding: 0;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #fff;
+}
+#paymentTab .nav-link {
+  border-radius: 0;
+  border: 0;
+  background: #fff !important;
+  color: #000;
+}
+#paymentTab .nav-link.active {
+  background: #ffffff !important;
+  color: #fff;
+}
