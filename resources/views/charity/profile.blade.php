@@ -19,8 +19,7 @@
             <div class="col-lg-8 fs-5 shadow-sm p-4 border d-flex align-items-center position-relative">
                 <div class="row darkerGrotesque-semibold "> 
 
-                        <p class="mb-1"> Name: {{ Auth::user()->name }} </p>
-                        <p class="mb-1"> Surname: {{ Auth::user()->sur_name }} </p>
+                        <p class="mb-1"> Charity Name: {{ Auth::user()->name }} </p>
                         <p class="mb-1"> Phone: {{ Auth::user()->phone }} </p>
                         <p class="mb-1"> email: {{ Auth::user()->email }} </p>
                         <p class="mb-1"> House Number: {{ Auth::user()->house_number }} </p>
@@ -52,53 +51,45 @@
                         <div class="ermsg"></div>
                         <div class="row">
                             <div class="col-lg-4 ">
+                                <label for="name">Charity Name</label>
                                 <div class="form-group mb-3">
-                                    <input class="form-control fs-5" type="text" id="name" name="name" value="{{Auth::user()->name}}">
+                                    <input class="form-control fs-5" type="text" id="name" name="name" value="{{Auth::user()->name}}" placeholder="Charity Name">
                                 </div>
                             </div>
-                            <div class="col-lg-4" style="display: none">
-                                <div class="form-group mb-3">
-                                    <input class="form-control fs-5" type="text" id="sur_name" name="sur_name" value="{{Auth::user()->sur_name}}" placeholder="Surname">
-                                </div>
-                            </div>
+                            
                             <div class="col-lg-4">
+                                <label for="phone">Phone</label>
                                 <div class="form-group mb-3">
                                     <input class="form-control fs-5" type="text" id="phone" name="phone" value="{{Auth::user()->phone}}" placeholder="Phone">
                                 </div> 
                             </div>
                             
-                            <div class="col-lg-4" style="display: none">
+                            <div class="col-lg-4">
+                                <label for="house_number">House Number</label>
                                 <div class="form-group mb-3">
                                     <input class="form-control fs-5" type="text" id="house_number" name="house_number" value="{{Auth::user()->house_number}}" placeholder="House Number">
                                 </div> 
                             </div>
-                            <div class="col-lg-4" style="display: none">
+                            <div class="col-lg-4">
+                                <label for="street_name">Street Name</label>
                                 <div class="form-group mb-3">
                                     <input class="form-control fs-5" type="text" id="street_name" name="street_name" value="{{Auth::user()->street_name}}" placeholder="Street Name">
                                 </div> 
                             </div>
-                            <div class="col-lg-4" style="display: none">
+                            <div class="col-lg-4">
+                                <label for="town">Town</label>
                                 <div class="form-group mb-3">
                                     <input class="form-control fs-5" type="text" id="town" name="town" value="{{Auth::user()->town}}" placeholder="Town">
                                 </div> 
                             </div>
-                            <div class="col-lg-4" style="display: none">
+                            <div class="col-lg-4">
+                                <label for="postcode">Postcode</label>
                                 <div class="form-group mb-3">
                                     <input class="form-control fs-5" type="text" id="postcode" name="postcode" value="{{Auth::user()->postcode}}" placeholder="Postcode">
                                 </div> 
                             </div>
 
-                            <div class="col-lg-4">
-                                <div class="form-group mb-3">
-                                    <select name="country" id="country" class="form-control fs-5" aria-placeholder="Country">
-                                        <option value="">Country</option>
-                                        @foreach (\App\Models\Country::select('id','name')->get() as $country)
-                                        <option value="{{$country->id}}" @if ($country->id == Auth::user()->country) selected @endif>{{$country->name}}</option>
-                                        @endforeach
-
-                                    </select>
-                                </div> 
-                            </div>
+                            
 
                             
                         </div>
@@ -120,37 +111,42 @@
                     </div>
 
                     <div class="col-lg-10">
-                        <div class="ermsg"></div>
                         <div class="row">
                             <div class="col-lg-4 ">
-                                <div class="form-group mb-3">
+                                <label for="r_name">Name</label>
+                                <div class="form-group">
                                     <input class="form-control fs-5" type="text" id="r_name" name="r_name" value="{{Auth::user()->r_name}}">
                                 </div>
                             </div>
-                            <div class="col-lg-4" style="display: none">
-                                <div class="form-group mb-3">
+                            <div class="col-lg-4">
+                                <label for="r_position">Position</label>
+                                <div class="form-group">
                                     <input class="form-control fs-5" type="text" id="r_position" name="r_position" value="{{Auth::user()->r_position}}" placeholder="Position">
                                 </div>
                             </div>
                             <div class="col-lg-4">
-                                <div class="form-group mb-3">
+                                <label for="r_phone">Phone</label>
+                                <div class="form-group">
                                     <input class="form-control fs-5" type="text" id="r_phone" name="r_phone" value="{{Auth::user()->r_phone}}" placeholder="Representative Phone">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
-                                <div class="form-group mb-3">
+                                <label for="email">Email</label>
+                                <div class="form-group">
                                     <input class="form-control fs-5" type="email" id="email" name="email" value="{{Auth::user()->email}}" placeholder="Email">
                                 </div> 
                             </div>
                             
                             <div class="col-lg-4">
-                                <div class="form-group mb-3">
+                                <label for="password">Password</label>
+                                <div class="form-group">
                                     <input class="form-control fs-5" type="password" id="password" name="password" placeholder="Password">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
-                                <div class="form-group mb-3">
-                                    <input class="form-control fs-5" type="password" id="confirm_password" name="" placeholder="Confirm Password">
+                                <label for="confirm_password">Confirm Password</label>
+                                <div class="form-group">
+                                    <input class="form-control fs-5" type="password" id="confirm_password"  placeholder="Confirm Password">
                                 </div> 
                             </div>
                         </div>

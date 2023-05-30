@@ -193,7 +193,7 @@
                                         </td>
                                         @php
                                         if ($item->tran_type == "Out") {
-                                            $tCrbalance = $tCrbalance + $item->amount;
+                                            $tCrbalance = $tCrbalance - $item->amount;
                                         }
                                         @endphp
                                     </tr> 
