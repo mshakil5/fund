@@ -1400,3 +1400,8 @@ input[type=checkbox] {
 .work-box:hover {
   transform: translateY(-2px);
 }
+
+.form-control { 
+  font-size: 1.2rem !important; 
+  line-height: 0.5 !important;   
+}
