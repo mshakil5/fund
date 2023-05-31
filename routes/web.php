@@ -133,6 +133,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('feature-image-download/{id}', [CampaignController::class, 'downloadFeatureImage'])->name('download.featureimage');
     Route::get('bankdoc-download/{id}', [CampaignController::class, 'downloadBankDoc'])->name('download.bankdoc');
 
+    Route::post('event-book', [EventController::class, 'freeEventbooked']);
+
 });
 
 
@@ -174,6 +176,8 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('/event-edit/{id}', [EventController::class, 'eventEditByUser'])->name('user.eventEdit');
     Route::get('/event-ticket-sale/{id}', [EventController::class, 'eventTicketSaleShowByUser'])->name('user.eventTicketSales');
     Route::post('update-event', [EventController::class, 'eventUpdateByUser']);
+
+    
 
 
 });
