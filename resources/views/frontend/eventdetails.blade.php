@@ -240,10 +240,14 @@
             <div class="col-md-4 mt-5">
                 <div class="border shadow-sm p-3 rounded">
                     <div class="p-3 border border-1 rounded shadow-sm bg-white ">
+                        <div class="ermsg">
+                        </div>
                         <div class="d-flex align-items-center justify-content-between">
                             <h4 class="darkerGrotesque-bold mb-0">General Admission</h4>
+   
                             <div class="d-flex">
-                                {{-- <button class="btn btn-sm btn-theme bg-primary text-white cart-qty-minus ">
+                                @if ($data->is_free == 1)
+                                <button class="btn btn-sm btn-theme bg-primary text-white cart-qty-minus ">
                                     <iconify-icon icon="typcn:minus"></iconify-icon>
                                 </button>
                                 <span class="mx-2 fs-4 darkerGrotesque-bold showqty" id="showqty">
@@ -251,22 +255,31 @@
                                 </span>
                                 <button class="btn btn-sm btn-theme bg-primary px-3 text-white cart-qty-plus">
                                     <iconify-icon icon="typcn:plus"></iconify-icon>
-                                </button> --}}
+                                </button>
+                                @endif
+
                                 <input type="number" id="qty" name="qty" value="1" hidden>
                                 <input type="number" id="regular_price" name="regular_price" value="{{$data->price}}" hidden>
                                 <input type="number" id="pamount" name="pamount" value="{{$data->price}}" hidden>
                             </div>
 
 
-                        </div> 
+                        </div>
+                        @if ($data->is_free == 0) 
                         <div class="d-flex align-items-center justify-content-between">
                             <select name="selectqty" id="selectqty" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2">
                                 <option value="1">Single</option>
                                 <option value="2">Couple</option>
                             </select>
                         </div>
-                        
+
                         <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
+                        @else
+                        <h4 class="darkerGrotesque-bold my-3 txt-primary"><span>Free</span></h4>
+                        <textarea name="note" id="note" cols="30" rows="2" placeholder="Note..."></textarea>
+                        @endif
+                        
+                       
 
                     </div>
                     
@@ -276,12 +289,19 @@
                     @else
                         @if ($data->status == 1)
                             @if (Auth::user())
+                                @if ($data->is_free == 0)
                                 <a id="chkoutBtn" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Checkout</a>
+                                @else
+                                <a id="freeEvntsub" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Submit</a>
+                                @endif
                             @else
-                                <!-- Button trigger modal -->
-                                <button type="button"  class="btn btn-theme bg-secondary w-100 mt-2 mx-auto" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                    Checkout
-                                </button>
+                               
+                            <!-- Button trigger modal -->
+                            <button type="button"  class="btn btn-theme bg-secondary w-100 mt-2 mx-auto" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Checkout
+                            </button>
+                             
+
                             @endif
                             <button class="btn btn-theme bg-primary w-100 mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#shareModal">Share</button>
                         @endif
@@ -486,6 +506,42 @@ $(document).ready(function () {
         $("#paypalamount").val(net_amount.toFixed(2));
         $("#c_amount").val(commission.toFixed(2));
     });
+
+    // free event ad by fahim
+     //header for csrf-token is must in laravel
+ $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+
+//  make doantion start
+var url = "{{URL::to('/event-book')}}";
+$("#freeEvntsub").click(function(){
+     $("#loading").show();
+        var event_id= $("#event_id").val();
+        var quantity= $("#qty").val();
+        var note= $("#note").val();
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: {event_id,quantity,note},
+            success: function (d) {
+                if (d.status == 303) {
+                    $(".ermsg").html(d.message);
+                }else if(d.status == 300){
+                    $(".ermsg").html(d.message);
+                    window.setTimeout(function(){location.reload()},2000)
+                }
+            },
+            complete:function(data){
+                $("#loading").hide();
+            },
+            error: function (d) {
+                console.log(d);
+            }
+        });
+
+});
+// make donation end 
+
 
 });
 </script>

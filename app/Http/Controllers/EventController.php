@@ -117,11 +117,11 @@ class EventController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
-        if(empty($request->price)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Price \" field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
-        }
+        // if(empty($request->price)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Price \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
 
         $data = new Event();
         $data->user_id = Auth::user()->id;
@@ -141,6 +141,11 @@ class EventController extends Controller
         $data->event_start_date = $request->event_start_date;
         $data->event_end_date = $request->event_end_date;
         $data->price = $request->price;
+        if($request->price>0){
+        $data->is_free = 0;
+        }else{
+        $data->is_free = 1;    
+        }
         $data->sale_end_date = $request->sale_end_date;
         $data->sale_start_date = $request->sale_start_date;
         $data->summery = $request->summery;
@@ -604,4 +609,37 @@ class EventController extends Controller
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
     }
+
+    //  free event ticket booked by Fahim 
+
+    public function freeEventbooked(Request $request)
+    {
+    $evnbooked = new TicketSale();
+    $evnbooked->date = date('Y-m-d');
+    $evnbooked->tran_no = date('his');
+    $evnbooked->user_id = Auth::user()->id;
+    $evnbooked->event_id = $request->event_id;
+    $evnbooked->commission = 00;
+    $evnbooked->amount = 00;
+    $evnbooked->total_amount = 00;
+    $evnbooked->quantity = $request->quantity;
+    $evnbooked->payment_type = "Free";
+    $evnbooked->note = $request->note;
+    $evnbooked->user_notification = "0";
+    $evnbooked->admin_notification = "0";
+    $evnbooked->status = "0";
+    $evnbooked->save();
+
+    $event = Event::find($request->event_id);
+    $event->available = $event->available-$request->quantity;
+    $event->sold = $event->sold+$request->quantity;
+    $event->save();
+
+    $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event booked successfully.</b></div>";
+    // $message = $request->image[0];
+    return response()->json(['status'=> 300,'message'=>$message]);
+
+    }
+
+
 }
