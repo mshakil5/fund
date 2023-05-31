@@ -128,7 +128,7 @@
 
                     </div>
                     <div class="  ">
-                        <div class="title darkerGrotesque-bold lh-1 fs-3 mt-2">Payment Mathods </div>
+                        <div class="title darkerGrotesque-bold lh-1 fs-3 mt-2">Payment Methods </div>
 
                         <ul class="nav nav-tabs mt-2 border-0 py-4 justify-content-center  bg-transparent"
                             id="myTab" role="tablist">

@@ -11,6 +11,7 @@ use Mail;
 use App\Models\EmailContent;
 use App\Mail\ContactFormMail;
 use App\Models\ContactMail;
+use App\Models\EventTransaction;
 use Illuminate\support\Facades\Auth;
 
 class EventController extends Controller
@@ -38,6 +39,18 @@ class EventController extends Controller
         $event = Event::where('user_id', Auth::user()->id)->orderby('id','DESC')->get();
         $data = TicketSale::where('user_id', Auth::user()->id)->get();
         return view('user.event.document',compact('data','event'));
+    }
+
+    public function viewEventByAdmin($id)
+    {
+        $data = Event::with('eventimage')->where('id', $id)->first();
+        
+        $transaction = EventTransaction::where('event_id', $id)->orderby('id','DESC')->get();
+        $totalInAmount = EventTransaction::where('event_id', $id)->where('tran_type','In')->sum('amount');
+        $totalOutAmount = EventTransaction::where('event_id', $id)->where('tran_type','Out')->sum('amount');
+        
+        return view('admin.event.view',compact('data','transaction','totalInAmount','totalOutAmount'));
+        
     }
 
     public function eventTicketSaleShowByUser($id)

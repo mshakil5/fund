@@ -101,11 +101,19 @@
 
                     </div>
                     <div class="">
-                        <div class="row my-3">
+                        <div class="row">
                             <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
                                 <input type="checkbox" id="public" class="publicbtn">
                                 <label for="public" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
-                                    Dont display my name publicly on fundriser.
+                                    Don't display my name publicly on fundriser.
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
+                                <input type="checkbox" id="terms" class="terms">
+                                <label for="terms" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
+                                    By Continuing, you afgree with GoGiving <a href="{{route('frontend.terms')}}">terms</a> and <a href="{{route('frontend.privacy')}}">privacy</a>  notice.
                                 </label>
                             </div>
                         </div>
@@ -140,7 +148,7 @@
 
                         </div>
 
-                        <div class="title darkerGrotesque-bold lh-1 fs-3 mt-2">Payment Mathods </div>
+                        <div class="title darkerGrotesque-bold lh-1 fs-3 mt-2">Payment Methods </div>
 
                         <ul class="nav nav-tabs mt-2 border-0 py-4 justify-content-center  bg-transparent" id="paymentTab" role="tablist">
                             <li class="nav-item fs-5 mx-2" role="presentation">

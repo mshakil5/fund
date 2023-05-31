@@ -26,7 +26,8 @@
 </style>
 
 @php
-    $pricewithSCs = $data->price + ($data->price * .10);
+    // $pricewithSCs = $data->price + ($data->price * .10);
+    $pricewithSCs = $data->price + 0;
     $cardpriceshow = $data->price;
 @endphp
 <div class="eventDetails">
@@ -132,7 +133,17 @@
                         <a id="backBtn" class="text-start btn btn-theme bg-primary"><iconify-icon icon="material-symbols:arrow-back-rounded" class="text-white fs-4"></iconify-icon> Back</a>
                     </div>
                     <div class="border shadow-sm p-3 rounded">
-                        <div class="title darkerGrotesque-bold lh-1 fs-3">Payment Mathods</div>
+                        <div class="title darkerGrotesque-bold lh-1 fs-3">Payment Methods</div>
+                        
+                        <div class="row">
+                            <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
+                                <input type="checkbox" id="terms" class="terms">
+                                <label for="terms" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
+                                    By Continuing, you afgree with GoGiving <a href="{{route('frontend.terms')}}">terms</a> and <a href="{{route('frontend.privacy')}}">privacy</a>  notice.
+                                </label>
+                            </div>
+                        </div>
+
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent" id="paymentTab" role="tablist">
 
                             <li class="nav-item fs-5 mx-2" role="presentation">
@@ -232,7 +243,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <h4 class="darkerGrotesque-bold mb-0">General Admission</h4>
                             <div class="d-flex">
-                                <button class="btn btn-sm btn-theme bg-primary text-white cart-qty-minus ">
+                                {{-- <button class="btn btn-sm btn-theme bg-primary text-white cart-qty-minus ">
                                     <iconify-icon icon="typcn:minus"></iconify-icon>
                                 </button>
                                 <span class="mx-2 fs-4 darkerGrotesque-bold showqty" id="showqty">
@@ -240,12 +251,20 @@
                                 </span>
                                 <button class="btn btn-sm btn-theme bg-primary px-3 text-white cart-qty-plus">
                                     <iconify-icon icon="typcn:plus"></iconify-icon>
-                                </button>
+                                </button> --}}
                                 <input type="number" id="qty" name="qty" value="1" hidden>
                                 <input type="number" id="regular_price" name="regular_price" value="{{$data->price}}" hidden>
                                 <input type="number" id="pamount" name="pamount" value="{{$data->price}}" hidden>
                             </div>
+
+
                         </div> 
+                        <div class="d-flex align-items-center justify-content-between">
+                            <select name="selectqty" id="selectqty" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2">
+                                <option value="1">Single</option>
+                                <option value="2">Couple</option>
+                            </select>
+                        </div>
                         
                         <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
 
@@ -434,6 +453,28 @@ $(document).ready(function () {
         
         var commission = (tamount * 10)/100;
         var net_amount = tamount + commission;
+        $("#amount").val(net_amount.toFixed(2));
+        $("#paypalamount").val(net_amount.toFixed(2));
+        $("#c_amount").val(commission.toFixed(2));
+    });
+
+    $("#selectqty").change(function(){
+        var qty = Number($("#selectqty").val());
+        // console.log(qty);
+        var pamount = Number($("#regular_price").val());
+
+        if (qty == 2) {
+            var tamount = 40;
+        } else {
+            var tamount = pamount;
+        }
+
+        $("#qty").val(qty);
+        $("#pamount").val(tamount);
+        $("#amtshow").html(tamount.toFixed(2));
+        
+        var commission = (tamount * 10)/100;
+        var net_amount = tamount;
         $("#amount").val(net_amount.toFixed(2));
         $("#paypalamount").val(net_amount.toFixed(2));
         $("#c_amount").val(commission.toFixed(2));
