@@ -17,6 +17,7 @@ use App\Models\TicketSale;
 use App\Models\User;
 use App\Models\EmailContent;
 use App\Mail\PaymentMail;
+use App\Mail\EventPaymentMail;
 use App\Mail\ContactFormMail;
 
 class StripeController extends Controller
@@ -217,8 +218,6 @@ class StripeController extends Controller
                 ->send(new ContactFormMail($array));
         }
         
-
-
         return response()->json([
             'client_secret' => $paymentIntent->client_secret,
         ]);

@@ -26,11 +26,13 @@
 <section class="bleesed default">
     <div class="container">
         <div class="row">
+            
             <h3 class="fw-bold txt-primary mb-4">{{$data->title}}</h3>
             @if(session()->has('error'))
                 <p class="alert alert-danger"> {{ session()->get('error') }}</p>
-                @endif
-            <div class="col-lg-8">
+            @endif
+
+            <div class='col-md-8'>
                 <div class="popup-gallery shadow-sm p-4 bg-white">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -67,6 +69,48 @@
                         </button>
                     </div>
                 </div>
+            </div>
+            <div class='col-md-4'>
+                
+                <div class="card p-4 rounded sideCard mb-3">
+                    <div class=" display-6 fw-bold"> £@if (isset($totalcollection))
+                        {{$totalcollection}}
+                    @else 0 @endif  </div>
+                    <big> <span class="w-100 fw-bold">raised of £{{$data->raising_goal}} goal</span></big>
+
+                    <div class="d-flex justify-content-between my-3 ">
+                        @if (Auth::user())
+                            <a href="{{ route('frontend.campaignDonate',$data->id)}}" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
+                        @else
+                            <!-- Button trigger modal -->
+                            <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Donate Now
+                                </button>
+                        @endif
+                        <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
+                            data-bs-target="#shareModal">Share</button>
+                    </div>
+                    @foreach ($doners as $doner)
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5 class="user d-inline ms-2 fw-bold">
+                                    {{$doner->donation_display_name}}
+                                </h5>
+                            </div>
+                            <h3 class="fw-bold">£{{$doner->sumamount}}</h3>
+                        </div>
+                    @endforeach
+                    
+                    <div class="my-3">
+                        <a href="#" class="btn-theme bg-primary w-100 ms-1">View More..</a>
+                    </div>
+                </div>
+
+            </div>
+        <div>
+        <div class="row">
+            <div class="col-lg-8">
+                
                 <ul class="nav nav-tabs justify-content-start mt-4 mb-2 rounded-0" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link fs-5 active" id="home-tab" data-bs-toggle="tab"
@@ -139,39 +183,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card p-4 rounded sideCard mb-3">
-                    <div class=" display-6 fw-bold"> £@if (isset($totalcollection))
-                        {{$totalcollection}}
-                    @else 0 @endif  </div>
-                    <big> <span class="w-100 fw-bold">raised of £{{$data->raising_goal}} goal</span></big>
-
-                    <div class="d-flex justify-content-between my-3 ">
-                        @if (Auth::user())
-                            <a href="{{ route('frontend.campaignDonate',$data->id)}}" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
-                        @else
-                            <!-- Button trigger modal -->
-                            <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Donate Now
-                                </button>
-                        @endif
-                        <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
-                            data-bs-target="#shareModal">Share</button>
-                    </div>
-                    @foreach ($doners as $doner)
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div>
-                                <h5 class="user d-inline ms-2 fw-bold">
-                                    {{$doner->donation_display_name}}
-                                </h5>
-                            </div>
-                            <h3 class="fw-bold">£{{$doner->sumamount}}</h3>
-                        </div>
-                    @endforeach
-                    
-                    <div class="my-3">
-                        <a href="#" class="btn-theme bg-primary w-100 ms-1">View More..</a>
-                    </div>
-                </div>
+                
 
                 <div class="card p-4 rounded sideCard mb-3">
                     <div class="about-card text-center">

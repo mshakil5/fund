@@ -133,6 +133,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('feature-image-download/{id}', [CampaignController::class, 'downloadFeatureImage'])->name('download.featureimage');
     Route::get('bankdoc-download/{id}', [CampaignController::class, 'downloadBankDoc'])->name('download.bankdoc');
 
+    Route::post('event-book', [EventController::class, 'freeEventbooked']);
+
 });
 
 
@@ -175,6 +177,8 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('/event-ticket-sale/{id}', [EventController::class, 'eventTicketSaleShowByUser'])->name('user.eventTicketSales');
     Route::post('update-event', [EventController::class, 'eventUpdateByUser']);
 
+    
+
 
 });
   
@@ -186,7 +190,7 @@ All Agent Routes List
 Route::group(['prefix' =>'charity/', 'middleware' => ['auth', 'is_agent']], function(){
   
     Route::get('charity-profile', [HomeController::class, 'charityHome'])->name('charity.profile');
-    Route::post('profile-update', [UserController::class, 'updateProfile'])->name('user.updateprofile');
+    Route::post('profile-update', [UserController::class, 'updateProfile'])->name('charity.updateprofile');
     Route::get('all-transaction', [TransactionController::class, 'allCharityTransaction'])->name('charity.alltransaction');
 });
   

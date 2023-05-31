@@ -113,7 +113,7 @@
                             <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
                                 <input type="checkbox" id="terms" class="terms">
                                 <label for="terms" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
-                                    By Continuing, you afgree with GoGiving <a href="{{route('frontend.terms')}}">terms</a> and <a href="{{route('frontend.privacy')}}">privacy</a>  notice.
+                                    By Continuing, you agree with GoGiving <a href="{{route('frontend.terms')}}">terms</a> and <a href="{{route('frontend.privacy')}}">privacy</a>  notice.
                                 </label>
                             </div>
                         </div>
@@ -335,7 +335,7 @@
 </script>
 <script>
     // Create a Stripe instance with your publishable key
-    var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
+    var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
   
     // Create a card element and mount it to the card-element div
     var cardElement = stripe.elements().create('card');
