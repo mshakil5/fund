@@ -269,18 +269,25 @@
                         <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
 
                     </div>
-                    @if ($data->status == 1)
-                        @if (Auth::user())
-                            <a id="chkoutBtn" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Checkout</a>
-                        @else
-                            <!-- Button trigger modal -->
-                            <button type="button"  class="btn btn-theme bg-secondary w-100 mt-2 mx-auto" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Checkout
-                            </button>
+                    
+                    @if ($data->available < 1)
+                    <h4 class="darkerGrotesque-bold mb-0">No ticket available</h4>
+
+                    @else
+                        @if ($data->status == 1)
+                            @if (Auth::user())
+                                <a id="chkoutBtn" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Checkout</a>
+                            @else
+                                <!-- Button trigger modal -->
+                                <button type="button"  class="btn btn-theme bg-secondary w-100 mt-2 mx-auto" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    Checkout
+                                </button>
+                            @endif
+                            <button class="btn btn-theme bg-primary w-100 mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#shareModal">Share</button>
                         @endif
-                        <button class="btn btn-theme bg-primary w-100 mt-2 mx-auto" data-bs-toggle="modal"
-                            data-bs-target="#shareModal">Share</button>
                     @endif
+
+                    
                 </div>
 
                 <div class="border shadow-sm p-3 rounded mt-2">
