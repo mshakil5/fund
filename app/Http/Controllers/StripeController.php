@@ -32,7 +32,7 @@ class StripeController extends Controller
         $amt = $request->amount - $request->c_amount - $request->tips_amount;
 
         // Set your Stripe secret key
-        Stripe::setApiKey('sk_test_51N5D0QHyRsekXzKiOlfECHaMZZbQrelnyJjv2gNbL9YYEdq7LcWl4TLCZGjPStqsPrRCgAlaBTIpLUHl9F9rbtuY00ABjR2fFL');
+        Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
 
         // Create a PaymentIntent with the required amount and currency
         $paymentIntent = PaymentIntent::create([
@@ -111,7 +111,7 @@ class StripeController extends Controller
         $amt = $request->amount - $request->c_amount;
 
         // Set your Stripe secret key
-        Stripe::setApiKey('sk_test_51N5D0QHyRsekXzKiOlfECHaMZZbQrelnyJjv2gNbL9YYEdq7LcWl4TLCZGjPStqsPrRCgAlaBTIpLUHl9F9rbtuY00ABjR2fFL');
+        Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
 
         // Create a PaymentIntent with the required amount and currency
         $paymentIntent = PaymentIntent::create([
@@ -152,7 +152,7 @@ class StripeController extends Controller
         $amt = $request->amount - $request->c_amount;
 
         // Set your Stripe secret key
-        Stripe::setApiKey('sk_test_51N5D0QHyRsekXzKiOlfECHaMZZbQrelnyJjv2gNbL9YYEdq7LcWl4TLCZGjPStqsPrRCgAlaBTIpLUHl9F9rbtuY00ABjR2fFL');
+        Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
 
         // Create a PaymentIntent with the required amount and currency
         $paymentIntent = PaymentIntent::create([
@@ -215,7 +215,7 @@ class StripeController extends Controller
             $array['contactmail'] = $contactmail;
             Mail::to($contactmail)
                 ->cc($ccEmails)
-                ->send(new ContactFormMail($array));
+                ->send(new EventPaymentMail($array));
         }
         
         return response()->json([

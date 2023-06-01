@@ -42,6 +42,6 @@ class EventPaymentMail extends Mailable
     {
         return $this->from('do-not-reply@gogiving.co.uk', 'Gogiving')
                     ->subject($this->array['subject'])
-                    ->markdown('emails.contactmail');
+                    ->markdown('emails.eventpayment');
     }
 }

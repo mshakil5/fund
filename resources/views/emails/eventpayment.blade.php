@@ -1,0 +1,3 @@
+<p>
+    {!! $array['message'] !!}
+</p>
