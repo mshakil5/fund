@@ -31,7 +31,6 @@ class PaypalController extends Controller
 
     public function pay(Request $request)
     {
-        // test 
         session(['event_id' => $request->event_id]);
         session(['paypalqty' => $request->paypalqty]);
 
