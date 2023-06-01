@@ -3,7 +3,7 @@
 
 <h3>Dear Mr {{$array['name']}},</h3> 
      
-<p>Thank you for choosing to attend <strong>{{$array['eventname']}}</strong>. Here is the details:</p>
+<p>We are happy to confirm your booking for the upcoming event<strong>{{$array['eventname']}}</strong>. Here is the details:</p>
 
 
 
