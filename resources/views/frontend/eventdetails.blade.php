@@ -37,6 +37,13 @@
         </div>
     </div>
     <div class="container py-5">
+
+        <!-- Image loader -->
+        <div id='loading' style='display:none ;'>
+            <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+        </div>
+
+        
         <div class="row px-3">
 
             {{-- event details section  --}}
@@ -550,6 +557,8 @@ $("#freeEvntsub").click(function(){
 <script>
     // Create a Stripe instance with your publishable key
     var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+   
+    // var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
   
     // Create a card element and mount it to the card-element div
     var cardElement = stripe.elements().create('card');
@@ -560,9 +569,11 @@ $("#freeEvntsub").click(function(){
     form.addEventListener('submit', function(event) {
       event.preventDefault();
   
+      $("#loading").show();
       // Create a PaymentMethod and confirm the PaymentIntent on the backend
       stripe.createPaymentMethod('card', cardElement).then(function(result) {
         if (result.error) {
+            $("#loading").hide();
           // Handle errors (e.g. invalid card details)
           console.error(result.error);
           $(".ermsg").html("<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>"+result.error.message+"</b></div>");
@@ -601,10 +612,12 @@ $("#freeEvntsub").click(function(){
         if (data.client_secret) {
           stripe.confirmCardPayment(data.client_secret).then(function(result) {
             if (result.error) {
+                $("#loading").hide();
                 $(".ermsg").html("<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>"+result.error.message+"</b></div>");
               // Handle errors (e.g. authentication required)
               console.error(result.error);
             } else {
+                $("#loading").hide();
               // Payment successful
               $(".ermsg").html("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Payment Successfull.</b></div>");
               console.log(result.paymentIntent);

@@ -152,6 +152,7 @@ class StripeController extends Controller
         $amt = $request->amount - $request->c_amount;
 
         // Set your Stripe secret key
+        // Stripe::setApiKey('sk_test_51N5D0QHyRsekXzKiOlfECHaMZZbQrelnyJjv2gNbL9YYEdq7LcWl4TLCZGjPStqsPrRCgAlaBTIpLUHl9F9rbtuY00ABjR2fFL');
         Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
 
         // Create a PaymentIntent with the required amount and currency
@@ -202,12 +203,19 @@ class StripeController extends Controller
         $stripetopup->save();
         // Return the client secret to the frontend
         
+        $eventdetails = Event::where('id', $request->event_id)->first();
         $adminmail = ContactMail::where('id', 1)->first()->email;
         $contactmail = Auth::user()->email;
         $ccEmails = [$adminmail];
         $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
         
         if (isset($msg)) {
+            $array['eventname'] = $eventdetails->title;
+            $array['start'] = $eventdetails->event_start_date;
+            $array['vanue'] = $eventdetails->venue_name;
+            $array['quantity'] = $request->quantity;
+            $array['amount'] = $request->amount;
+            $array['tranNo'] = $stripetopup->tran_no;
             $array['name'] = Auth::user()->name;
             $array['email'] = Auth::user()->email;
             $array['subject'] = "Event ticket purchase confirmation";
