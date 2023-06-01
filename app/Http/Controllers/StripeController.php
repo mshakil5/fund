@@ -152,8 +152,8 @@ class StripeController extends Controller
         $amt = $request->amount - $request->c_amount;
 
         // Set your Stripe secret key
-        // Stripe::setApiKey('sk_test_51N5D0QHyRsekXzKiOlfECHaMZZbQrelnyJjv2gNbL9YYEdq7LcWl4TLCZGjPStqsPrRCgAlaBTIpLUHl9F9rbtuY00ABjR2fFL');
-        Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+        Stripe::setApiKey('sk_test_51N5D0QHyRsekXzKiOlfECHaMZZbQrelnyJjv2gNbL9YYEdq7LcWl4TLCZGjPStqsPrRCgAlaBTIpLUHl9F9rbtuY00ABjR2fFL');
+        // Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
 
         // Create a PaymentIntent with the required amount and currency
         $paymentIntent = PaymentIntent::create([

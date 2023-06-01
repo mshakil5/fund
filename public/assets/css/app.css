@@ -270,12 +270,8 @@ body {
   color: #18988B;
   font-family: "DarkerGrotesque-bold";
 }
-@media (max-width: 768px) {
-  .campaign .title, .why-donors .title {
-    text-align: center !important;
-    font-size: 3.6rem;
-  }
-}
+
+
 .campaign .paratitle, .why-donors .paratitle {
   font-size: 40px;
   line-height: 1;
