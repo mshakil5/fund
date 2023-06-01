@@ -351,6 +351,8 @@
       // Create a PaymentMethod and confirm the PaymentIntent on the backend
       stripe.createPaymentMethod('card', cardElement).then(function(result) {
         if (result.error) {
+            
+            $("#loading").hide();
           // Handle errors (e.g. invalid card details)
           console.error(result.error);
           $(".ermsg").html("<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>"+result.error.message+"</b></div>");

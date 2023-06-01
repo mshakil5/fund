@@ -159,7 +159,7 @@ class StripeController extends Controller
             'amount' => $totalamt * 100, // replace with your desired amount
             'currency' => 'GBP', // replace with your desired currency
             'payment_method' => $request->input('payment_method_id'),
-            "description" => "Donation",
+            "description" => "Event Ticket Booking",
             'confirm' => true,
             'confirmation_method' => 'manual',
         ]);
