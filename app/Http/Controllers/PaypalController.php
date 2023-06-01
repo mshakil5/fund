@@ -146,15 +146,14 @@ class PaypalController extends Controller
             }
         }
         else{
-            return 'Payment declined!!';
+            return view('frontend.paypalerror');
         }
     }
 
     public function error()
     {
-        return 'User declined the payment!';   
+        return view('frontend.paypaldecline');  
         
-        return view('frontend.paypalerror');
     }
 
 
