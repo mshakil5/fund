@@ -13,6 +13,7 @@ use App\Models\Event;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\PaymentMail;
+use App\Mail\EventPaymentMail;
 use App\Mail\ContactFormMail;
 use App\Models\EmailContent;
 use Mail;
@@ -110,9 +111,9 @@ class PaypalController extends Controller
                 $stripetopup->tran_type = "In";
                 $stripetopup->user_id = Auth::user()->id;
                 $stripetopup->event_id = $event_id;
-                $stripetopup->commission = $request->c_amount;
-                $stripetopup->amount = $request->amount;
-                $stripetopup->total_amount = $request->amount;
+                $stripetopup->commission = "0";
+                $stripetopup->amount = $amount;
+                $stripetopup->total_amount = $amount;
                 $stripetopup->token = time();
                 $stripetopup->description = "Event Payment";
                 $stripetopup->payment_type = "Paypal";
@@ -120,12 +121,20 @@ class PaypalController extends Controller
                 $stripetopup->status = "0";
                 $stripetopup->save();
 
+                
+                $eventdetails = Event::where('id', $event_id)->first();
                 $adminmail = ContactMail::where('id', 1)->first()->email;
                 $contactmail = Auth::user()->email;
                 $ccEmails = [$adminmail];
                 $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
                 
-                if ($msg) {
+                if (isset($msg)) {
+                    $array['eventname'] = $eventdetails->title;
+                    $array['start'] = $eventdetails->event_start_date;
+                    $array['vanue'] = $eventdetails->venue_name;
+                    $array['quantity'] = $paypalqty;
+                    $array['amount'] = $request->amount;
+                    $array['tranNo'] = $stripetopup->tran_no;
                     $array['name'] = Auth::user()->name;
                     $array['email'] = Auth::user()->email;
                     $array['subject'] = "Event ticket purchase confirmation";
@@ -133,7 +142,7 @@ class PaypalController extends Controller
                     $array['contactmail'] = $contactmail;
                     Mail::to($contactmail)
                         ->cc($ccEmails)
-                        ->send(new ContactFormMail($array));
+                        ->send(new EventPaymentMail($array));
                 }
                 
 
