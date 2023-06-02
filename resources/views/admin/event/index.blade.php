@@ -43,7 +43,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="moneyOut-tab" data-bs-toggle="tab"
                         data-bs-target="#moneyOut" type="button" role="tab" aria-controls="moneyOut"
-                        aria-selected="false">Event Summery</button>
+                        aria-selected="false">Event Summary</button>
                 </li>
                 
             </ul>
@@ -207,7 +207,7 @@
                             
                             <div class="col-lg-12">      
                                 <div>
-                                    <label for="summery" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Summery</label>
+                                    <label for="summery" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Summary</label>
                                     <input type="text" class="form-control" placeholder="Summery" id="summery" name="summery">
                                 </div>               
                             </div>

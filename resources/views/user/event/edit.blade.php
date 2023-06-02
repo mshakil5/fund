@@ -182,11 +182,11 @@
                                     <div class="row">
                                         <div class="col-md-3 text-start">
                                             <label for="" class="fs-5 fw-bold ">
-                                                Event summery:
+                                                Event summary:
                                             </label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="summery" id="summery" placeholder="Event summery" value="{{$data->summery}}"/> 
+                                            <input type="text" class="form-control" name="summery" id="summery" placeholder="Event summary" value="{{$data->summery}}"/> 
                                         </div>
                                     </div>
                                     <div class="row">

@@ -214,7 +214,7 @@
 
                             <div class="col-lg-12">      
                                 <div>
-                                    <label for="summery" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Summery</label>
+                                    <label for="summery" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Summary</label>
                                     <input type="text" class="form-control" placeholder="Summery" id="summery" name="summery" value="{{$data->summery}}">
                                 </div>               
                             </div>
