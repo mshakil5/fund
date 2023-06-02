@@ -61,7 +61,7 @@
                     <span class="text-muted">{{$data->available}}</span>
                 </h5>
                 <h5 class="darkerGrotesque-semibold lh-1 fs-5 mt-3 text-dark">
-                    <span class="darkerGrotesque-bold">Summery :</span>
+                    <span class="darkerGrotesque-bold">Summary :</span>
                     <span class="text-muted">{{$data->summery}}</span>
                 </h5>
                 <div class="row mb-3 mt-4">
