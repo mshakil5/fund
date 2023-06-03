@@ -81,9 +81,9 @@ class RegisterController extends Controller
             $array['subject'] = "GoGiving registration successfull.";
             $array['message'] = $msg;
             $array['contactmail'] = $contactmail;
-            // Mail::to($contactmail)
-            //     ->cc($ccEmails)
-            //     ->send(new ContactFormMail($array));
+            Mail::to($contactmail)
+                ->cc($ccEmails)
+                ->send(new ContactFormMail($array));
 
             // mail
             $array['name'] = $data['name'];
