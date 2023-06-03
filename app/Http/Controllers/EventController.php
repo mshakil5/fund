@@ -195,6 +195,7 @@ class EventController extends Controller
             $name = Auth::user()->name;
 
             $array['contactmail'] = $email;
+            $array['eventid'] = $data->id;
             $array['name'] = $name;
             $array['message'] = $msg;
             $array['subject'] = "Your event create successfull.";
