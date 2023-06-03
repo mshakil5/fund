@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\ContactMail;
+use App\Models\EmailContent;
+use App\Mail\ContactFormMail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -51,13 +55,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'surname' => 'required',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'house_number' => 'required',
-            'town' => 'required',
-            'street_name' => 'required',
             'phone' => 'required',
-            'postcode' => 'required',
             'password' => ['required','min:6'],
             'confirm_password' => 'required|same:password',
         ]);
@@ -72,18 +71,34 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        $sname = $data['surname'];
+        // $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
+        // $adminmail = ContactMail::where('id', 1)->first()->email;
+        // $contactmail = Auth::user()->email;
+        // $ccEmails = [$adminmail];
+        //     $array['name'] = $data['name'];
+        //     $array['email'] = $data['email'];
+        //     $array['subject'] = "GoGiving registration successfull.";
+        //     $array['message'] = $msg;
+        //     $array['contactmail'] = $contactmail;
+        //     Mail::to($contactmail)
+        //     ->send(new ContactFormMail($array));
 
-        // dd( $sname);
+        // return User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'sur_name' => $data['surname'],
+        //     'house_number' => $data['house_number'],
+        //     'town' => $data['town'],
+        //     'street_name' => $data['street_name'],
+        //     'phone' => $data['phone'],
+        //     'postcode' => $data['postcode'],
+        //     'password' => Hash::make($data['password'])
+        // ]);
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'sur_name' => $data['surname'],
-            'house_number' => $data['house_number'],
-            'town' => $data['town'],
-            'street_name' => $data['street_name'],
             'phone' => $data['phone'],
-            'postcode' => $data['postcode'],
             'password' => Hash::make($data['password'])
         ]);
     }

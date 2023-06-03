@@ -288,10 +288,8 @@
                                 <th style="text-align: center">Title</th>
                                 <th style="text-align: center">Event Organizer</th>
                                 <th style="text-align: center">Category</th>
-                                <th style="text-align: center">Event Start </th>
-                                <th style="text-align: center">Event Start </th>
-                                <th style="text-align: center">Sale Start </th>
-                                <th style="text-align: center">Sale End </th>
+                                <th style="text-align: center">Event Start & End Date </th>
+                                <th style="text-align: center">Sale Start & End Date </th>
                                 <th style="text-align: center">Price</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Action</th>
@@ -306,10 +304,9 @@
                                         </td>
                                         <td style="text-align: center">{{$data->user->name}}</td>
                                         <td style="text-align: center">{{$data->category}}</td>
-                                        <td style="text-align: center">{{$data->event_start_date}}</td>
-                                        <td style="text-align: center">{{$data->event_end_date}}</td>
-                                        <td style="text-align: center">{{$data->sale_start_date}}</td>
-                                        <td style="text-align: center">{{$data->sale_end_date}}</td>
+                                        
+                                        <td style="text-align: center">{{ \Carbon\Carbon::parse($data->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($data->event_end_date)->format('d/m/Y') }}</td>
+                                        <td style="text-align: center">{{ \Carbon\Carbon::parse($data->sale_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($data->sale_end_date)->format('d/m/Y') }}</td>
 
                                         <td style="text-align: center">{{$data->price}}</td>
                                         <td style="text-align: center">
@@ -322,7 +319,13 @@
                                         <td style="text-align: center">
 
                                             <a href="{{route('admin.eventEdit',$data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
-                                            <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
+
+                                            <a href="{{route('admin.eventSaleRecord',$data->id)}}"> <i class="fa fa-eye" style="color: #287828;font-size:16px;"> </i></a>
+
+
+                                            @if ($data->status == 0)
+                                                <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
+                                            @endif
 
                                             
                                         </td>

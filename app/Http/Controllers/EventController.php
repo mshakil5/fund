@@ -59,6 +59,12 @@ class EventController extends Controller
         return view('user.event.saleslist',compact('data'));
     }
 
+    public function eventTicketSaleShowByAdmin($id)
+    {
+        $data = Event::with('eventimage','eventticket')->where('id', $id)->first();
+        return view('admin.event.saleslist',compact('data'));
+    }
+
     public function eventCreateByUser(Request $request)
     {
         if(empty($request->title)){

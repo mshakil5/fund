@@ -16,7 +16,7 @@
                         <div class="title darkerGrotesque-bold lh-1 fs-1">
                             Create an event
                         </div>
-                        <h5 class="para text-center mt-3 text-muted fs-6">
+                        <h5 class="para text-left mt-3 text-muted fs-6">
                             we are here to guide you every step for thre way
                         </h5>
                         <div class="ermsg"></div>

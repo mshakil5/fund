@@ -174,6 +174,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('active-event', [EventController::class, 'activeEvent']);
     Route::get('/event-edit/{id}', [EventController::class, 'editEventByAdmin'])->name('admin.eventEdit');
     Route::post('/event-update', [EventController::class, 'updateEventByAdmin']);
+    Route::get('/event-ticket-sale/{id}', [EventController::class, 'eventTicketSaleShowByAdmin'])->name('admin.eventSaleRecord');
 
 });
 //admin part end
