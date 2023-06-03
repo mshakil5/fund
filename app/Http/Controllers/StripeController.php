@@ -32,7 +32,7 @@ class StripeController extends Controller
         $amt = $request->amount - $request->c_amount - $request->tips_amount;
 
         // Set your Stripe secret key
-        Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         // Create a PaymentIntent with the required amount and currency
         $paymentIntent = PaymentIntent::create([
@@ -58,7 +58,7 @@ class StripeController extends Controller
         $stripetopup->total_amount = $request->amount;
         $stripetopup->token = time();
         if ($request->displaynameshow == "yes") {
-            $stripetopup->donation_display_name = "Kind Soul";
+            $stripetopup->donation_display_name = " ";
             $stripetopup->show_name = "0";
         } else {
             $stripetopup->donation_display_name = $request->displayname;
@@ -111,7 +111,7 @@ class StripeController extends Controller
         $amt = $request->amount - $request->c_amount;
 
         // Set your Stripe secret key
-        Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         // Create a PaymentIntent with the required amount and currency
         $paymentIntent = PaymentIntent::create([
@@ -152,8 +152,7 @@ class StripeController extends Controller
         $amt = $request->amount - $request->c_amount;
 
         // Set your Stripe secret key
-        // Stripe::setApiKey('sk_test_51N5D0QHyRsekXzKiOlfECHaMZZbQrelnyJjv2gNbL9YYEdq7LcWl4TLCZGjPStqsPrRCgAlaBTIpLUHl9F9rbtuY00ABjR2fFL');
-        Stripe::setApiKey('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+        Stripe::setApiKey(config('app.STRIPE_SECRET'));
 
         // Create a PaymentIntent with the required amount and currency
         $paymentIntent = PaymentIntent::create([

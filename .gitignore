@@ -7,8 +7,8 @@
 /public/images
 /storage/*.key
 /vendor
-/app/Http/Controllers/PaypalController.php
-/app/Http/Controllers/StripeController.php
+app/Http/Controllers/PaypalController.php
+app/Http/Controllers/StripeController.php
 .env
 .htaccess
 .env.backup
