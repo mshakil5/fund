@@ -137,7 +137,7 @@ class PaypalController extends Controller
                     $array['tranNo'] = $stripetopup->tran_no;
                     $array['name'] = Auth::user()->name;
                     $array['email'] = Auth::user()->email;
-                    $array['subject'] = "Event Booking Confirmation";
+                    $array['subject'] = "Booking Confirmation";
                     $array['message'] = $msg;
                     $array['contactmail'] = $contactmail;
                     Mail::to($contactmail)

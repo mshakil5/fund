@@ -66,6 +66,16 @@ class EventController extends Controller
         return view('admin.event.saleslist',compact('data'));
     }
 
+    public function deleteByAdmin($id)
+    {
+        if(Event::destroy($id)){
+            return response()->json(['success'=>true,'message'=>'Listing Deleted']);
+        }
+        else{
+            return response()->json(['success'=>false,'message'=>'Update Failed']);
+        }
+    }
+
     public function eventCreateByUser(Request $request)
     {
         if(empty($request->title)){
@@ -197,7 +207,7 @@ class EventController extends Controller
             $array['eventid'] = $data->id;
             $array['name'] = $name;
             $array['message'] = $msg;
-            $array['subject'] = "Your event create successfull.";
+            $array['subject'] = "Congrats! You create your event.";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
 
             $a = Mail::to($email)->cc('info@gogiving.co.uk')
@@ -342,13 +352,11 @@ class EventController extends Controller
             $array['eventid'] = $data->id;
             $array['name'] = $name;
             $array['message'] = $msg;
-            $array['subject'] = "Your event update successfull.";
+            $array['subject'] = "Congrats! You update your event.";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
             
-            $a = Mail::send('emails.event_create', compact('array'), function($message)use($array,$email) {
-                    $message->from($array['from'], 'gogiving.co.uk');
-                    $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
-            });
+            $a = Mail::to($email)->cc('info@gogiving.co.uk')
+                ->send(new EventCreateMail($array));
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event updated successfully.</b></div>";
             // $message = $request->image[0];
@@ -485,13 +493,11 @@ class EventController extends Controller
             $array['eventid'] = $data->id;
             $array['name'] = $name;
             $array['message'] = $msg;
-            $array['subject'] = "Your event create successfull.";
+            $array['subject'] = "Congrats! we create your event.";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
             
-            $a = Mail::send('emails.event_create', compact('array'), function($message)use($array,$email) {
-                    $message->from($array['from'], 'gogiving.co.uk');
-                    $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
-            });
+            $a = Mail::to($email)->cc('info@gogiving.co.uk')
+                ->send(new EventCreateMail($array));
 
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>New event create successfully.</b></div>";
@@ -521,7 +527,7 @@ class EventController extends Controller
             
             $array['name'] = $eventuser->name;
             $array['email'] = $eventuser->email;
-            $array['subject'] = "Your event active successfully";
+            $array['subject'] = "Congrats! We published your event.";
             $array['message'] = $msg;
             $array['contactmail'] = $contactmail;
             Mail::to($contactmail)

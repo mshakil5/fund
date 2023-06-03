@@ -80,7 +80,7 @@ class RegisterController extends Controller
             $array['name'] = $data['name'];
             $array['email'] = $data['email'];
             $array['message'] = $msg;
-            $array['subject'] = "GoGiving registration successfull.";
+            $array['subject'] = "Welcome to gogiving.co.uk";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
             $email = $data['email'];
 
