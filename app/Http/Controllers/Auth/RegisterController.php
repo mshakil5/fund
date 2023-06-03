@@ -75,27 +75,19 @@ class RegisterController extends Controller
         $msg = EmailContent::where('title','=','user_registration_mail')->first()->description;
         $adminmail = ContactMail::where('id', 1)->first()->email;
         $contactmail = $data['email'];
-        $ccEmails = [$adminmail];
-            $array['name'] = $data['name'];
-            $array['email'] = $data['email'];
-            $array['subject'] = "GoGiving registration successfull.";
-            $array['message'] = $msg;
-            $array['contactmail'] = $contactmail;
-            // Mail::to($contactmail)
-            //     ->cc($ccEmails)
-            //     ->send(new ContactFormMail($array));
 
-            // mail
+            $array['contactmail'] = $contactmail;
             $array['name'] = $data['name'];
             $array['message'] = $msg;
             $array['subject'] = "GoGiving registration successfull.";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
             $email = $data['email'];
-            $ccEmail = $adminmail;
+            
             $a = Mail::send('emails.register', compact('array'), function($message)use($array,$email) {
                     $message->from($array['from'], 'gogiving.co.uk');
                     $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
             });
+            
         if ($a) {
            
             return User::create([
@@ -109,11 +101,6 @@ class RegisterController extends Controller
             return "Error";
         }
         
-
-        
-
-
-
         // return User::create([
         //     'name' => $data['name'],
         //     'email' => $data['email'],
@@ -127,56 +114,5 @@ class RegisterController extends Controller
         // ]);
     }
 
-    // protected function create2(array $data)
-    // {
-
-    //     $msg = EmailContent::where('title','=','user_registration_mail')->first()->description;
-    //     $adminmail = ContactMail::where('id', 1)->first()->email;
-    //     $contactmail = $data['email'];
-    //     $ccEmails = [$adminmail];
-    //         $array['name'] = $data['name'];
-    //         $array['email'] = $data['email'];
-    //         $array['subject'] = "GoGiving registration successfull.";
-    //         $array['message'] = $msg;
-    //         $array['contactmail'] = $contactmail;
-    //         // Mail::to($contactmail)
-    //         //     ->cc($ccEmails)
-    //         //     ->send(new ContactFormMail($array));
-
-    //         // mail
-    //         $array['name'] = $data['name'],
-    //         $array['message'] = $msg,
-    //         $array['subject'] = "GoGiving registration successfull.",
-    //         $array['from'] = 'do-not-reply@gogiving.co.uk',
-    //         $email = $data['email'],
-    //         $ccEmail = $adminmail,
-    //         Mail::send('emails.register', compact('array'), function($message)use($array,$email) {
-    //         $message->from($array['from'], 'gogiving.co.uk');
-    //         $message->to($email)->subject($array['subject']);
-    //         }),
-
-    //     return User::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'phone' => $data['phone'],
-    //         'password' => Hash::make($data['password']),
-
-            
-
-    //     ]);
-
-
-
-    //     // return User::create([
-    //     //     'name' => $data['name'],
-    //     //     'email' => $data['email'],
-    //     //     'sur_name' => $data['surname'],
-    //     //     'house_number' => $data['house_number'],
-    //     //     'town' => $data['town'],
-    //     //     'street_name' => $data['street_name'],
-    //     //     'phone' => $data['phone'],
-    //     //     'postcode' => $data['postcode'],
-    //     //     'password' => Hash::make($data['password'])
-    //     // ]);
-    // }
+    
 }

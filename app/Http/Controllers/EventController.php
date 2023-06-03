@@ -186,6 +186,25 @@ class EventController extends Controller
                     $pic->save();
                 }
             }
+
+
+            $msg = EmailContent::where('title','=','event_create_confirmation_mail')->first()->description;
+            $adminmail = ContactMail::where('id', 1)->first()->email;
+            
+            $email = Auth::user()->email;
+            $name = Auth::user()->name;
+
+            $array['contactmail'] = $email;
+            $array['name'] = $name;
+            $array['message'] = $msg;
+            $array['subject'] = "Your event create successfull.";
+            $array['from'] = 'do-not-reply@gogiving.co.uk';
+            
+            $a = Mail::send('emails.event_create', compact('array'), function($message)use($array,$email) {
+                    $message->from($array['from'], 'gogiving.co.uk');
+                    $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
+            });
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>New event create successfully.</b></div>";
             // $message = $request->image[0];
             return response()->json(['status'=> 300,'message'=>$message]);
