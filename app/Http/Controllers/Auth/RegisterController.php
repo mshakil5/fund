@@ -81,9 +81,9 @@ class RegisterController extends Controller
             $array['subject'] = "GoGiving registration successfull.";
             $array['message'] = $msg;
             $array['contactmail'] = $contactmail;
-            Mail::to($contactmail)
-                ->cc($ccEmails)
-                ->send(new ContactFormMail($array));
+            // Mail::to($contactmail)
+            //     ->cc($ccEmails)
+            //     ->send(new ContactFormMail($array));
 
             // mail
             $array['name'] = $data['name'];
@@ -92,9 +92,9 @@ class RegisterController extends Controller
             $array['from'] = 'do-not-reply@gogiving.co.uk';
             $email = $data['email'];
             $ccEmail = $adminmail;
-        $a = Mail::send('emails.register', compact('array'), function($message)use($array,$email) {
-                $message->from($array['from'], 'gogiving.co.uk');
-                $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
+            $a = Mail::send('emails.register', compact('array'), function($message)use($array,$email) {
+                    $message->from($array['from'], 'gogiving.co.uk');
+                    $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
             });
         if ($a) {
            
