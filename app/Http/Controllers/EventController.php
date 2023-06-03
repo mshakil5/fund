@@ -10,6 +10,7 @@ use App\Models\User;
 use Mail;
 use App\Models\EmailContent;
 use App\Mail\ContactFormMail;
+use App\Mail\EventActiveMail;
 use App\Mail\EventCreateMail;
 use App\Models\ContactMail;
 use App\Models\EventTransaction;
@@ -524,6 +525,13 @@ class EventController extends Controller
             $contactmail = $eventuser->email;
             $ccEmails = [$adminmail];
             $msg = EmailContent::where('title','=','event_active_email')->first()->description;
+            $wordCount = str_word_count($msg);
+            $words = str_word_count($msg, 2);
+            $first3Words = implode(' ', array_slice($words, 0, 3));
+            $first30Words = implode(' ', array_slice($words, 3, 19));
+            $remainingWords = implode(' ', array_slice($words, 200));
+
+            // dd($wordCount);
             
             $array['name'] = $eventuser->name;
             $array['email'] = $eventuser->email;
@@ -531,12 +539,12 @@ class EventController extends Controller
             $array['message'] = $msg;
             $array['contactmail'] = $contactmail;
             Mail::to($contactmail)
-                ->cc($ccEmails)
-                ->send(new ContactFormMail($array));
+                // ->cc($ccEmails)
+                ->send(new EventActiveMail($array));
 
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message]);
+            return response()->json(['status'=> 300,'message'=>$first30Words]);
         }else{
             $deactive = Event::find($request->id);
             $deactive->status = $request->status;

@@ -214,6 +214,38 @@
                                     <h5 class="txt-primary mb-4 text-center fs-4"> Create ticket </h5>
 
                                     <div class="row"> 
+                                        <table class="text-left">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="text-center">Type</th>
+                                                    <th scope="col" class="text-center">Quantity</th>
+                                                    <th scope="col" class="text-center">Price</th>
+                                                    <th scope="col" class="text-center">Note</th>
+                                                    <th scope="col" class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="priceinner">
+                                                <tr>
+                                                    <td class="px-2"><input type="text"    id="type" name="type[]"  class="form-control"></td>
+                                                    <td class="px-2"><input type="number"  id="qty" name="qty[]"  class="form-control"></td>
+                                                    <td class="px-2"><input type="number"  id="ticket_price" name="ticket_price[]"  class="form-control"></td>
+                                                    <td class="px-2"><input type="text"    id="note" name="note[]"  class="form-control"></td>
+                                                    {{-- <td width="50px" style="padding-left:2px"><div style="color: white;  user-select:none;  padding: 2px;    background: red;    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;" onclick="removeRow(event)">X</div></td> --}}
+                                                    <td><a class="btn btn-sm btn-theme bg-secondary ms-1 add-new-row" id="addnewrow">+</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="px-2"><input type="text"    id="type" name="type[]"  class="form-control"></td>
+                                                    <td class="px-2"><input type="number"  id="qty" name="qty[]"  class="form-control"></td>
+                                                    <td class="px-2"><input type="number"  id="ticket_price" name="ticket_price[]"  class="form-control"></td>
+                                                    <td class="px-2"><input type="text"    id="note" name="note[]"  class="form-control"></td>
+                                                    <td width="50px" style="padding-left:2px"><div style="color: white;  user-select:none;  padding: 2px;    background: red;    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;" onclick="removeRow(event)">X</div></td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="row"> 
                                         <div class="col-md-3 text-start">
                                             <label for="" class="fs-5 fw-bold ">
                                                 Quantity of ticket:
@@ -223,7 +255,7 @@
                                             <input type="number" name="quantity" id="quantity" class="form-control" placeholder="Quantity of ticket">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-3 text-start">
                                             <label for="" class="fs-5 fw-bold ">
                                                 Ticket Price:
@@ -232,7 +264,7 @@
                                         <div class="col-md-9">
                                             <input type="number" placeholder="Ticket Price" id="price" name="price" class="form-control">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row">
                                         <div class="col-md-3 text-start">
                                             <label for="" class="fs-5 fw-bold ">
@@ -363,7 +395,18 @@
 </script>
 <script>
     
-    var storedFiles = [];
+    function removeRow(event) {
+        event.target.parentElement.parentElement.remove(); 
+    }
+
+    $("#addnewrow").click(function() {
+
+    var pmarkup = '<tr><td class="px-2"><input type="text" id="type" name="type[]" class="form-control"></td><td class="px-2"><input type="number" id="qty" name="qty[]" class="form-control"></td><td class="px-2"><input type="number" id="ticket_price" name="ticket_price[]" class="form-control"></td><td class="px-2"><input type="text" id="note" name="note[]" class="form-control"></td><td width="50px" style="padding-left:2px"><div style="color:#fff;user-select:none;padding:2px;background:red;width:25px;display:flex;align-items:center;margin-right:5px;justify-content:center;border-radius:4px;left:4px" onclick="removeRow(event)">X</div></td></tr>';
+    $("div #priceinner ").append(pmarkup);
+
+    });
+
+var storedFiles = [];
 $(document).ready(function () { 
     //header for csrf-token is must in laravel
     $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });

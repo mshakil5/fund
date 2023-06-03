@@ -368,15 +368,15 @@
               url: url,
               data: {'status': status, 'id': id},
               success: function(d){
-                // console.log(data.success)
+                console.log(d)
                 if (d.status == 303) {
                         pagetop();
                         $(".stsermsg").html(d.message);
-                        window.setTimeout(function(){location.reload()},2000)
+                        // window.setTimeout(function(){location.reload()},2000)
                     }else if(d.status == 300){
                         pagetop();
                         $(".stsermsg").html(d.message);
-                        window.setTimeout(function(){location.reload()},2000)
+                        // window.setTimeout(function(){location.reload()},2000)
                     }
                 },
                 error: function (d) {
