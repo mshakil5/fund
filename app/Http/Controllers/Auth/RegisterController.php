@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\ContactMail;
 use App\Models\EmailContent;
 use Mail;
-use App\Mail\ContactFormMail;
+use App\Mail\RegistrationMail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -78,15 +78,21 @@ class RegisterController extends Controller
 
             $array['contactmail'] = $contactmail;
             $array['name'] = $data['name'];
+            $array['email'] = $data['email'];
             $array['message'] = $msg;
             $array['subject'] = "GoGiving registration successfull.";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
             $email = $data['email'];
+
             
-            $a = Mail::send('emails.register', compact('array'), function($message)use($array,$email) {
-                    $message->from($array['from'], 'gogiving.co.uk');
-                    $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
-            });
+            $a = Mail::to($contactmail)
+                ->send(new RegistrationMail($array));
+            
+            // $a = Mail::send('emails.register', compact('array'), function($message)use($array,$email)   
+            //     {
+            //         $message->from($array['from'], 'gogiving.co.uk');
+            //         $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
+            //     });
             
         if ($a) {
            

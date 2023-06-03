@@ -10,6 +10,7 @@ use App\Models\User;
 use Mail;
 use App\Models\EmailContent;
 use App\Mail\ContactFormMail;
+use App\Mail\EventCreateMail;
 use App\Models\ContactMail;
 use App\Models\EventTransaction;
 use Illuminate\support\Facades\Auth;
@@ -190,21 +191,17 @@ class EventController extends Controller
 
             $msg = EmailContent::where('title','=','event_create_confirmation_mail')->first()->description;
             $adminmail = ContactMail::where('id', 1)->first()->email;
-            
             $email = Auth::user()->email;
             $name = Auth::user()->name;
-
             $array['contactmail'] = $email;
             $array['eventid'] = $data->id;
             $array['name'] = $name;
             $array['message'] = $msg;
             $array['subject'] = "Your event create successfull.";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
-            
-            $a = Mail::send('emails.event_create', compact('array'), function($message)use($array,$email) {
-                    $message->from($array['from'], 'gogiving.co.uk');
-                    $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
-            });
+
+            $a = Mail::to($email)->cc('info@gogiving.co.uk')
+                ->send(new EventCreateMail($array));
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>New event create successfully.</b></div>";
             // $message = $request->image[0];
@@ -315,7 +312,7 @@ class EventController extends Controller
             $request->fimage->move(public_path('images/event'), $imageName);
             $data->image= $imageName;
         }
-        $data->created_by = Auth::user()->id;
+        $data->updated_by = Auth::user()->id;
         if ($data->save()) {
             //image upload start
             if ($request->image) {
@@ -335,6 +332,24 @@ class EventController extends Controller
                     $pic->save();
                 }
             }
+
+
+            $msg = EmailContent::where('title','=','event_create_confirmation_mail')->first()->description;
+            $adminmail = ContactMail::where('id', 1)->first()->email;
+            $email = Auth::user()->email;
+            $name = Auth::user()->name;
+            $array['contactmail'] = $email;
+            $array['eventid'] = $data->id;
+            $array['name'] = $name;
+            $array['message'] = $msg;
+            $array['subject'] = "Your event update successfull.";
+            $array['from'] = 'do-not-reply@gogiving.co.uk';
+            
+            $a = Mail::send('emails.event_create', compact('array'), function($message)use($array,$email) {
+                    $message->from($array['from'], 'gogiving.co.uk');
+                    $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
+            });
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event updated successfully.</b></div>";
             // $message = $request->image[0];
             return response()->json(['status'=> 300,'message'=>$message]);
@@ -446,7 +461,6 @@ class EventController extends Controller
             if ($request->image) {
                 // $media= [];
                 foreach ($request->image as $img) {
-                    
                     $rand = mt_rand(100000, 999999);
                     $imageName = time(). $rand .'.'.$img->extension();
                     $img->move(public_path('images/event'), $imageName);
@@ -454,12 +468,32 @@ class EventController extends Controller
                     $pic = new EventImage();
                     $pic->image = $imageName;
                     $pic->title = "Slider";
-                    $pic->user_id = Auth::user()->id;
+                    $pic->user_id = $request->user_id;
                     $pic->event_id = $data->id;
                     $pic->created_by = Auth::user()->id;
                     $pic->save();
                 }
             }
+
+            $userdtls = User::where('id', $request->user_id)->first();
+
+            $msg = EmailContent::where('title','=','event_create_confirmation_mail')->first()->description;
+            $adminmail = ContactMail::where('id', 1)->first()->email;
+            $email = $userdtls->email;
+            $name = $userdtls->name;
+            $array['contactmail'] = $email;
+            $array['eventid'] = $data->id;
+            $array['name'] = $name;
+            $array['message'] = $msg;
+            $array['subject'] = "Your event create successfull.";
+            $array['from'] = 'do-not-reply@gogiving.co.uk';
+            
+            $a = Mail::send('emails.event_create', compact('array'), function($message)use($array,$email) {
+                    $message->from($array['from'], 'gogiving.co.uk');
+                    $message->to($email)->cc('towhid10@gmail.com')->subject($array['subject']);
+            });
+
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>New event create successfully.</b></div>";
             // $message = $request->image[0];
             return response()->json(['status'=> 300,'message'=>$message]);
