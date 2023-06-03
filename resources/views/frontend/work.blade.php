@@ -170,7 +170,7 @@
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora quos fugiat nostrum voluptas quas laboriosam explicabo harum illo deleniti cupiditate optio hic iure, quae officia.
+                                Updating...
                             </div>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora quos fugiat nostrum voluptas quas laboriosam explicabo harum illo deleniti cupiditate optio hic iure, quae officia.
+                                Updating...
                             </div>
                         </div>
                     </div>
@@ -194,7 +194,7 @@
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora quos fugiat nostrum voluptas quas laboriosam explicabo harum illo deleniti cupiditate optio hic iure, quae officia.
+                                Updating...
                             </div>
                         </div>
                     </div>
@@ -206,33 +206,19 @@
                         </h2>
                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora quos fugiat nostrum voluptas quas laboriosam explicabo harum illo deleniti cupiditate optio hic iure, quae officia.
+                                Updating...
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingFive">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                What is GiftAid and how does it work?
+                                What is GoGiving and how does it work?
                             </button>
                         </h2>
                         <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
                             <div class="accordion-body">
-                                Gift aid is an arrangement between the government and charities in the United
-                                Kingdom where charities can claim back basic rate tax on donations from qualifying
-                                donors. This means that for every pound donated by a qualifying donor, the charity
-                                can reclaim 25p from HMRC.
-
-                                For example, if somebody donates £100 to a charity, the charity can reclaim an
-                                additional £25 from HM Revenue and Customs (HMRC), making the total value of the
-                                donation £125.
-
-                                The system works by the taxpayer completing a self-assessment form (known as a Gift
-                                Aid declaration) which authorises the charity to reclaim tax on their behalf. The
-                                money is then paid back to the charity by HMRC.
-
-                                At Donation, we’ll do that for you. You just need to open an account and we’ll make
-                                sure that your donation is increased by 25%.
+                                Updating...
 
                             </div>
                         </div>

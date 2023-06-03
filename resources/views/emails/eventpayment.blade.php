@@ -3,8 +3,7 @@
 
 <h3>Dear Mr {{$array['name']}},</h3> 
      
-<p>We are happy to confirm your booking for the upcoming event<strong>{{$array['eventname']}}</strong>. Here is the details:</p>
-
+<p>{!! $array['message'] !!}<strong>{{$array['eventname']}}</strong>.</p> <p>Here is the details:</p>
 
 
 @component('mail::table')

@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class RegistrationMail extends Mailable
+class EventCreateMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -37,6 +37,6 @@ class RegistrationMail extends Mailable
     {
         return $this->from('do-not-reply@gogiving.co.uk', 'Gogiving')
                     ->subject($this->array['subject'])
-                    ->markdown('emails.register');
+                    ->markdown('emails.event_create');
     }
 }
