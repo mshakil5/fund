@@ -9,9 +9,14 @@ class Event extends Model
 {
     use HasFactory;
 
-    public function eventimage()
+    public function eventprice()
     {
         return $this->hasMany(EventImage::class);
+    }
+
+    public function eventimage()
+    {
+        return $this->hasMany(EventPrice::class);
     }
 
     public function user()

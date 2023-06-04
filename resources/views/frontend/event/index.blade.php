@@ -42,10 +42,10 @@
 
                                     <div class="row">
                                         <div class="col-md-3 text-start">
-                                            <label for="" class="fs-5 fw-bold ">Event Organizer: </label>
+                                            <label for="" class="fs-5 fw-bold ">Event Organiser: </label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" id="organizer" name="organizer"  class="form-control" placeholder="Organizer" />
+                                            <input type="text" id="organizer" name="organizer"  class="form-control" placeholder="Organiser" />
                                         </div>
                                     </div>
                                     
@@ -213,7 +213,19 @@
                                     <h3 class="fs-subtitle para fs-6 txt-secondary mb-0 text-center "> Step 4</h3>
                                     <h5 class="txt-primary mb-4 text-center fs-4"> Create ticket </h5>
 
+                                    
+
                                     <div class="row"> 
+                                        <div class="col-md-1 text-start">
+                                            <input type="checkbox" id="pricecheck" value="1" class="me-2">
+                                        </div>
+                                        <div class="col-md-11 text-start">
+                                            Check this if event entry is free.
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row pricediv"> 
                                         <table class="text-left">
                                             <thead>
                                                 <tr>
@@ -229,17 +241,10 @@
                                                     <td class="px-2"><input type="text"    id="type" name="type[]"  class="form-control"></td>
                                                     <td class="px-2"><input type="number"  id="qty" name="qty[]"  class="form-control"></td>
                                                     <td class="px-2"><input type="number"  id="ticket_price" name="ticket_price[]"  class="form-control"></td>
-                                                    <td class="px-2"><input type="text"    id="note" name="note[]"  class="form-control"></td>
-                                                    {{-- <td width="50px" style="padding-left:2px"><div style="color: white;  user-select:none;  padding: 2px;    background: red;    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;" onclick="removeRow(event)">X</div></td> --}}
+                                                    <td class="px-2"><input type="text" id="note" name="note[]"  class="form-control"></td>
                                                     <td><a class="btn btn-sm btn-theme bg-secondary ms-1 add-new-row" id="addnewrow">+</a></td>
                                                 </tr>
-                                                <tr>
-                                                    <td class="px-2"><input type="text"    id="type" name="type[]"  class="form-control"></td>
-                                                    <td class="px-2"><input type="number"  id="qty" name="qty[]"  class="form-control"></td>
-                                                    <td class="px-2"><input type="number"  id="ticket_price" name="ticket_price[]"  class="form-control"></td>
-                                                    <td class="px-2"><input type="text"    id="note" name="note[]"  class="form-control"></td>
-                                                    <td width="50px" style="padding-left:2px"><div style="color: white;  user-select:none;  padding: 2px;    background: red;    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;" onclick="removeRow(event)">X</div></td>
-                                                </tr>
+                                                
                                                 
                                             </tbody>
                                         </table>
@@ -392,6 +397,15 @@
     $('.summernote').summernote({
         height: 200
     });
+
+    $("#pricecheck").click(function() {
+        if($(this).is(":checked")) {
+            $(".pricediv").hide(200);
+        } else {
+            $(".pricediv").show(300);
+        }
+    });
+
 </script>
 <script>
     
@@ -446,6 +460,30 @@ $(document).ready(function () {
             form_data.append("sale_end_date", $("#sale_end_date").val());
             form_data.append("sale_start_date", $("#sale_start_date").val());
 
+            if ($('#pricecheck').is(":checked"))
+            {
+                form_data.append("is_free", $("#pricecheck").val());
+            }
+
+                var type = $("input[name='type[]']")
+                    .map(function(){return $(this).val();}).get();
+
+                var qty = $("input[name='qty[]']")
+                    .map(function(){return $(this).val();}).get();
+
+                var ticket_price = $("input[name='ticket_price[]']")
+                    .map(function(){return $(this).val();}).get();
+
+                var note = $("input[name='note[]']")
+                    .map(function(){return $(this).val();}).get();
+
+                    form_data.append('type', type);
+                    form_data.append('qty', qty);
+                    form_data.append('ticket_price', ticket_price);
+                    form_data.append('note', note);
+                    
+
+
             
             $.ajax({
                 url: url,
@@ -454,12 +492,16 @@ $(document).ready(function () {
                 processData: false,
                 data:form_data,
                 success: function (d) {
+                        var eventid = d.id;
+                        console.log(d);
                     if (d.status == 303) {
                         $(".ermsg").html(d.message);
                     }else if(d.status == 300){
                         pagetop();
                         $(".ermsg").html(d.message);
                         window.setTimeout(function(){location.reload()},2000)
+                        // window.setTimeout(function(){location.replace('{{URL::to("/event/.'eventid'")}}')},2000);
+
                     }
                 },
                 error: function (d) {

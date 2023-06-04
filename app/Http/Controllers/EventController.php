@@ -13,6 +13,7 @@ use App\Mail\ContactFormMail;
 use App\Mail\EventActiveMail;
 use App\Mail\EventCreateMail;
 use App\Models\ContactMail;
+use App\Models\EventPrice;
 use App\Models\EventTransaction;
 use Illuminate\support\Facades\Auth;
 
@@ -141,6 +142,25 @@ class EventController extends Controller
         //     exit();
         // }
 
+        if (empty($request->is_free)) {
+            $types = explode(",",$request->type);
+            $qtys = explode(",",$request->qty);
+            $ticket_prices = explode(",",$request->ticket_price);
+            $notes = explode(",",$request->note);
+
+            foreach($types as $key => $name){
+                if($types[$key] == "" ||  $qtys[$key] == "" || $ticket_prices[$key] == "" ){
+                $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill all field.</b></div>";
+                return response()->json(['status'=> 303,'message'=>$message]);
+                exit();
+                }
+            }
+        }
+
+        
+
+        
+
         $data = new Event();
         $data->user_id = Auth::user()->id;
         $data->title = $request->title;
@@ -158,11 +178,11 @@ class EventController extends Controller
         $data->available = $request->quantity;
         $data->event_start_date = $request->event_start_date;
         $data->event_end_date = $request->event_end_date;
-        $data->price = $request->price;
-        if($request->price>0){
+        // $data->price = $request->price;
+        if($request->is_free>0){
+        $data->is_free = 1; 
+        }else{   
         $data->is_free = 0;
-        }else{
-        $data->is_free = 1;    
         }
         $data->sale_end_date = $request->sale_end_date;
         $data->sale_start_date = $request->sale_start_date;
@@ -199,6 +219,23 @@ class EventController extends Controller
                 }
             }
 
+            if (empty($request->is_free)) {
+                foreach($types as $key => $value)
+                {
+                    $evntprice = new EventPrice();
+                    $evntprice->event_id = $data->id;
+                    $evntprice->user_id = Auth::user()->id;
+                    $evntprice->type = $types[$key]; 
+                    $evntprice->qty = $qtys[$key]; 
+                    $evntprice->ticket_price = $ticket_prices[$key]; 
+                    $evntprice->note = $notes[$key];
+                    $evntprice->created_by = Auth::user()->id;
+                    $evntprice->save();
+                }
+            }
+
+            
+
 
             $msg = EmailContent::where('title','=','event_create_confirmation_mail')->first()->description;
             $adminmail = ContactMail::where('id', 1)->first()->email;
@@ -211,12 +248,12 @@ class EventController extends Controller
             $array['subject'] = "Congrats! You create your event.";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
 
-            $a = Mail::to($email)->cc('info@gogiving.co.uk')
-                ->send(new EventCreateMail($array));
+            // $a = Mail::to($email)->cc('info@gogiving.co.uk')
+            //     ->send(new EventCreateMail($array));
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>New event create successfully.</b></div>";
             // $message = $request->image[0];
-            return response()->json(['status'=> 300,'message'=>$message]);
+            return response()->json(['status'=> 300,'message'=>$message, 'id'=>$data->id]);
         } else {
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }

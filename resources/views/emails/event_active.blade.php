@@ -2,7 +2,7 @@
 @component('mail::message')
 
 
-<p>{!! $array['message']  !!}</p>
+{{ $array['message']  }}
 
 <a href="https://www.gogiving.co.uk" target="blank">GoGiving</a>
 
