@@ -220,6 +220,7 @@ return [
                 'Image' => Intervention\Image\Facades\Image::class,
                 'Share' => Jorenvh\Share\ShareFacade::class,
                 'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+                'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ])->toArray(),
 
 ];
