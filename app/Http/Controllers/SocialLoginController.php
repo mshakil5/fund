@@ -27,19 +27,19 @@ class SocialLoginController extends Controller
        
                 Auth::login($finduser);
       
-                return redirect()->intended('dashboard');
+                return redirect()->intended('user.profile');
        
             }else{
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'google_id'=> $user->id,
-                    'password' => encrypt('123456dummy')
+                    'password' => encrypt('123456')
                 ]);
       
                 Auth::login($newUser);
       
-                return redirect()->intended('dashboard');
+                return redirect()->intended('user.profile');
             }
       
         } catch (Exception $e) {
