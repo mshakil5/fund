@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => '188019081814-rqn7lrpjgub89h0kqhd4g46jac4eh741.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'https://www.gogiving.co.uk/authorized/google/callback',
+    ],
+
 ];

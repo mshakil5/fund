@@ -230,7 +230,7 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="text-center">Type</th>
-                                                    <th scope="col" class="text-center">Quantity</th>
+                                                    <th scope="col" class="text-center">No. of People</th>
                                                     <th scope="col" class="text-center">Price</th>
                                                     <th scope="col" class="text-center">Note</th>
                                                     <th scope="col" class="text-center">Action</th>

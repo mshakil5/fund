@@ -14,6 +14,7 @@ use App\Http\Controllers\CharityController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -44,6 +45,8 @@ Route::get('/clear', function() {
 
 Auth::routes();
 Route::post('/loginto', [LoginController::class, 'loginToDonate'])->name('logintodonate');
+Route::get('authorized/google', [SocialLoginController::class, 'redirectToGoogle']);
+Route::get('authorized/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
