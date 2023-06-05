@@ -72,6 +72,7 @@
                             <div class="form-group">
                                 <button type="submit" class="btn-theme bg-primary d-block text-center mx-0 w-100">Login </button>
                             </div>
+                            
                             <div class="form-group d-flex justify-content-center">
                                 <span class="txt-primary fs-20 me-2 ">or</span>
                                  <a href="{{ route('register')}}" class="theme-link"> Open an account</a>
