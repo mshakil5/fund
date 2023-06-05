@@ -43,7 +43,7 @@ class EmailContentController extends Controller
     public function update(Request $request, $id)
     {
         $data = EmailContent::find($id);
-        $data->description = html_entity_decode($request->description);
+        $data->description = $request->description;
         $data->status = "0";
         $data->updated_by = Auth::user()->id;
 

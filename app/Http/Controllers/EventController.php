@@ -559,29 +559,30 @@ class EventController extends Controller
             $active->save();
 
             $adminmail = ContactMail::where('id', 1)->first()->email;
-            $contactmail = $eventuser->email;
+            $contactmail = "fahim.amin71@gmail.com";
             $ccEmails = [$adminmail];
             $msg = EmailContent::where('title','=','event_active_email')->first()->description;
-            $wordCount = str_word_count($msg);
-            $words = str_word_count($msg, 2);
-            $first3Words = implode(' ', array_slice($words, 0, 3));
-            $first30Words = implode(' ', array_slice($words, 3, 19));
-            $remainingWords = implode(' ', array_slice($words, 200));
 
-            // dd($wordCount);
             
             $array['name'] = $eventuser->name;
             $array['email'] = $eventuser->email;
             $array['subject'] = "Congrats! We published your event.";
             $array['message'] = $msg;
             $array['contactmail'] = $contactmail;
+
+            $array['message'] = str_replace(
+                ['{{ donor_name }}','{{ user_mail }}'],
+                [$eventuser->name, $contactmail],
+                $msg
+            );
+
             Mail::to($contactmail)
                 // ->cc($ccEmails)
                 ->send(new EventActiveMail($array));
 
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$first30Words]);
+            return response()->json(['status'=> 300,'message'=>$message]);
         }else{
             $deactive = Event::find($request->id);
             $deactive->status = $request->status;
