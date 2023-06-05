@@ -27,7 +27,7 @@ class SocialLoginController extends Controller
        
                 Auth::login($finduser);
       
-                return redirect()->intended('user.profile');
+                return redirect()->intended('user/user-profile');
        
             }else{
                 $newUser = User::create([
@@ -39,11 +39,12 @@ class SocialLoginController extends Controller
       
                 Auth::login($newUser);
       
-                return redirect()->intended('user.profile');
+                return redirect()->intended('user/user-profile');
             }
       
         } catch (Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
+                return redirect()->intended('home');
         }
     }
 }
