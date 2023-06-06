@@ -217,7 +217,7 @@ body::-webkit-scrollbar-thumb {
 .dashboard-wraper .sidebar .navigation {
   margin-top: 35px;
   padding-left: 0;
-  padding-right: 32px;
+  padding-right: 10px;
   max-height: calc(88vh - 225px);
   transition: all 0.4s ease;
   overflow: hidden;
@@ -663,3 +663,8 @@ form .form-group .form-control:focus {
   padding: 5px;
   cursor: pointer;
 }/*# sourceMappingURL=dashboard.css.map */
+
+#example_wrapper{
+  max-width: 100%;
+  overflow: scroll;
+}

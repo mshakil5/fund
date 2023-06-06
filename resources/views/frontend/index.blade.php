@@ -82,7 +82,7 @@
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
 
-            <div class="title w-75 darkerGrotesque-bold">{{\App\Models\Master::where('name','homepage2ndsection')->first()->title}}</div>
+            <div class="title text-center darkerGrotesque-bold">{{\App\Models\Master::where('name','homepage2ndsection')->first()->title}}</div>
             <div class="para text-center mt-4 txt-theme">
                 {!! \App\Models\Master::where('name','homepage2ndsection')->first()->description !!}
                 <a href="{{route('charity.register')}}" class="btn-theme bg-secondary mx-auto fs-6 py-2">Register your charity</a>
@@ -125,65 +125,70 @@
             </div>
         </div>
         <div class="row mt-4">
-            @foreach ($campaign as $campaign)
 
-            @php
-                $today = $todate->format('Y-m-d');
-                $end = $campaign->end_date;
-                $datetime1 = new DateTime($today);
-                $datetime2 = new DateTime($end);
-                $interval = $datetime1->diff($datetime2);
-                $days = $interval->format('%a');
-                $total_collection = $campaign->transaction->sum('amount');
-                $total_donar = $campaign->transaction->count();
-            @endphp
+            <div class="campaign-slider">
+                @foreach ($campaign as $campaign)
 
-            <div class="col-md-4 col-sm-6">
-                <div class="card-theme mb-3">
-                    <div class="topper d-flex align-items-center justify-content-center">
-                        <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
-                            <img src="{{asset('images/campaign/'.$campaign->image)}}">
-                        </a>
-                    </div>
-                    <div class="card-body ">
-                        <div class="inner">
-                            <div class="card-title text-start ">
-                                <a href="{{ route('frontend.campaignDetails',$campaign->id)}}">
-                                    {{$campaign->title}}
-                                </a>
-                            </div>
-                            <div class="status d-flex py-2">
-                                <span class="d-flex align-items-center me-4">
-                                    <iconify-icon class="me-1" icon="ic:baseline-people-outline"></iconify-icon>
-                                    {{$total_donar}}
-                                </span>
-                                <span class="d-flex align-items-center me-2">
-                                    <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 
-                                    {{$days}} days left
-                                </span>
-                            </div>
-                            <div class="progress " style="height: 7px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                @php
+                    $today = $todate->format('Y-m-d');
+                    $end = $campaign->end_date;
+                    $datetime1 = new DateTime($today);
+                    $datetime2 = new DateTime($end);
+                    $interval = $datetime1->diff($datetime2);
+                    $days = $interval->format('%a');
+                    $total_collection = $campaign->transaction->sum('amount');
+                    $total_donar = $campaign->transaction->count();
+                @endphp
 
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <div>
-                                    <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) £{{$total_collection}} Raised @else @endif</h4>
-                                    <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card-theme mb-3">
+                        <div class="topper d-flex align-items-center justify-content-center">
+                            <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
+                                <img src="{{asset('images/campaign/'.$campaign->image)}}">
+                            </a>
+                        </div>
+                        <div class="card-body ">
+                            <div class="inner">
+                                <div class="card-title text-start ">
+                                    <a href="{{ route('frontend.campaignDetails',$campaign->id)}}">
+                                        {{$campaign->title}}
+                                    </a>
                                 </div>
-                                <div>
-                                    <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="btn-theme bg-primary">Donate Now</a>
+                                <div class="status d-flex py-2">
+                                    <span class="d-flex align-items-center me-4">
+                                        <iconify-icon class="me-1" icon="ic:baseline-people-outline"></iconify-icon>
+                                        {{$total_donar}}
+                                    </span>
+                                    <span class="d-flex align-items-center me-2">
+                                        <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 
+                                        {{$days}} days left
+                                    </span>
                                 </div>
+                                <div class="progress " style="height: 7px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;"
+                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <div>
+                                        <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) £{{$total_collection}} Raised @else @endif</h4>
+                                        <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
+                                    </div>
+                                    <div>
+                                        <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="btn-theme bg-primary">Donate Now</a>
+                                    </div>
+                                </div>
+
+
                             </div>
-
-
                         </div>
                     </div>
-                </div>
 
+                </div>
+                @endforeach
             </div>
-            @endforeach
+
+            
 
         </div>
     </div>
@@ -380,5 +385,113 @@
         console.log($charityid);
         $('#loginModal').find('.modal-body #charityid').val($charityid);
     });
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $('.campaign-slider').slick({
+            centerMode: true,
+            centerPadding: '0px',
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            draggable: true,
+            swipeToSlide: true,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        dots: true,
+                        centerMode: true,
+                        centerPadding: '0px',
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        arrows: false,
+                        dots: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        dots: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+            ]
+        });
+
+        $('.event-slider').slick({
+            centerMode: true,
+            centerPadding: '0px',
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            draggable: true,
+            swipeToSlide: true,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        dots: true,
+                        centerMode: true,
+                        centerPadding: '0px',
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        arrows: false,
+                        dots: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        dots: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+            ]
+        });
+
+
+    });
+
 </script>
 @endsection

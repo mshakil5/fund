@@ -391,48 +391,56 @@
                         <h3> All Data</h3>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-hover" id="example">
-                            <thead>
-                            <tr>
-                                <th style="text-align: center">SL</th>
-                                <th style="text-align: center">Title</th>
-                                <th style="text-align: center">Username</th>
-                                <th style="text-align: center">Country</th>
-                                <th style="text-align: center">Raising Goal</th>
-                                <th style="text-align: center">Status</th>
-                                <th style="text-align: center">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data as $key => $data)
-                                    <tr>
-                                        <td style="text-align: center">{{ $key + 1 }}</td>
-                                        <td style="text-align: center">
-                                            <a href="{{route('admin.campaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
-                                        </td>
-                                        <td style="text-align: center">{{$data->user->name}}</td>
-                                        <td style="text-align: center">{{$data->country->name}}</td>
-                                        <td style="text-align: center">{{$data->raising_goal}}</td>
-                                        <td style="text-align: center">
-                                            {{-- {{$data->status}} --}}
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input campaignstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="campaignstatus" @if ($data->status == 1) checked @endif >
-                                            </div>
-                                        </td>
-                                        
-                                        <td style="text-align: center">
-                                            
-                                            <a href="{{route('admin.addinfo',$data->id)}}"> <i class="fa fa-plus" style="color: rgb(116, 197, 133);font-size:16px;"> </i></a>
 
-                                            <a href="{{route('admin.campaignEdit',$data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
-                                            <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
-
+                        
+                        <div class="container" style="max-width: 1400px;">
+                            <table class="table table-bordered table-hover table-responsive" id="example" style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <th style="text-align: center">SL</th>
+                                    <th style="text-align: center">Title</th>
+                                    <th style="text-align: center">Username</th>
+                                    <th style="text-align: center">Country</th>
+                                    <th style="text-align: center">Raising Goal</th>
+                                    <th style="text-align: center">Status</th>
+                                    <th style="text-align: center">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $key => $data)
+                                        <tr>
+                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                            <td style="text-align: center">
+                                                <a href="{{route('admin.campaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
+                                            </td>
+                                            <td style="text-align: center">{{$data->user->name}}</td>
+                                            <td style="text-align: center">{{$data->country->name}}</td>
+                                            <td style="text-align: center">{{$data->raising_goal}}</td>
+                                            <td style="text-align: center">
+                                                {{-- {{$data->status}} --}}
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input campaignstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="campaignstatus" @if ($data->status == 1) checked @endif >
+                                                </div>
+                                            </td>
                                             
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                        </table>
+                                            <td style="text-align: center">
+                                                
+                                                <a href="{{route('admin.addinfo',$data->id)}}"> <i class="fa fa-plus" style="color: rgb(116, 197, 133);font-size:16px;"> </i></a>
+    
+                                                <a href="{{route('admin.campaignEdit',$data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
+                                                <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
+    
+                                                
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                            </table>
+                        </div>
+
+                        
+
+
                     </div>
                 </div>
             </div>

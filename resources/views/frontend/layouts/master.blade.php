@@ -20,8 +20,8 @@
     <link rel="icon" href="{{ asset('assets/images/favicon.png')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-5.1.3min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css')}}">
-    <!-- <link rel="stylesheet" type="text/css" href="./css/slick.css" />
-    <link rel="stylesheet" type="text/css" href="./css/slick-theme.css" /> -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/slick.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/slick-theme.css')}}" /> 
     {{--  datatables --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap.min.css">
     
@@ -79,7 +79,7 @@
     <script src="{{ asset('assets/js/app.js')}}"></script>
     <script src="{{ asset('assets/js/jquery.easing.min.js')}}" type="text/javascript"></script>
     <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> -->
-    <!-- <script src="./js/slick.min.js" type="text/javascript"></script> -->
+    <script src="{{ asset('assets/js/slick.min.js')}}" type="text/javascript"></script>
 
     <!-- select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
