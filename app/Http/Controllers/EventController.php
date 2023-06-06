@@ -249,8 +249,18 @@ class EventController extends Controller
             $array['subject'] = "Congrats! You create your event.";
             $array['from'] = 'do-not-reply@gogiving.co.uk';
 
-            // $a = Mail::to($email)->cc('info@gogiving.co.uk')
-            //     ->send(new EventCreateMail($array));
+            
+            $date = \Carbon\Carbon::parse($data->event_start_date)->isoFormat('MMM Do YYYY');
+            $time = \Carbon\Carbon::parse($data->event_start_date)->format('H:i:s');
+
+            $array['message'] = str_replace(
+                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}'],
+                [$data->event_name, Auth::user()->name,$date,$time,$data->id,$data->venue_name, $data->price],
+                $msg
+            );
+            Mail::to($email)
+                // ->cc($ccEmails)
+                ->send(new EventActiveMail($array));
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>New event create successfully.</b></div>";
             // $message = $request->image[0];
@@ -553,9 +563,7 @@ class EventController extends Controller
         $eventuser = User::where('id', $event->user_id)->first();
 
         $date = \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY');
-        // $time = \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY');
         $time = \Carbon\Carbon::parse($event->event_start_date)->format('H:i:s');
-        // $date = $event->event_start_date->toDateString();
 
 
 
