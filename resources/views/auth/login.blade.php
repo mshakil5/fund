@@ -24,6 +24,10 @@
                                     <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
                                 </a>
 
+                                <a class="ml-1 btn btn-primary" href="{{ url('authorized/facebook') }}" style="margin-top: 0px !important;background: #4285f4;color: #ffffff;padding: 5px;border-radius:7px;" id="btn-fblogin">
+                                    <i class="fa fa-facebook-square" aria-hidden="true"></i> Login with Facebook
+                                </a>
+
                             </div>
                         </div>
 

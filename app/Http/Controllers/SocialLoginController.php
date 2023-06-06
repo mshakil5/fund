@@ -22,6 +22,8 @@ class SocialLoginController extends Controller
             $user = Socialite::driver('google')->user();
        
             $finduser = User::where('google_id', $user->id)->first();
+
+            dd($finduser);
        
             if($finduser){
        
@@ -47,4 +49,37 @@ class SocialLoginController extends Controller
                 return redirect()->intended('home');
         }
     }
+
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleFacebookCallback()
+    {
+        try {
+            $user = Socialite::driver('facebook')->user();
+            $finduser = User::where('facebook_id', $user->id)->first();
+            if($finduser){
+                Auth::login($finduser);
+                return redirect()->intended('user/user-profile');
+            }else{
+                $newUser = User::updateOrCreate(['email' => $user->email],[
+                        'name' => $user->name,
+                        'facebook_id'=> $user->id,
+                        'password' => encrypt('123456')
+                    ]);
+        
+                Auth::login($newUser);
+        
+                return redirect()->intended('user/user-profile');
+            }
+       
+        } catch (Exception $e) {
+            // dd($e->getMessage());
+            return redirect()->intended('home');
+        }
+    }
+
+
 }

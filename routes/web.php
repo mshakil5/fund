@@ -48,6 +48,10 @@ Route::post('/loginto', [LoginController::class, 'loginToDonate'])->name('logint
 Route::get('authorized/google', [SocialLoginController::class, 'redirectToGoogle']);
 Route::get('authorized/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
 
+
+Route::get('authorized/facebook', [SocialLoginController::class, 'redirectToFacebook']);
+Route::get('authorized/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');

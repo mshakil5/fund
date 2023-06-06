@@ -57,6 +57,8 @@ class User extends Authenticatable
         'twitter',
         'google',
         'linkedin',
+        'google_id',
+        'facebook_id',
         'updated_by',
         'created_by',
     ];
@@ -69,6 +71,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**

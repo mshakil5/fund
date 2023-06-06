@@ -559,7 +559,7 @@ class EventController extends Controller
             $active->save();
 
             $adminmail = ContactMail::where('id', 1)->first()->email;
-            $contactmail = "fahim.amin71@gmail.com";
+            $contactmail = $eventuser->email;
             $ccEmails = [$adminmail];
             $msg = EmailContent::where('title','=','event_active_email')->first()->description;
 
@@ -571,8 +571,8 @@ class EventController extends Controller
             $array['contactmail'] = $contactmail;
 
             $array['message'] = str_replace(
-                ['{{ donor_name }}','{{ user_mail }}'],
-                [$eventuser->name, $contactmail],
+                ['{{ event_name }}','{{ user_name }}','{{ event_start_date }}','{{ event_time }}','{{ event_venue }}','{{ event_ticket_price }}'],
+                [$event->title, $eventuser->name,$event->event_start_date,$event->event_start_date,$event->venue_name, $event->price],
                 $msg
             );
 
