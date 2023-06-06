@@ -21,9 +21,8 @@ class SocialLoginController extends Controller
       
             $user = Socialite::driver('google')->user();
        
+            // dd($user);
             $finduser = User::where('google_id', $user->id)->first();
-
-            dd($finduser);
        
             if($finduser){
        
