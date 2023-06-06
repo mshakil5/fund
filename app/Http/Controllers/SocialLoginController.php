@@ -22,26 +22,35 @@ class SocialLoginController extends Controller
             $user = Socialite::driver('google')->user();
        
             // dd($user);
-            $finduser = User::where('google_id', $user->id)->first();
-       
-            if($finduser){
-       
-                Auth::login($finduser);
-      
+            $finduserbyemail = User::where('email', $user->email)->whereNull('google_id')->first();
+
+            if ($finduserbyemail) {
+
+                $upuser = User::find($finduserbyemail->id); 
+                $upuser->google_id = $user->id;
+                $upuser->save();
+                Auth::login($upuser);
                 return redirect()->intended('user/user-profile');
-       
-            }else{
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'google_id'=> $user->id,
-                    'password' => encrypt('123456')
-                ]);
-      
-                Auth::login($newUser);
-      
-                return redirect()->intended('user/user-profile');
+            } else {
+                
+                $finduser = User::where('google_id', $user->id)->first();
+                if($finduser){
+                    Auth::login($finduser);
+                    return redirect()->intended('user/user-profile');
+                }else{
+                    $newUser = User::create([
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'google_id'=> $user->id,
+                        'password' => encrypt('123456')
+                    ]);
+                    Auth::login($newUser);
+                    return redirect()->intended('user/user-profile');
+                }
             }
+            
+       
+            
       
         } catch (Exception $e) {
             // dd($e->getMessage());
