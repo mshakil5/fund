@@ -16,6 +16,7 @@ use App\Models\ContactMail;
 use App\Models\EventPrice;
 use App\Models\EventTransaction;
 use Illuminate\support\Facades\Auth;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -550,6 +551,14 @@ class EventController extends Controller
     {
         $event = Event::where('id',$request->id)->first();
         $eventuser = User::where('id', $event->user_id)->first();
+
+        $date = \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY');
+        // $time = \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY');
+        $time = \Carbon\Carbon::parse($event->event_start_date)->format('H:i:s');
+        // $date = $event->event_start_date->toDateString();
+
+
+
         $data = Event::find($request->id);
         $data->status = $request->status;
         $data->save();
@@ -571,8 +580,8 @@ class EventController extends Controller
             $array['contactmail'] = $contactmail;
 
             $array['message'] = str_replace(
-                ['{{ event_name }}','{{ user_name }}','{{ event_start_date }}','{{ event_time }}','{{ event_venue }}','{{ event_ticket_price }}'],
-                [$event->title, $eventuser->name,$event->event_start_date,$event->event_start_date,$event->venue_name, $event->price],
+                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{venue}}','{{price}}'],
+                [$event->title, $eventuser->name,$date,$time,$event->venue_name, $event->price],
                 $msg
             );
 
