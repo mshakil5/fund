@@ -254,8 +254,8 @@ class EventController extends Controller
             $time = \Carbon\Carbon::parse($data->event_start_date)->format('H:i:s');
 
             $array['message'] = str_replace(
-                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}'],
-                [$data->event_name, Auth::user()->name,$date,$time,$data->id,$data->venue_name, $data->price],
+                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{description}}'],
+                [$data->event_name, Auth::user()->name,$date,$time,$data->id,$data->venue_name, $data->price, $data->description],
                 $msg
             );
             Mail::to($email)
@@ -408,8 +408,8 @@ class EventController extends Controller
             $time = \Carbon\Carbon::parse($data->event_start_date)->format('H:i:s');
 
             $array['message'] = str_replace(
-                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}'],
-                [$data->event_name, Auth::user()->name,$date,$time,$data->id,$data->venue_name, $data->price],
+                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{description}}'],
+                [$data->event_name, Auth::user()->name,$date,$time,$data->id,$data->venue_name, $data->price, $data->description],
                 $msg
             );
             Mail::to($email)
@@ -558,8 +558,8 @@ class EventController extends Controller
             $time = \Carbon\Carbon::parse($data->event_start_date)->format('H:i:s');
 
             $array['message'] = str_replace(
-                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}'],
-                [$data->event_name, $name,$date,$time,$data->id,$data->venue_name, $data->price],
+                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{description}}'],
+                [$data->event_name, $name,$date,$time,$data->id,$data->venue_name, $data->price, $data->description],
                 $msg
             );
             Mail::to($email)
