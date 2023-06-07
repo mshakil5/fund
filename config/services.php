@@ -40,7 +40,7 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'https://www.gogiving.co.uk/facebook/callback',
+        'redirect' => 'https://www.gogiving.co.uk/authorized/facebook/callback',
     ],
 
 ];

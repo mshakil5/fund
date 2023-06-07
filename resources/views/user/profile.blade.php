@@ -22,7 +22,7 @@
                         <p class="mb-1"> Name: {{ Auth::user()->name }} </p>
                         <p class="mb-1"> Surname: {{ Auth::user()->sur_name }} </p>
                         <p class="mb-1"> Phone: {{ Auth::user()->phone }} </p>
-                        <p class="mb-1"> email: {{ Auth::user()->email }} </p>
+                        <p class="mb-1"> Email: {{ Auth::user()->email }} </p>
                         <p class="mb-1"> House Number: {{ Auth::user()->house_number }} </p>
                         <p class="mb-1"> Street: {{ Auth::user()->street_name }} </p>
                         <p class="mb-1"> Town: {{ Auth::user()->town }} </p>
