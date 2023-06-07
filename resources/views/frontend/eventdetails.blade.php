@@ -16,10 +16,9 @@
         display: inline-block;
     }          
     div#social-links ul li a {
-        padding: 14px;
-        border: 1px solid #ccc;
+        padding: 14px; 
         margin: 1px;
-        font-size: 72px;
+        font-size: 24px;
         color: #0c4c45;
         background-color: #ccc;
     }

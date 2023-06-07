@@ -1441,3 +1441,20 @@ label {
   line-height: 1.1;
   margin-bottom: 5px;
 }
+.shareIcons ul {
+  margin: 0;
+}
+
+div#social-links {
+  /* margin: 0 auto; */
+  /* max-width: 500px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px 0;
+}
+
+div#qrcodeDiv svg {
+  height: 100%!important;
+  width: 100%!important;
+}

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Exception;
 
 class SocialLoginController extends Controller
@@ -42,7 +43,7 @@ class SocialLoginController extends Controller
                         'name' => $user->name,
                         'email' => $user->email,
                         'google_id'=> $user->id,
-                        'password' => encrypt('123456')
+                        'password' => Hash::make('123456')
                     ]);
                     Auth::login($newUser);
                     return redirect()->intended('user/user-profile');
@@ -75,7 +76,7 @@ class SocialLoginController extends Controller
                 $newUser = User::updateOrCreate(['email' => $user->email],[
                         'name' => $user->name,
                         'facebook_id'=> $user->id,
-                        'password' => encrypt('123456')
+                        'password' => Hash::make('123456')
                     ]);
         
                 Auth::login($newUser);
