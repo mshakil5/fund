@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center">
             <div class="title darkerGrotesque-bold lh-1">
-                Payment is Successfull. Your Transaction Id is : {{$tranid}}.</div>
+                Your Transaction Id is : {{$tranid}}.</div>
             <div class="para text-center mt-4">
                 {!! \App\Models\EmailContent::where('title','=','paypal_success_message')->first()->description !!}
             </div>

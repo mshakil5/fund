@@ -199,7 +199,7 @@
             });
             //Edit
             $("#contentContainer").on('click','#EditBtn', function(){
-                //alert("btn work");
+                // alert("btn work");
                 codeid = $(this).attr('rid');
                 //console.log($codeid);
                 info_url = url + '/'+codeid+'/edit';
@@ -271,13 +271,9 @@
             $('#exdatatable').DataTable();
         });
 
+        
+
             
     </script>
-      <script>
-        function copyToClipboard(id) {
-            document.getElementById(id).select();
-            document.execCommand('copy');
-            swal("Copied!");
-        }
-    </script>
+    
 @endsection

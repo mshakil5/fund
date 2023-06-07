@@ -15,7 +15,6 @@
                     <div class="row">
                         <div class="col-lg-9 mx-auto">
                             
-                            <div class="title darkerGrotesque-bold lh-1 fs-1">
                                 @if (isset($success))
                                     <span class="login-head" role="alert">
                                         <strong>{!! $success !!}</strong>
@@ -26,7 +25,6 @@
                                         <strong><p style="color: red">{{ $error }}</p></strong>
                                     </span>
                                 @endif
-                            </div>
                         </div>
                     </div>
                     

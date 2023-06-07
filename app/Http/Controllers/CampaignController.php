@@ -646,9 +646,15 @@ class CampaignController extends Controller
             $array['subject'] = "Your campaign active successfully";
             $array['message'] = $msg;
             $array['contactmail'] = $contactmail;
-            Mail::to($contactmail)
-                ->cc($ccEmails)
-                ->send(new ContactFormMail($array));
+
+                $array['message'] = str_replace(
+                    ['{{title}}','{{user_name}}','{{end_date}}','{{raising_goal}}'],
+                    [$campaign->title, $eventuser->name,$campaign->end_date, $data->price],
+                    $msg
+                );
+                Mail::to($contactmail)
+                    // ->cc($ccEmails)
+                    ->send(new EventActiveMail($array));
 
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
