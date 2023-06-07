@@ -186,6 +186,8 @@
 
                 </div>
                 @endforeach
+                
+
             </div>
 
             
@@ -393,7 +395,7 @@
 
 
         $('.campaign-slider').slick({
-            centerMode: true,
+            centerMode: false,
             centerPadding: '0px',
             slidesToShow: 4,
             slidesToScroll: 1,
