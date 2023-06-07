@@ -317,7 +317,7 @@
                     
                 </div>
 
-                <div class="border shadow-sm p-3 rounded mt-2">
+                <div class="border shadow-sm p-3 rounded mt-2" id="qrcodeDiv">
                     <div class="p-3 border border-1 rounded shadow-sm bg-white text-center">
                             {!! QrCode::size(250)->generate(URL::current()) !!}
                     </div>
@@ -444,12 +444,15 @@ $(document).ready(function () {
         $("#paymentSection").show(300);
         $("#eventDesc").hide(300);
         $("#chkoutBtn").hide(300);
+        $("#qrcodeDiv").hide(300);
+        $(window).scrollTop(450);
 
     });
     $("#backBtn").click(function(){
         $("#paymentSection").hide(200);
         $("#eventDesc").show(200);
         $("#chkoutBtn").show(200);
+        $("#qrcodeDiv").show(200);
     });
     //calculation end 
 

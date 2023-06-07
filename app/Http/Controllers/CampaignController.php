@@ -8,6 +8,7 @@ use App\Models\FundraisingSource;
 use App\Models\Campaign;
 use App\Models\EmailContent;
 use App\Mail\ContactFormMail;
+use App\Mail\EventActiveMail;
 use Carbon\Carbon;
 use DB;
 use Mail;
@@ -1135,7 +1136,14 @@ class CampaignController extends Controller
             $array['subject'] = "New Campaign Created";
             $array['message'] = $mailmsg;
             $array['contactmail'] = Auth::user()->email;
-            // Mail::to(Auth::user()->email)->send(new ContactFormMail($array));
+            $array['message'] = str_replace(
+                ['{{campaign_title}}','{{user_name}}','{{campaign_id}}'],
+                [$data->title, Auth::user()->name,$data->id],
+                $mailmsg
+            );
+            Mail::to(Auth::user()->email)
+                // ->cc($ccEmails)
+                ->send(new EventActiveMail($array));
 
             
             $request->session()->forget('step1data');
