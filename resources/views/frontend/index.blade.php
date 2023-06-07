@@ -171,7 +171,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between mt-3">
                                     <div>
-                                        <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) £{{$total_collection}} Raised @else @endif</h4>
+                                        <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) <small class="text-primary">£{{$total_collection}}</small>  Raised @else @endif</h4>
                                         <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
                                     </div>
                                     <div>
@@ -208,7 +208,7 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="card-theme mb-3">
                     <div class="topper d-flex align-items-center justify-content-center">
-                        <a href="{{ route('frontend.eventDetails',$event->id)}}" class="p-0 d-block">
+                        <a href="{{ route('frontend.eventDetails',$event->id)}}" class="p-0 d-block w-100">
                             <img src="{{asset('images/event/'.$event->image)}}">
                         </a>
                     </div>
@@ -234,7 +234,7 @@
                             <span class="txt-primary"> Venue:</span>
                             {{$event->venue_name}}
                            </h5> 
-                           <h5 class="mb-0 darkerGrotesque-semibold mb-2">
+                           <h5 class="mb-0 darkerGrotesque-semibold mb-2 mh-50">
                            Location:  <span class="text-muted"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</span>
                            </h5> 
                            
@@ -275,7 +275,7 @@
                 <div class="card-theme mb-3">
                     <div class="topper d-flex align-items-center justify-content-center">
                         @if (isset($charity->photo))
-                            <a href="" class="p-0 d-block">
+                            <a href="" class="p-0 d-block w-100">
                                 <img src="{{asset('images/'.$charity->photo)}}">
                             </a>
                         @else
