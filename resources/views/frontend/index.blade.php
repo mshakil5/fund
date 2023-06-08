@@ -198,7 +198,7 @@
 
 <!--Event Section -->
 <section class="bleesed default">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="title">
                 Featured Events
@@ -206,52 +206,52 @@
         </div>
         <div class="row mt-4"> 
 
-            @foreach ($events as $event) 
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="card-theme mb-3">
-                    <div class="topper d-flex align-items-center justify-content-center">
-                        <a href="{{ route('frontend.eventDetails',$event->id)}}" class="p-0 d-block w-100">
-                            <img src="{{asset('images/event/'.$event->image)}}">
-                        </a>
-                    </div>
-
-                    
-                    <div class="card-body  bg-light fs-4 text-center">
-                        <div class="inner" style="font-size: 22px;">
-                            <div class="card-title  ">
-                                <a href="{{ route('frontend.eventDetails',$event->id)}}">
-                                    {{$event->title}}
-                                </a>
-                            </div>
-                           <div class="d-flex justify-content-center align-items-center">
-                            <span class="darkerGrotesque-bold txt-secondary text-center">
-                                
-                                {{ \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY')}} -  <span class=" darkerGrotesque-bold txt-primary">
-                                    @if ($event->price > 0) £{{$event->price}} @else Free @endif  
-                                  </span> 
-                                </span>
-                              
-                           </div>
-                           <h5 class="mb-0 darkerGrotesque-semibold mb-0">
-                            <span class="txt-primary"> Venue:</span>
-                            {{$event->venue_name}}
-                           </h5> 
-                           <h5 class="mb-0 darkerGrotesque-semibold mb-2 mh-50">
-                           Location:  <span class="text-muted"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</span>
-                           </h5> 
-                           
-                           <div class="w-100 text-center">
-                            <a href="{{ route('frontend.eventDetails',$event->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">See Details</a>
-                           </div>
+            <div class="event-slider">
+                @foreach ($events as $event) 
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="card-theme mb-3">
+                        <div class="topper d-flex align-items-center justify-content-center">
+                            <a href="{{ route('frontend.eventDetails',$event->id)}}" class="p-0 d-block w-100">
+                                <img src="{{asset('images/event/'.$event->image)}}">
+                            </a>
                         </div>
+    
+                        
+                        <div class="card-body  bg-light fs-4 text-center">
+                            <div class="inner" style="font-size: 22px;">
+                                <div class="card-title  ">
+                                    <a href="{{ route('frontend.eventDetails',$event->id)}}">
+                                        {{$event->title}}
+                                    </a>
+                                </div>
+                               <div class="d-flex justify-content-center align-items-center">
+                                <span class="darkerGrotesque-bold txt-secondary text-center">
+                                    
+                                    {{ \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY')}} -  <span class=" darkerGrotesque-bold txt-primary">
+                                        @if ($event->price > 0) £{{$event->price}} @else Free @endif  
+                                      </span> 
+                                    </span>
+                                  
+                               </div>
+                               <h5 class="mb-0 darkerGrotesque-semibold mb-0">
+                                <span class="txt-primary"> Venue:</span>
+                                {{$event->venue_name}}
+                               </h5> 
+                               <h5 class="mb-0 darkerGrotesque-semibold mb-2 mh-50">
+                               Location:  <span class="text-muted"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</span>
+                               </h5> 
+                               
+                               <div class="w-100 text-center">
+                                <a href="{{ route('frontend.eventDetails',$event->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">See Details</a>
+                               </div>
+                            </div>
+                        </div>
+    
                     </div>
+                </div> 
+                @endforeach
 
-
-
-
-                </div>
-            </div> 
-            @endforeach
+            </div>
             
 
 
@@ -261,7 +261,7 @@
 
 <!--charities-->
 <section class="campaign default">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="title">
                 We help charities, raise more
@@ -272,56 +272,58 @@
         </div>
         <div class="row mt-4"> 
 
-            @foreach ($charities as $charity)
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="card-theme mb-3">
-                    <div class="topper d-flex align-items-center justify-content-center">
-                        @if (isset($charity->photo))
-                            <a href="" class="p-0 d-block w-100">
-                                <img src="{{asset('images/'.$charity->photo)}}">
-                            </a>
-                        @else
-                            <img src="https://via.placeholder.com/100.png">
-                        @endif
-                    </div>
-                    <div class="card-body bg-light text-center">
-                        <div class="inner">
-                            <div class="card-title ">           
-                                @if (Auth::user())
-                                    <a href="{{ route('frontend.charityDonate',$charity->id)}}">{{$charity->name}}</a>
-                                @else
-                                    <!-- Button trigger modal -->
-                                    <a class="btn-contact" dataid="{{$charity->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                        {{$charity->name}} 
-                                    </a>
-                                @endif
-                            </div>
-                           <h5 class="mb-0 darkerGrotesque-semibold mb-3 d-flex align-items-center justify-content-center" style="min-height:45px;">
-                            <iconify-icon icon="bx:map"></iconify-icon>
-                            <span class="text-dark"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
-                           </h5> 
-                           
-                           <div class="w-100 text-center">
+            <div class="event-slider">
 
-                            <div class="">
-                                @if (Auth::user())
-                                    <a href="{{ route('frontend.charityDonate',$charity->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">Donate Now</a>
-                                @else
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5 btn-contact" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                        Donate Now
-                                    </button>
-                                @endif
+                @foreach ($charities as $charity)
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="card-theme mb-3">
+                        <div class="topper d-flex align-items-center justify-content-center">
+                            @if (isset($charity->photo))
+                                <a href="" class="p-0 d-block w-100">
+                                    <img src="{{asset('images/'.$charity->photo)}}">
+                                </a>
+                            @else
+                                <img src="https://via.placeholder.com/100.png">
+                            @endif
+                        </div>
+                        <div class="card-body bg-light text-center">
+                            <div class="inner">
+                                <div class="card-title ">           
+                                    @if (Auth::user())
+                                        <a href="{{ route('frontend.charityDonate',$charity->id)}}">{{$charity->name}}</a>
+                                    @else
+                                        <!-- Button trigger modal -->
+                                        <a class="btn-contact" dataid="{{$charity->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                            {{$charity->name}} 
+                                        </a>
+                                    @endif
+                                </div>
+                               <h5 class="mb-0 darkerGrotesque-semibold mb-3 d-flex align-items-center justify-content-center" style="min-height:45px;">
+                                <iconify-icon icon="bx:map"></iconify-icon>
+                                <span class="text-dark"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
+                               </h5> 
+                               
+                               <div class="w-100 text-center">
+    
+                                <div class="">
+                                    @if (Auth::user())
+                                        <a href="{{ route('frontend.charityDonate',$charity->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">Donate Now</a>
+                                    @else
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5 btn-contact" dataid ="{{$charity->id}}" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                            Donate Now
+                                        </button>
+                                    @endif
+                                </div>
+                               </div>
                             </div>
-                           </div>
                         </div>
                     </div>
-                </div>
-            </div> 
-            @endforeach
+                </div> 
+                @endforeach
+
+            </div>
             
-
-
         </div>
     </div>
 </section>
@@ -444,7 +446,7 @@
         });
 
         $('.event-slider').slick({
-            centerMode: true,
+            centerMode: false,
             centerPadding: '0px',
             slidesToShow: 4,
             slidesToScroll: 1,
