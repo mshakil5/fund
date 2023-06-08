@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\ContactMail;
 use App\Models\GivingLevel;
 use App\Models\EmailContent;
+use App\Models\Transaction;
 use App\Mail\EventActiveMail;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -275,6 +276,16 @@ class CharityController extends Controller
         $givinglvls = GivingLevel::all();
         // dd($givinglvls);
         return view('frontend.charitypayment', compact('data','givinglvls'));
+    }
+
+    public function viewTransactionCharityByAdmin($id)
+    {
+        $data = User::with('transaction')->where('id', $id)->first();
+        $transaction = Transaction::where('charity_id', $id)->orderby('id','DESC')->get();
+        $totalInAmount = Transaction::where('charity_id', $id)->where('tran_type','In')->sum('amount');
+        $totalOutAmount = Transaction::where('charity_id', $id)->where('tran_type','Out')->sum('amount');
+        return view('admin.charity.tranview',compact('data','transaction','totalInAmount','totalOutAmount'));
+        
     }
 
     

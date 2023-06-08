@@ -20,9 +20,12 @@ class TransactionController extends Controller
     // charity transaction 
     public function allCharityTransaction()
     {
-        $data = Transaction::where('charity_id', Auth::user()->id)->get();
         // dd($data);
-        return view('charity.alltransaction', compact('data'));
+        $data = Transaction::where('charity_id', Auth::user()->id)->orderby('id','DESC')->get();
+        $totalInAmount = Transaction::where('charity_id', Auth::user()->id)->where('tran_type','In')->sum('amount');
+        $totalOutAmount = Transaction::where('charity_id', Auth::user()->id)->where('tran_type','Out')->sum('amount');
+
+        return view('charity.alltransaction', compact('data','totalOutAmount','totalInAmount'));
     }
 
     // charity transaction 
@@ -71,6 +74,37 @@ class TransactionController extends Controller
             // Mail::to($email)
             // ->cc($contactmail)
             // ->send(new CharitypayReport($array));
+
+
+            $message ="Amount pay Successfully. Transaction id is: ". $t_id;
+            return back()->with('message', $message);
+
+
+        return back();
+    }
+
+    public function charityPayStore(Request $request)
+    {
+        
+            $t_id = time() . "-" . $request->charity_id;
+            $transaction = new Transaction();
+            $transaction->date = date('Y-m-d');
+            $transaction->tran_no = $t_id;
+            $transaction->user_id = $request->charity_id;
+            $transaction->charity_id = $request->charity_id;
+            $transaction->tran_type = "Out";
+            $transaction->name = $request->source;
+            $transaction->amount = $request->amount;
+            $transaction->description = $request->description;
+            $transaction->donation_type = "PayOut";
+            $transaction->status = "1";
+            $transaction->save();
+
+            // fundraiser balance update
+                $fundraiser = User::find($request->charity_id);
+                $fundraiser->balance =  $fundraiser->balance - $request->amount;
+                $fundraiser->save();
+            // fundraiser balance update end
 
 
             $message ="Amount pay Successfully. Transaction id is: ". $t_id;

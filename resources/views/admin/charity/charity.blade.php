@@ -131,6 +131,7 @@
                                 <th style="text-align: center">Name</th>
                                 <th style="text-align: center">Email</th>
                                 <th style="text-align: center">Phone</th>
+                                <th style="text-align: center">Balance</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -142,6 +143,12 @@
                                         <td style="text-align: center">{{$data->name}}</td>
                                         <td style="text-align: center">{{$data->email}}</td>
                                         <td style="text-align: center">{{$data->phone}}</td>
+                                        <td style="text-align: center">
+                                            <a href="{{route('admin.charityTran',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">£{{$data->balance}}</a>
+
+                                            
+                                        
+                                        </td>
                                         <td style="text-align: center">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input fundraiserstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="fundraiserstatus" @if ($data->status == 1) checked @endif >
