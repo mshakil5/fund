@@ -140,7 +140,7 @@
                     $total_donar = $campaign->transaction->count();
                 @endphp
 
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="card-theme mb-3">
                         <div class="topper d-flex align-items-center justify-content-center">
                             <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
@@ -171,7 +171,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between mt-3">
                                     <div>
-                                        <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) <small class="text-primary">£{{$total_collection}}</small>  Raised @else @endif</h4>
+                                        <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) <small class="txt-primary">£{{$total_collection}}</small>  Raised @else @endif</h4>
                                         <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
                                     </div>
                                     <div>

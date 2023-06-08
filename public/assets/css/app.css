@@ -1472,3 +1472,7 @@ div#qrcodeDiv svg {
   margin-left: 0!important;
   margin-right: auto;
 }
+
+.card-body .inner{ 
+  min-height: 213px; 
+}
