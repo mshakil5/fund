@@ -848,6 +848,12 @@ body::-webkit-scrollbar-thumb {
 }
 .card-theme .card-body .card-title a {
   color: #003057;
+  white-space: nowrap;
+  width: 98%;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  display: block;
+  height: 30px;
 }
 .card-theme .card-body span {
   font-size: 18px;
@@ -1476,3 +1482,13 @@ div#qrcodeDiv svg {
 .card-body .inner{ 
   min-height: 213px; 
 }
+
+.select2-container .select2-selection--single { 
+  height: 44px; 
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #444;
+  line-height: 40px;
+}
+

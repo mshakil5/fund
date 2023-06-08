@@ -220,7 +220,7 @@
                         <div class="card-body  bg-light fs-4 text-center">
                             <div class="inner" style="font-size: 22px;">
                                 <div class="card-title  ">
-                                    <a href="{{ route('frontend.eventDetails',$event->id)}}">
+                                    <a href="{{ route('frontend.eventDetails',$event->id)}}" title="{{$event->title}}">
                                         {{$event->title}}
                                     </a>
                                 </div>

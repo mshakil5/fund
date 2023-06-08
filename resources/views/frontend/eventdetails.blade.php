@@ -282,7 +282,7 @@
                         <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
                         @else
                         <h4 class="darkerGrotesque-bold my-3 txt-primary"><span>Free</span></h4>
-                        <textarea name="note" id="note" cols="30" rows="2" placeholder="Note..."></textarea>
+                        <textarea name="note" id="note" cols="30" rows="2" class="form-control" placeholder="Note..."></textarea>
                         @endif
                         
                        
