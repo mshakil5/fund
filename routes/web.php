@@ -128,12 +128,15 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('pay', [PaypalController::class, 'pay'])->name('payment');
     Route::get('success', [PaypalController::class, 'success']);
     Route::get('error', [PaypalController::class, 'error']);
-
     
     Route::post('campaign-pay', [PaypalController::class, 'campaignpaymentpay'])->name('campaignpayment');
     Route::get('campaign-success', [PaypalController::class, 'campaignpaymentsuccess']);
     Route::get('campaign-error', [PaypalController::class, 'campaignpaymenterror']);
 
+    
+    Route::post('charity-pay', [PaypalController::class, 'charitypaymentpay'])->name('charitypayment');
+    Route::get('charity-success', [PaypalController::class, 'charitypaymentsuccess']);
+    Route::get('charity-error', [PaypalController::class, 'charitypaymenterror']);
     
     // image download
     Route::get('image-download/{id}', [CampaignController::class, 'downloadImage'])->name('download.campaignimage');
