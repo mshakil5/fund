@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\ContactMail;
 use App\Models\GivingLevel;
+use App\Models\EmailContent;
+use App\Mail\EventActiveMail;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -220,6 +223,7 @@ class CharityController extends Controller
 
     public function activeDeactiveAccount(Request $request)
     {
+        $charitydtl = User::where('id', $request->id)->first();
         $data = User::find($request->id);
         $data->status = $request->status;
         $data->save();
@@ -228,6 +232,32 @@ class CharityController extends Controller
             $active = User::find($request->id);
             $active->status = $request->status;
             $active->save();
+
+
+            $adminmail = ContactMail::where('id', 1)->first()->email;
+            $contactmail = $charitydtl->email;
+            $ccEmails = [$adminmail];
+            $msg = EmailContent::where('title','=','Charity approval')->first()->description;
+
+            
+            $array['name'] = $charitydtl->name;
+            $array['email'] = $charitydtl->email;
+            $array['subject'] = "Congrats! We published your charity.";
+            $array['message'] = $msg;
+            $array['contactmail'] = $contactmail;
+
+            $array['message'] = str_replace(
+                ['{{r_name}}','{{user_name}}','{{phone}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
+                [$charitydtl->r_name, $charitydtl->name,$charitydtl->phone,$charitydtl->house_number, $charitydtl->street_name, $charitydtl->town, $charitydtl->postcode],
+                $msg
+            );
+
+            Mail::to($contactmail)
+                // ->cc($ccEmails)
+                ->send(new EventActiveMail($array));
+
+
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }else{
