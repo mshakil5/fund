@@ -233,11 +233,11 @@
                                   
                                </div>
                                <h5 class="mb-0 darkerGrotesque-semibold mb-0">
-                                <span class="txt-primary"> Venue:</span>
-                                {{$event->venue_name}}
+                                <span class="txt-primary"> Venue:</span><br>
+                                ({{$event->venue_name}})
                                </h5> 
                                <h5 class="mb-0 darkerGrotesque-semibold mb-2 mh-50">
-                               Location:  <span class="text-muted"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</span>
+                               <span class="txt-primary"> Location:</span> <br> <span class="txt-secondary"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</span>
                                </h5> 
                                
                                <div class="w-100 text-center">
