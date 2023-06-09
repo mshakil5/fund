@@ -17,7 +17,7 @@
         padding: 14px;
         border: 1px solid #ccc;
         margin: 1px;
-        font-size: 72px;
+        font-size: 30px;
         color: #0c4c45;
         background-color: #ccc;
     }
