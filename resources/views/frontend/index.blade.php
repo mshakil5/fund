@@ -396,7 +396,7 @@
 
 
         $('.campaign-slider').slick({
-            centerMode: true,
+            centerMode: false,
             centerPadding: '0px',
             slidesToShow: 3,
             slidesToScroll: 1,
