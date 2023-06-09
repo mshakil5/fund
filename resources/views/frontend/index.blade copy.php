@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-12 mx-auto">
                 <div class="row">
-                    <div class="col-md-6 d-flex align-items-center column-hide">
+                    <div class="col-md-6 d-flex align-items-center justify-content-center column-hide">
                         <div class="inner w-75">
                             <div class="intro-title">
                                 {{\App\Models\Slider::where('id','1')->first()->left_title}}
@@ -104,7 +104,7 @@
                 <img src="{{asset('images/event/'.$singleevent->image)}}" alt="">
                </a>
               <div class="action">
-                <p class="w-50 text-center para text-white">{{$singleevent->summery}}</p>
+                <p class="w-50 text-center para">{{$singleevent->summery}}</p>
                
                 <a href="{{ route('frontend.eventDetails',$singleevent->id)}}" class=" btn btn-theme bg-primary eventAction ">Action Button</a>
               </div>
@@ -115,9 +115,10 @@
 @endif
 
 
+
 <!--Campaign Section -->
 <section class="campaign default">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="title">
                 Featured Campaign
@@ -139,7 +140,7 @@
                     $total_donar = $campaign->transaction->count();
                 @endphp
 
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="card-theme mb-3">
                         <div class="topper d-flex align-items-center justify-content-center">
                             <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
@@ -197,7 +198,7 @@
 
 <!--Event Section -->
 <section class="bleesed default">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="title">
                 Featured Events
@@ -260,7 +261,7 @@
 
 <!--charities-->
 <section class="campaign default">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="title">
                 We help charities, raise more
@@ -396,9 +397,9 @@
 
 
         $('.campaign-slider').slick({
-            centerMode: true,
+            centerMode: false,
             centerPadding: '0px',
-            slidesToShow: 3,
+            slidesToShow: 4,
             slidesToScroll: 1,
             draggable: true,
             swipeToSlide: true,
