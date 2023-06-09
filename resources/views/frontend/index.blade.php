@@ -146,7 +146,7 @@
                                 <img src="{{asset('images/campaign/'.$campaign->image)}}">
                             </a>
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body px-2">
                             <div class="inner">
                                 <div class="card-title text-start ">
                                     <a href="{{ route('frontend.campaignDetails',$campaign->id)}}">
@@ -216,7 +216,7 @@
                         </div>
     
                         
-                        <div class="card-body  bg-light fs-4 text-center">
+                        <div class="card-body px-2 bg-light fs-4 text-center">
                             <div class="inner" style="font-size: 22px;">
                                 <div class="card-title  ">
                                     <a href="{{ route('frontend.eventDetails',$event->id)}}" title="{{$event->title}}">
@@ -285,7 +285,7 @@
                                 <img src="https://via.placeholder.com/100.png">
                             @endif
                         </div>
-                        <div class="card-body bg-light text-center">
+                        <div class="card-body px-2 bg-light text-center">
                             <div class="inner">
                                 <div class="card-title ">           
                                     @if (Auth::user())
@@ -297,7 +297,7 @@
                                         </a>
                                     @endif
                                 </div>
-                               <h5 class="mb-0 darkerGrotesque-semibold mb-3 d-flex align-items-center justify-content-center" style="min-height:45px;">
+                               <h5 class="mb-0 darkerGrotesque-semibold mb-3 d-flex align-items-center justify-content-center flex-column" style="min-height:45px;">
                                 <iconify-icon icon="bx:map"></iconify-icon>
                                 <span class="text-dark"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
                                </h5> 
@@ -447,7 +447,7 @@
         $('.event-slider').slick({
             centerMode: false,
             centerPadding: '0px',
-            slidesToShow: 4,
+            slidesToShow: 3,
             slidesToScroll: 1,
             draggable: true,
             swipeToSlide: true,
