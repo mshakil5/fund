@@ -94,14 +94,14 @@
                        
                         @foreach ($doners as $doner)
 
-                            <div class=" mb-2 d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center justify-content-between">
                                 <div>
                                     
                                     <h5 class="user d-inline ms-2 fw-bold">
                                         {{$doner->donation_display_name}}
                                     </h5>
                                 </div>
-                                <h5 class="fw-bold">£{{$doner->sumamount}}</h5>
+                                <h5 class="fw-bold mb-0">£{{$doner->sumamount}}</h5>
                             </div>
                         @endforeach
                         
