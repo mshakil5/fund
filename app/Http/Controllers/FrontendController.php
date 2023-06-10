@@ -104,11 +104,12 @@ class FrontendController extends Controller
             ['campaign_id','=', $id]
         ])->groupBy('donation_display_name')->orderby('id','DESC')->limit(5)->get();
 
+        $alldoners = Transaction::selectRaw('SUM(amount) as sumamount, donation_display_name')->where([
+            ['campaign_id','=', $id]
+        ])->groupBy('donation_display_name')->orderby('id','DESC')->get();
+
         // dd($doners);
-
-        
-
-        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids'));
+        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids','alldoners'));
     }
 
     public function visitorContact(Request $request)

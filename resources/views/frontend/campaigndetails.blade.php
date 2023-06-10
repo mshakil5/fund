@@ -444,57 +444,18 @@
                     <div class="modal-body">
                         <div class="row px-3 mb-2">
                             <!-- loop -->
+
+                            @foreach ($alldoners as $doner)
                             <div class="mb-2 d-flex align-items-center justify-content-between px-2">
                                 <div class="d-flex align-items-start">
-                                    <img src="https://via.placeholder.com/30x30.png" width="30px" height="30px" class="img-fluid rounded">
                                     <h5 class="user d-inline ms-2 fw-bold d-flex flex-column ">
-                                        Martin Smith 
-                                         <sub class="txt-secondary">1hr</sub> 
+                                        {{$doner->donation_display_name}}
                                     </h5>
                                 </div>
-                                <h5 class="fw-bold">$150</h5>
+                                <h5 class="fw-bold">£{{$doner->sumamount}}</h5>
                             </div>
-                            <div class="mb-2 d-flex align-items-center justify-content-between px-2">
-                                <div class="d-flex align-items-start">
-                                    <img src="https://via.placeholder.com/30x30.png" width="30px" height="30px" class="img-fluid rounded">
-                                    <h5 class="user d-inline ms-2 fw-bold d-flex flex-column ">
-                                        Martin Smith 
-                                         <sub class="txt-secondary">1hr</sub> 
-                                    </h5>
-                                </div>
-                                <h5 class="fw-bold">$150</h5>
-                            </div>
-                            <div class="mb-2 d-flex align-items-center justify-content-between px-2">
-                                <div class="d-flex align-items-start">
-                                    <img src="https://via.placeholder.com/30x30.png" width="30px" height="30px" class="img-fluid rounded">
-                                    <h5 class="user d-inline ms-2 fw-bold d-flex flex-column ">
-                                        Martin Smith 
-                                         <sub class="txt-secondary">1hr</sub> 
-                                    </h5>
-                                </div>
-                                <h5 class="fw-bold">$150</h5>
-                            </div>
-                            <div class="mb-2 d-flex align-items-center justify-content-between px-2">
-                                <div class="d-flex align-items-start">
-                                    <img src="https://via.placeholder.com/30x30.png" width="30px" height="30px" class="img-fluid rounded">
-                                    <h5 class="user d-inline ms-2 fw-bold d-flex flex-column ">
-                                        Martin Smith 
-                                         <sub class="txt-secondary">1hr</sub> 
-                                    </h5>
-                                </div>
-                                <h5 class="fw-bold">$150</h5>
-                            </div>
-                            <div class="mb-2 d-flex align-items-center justify-content-between px-2">
-                                <div class="d-flex align-items-start">
-                                    <img src="https://via.placeholder.com/30x30.png" width="30px" height="30px" class="img-fluid rounded">
-                                    <h5 class="user d-inline ms-2 fw-bold d-flex flex-column ">
-                                        Martin Smith 
-                                         <sub class="txt-secondary">1hr</sub> 
-                                    </h5>
-                                </div>
-                                <h5 class="fw-bold">$150</h5>
-                            </div>
-                           
+                            @endforeach
+
                         </div> 
                     </div>
                 </div>
