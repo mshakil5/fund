@@ -25,8 +25,7 @@
 </style>
 
 @php
-    // $pricewithSCs = $data->price + ($data->price * .10);
-    $pricewithSCs = $data->price + 0;
+
     $cardpriceshow = $data->price;
 @endphp
 <div class="eventDetails">
@@ -160,7 +159,8 @@
                                         <div class="fw-bold d-flex align-items-center">
                                             <form action="{{ route('payment') }}" method="POST" class="title">
                                                 @csrf
-                                                <input type="hidden" name="amount" id="paypalamount" value="{{$pricewithSCs}}">
+                                                <input type="hidden" name="amount" id="paypalamount" value="">
+                                                <input type="hidden" name="ticket_type" id="ticket_type" value="">
                                                 <input type="hidden" name="event_id" value="{{$data->id}}">
                                                 <input type="hidden" name="paypalqty" id="paypalqty" value="1">
                                                 <button type="submit" class="btn mx-auto">
@@ -213,7 +213,7 @@
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Amount</label>
-                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" value="{{ number_format($pricewithSCs, 2) }}" required>
+                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" value="" required>
                                         </div>
                                     </div>
         
@@ -264,24 +264,39 @@
                                 </button>
                                 @endif
 
-                                <input type="number" id="qty" name="qty" value="1" hidden>
-                                <input type="number" id="regular_price" name="regular_price" value="{{$data->price}}" hidden>
-                                <input type="number" id="pamount" name="pamount" value="{{$data->price}}" hidden>
+                                
                             </div>
 
 
                         </div>
                         @if ($data->is_free == 0) 
+
                         <div class="d-flex align-items-center justify-content-between">
+                            <select name="selectType" id="selectType" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2">
+                                <option value="">Select</option>
+                                @foreach ($data->eventprice as $eprice)
+                                <option value="{{$eprice->id}}">{{$eprice->type}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <input type="number" id="pamount" name="pamount" value="" hidden>
+
+                        {{-- <div class="d-flex align-items-center justify-content-between">
                             <select name="selectqty" id="selectqty" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2">
                                 <option value="1">Single</option>
                                 <option value="2">Couple</option>
                             </select>
-                        </div>
+                        </div> --}}
 
+                        <div id="qtyNote">
+                            
+                        </div>
                         <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
                         @else
                         <h4 class="darkerGrotesque-bold my-3 txt-primary"><span>Free</span></h4>
+                        <input type="number" id="qty" name="qty" value="" hidden>
+                        <input type="number" id="freeqty" name="freeqty" value="1" hidden>
                         <textarea name="note" id="note" cols="30" rows="2" class="form-control" placeholder="Note..."></textarea>
                         @endif
                         
@@ -289,8 +304,10 @@
 
                     </div>
                     
-                    @if ($data->available < 1 || $data->sale_end_date < date('Y-m-d H:i:s'))
+                    
+                    @if (($data->is_free == 0 && $data->available < 1) || $data->sale_end_date < date('Y-m-d H:i:s'))
                     <h4 class="darkerGrotesque-bold mb-0">No ticket available</h4>
+
                     @else
                         @if ($data->status == 1)
                             @if (Auth::user())
@@ -455,100 +472,103 @@ $(document).ready(function () {
     //calculation end 
 
     $(".cart-qty-plus").click(function(){
-        var qty = Number($("#qty").val());
-        var pamount = Number($("#regular_price").val());
+        
+        var qty = Number($("#freeqty").val());
+        console.log(qty);
         var addqty = qty+1;
-        var tamount = addqty * pamount;
         $("#qty").val(addqty);
-        $("#paypalqty").val(addqty);
-        $("#pamount").val(tamount);
+        $("#freeqty").val(addqty);
         $("#showqty").html(addqty);
-        $("#amtshow").html(tamount.toFixed(2));
-
-        var commission = (tamount * 10)/100;
-        var net_amount = tamount + commission;
-        $("#amount").val(net_amount.toFixed(2));
-        $("#paypalamount").val(net_amount.toFixed(2));
-        $("#c_amount").val(commission.toFixed(2));
+        
 
     });
 
     $(".cart-qty-minus").click(function(){
-        var qty = Number($("#qty").val());
-        var pamount = Number($("#regular_price").val());
+        var qty = Number($("#freeqty").val());
         var addqty = qty-1;
         if (addqty < 1) {
             var addqty = 1;
         }
-        var tamount = addqty * pamount;
         $("#qty").val(addqty);
-        $("#pamount").val(tamount);
-        $("#amtshow").html(tamount.toFixed(2));
+        $("#freeqty").val(addqty);
         $("#showqty").html(addqty);
-        
-        var commission = (tamount * 10)/100;
-        var net_amount = tamount + commission;
-        $("#amount").val(net_amount.toFixed(2));
-        $("#paypalamount").val(net_amount.toFixed(2));
-        $("#c_amount").val(commission.toFixed(2));
     });
 
-    $("#selectqty").change(function(){
-        var qty = Number($("#selectqty").val());
-        // console.log(qty);
-        var pamount = Number($("#regular_price").val());
 
-        if (qty == 2) {
-            var tamount = 40;
-        } else {
-            var tamount = pamount;
-        }
 
-        $("#qty").val(qty);
-        $("#pamount").val(tamount);
-        $("#amtshow").html(tamount.toFixed(2));
-        
-        var commission = (tamount * 10)/100;
-        var net_amount = tamount;
-        $("#amount").val(net_amount.toFixed(2));
-        $("#paypalamount").val(net_amount.toFixed(2));
-        $("#c_amount").val(commission.toFixed(2));
-    });
+            // free event ad by fahim
+            //header for csrf-token is must in laravel
+            $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
-    // free event ad by fahim
-     //header for csrf-token is must in laravel
- $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+            //  make doantion start
+            var url = "{{URL::to('/event-book')}}";
+            $("#freeEvntsub").click(function(){
+                $("#loading").show();
+                    var event_id= $("#event_id").val();
+                    var quantity= $("#qty").val();
+                    var note= $("#note").val();
 
-//  make doantion start
-var url = "{{URL::to('/event-book')}}";
-$("#freeEvntsub").click(function(){
-     $("#loading").show();
-        var event_id= $("#event_id").val();
-        var quantity= $("#qty").val();
-        var note= $("#note").val();
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: {event_id,quantity,note},
+                        success: function (d) {
+                            if (d.status == 303) {
+                                $(".ermsg").html(d.message);
+                            }else if(d.status == 300){
+                                $(".ermsg").html(d.message);
+                                window.setTimeout(function(){location.reload()},2000)
+                            }
+                        },
+                        complete:function(data){
+                            $("#loading").hide();
+                        },
+                        error: function (d) {
+                            console.log(d);
+                        }
+                    });
 
-        $.ajax({
-            url: url,
-            method: "POST",
-            data: {event_id,quantity,note},
-            success: function (d) {
-                if (d.status == 303) {
-                    $(".ermsg").html(d.message);
-                }else if(d.status == 300){
-                    $(".ermsg").html(d.message);
-                    window.setTimeout(function(){location.reload()},2000)
-                }
-            },
-            complete:function(data){
-                $("#loading").hide();
-            },
-            error: function (d) {
-                console.log(d);
-            }
-        });
+            });
+            // make donation end 
 
-});
-// make donation end 
+            // select ticket type
+            var urltype = "{{URL::to('/gettype')}}";
+            $("#selectType").change(function(){
+		            event.preventDefault();
+                    var type_id = $(this).val();
+                    
+                    $.ajax({
+                    url: urltype,
+                    method: "POST",
+                    data: {type_id:type_id},
+
+                    success: function (d) {
+                        if (d.status == 303) {
+                            console.log(d);
+                        }else if(d.status == 300){
+                            console.log(d.types.type);
+                            $("#amtshow").html(d.types.ticket_price.toFixed(2));
+                            
+                            $("#paypalamount").val(d.types.ticket_price.toFixed(2));
+                            $("#amount").val(d.types.ticket_price.toFixed(2));
+                             
+                                $("#qty").val(d.types.max_person);
+                                $("#ticket_type").val(d.types.type);
+                                $("#paypalqty").val(d.types.max_person);
+                                $("#pamount").val(d.types.ticket_price.toFixed(2));
+                                $("#qtyNote").html(d.types.note);
+
+                            // $("#customer_id").val(d.customer_id);
+                            
+                           
+                        }
+                    },
+                    error: function (d) {
+                        console.log(d);
+                    }
+                });
+
+            });
 
 
 });
@@ -595,6 +615,7 @@ $("#freeEvntsub").click(function(){
         var cardHolderName = $("#cardholder-name").val();
         var event_id = $("#event_id").val();
         var c_amount = $("#c_amount").val();
+        var ticket_type = $("#ticket_type").val();
 
       fetch(url, {
         method: 'POST',
@@ -604,7 +625,7 @@ $("#freeEvntsub").click(function(){
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
 
-        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity })
+        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity,ticket_type:ticket_type })
       }).then(function(response) {
         return response.json();
       }).then(function(data) {

@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> All ticket you have sold</h2>
+                <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3">{{$data->title}} Booking record</h2>
             </div>
             <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5">
 
@@ -48,12 +48,19 @@
                                 <th scope="col">Customer Name</th>
                                 <th scope="col">Customer Email</th>
                                 <th scope="col">Customer Phone</th>
-                                <th scope="col">Event Name</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Amount</th>
+                                <th scope="col">Payment Type</th>
+                                <th scope="col">Ticket Type</th>
+                                {{-- <th scope="col">Gross</th>
+                                <th scope="col">Fee</th> --}}
+                                <th scope="col">Net</th>
+                                <th scope="col">Balance</th>
                                 {{-- <th scope="col">Action</th> --}}
                             </tr>
                         </thead>
+                        <?php
+                            $tbalance = 0;
+                        ?>
                         <tbody>
                             @foreach ($data->eventticket as $sale)
                             <tr>
@@ -75,16 +82,28 @@
                                 <td class="fs-16 txt-primary text-center">
                                     {{\App\Models\User::where('id',$sale->user_id)->first()->phone}}
                                 </td>
-
-                                <td class="fs-16 txt-primary">
-                                    <a href="{{route('frontend.eventDetails',$sale->event_id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$sale->event->title}}</a>
-                                </td>
                                 <td class="fs-16 txt-primary text-center">
                                     {{$sale->quantity}}
                                 </td>
                                 <td class="fs-16 txt-primary text-center">
-                                    {{ number_format($sale->total_amount, 2) }}
+                                    {{$sale->payment_type}}
                                 </td>
+                                
+                                <td class="fs-16 txt-primary text-center">
+                                    ticket type
+                                </td>
+                                <td class="fs-16 txt-primary text-center">
+                                    £{{ number_format($sale->total_amount, 2) }}
+                                </td>
+
+                                <td class="fs-16 txt-primary text-center">
+                                    £{{ number_format($tbalance, 2) }}
+                                </td>
+                                @php
+                                    $tbalance = $tbalance + $sale->total_amount;
+                                @endphp
+
+
                                 {{-- <td class="fs-16 txt-primary">
                                     <a href="#" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i>  Download</a>
                                 </td> --}}

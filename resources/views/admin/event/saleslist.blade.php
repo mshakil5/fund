@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="pagetitle pb-2">
-                Event booking record
+                {{-- <a href="{{route('frontend.eventDetails',$data->id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}} </a> Event booking record --}}
             </div>
         </div>
     </div>
@@ -33,13 +33,21 @@
                                 <th style="text-align: center">Customer Name</th>
                                 <th style="text-align: center">Customer Email</th>
                                 <th style="text-align: center">Customer Phone</th>
-                                <th style="text-align: center">Event Name</th>
                                 <th style="text-align: center">Quantity</th>
-                                <th style="text-align: center">Amount</th>
+                                <th scope="text-align: center">Payment Type</th>
+                                <th scope="text-align: center">Ticket Type</th>
+                                {{-- <th scope="col">Gross</th>
+                                <th scope="col">Fee</th> --}}
+                                <th scope="text-align: center">Net</th>
+                                <th scope="text-align: center">Balance</th>
                             </tr>
                             </thead>
+                            
+                            <?php
+                                $tbalance = $netamount;
+                            ?>
                             <tbody>
-                                @foreach ($data->eventticket as $key => $sale)
+                                @foreach ($data as $key => $sale)
                                 <tr>
                                     <td style="text-align: center">{{ $key + 1 }}</td>
                                     <td style="text-align: center" class="fs-16 txt-primary">{{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}</td>
@@ -61,15 +69,30 @@
                                         {{\App\Models\User::where('id',$sale->user_id)->first()->phone}}
                                     </td>
     
-                                    <td style="text-align: center" class="fs-16 txt-primary">
-                                        <a href="{{route('frontend.eventDetails',$sale->event_id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$sale->event->title}}</a>
-                                    </td>
                                     <td style="text-align: center" class="fs-16 txt-primary text-center">
                                         {{$sale->quantity}}
                                     </td>
+                                    
                                     <td style="text-align: center" class="fs-16 txt-primary text-center">
-                                        {{ number_format($sale->total_amount, 2) }}
+                                        {{$sale->payment_type}}
                                     </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        ticket type
+                                    </td>
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        £{{ number_format($sale->total_amount, 2) }}
+                                    </td>
+
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        £{{ number_format($tbalance, 2) }}
+                                    </td>
+                                    @php
+                                        $tbalance = $tbalance - $sale->total_amount;
+                                    @endphp
+
+
+
                                     {{-- <td class="fs-16 txt-primary">
                                         <a href="#" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i>  Download</a>
                                     </td> --}}

@@ -74,6 +74,9 @@ Route::get('/charity-registration', [CharityController::class, 'charity'])->name
 Route::post('/charity-registration', [CharityController::class, 'charityregistration'])->name('charity.registration');
 
 
+// get event type
+Route::post('gettype', [EventController::class, 'getEventTicketType']);
+
 /*------------------------------------------
 --------------------------------------------
 All Normal Authenticate Routes List

@@ -235,27 +235,20 @@
                     <div class="data-container">
                         <div class="row">
                             
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div>
                                     <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sale Start Time</label>
                                     <input type="datetime-local" id="sale_start_date" name="sale_start_date" class="form-control" value="{{$data->sale_start_date}}" />
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div>
                                     <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Sale End Time</label>
                                     <input type="datetime-local" id="sale_end_date" name="sale_end_date" class="form-control" value="{{$data->sale_end_date}}" />
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div>
-                                    <label for="price" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Price </label>
-                                    <input type="number" name="price" class="form-control" id="price" value="{{$data->price}}">
-                                </div>
-                            </div>
-
                             
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div>
                                     <label for="quantity" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Quantity </label>
                                     <input type="number" name="quantity" class="form-control" id="quantity" value="{{$data->quantity}}">
@@ -328,7 +321,7 @@
                     form_data.append("summery", $("#summery").val());
                     form_data.append("description", $("#description").val());
                     form_data.append("quantity", $("#quantity").val());
-                    form_data.append("price", $("#price").val());
+                    
                     form_data.append("sale_end_date", $("#sale_end_date").val());
                     form_data.append("sale_start_date", $("#sale_start_date").val());
                     form_data.append("user_id", $("#user_id").val());

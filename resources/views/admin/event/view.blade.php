@@ -361,7 +361,7 @@
                                                 <tbody>
                                                     @foreach ($data->eventimage as $key => $cimg)
                                                         <tr>
-                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center">{{ $cimg->id }}</td>
                                                             <td style="text-align: center">{{$data->title}}</td>
                                                             <td style="text-align: center">{{$cimg->title}}</td>
                                                             <td style="text-align: center">
@@ -380,7 +380,7 @@
                                                     @endforeach
                                                         @if ($data->image)
                                                         <tr>
-                                                            <td style="text-align: center">{{ $key + 1 }}</td>
+                                                            <td style="text-align: center"></td>
                                                             <td style="text-align: center">{{$data->title}}</td>
                                                             <td style="text-align: center"> Feature Image</td>
                                                             <td style="text-align: center">

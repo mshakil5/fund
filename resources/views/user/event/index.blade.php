@@ -49,8 +49,8 @@
                     <table class="table table-striped" id="example">
                         <thead>
                             <tr>
+                                <th scope="col">Date</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">Category</th>
                                 <th scope="col">Event Start & End Date </th>
                                 <th scope="col">Sale Start & End Date </th>
                                 <th scope="col">Price</th>
@@ -64,11 +64,10 @@
                         <tbody>
                             @foreach ($data as $data)
                                 <tr>
-                                    {{-- <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y') }}</td> --}}
+                                    <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y') }}</td>
                                     <td>
-                                        {{$data->title}}<a href="{{route('frontend.eventDetails',$data->id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><iconify-icon class="txt-secondary" icon="ic:outline-remove-red-eye"></iconify-icon></a>
+                                        <a href="{{route('frontend.eventDetails',$data->id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1">{{$data->title}}</a>
                                     </td>
-                                    <td>{{$data->category}} </td>
                                     <td>{{ \Carbon\Carbon::parse($data->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($data->event_end_date)->format('d/m/Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($data->sale_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($data->sale_end_date)->format('d/m/Y') }}</td>
                                     
