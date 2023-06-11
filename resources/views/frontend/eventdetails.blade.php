@@ -289,9 +289,8 @@
 
                     </div>
                     
-                    @if ($data->available < 1)
+                    @if ($data->available < 1 || $data->sale_end_date < date('Y-m-d H:i:s'))
                     <h4 class="darkerGrotesque-bold mb-0">No ticket available</h4>
-
                     @else
                         @if ($data->status == 1)
                             @if (Auth::user())
