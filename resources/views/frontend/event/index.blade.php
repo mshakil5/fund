@@ -8,6 +8,11 @@
 
 <section class="fundriser">
     <div class="container">
+        <!-- Image loader -->
+        <div id='loading' style='display:none ;'>
+            <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+        </div>
+
         <div class="row">
             <div class="col-lg-10 mx-auto">
 
@@ -433,6 +438,7 @@ $(document).ready(function () {
 
     $("#addBtn").click(function(){
         // event create 
+            $("#loading").show();
 
             var file_data = $('#fimage').prop('files')[0];
             if(typeof file_data === 'undefined'){
@@ -504,13 +510,18 @@ $(document).ready(function () {
                     if (d.status == 303) {
                         $(".ermsg").html(d.message);
                     }else if(d.status == 300){
+                        $("#loading").hide();
                         pagetop();
                         $(".ermsg").html(d.message);
                         window.setTimeout(function(){location.replace('{{URL::to("/user/my-event")}}')},2000);
 
                     }
                 },
+                complete:function(data){
+                    $("#loading").hide();
+                },
                 error: function (d) {
+                    $("#loading").hide();
                     console.log(d);
                 }
             });
