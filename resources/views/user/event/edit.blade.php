@@ -240,7 +240,7 @@
                                                         <td class="px-2"><input type="text" id="type" name="type[]" value="{{$price->type}}" class="form-control"><input type="hidden" id="priceid" name="priceid[]" value="{{$price->id}}" ></td>
                                                         <td class="px-2"><input type="text" id="note" name="note[]"  value="{{$price->note}}" class="form-control"></td>
                                                         <td class="px-2"><input type="number"  id="ticket_price" name="ticket_price[]"  value="{{$price->ticket_price}}" class="form-control"></td>
-                                                        <td class="px-2"><input type="number"  id="max_person" name="max_person[]"  value="{{$price->max_person}}" class="form-control max_person"></td>
+                                                        
                                                         <td class="px-2"><input type="number"  id="qty" name="qty[]"  value="{{$price->qty}}" class="form-control qty"></td>
                                                         <td></td>
                                                     </tr>
@@ -418,7 +418,7 @@
 
         $("#addnewrow").click(function() {
 
-        var pmarkup = '<tr><td class="px-2"><input type="text" id="type" name="type[]" class="form-control"></td><td class="px-2"><input type="text" id="note" name="note[]" class="form-control"></td><td class="px-2"><input type="number" id="ticket_price" name="ticket_price[]" class="form-control"></td><td class="px-2"><input type="number"  id="max_person" name="max_person[]"  class="form-control max_person"></td><td class="px-2"><input type="number" id="qty" name="qty[]" class="form-control qty"></td><td width="50px" style="padding-left:2px"><div style="color:#fff;user-select:none;padding:2px;background:red;width:25px;display:flex;align-items:center;margin-right:5px;justify-content:center;border-radius:4px;left:4px" onclick="removeRow(event)">X</div></td></tr>';
+        var pmarkup = '<tr><td class="px-2"><input type="text" id="type" name="type[]" class="form-control"></td><td class="px-2"><input type="text" id="note" name="note[]" class="form-control"></td><td class="px-2"><input type="number" id="ticket_price" name="ticket_price[]" class="form-control"></td><td class="px-2"><input type="number" id="qty" name="qty[]" class="form-control qty"></td><td width="50px" style="padding-left:2px"><div style="color:#fff;user-select:none;padding:2px;background:red;width:25px;display:flex;align-items:center;margin-right:5px;justify-content:center;border-radius:4px;left:4px" onclick="removeRow(event)">X</div></td></tr>';
         $("div #priceinner ").append(pmarkup);
 
     });
@@ -475,9 +475,6 @@ $(document).ready(function () {
                 var type = $("input[name='type[]']")
                     .map(function(){return $(this).val();}).get();
 
-                var max_person = $("input[name='max_person[]']")
-                    .map(function(){return $(this).val();}).get();
-
                 var qty = $("input[name='qty[]']")
                     .map(function(){return $(this).val();}).get();
 
@@ -488,7 +485,6 @@ $(document).ready(function () {
                     .map(function(){return $(this).val();}).get();
 
                     form_data.append('priceid', priceid);
-                    form_data.append('max_person', max_person);
                     form_data.append('type', type);
                     form_data.append('qty', qty);
                     form_data.append('ticket_price', ticket_price);

@@ -318,7 +318,7 @@
                         <h3> All Data</h3>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-hover" id="example">
+                        <table class="table table-bordered table-hover" id="exampleevent">
                             <thead>
                             <tr>
                                 <th style="text-align: center">Date</th>
@@ -395,6 +395,17 @@
     $(document).ready(function () {
         $('.select2').select2();
     });
+
+    $(document).ready(function() {
+        var table = $('#exampleevent').DataTable( {
+            responsive: true,
+            order: [[0, 'desc']],
+            buttons: [
+                'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+    
+    } );
 
     $("#pricecheck").click(function() {
         if($(this).is(":checked")) {

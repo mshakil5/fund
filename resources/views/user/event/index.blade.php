@@ -145,6 +145,7 @@ $(document).on('click', '.refBtn', function () {
     $(document).ready(function() {
         $('#example').DataTable( {
             dom: 'Bfrtip',
+            order: [[0, 'desc']],
             buttons: [
                 'csv', 'excel', 'pdf', 'print'
             ]
