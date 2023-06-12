@@ -160,6 +160,8 @@
                                             <form action="{{ route('payment') }}" method="POST" class="title">
                                                 @csrf
                                                 <input type="hidden" name="amount" id="paypalamount" value="">
+                                                <input type="hidden" name="eventprice_id" id="eventprice_id" value="">
+                                                <input type="hidden" name="clientnote" id="clientnote" value="">
                                                 <input type="hidden" name="ticket_type" id="ticket_type" value="">
                                                 <input type="hidden" name="event_id" value="{{$data->id}}">
                                                 <input type="hidden" name="paypalqty" id="paypalqty" value="1">
@@ -263,8 +265,6 @@
                                     <iconify-icon icon="typcn:plus"></iconify-icon>
                                 </button>
                                 @endif
-
-                                
                             </div>
 
 
@@ -293,11 +293,14 @@
                             
                         </div>
                         <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
+                        
+                        <textarea name="note" id="note" cols="30" rows="2" class="form-control" placeholder="Note..."></textarea>
+
                         @else
                         <h4 class="darkerGrotesque-bold my-3 txt-primary"><span>Free</span></h4>
                         <input type="number" id="qty" name="qty" value="" hidden>
                         <input type="number" id="freeqty" name="freeqty" value="1" hidden>
-                        <textarea name="note" id="note" cols="30" rows="2" class="form-control" placeholder="Note..."></textarea>
+                        {{-- <textarea name="note" id="note" cols="30" rows="2" class="form-control" placeholder="Note..."></textarea> --}}
                         @endif
                         
                        
@@ -552,11 +555,12 @@ $(document).ready(function () {
                             $("#paypalamount").val(d.types.ticket_price.toFixed(2));
                             $("#amount").val(d.types.ticket_price.toFixed(2));
                              
-                                $("#qty").val(d.types.max_person);
-                                $("#ticket_type").val(d.types.type);
-                                $("#paypalqty").val(d.types.max_person);
-                                $("#pamount").val(d.types.ticket_price.toFixed(2));
-                                $("#qtyNote").html(d.types.note);
+                            $("#qty").val(d.types.max_person);
+                            $("#eventprice_id").val(d.types.id);
+                            $("#ticket_type").val(d.types.type);
+                            $("#paypalqty").val(d.types.max_person);
+                            $("#pamount").val(d.types.ticket_price.toFixed(2));
+                            $("#qtyNote").html(d.types.note);
 
                             // $("#customer_id").val(d.customer_id);
                             
@@ -567,6 +571,14 @@ $(document).ready(function () {
                         console.log(d);
                     }
                 });
+
+            });
+
+            
+            $("#note").keyup(function(){
+                event.preventDefault();
+                var note = $(this).val();
+                $("#clientnote").val(note);
 
             });
 
@@ -616,6 +628,8 @@ $(document).ready(function () {
         var event_id = $("#event_id").val();
         var c_amount = $("#c_amount").val();
         var ticket_type = $("#ticket_type").val();
+        var event_price_id = $("#selectType").val();
+        var note = $("#note").val();
 
       fetch(url, {
         method: 'POST',
@@ -625,7 +639,7 @@ $(document).ready(function () {
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
 
-        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity,ticket_type:ticket_type })
+        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity,ticket_type:ticket_type,event_price_id:event_price_id,note:note })
       }).then(function(response) {
         return response.json();
       }).then(function(data) {

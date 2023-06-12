@@ -71,7 +71,13 @@
                                     <td>{{ \Carbon\Carbon::parse($data->event_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($data->event_end_date)->format('d/m/Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($data->sale_start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($data->sale_end_date)->format('d/m/Y') }}</td>
                                     
-                                    <td>£{{$data->price}}</td>
+                                    <td>
+                                        @if ($data->is_free == 1)
+                                        Free
+                                        @else
+                                            <a href="{{route('user.eventPrice',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">Price</a>
+                                        @endif  
+                                    </td>
                                     <td>{{$data->quantity}}</td>
                                     <td>{{$data->sold}}</td>
                                     <td>{{$data->available}}</td>

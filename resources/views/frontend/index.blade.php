@@ -226,15 +226,13 @@
                                <div class="d-flex justify-content-center align-items-center">
                                 <span class="darkerGrotesque-bold txt-secondary text-center">
                                     
-                                    {{ \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY')}} -  <span class=" darkerGrotesque-bold txt-primary">
-                                        @if ($event->price > 0) £{{$event->price}} @else Free @endif  
-                                      </span> 
-                                    </span>
+                                    {{ \Carbon\Carbon::parse($event->event_start_date)->isoFormat('MMM Do YYYY')}}
+                                </span>
                                   
                                </div>
                                <h5 class="mb-0 darkerGrotesque-semibold mb-0">
                                 <span class="txt-primary"> Venue:</span><br>
-                                ({{$event->venue_name}})
+                                {{$event->venue_name}}
                                </h5> 
                                <h5 class="mb-0 darkerGrotesque-semibold mb-2 mh-50">
                                <span class="txt-primary"> Location:</span> <br> <span class="txt-secondary"> {{$event->house_number}} {{$event->road_name}} {{$event->town}} {{$event->postcode}}</span>

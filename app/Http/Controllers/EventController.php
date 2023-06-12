@@ -60,8 +60,18 @@ class EventController extends Controller
     public function viewEventPriceByAdmin($id)
     {
         
+        $event = Event::with('eventimage')->where('id', $id)->first();
         $data = EventPrice::where('event_id', $id)->get();
-        return view('admin.event.price',compact('data'));
+        return view('admin.event.price',compact('data','event'));
+        
+    }
+
+    public function viewEventPriceByUser($id)
+    {
+        
+        $event = Event::with('eventimage')->where('id', $id)->first();
+        $data = EventPrice::where('event_id', $id)->get();
+        return view('user.event.price',compact('data','event'));
         
     }
 
@@ -237,7 +247,6 @@ class EventController extends Controller
                     $evntprice->user_id = Auth::user()->id;
                     $evntprice->type = $types[$key]; 
                     $evntprice->qty = $qtys[$key]; 
-                    $evntprice->max_person = $max_persons[$key]; 
                     $evntprice->ticket_price = $ticket_prices[$key]; 
                     $evntprice->note = $notes[$key];
                     $evntprice->created_by = Auth::user()->id;
@@ -433,7 +442,6 @@ class EventController extends Controller
                         $evntprice->user_id = Auth::user()->id;
                         $evntprice->type = $types[$key]; 
                         $evntprice->qty = $qtys[$key]; 
-                        $evntprice->max_person = $max_persons[$key]; 
                         $evntprice->ticket_price = $ticket_prices[$key]; 
                         $evntprice->note = $notes[$key];
                         $evntprice->updated_by = Auth::user()->id;
@@ -446,7 +454,6 @@ class EventController extends Controller
                         $evntprice->user_id = Auth::user()->id;
                         $evntprice->type = $types[$key]; 
                         $evntprice->qty = $qtys[$key]; 
-                        $evntprice->max_person = $max_persons[$key]; 
                         $evntprice->ticket_price = $ticket_prices[$key]; 
                         $evntprice->note = $notes[$key];
                         $evntprice->created_by = Auth::user()->id;
@@ -637,7 +644,6 @@ class EventController extends Controller
                     $evntprice->user_id = Auth::user()->id;
                     $evntprice->type = $types[$key]; 
                     $evntprice->qty = $qtys[$key]; 
-                    $evntprice->max_person = $max_persons[$key]; 
                     $evntprice->ticket_price = $ticket_prices[$key]; 
                     $evntprice->note = $notes[$key];
                     $evntprice->created_by = Auth::user()->id;
@@ -710,8 +716,8 @@ class EventController extends Controller
             $array['contactmail'] = $contactmail;
 
             $array['message'] = str_replace(
-                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{venue}}','{{price}}'],
-                [$event->title, $eventuser->name,$date,$time,$event->venue_name, $event->price],
+                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{venue}}','{{price}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
+                [$event->title, $eventuser->name,$date,$time,$event->venue_name, $event->price, $event->house_number, $event->road_name, $event->town, $event->postcode],
                 $msg
             );
 

@@ -189,6 +189,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('/event-edit/{id}', [EventController::class, 'eventEditByUser'])->name('user.eventEdit');
     Route::get('/event-ticket-sale/{id}', [EventController::class, 'eventTicketSaleShowByUser'])->name('user.eventTicketSales');
     Route::post('update-event', [EventController::class, 'eventUpdateByUser']);
+    Route::get('/event-price/{id}', [EventController::class, 'viewEventPriceByUser'])->name('user.eventPrice');
 
     
 

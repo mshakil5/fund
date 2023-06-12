@@ -37,11 +37,12 @@
                         <thead>
                             <tr>
                                 <th scope="col">Date</th>
-                                <th scope="col">Transaction Id</th>
+                                <th scope="col">Reference Id</th>
                                 <th scope="col">Event Name</th>
                                 <th scope="col">Event Start Date</th>
                                 <th scope="col">Event End Date</th>
                                 <th scope="col">Quantity</th>
+                                <th scope="col">Note</th>
                                 <th scope="col">Amount</th>
                                 {{-- <th scope="col">Action</th> --}}
                             </tr>
@@ -66,6 +67,9 @@
                                 </td>
                                 <td class="fs-16 txt-primary">
                                     {{$data->quantity}}
+                                </td>
+                                <td class="fs-16 txt-primary">
+                                    {{$data->note}}
                                 </td>
                                 <td class="fs-16 txt-primary">
                                     {{ number_format($data->total_amount, 2) }}

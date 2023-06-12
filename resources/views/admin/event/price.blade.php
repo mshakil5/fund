@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="pagetitle pb-2">
-                {{-- <a href="{{route('frontend.eventDetails',$data->id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}} </a> Event booking record --}}
+                <a href="{{route('frontend.eventDetails',$event->id)}}" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$event->title}} </a> Event booking record
             </div>
         </div>
     </div>
