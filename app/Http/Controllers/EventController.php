@@ -286,10 +286,11 @@ class EventController extends Controller
             $time = \Carbon\Carbon::parse($data->event_start_date)->format('H:i:s');
 
             $array['message'] = str_replace(
-                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{description}}'],
-                [$data->title, Auth::user()->name,$date,$time,$data->id,$data->venue_name, $data->price, $data->description],
+                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{description}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
+                [$data->title, Auth::user()->name,$date,$time,$data->id,$data->venue_name, $data->price, $data->description, $data->house_number, $data->road_name, $data->town, $data->postcode],
                 $msg
             );
+
             Mail::to($email)
                 // ->cc($ccEmails)
                 ->send(new EventActiveMail($array));
