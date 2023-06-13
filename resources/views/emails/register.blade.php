@@ -7,7 +7,6 @@
     {!! $array['message'] !!}
 </p>
 
-Thanks,<br>
 <a href="https://www.gogiving.co.uk" target="blank">GoGiving</a>
 
 @endcomponent

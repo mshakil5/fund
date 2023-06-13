@@ -203,7 +203,7 @@
                                                 Event description:
                                             </label>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9" style="text-align: left !Important">
                                             <textarea name="description" id="description" class="form-control summernote" placeholder="Event description"></textarea>
                                         </div>
                                     </div>
@@ -399,8 +399,11 @@
 </script>
 <script type="text/javascript">
     $('.summernote').summernote({
-        height: 200
+        height: 200,
+        direction: 'ltr'
     });
+
+    
 
     // $("#pricecheck").click(function() {
     //     if($(this).is(":checked")) {

@@ -43,7 +43,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="moneyOut-tab" data-bs-toggle="tab"
                         data-bs-target="#moneyOut" type="button" role="tab" aria-controls="moneyOut"
-                        aria-selected="false">Event Summary</button>
+                        aria-selected="false">Event Type & Price</button>
                 </li>
                 
             </ul>
@@ -266,7 +266,6 @@
                                                 <th scope="col" class="text-center">Type</th>
                                                 <th scope="col" class="text-center">Description</th>
                                                 <th scope="col" class="text-center">Price</th>
-                                                <th scope="col" class="text-center">Quantity </th>
                                                 <th scope="col" class="text-center">Total ticket</th>
                                                 <th scope="col" class="text-center">Action</th>
                                             </tr>
@@ -276,7 +275,6 @@
                                                 <td class="px-2"><input type="text"    id="type" name="type[]"  class="form-control"></td>
                                                 <td class="px-2"><input type="text" id="note" name="note[]"  class="form-control"></td>
                                                 <td class="px-2"><input type="number"  id="ticket_price" name="ticket_price[]"  class="form-control"></td>
-                                                <td class="px-2"><input type="number"  id="max_person" name="max_person[]"  class="form-control max_person"></td>
                                                 <td class="px-2"><input type="number"  id="qty" name="qty[]"  class="form-control qty"></td>
                                                 <td><a class="btn btn-sm btn-theme bg-secondary ms-1 add-new-row" id="addnewrow">+</a></td>
                                             </tr>
@@ -413,13 +411,7 @@
     
     } );
 
-    $("#pricecheck").click(function() {
-        if($(this).is(":checked")) {
-            $(".pricediv").hide(200);
-        } else {
-            $(".pricediv").show(300);
-        }
-    });
+    
 </script>
 <script>
     $(function() {
@@ -466,7 +458,7 @@
 
     $("#addnewrow").click(function() {
 
-    var pmarkup = '<tr><td class="px-2"><input type="text" id="type" name="type[]" class="form-control"></td><td class="px-2"><input type="text" id="note" name="note[]" class="form-control"></td><td class="px-2"><input type="number" id="ticket_price" name="ticket_price[]" class="form-control"></td><td class="px-2"><input type="number"  id="max_person" name="max_person[]"  class="form-control max_person"></td><td class="px-2"><input type="number" id="qty" name="qty[]" class="form-control qty"></td><td width="50px" style="padding-left:2px"><div style="color:#fff;user-select:none;padding:2px;background:red;width:25px;display:flex;align-items:center;margin-right:5px;justify-content:center;border-radius:4px;left:4px" onclick="removeRow(event)">X</div></td></tr>';
+    var pmarkup = '<tr><td class="px-2"><input type="text" id="type" name="type[]" class="form-control"></td><td class="px-2"><input type="text" id="note" name="note[]" class="form-control"></td><td class="px-2"><input type="number" id="ticket_price" name="ticket_price[]" class="form-control"></td><td class="px-2"><input type="number" id="qty" name="qty[]" class="form-control qty"></td><td width="50px" style="padding-left:2px"><div style="color:#fff;user-select:none;padding:2px;background:red;width:25px;display:flex;align-items:center;margin-right:5px;justify-content:center;border-radius:4px;left:4px" onclick="removeRow(event)">X</div></td></tr>';
     $("div #priceinner ").append(pmarkup);
 
     });
@@ -537,16 +529,12 @@
                     var qty = $("input[name='qty[]']")
                         .map(function(){return $(this).val();}).get();
 
-                    var max_person = $("input[name='max_person[]']")
-                        .map(function(){return $(this).val();}).get();
-
                     var ticket_price = $("input[name='ticket_price[]']")
                         .map(function(){return $(this).val();}).get();
 
                     var note = $("input[name='note[]']")
                         .map(function(){return $(this).val();}).get();
 
-                        form_data.append('max_person', max_person);
                         form_data.append('type', type);
                         form_data.append('qty', qty);
                         form_data.append('ticket_price', ticket_price);
@@ -638,6 +626,28 @@
             $(this).parent().remove();
 
         });
+
+            // qty calculation
+
+    $("body").delegate(".qty","keyup",function(event){
+        event.preventDefault();
+        var row = $(this).parent().parent();
+        var qty = row.find('.qty').val();
+            if (isNaN(qty)) {
+                qty = 1;
+            }
+            if (qty < 1) {
+                qty = 1;
+            }
+        
+        var qty_total= 0;
+        $('.qty').each(function(){
+            qty_total += ($(this).val()-0);
+        })
+        $('#quantity').val(qty_total);
+        
+    })
+    // qty calculation end
 
     
 </script>

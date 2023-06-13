@@ -50,6 +50,7 @@
                                 <th scope="col">Customer Phone</th>
                                 <th scope="col">Payment Type</th>
                                 <th scope="col">Ticket Type</th>
+                                <th scope="col">Note</th>
                                 <th scope="col">Gross</th>
                                 <th scope="col">Fee</th>
                                 <th scope="col">Net</th>
@@ -92,6 +93,11 @@
                                 <td class="fs-16 txt-primary text-center">
                                     {{$sale->ticket_type}}
                                 </td>
+
+                                <td class="fs-16 txt-primary text-center">
+                                    {{$sale->note}}
+                                </td>
+
                                 <td class="fs-16 txt-primary text-center">
                                     £{{ number_format($sale->total_amount, 2) }}
                                 </td>

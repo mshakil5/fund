@@ -3,6 +3,10 @@
 
 <section class="fundriser">
     <div class="container">
+        <!-- Image loader -->
+        <div id='loading' style='display:none ;'>
+            <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+        </div>
         <div class="row">
             <div class="col-lg-10 mx-auto">
 
@@ -195,7 +199,7 @@
                                                 Event description:
                                             </label>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9" style="text-align: left !Important">
                                             <textarea name="description" id="description" class="form-control summernote" placeholder="Event description">{!! $data->description !!}</textarea>
                                         </div>
                                     </div>
@@ -433,6 +437,7 @@ $(document).ready(function () {
 
     $("#updateBtn").click(function(){
         // event create 
+            $("#loading").show();
 
             var file_data = $('#fimage').prop('files')[0];
             if(typeof file_data === 'undefined'){
@@ -499,12 +504,17 @@ $(document).ready(function () {
                 data:form_data,
                 success: function (d) {
                     if (d.status == 303) {
+                        $("#loading").hide();
                         $(".ermsg").html(d.message);
                     }else if(d.status == 300){
                         pagetop();
+                        $("#loading").hide();
                         $(".ermsg").html(d.message);
                         window.setTimeout(function(){location.reload()},2000)
                     }
+                },
+                complete:function(data){
+                    $("#loading").hide();
                 },
                 error: function (d) {
                     console.log(d);
