@@ -11,7 +11,7 @@ use Mail;
 use App\Models\EmailContent;
 use App\Mail\ContactFormMail;
 use App\Mail\EventActiveMail;
-use App\Mail\EventCreateMail;
+use App\Mail\EventPaymentMail;
 use App\Models\ContactMail;
 use App\Models\EventPrice;
 use App\Models\EventTransaction;
@@ -959,6 +959,42 @@ class EventController extends Controller
     $event->available = $event->available-$request->quantity;
     $event->sold = $event->sold+$request->quantity;
     $event->save();
+
+    
+    $eventdetails = Event::where('id', $request->event_id)->first();
+    $adminmail = ContactMail::where('id', 1)->first()->email;
+    $contactmail = Auth::user()->email;
+    $ccEmails = [$adminmail];
+    $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
+
+    
+    
+    if (isset($msg)) {
+        $array['eventname'] = $eventdetails->title;
+        $array['start'] = $eventdetails->event_start_date;
+        $array['vanue'] = $eventdetails->venue_name;
+        $array['quantity'] = $request->quantity;
+        $array['amount'] = $request->amount;
+        $array['tranNo'] = $evnbooked->tran_no;
+        $array['name'] = Auth::user()->name;
+        $array['email'] = Auth::user()->email;
+        $array['subject'] = "Event Booking Confirmation";
+        $array['message'] = $msg;
+        $array['contactmail'] = $contactmail;
+
+        $date = \Carbon\Carbon::parse($eventdetails->event_start_date)->isoFormat('MMM Do YYYY');
+        $time = \Carbon\Carbon::parse($eventdetails->event_start_date)->format('H:i:s');
+
+        $array['message'] = str_replace(
+            ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{booking_date}}','{{tran_no}}','{{ticket_name}}','{{amount}}','{{payment_type}}','{{title}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
+            [$eventdetails->title, Auth::user()->name,$date,$time,$eventdetails->id,$eventdetails->venue_name, $eventdetails->price, $evnbooked->date, $evnbooked->tran_no, $evnbooked->ticket_type, $evnbooked->amount, $evnbooked->payment_type,$eventdetails->title,$eventdetails->house_number,$eventdetails->road_name,$eventdetails->town,$eventdetails->postcode],
+            $msg
+        );
+        Mail::to($contactmail)
+            // ->cc($ccEmails)
+            ->send(new EventPaymentMail($array));
+
+    }
 
     $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event booked successfully.</b></div>";
     // $message = $request->image[0];

@@ -21,7 +21,37 @@
         </div>
        
     </div>
+    <style lang="scss">
+        @media(max-width:768px) {
+            tr {
+                display: flex;
+                flex-direction: column;
+                text-align: left;
+                align-items: flex-start;
+                text-align: left; 
+            }
 
+            tr td {
+                width: 100%;
+                text-align: unset !important;
+                background:none!important;
+            }
+
+            tr td span {}
+
+            tr td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                float: left;
+                display: block;
+                width: 100%;
+            }
+
+            thead tr {
+                display: none;
+            }
+        }
+    </style>
 </body>
 
 </html>
