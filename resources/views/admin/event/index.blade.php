@@ -312,6 +312,12 @@
     <hr>
     <div id="contentContainer">
         <div class="row">
+            
+            <!-- Image loader -->
+            <div id='loading' style='display:none ;'>
+                <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+            </div>
+            
             <div class="col-md-12">
                 <div class="card" style="background-color: #fdf3ee">
                     <div class="card-header">
@@ -418,6 +424,8 @@
 <script>
     $(function() {
       $('.eventstatus').change(function() {
+        
+      $("#loading").show();
         var url = "{{URL::to('/admin/active-event')}}";
           var status = $(this).prop('checked') == true ? 1 : 0;
           var id = $(this).data('id');
@@ -431,10 +439,12 @@
                 console.log(d)
                 if (d.status == 303) {
                         pagetop();
+                        $("#loading").hide();
                         $(".stsermsg").html(d.message);
                         // window.setTimeout(function(){location.reload()},2000)
                     }else if(d.status == 300){
                         pagetop();
+                        $("#loading").hide();
                         $(".stsermsg").html(d.message);
                         // window.setTimeout(function(){location.reload()},2000)
                     }
