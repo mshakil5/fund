@@ -10,7 +10,7 @@
 
     <div style="  margin:0 auto; padding: 25px;    font-family: system-ui; ">
         <div style="background-color: #F6FBFB;padding: 25px;">
-            <img src="{{ asset('images/company/'.\App\Models\CompanyDetail::where('id',1)->first()->header_logo)}}" style="display: block;  width: 130px; margin: 0 auto;">
+            <img src="{{asset('/images/company/1685032188844868.svg')}}" style="display: block;  width: 130px; margin: 0 auto;">
 
 
             {!! $array['message'] !!}
