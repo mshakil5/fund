@@ -178,7 +178,7 @@
                                     <div class="row">
                                         <div class="col-md-4 text-start">
                                             <label for="fimage" class="fs-5 fw-bold ">
-                                                Upload Event Feature photo:
+                                                Upload Event Feature photo*:
                                             </label>
                                         </div>
                                         <div class="col-md-8">
@@ -402,15 +402,15 @@
         height: 200
     });
 
-    $("#pricecheck").click(function() {
-        if($(this).is(":checked")) {
-            $(".pricediv").hide(200);
-            document.getElementById('quantity').readOnly = false;
-        } else {
-            $(".pricediv").show(300);
-            document.getElementById('quantity').readOnly = true;
-        }
-    });
+    // $("#pricecheck").click(function() {
+    //     if($(this).is(":checked")) {
+    //         $(".pricediv").hide(200);
+    //         document.getElementById('quantity').readOnly = false;
+    //     } else {
+    //         $(".pricediv").show(300);
+    //         document.getElementById('quantity').readOnly = true;
+    //     }
+    // });
 
 </script>
 <script>

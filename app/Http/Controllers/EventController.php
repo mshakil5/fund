@@ -159,25 +159,36 @@ class EventController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+
+        if($request->fimage == 'null'){
+            
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Feature Image \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+
         // if(empty($request->price)){
         //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Price \" field..!</b></div>";
         //     return response()->json(['status'=> 303,'message'=>$message]);
         //     exit();
         // }
 
-        if (empty($request->is_free)) {
-            $types = explode(",",$request->type);
-            $qtys = explode(",",$request->qty);
+        $types = explode(",",$request->type);
+        $qtys = explode(",",$request->qty);
+        $notes = explode(",",$request->note);
+        if (empty($request->ticket_price)) {
+            $ticket_prices = "0";
+        } else {
             $ticket_prices = explode(",",$request->ticket_price);
-            $notes = explode(",",$request->note);
-            $max_persons = explode(",",$request->max_person);
+        }
+        
 
-            foreach($types as $key => $name){
-                if($types[$key] == "" ||  $qtys[$key] == "" || $ticket_prices[$key] == "" ){
-                $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill all field.</b></div>";
-                return response()->json(['status'=> 303,'message'=>$message]);
-                exit();
-                }
+        foreach($types as $key => $name){
+            if($types[$key] == "" ||  $qtys[$key] == "" ){
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill all field.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
             }
         }
 
@@ -239,7 +250,7 @@ class EventController extends Controller
                 }
             }
 
-            if (empty($request->is_free)) {
+            
                 foreach($types as $key => $value)
                 {
                     $evntprice = new EventPrice();
@@ -247,12 +258,17 @@ class EventController extends Controller
                     $evntprice->user_id = Auth::user()->id;
                     $evntprice->type = $types[$key]; 
                     $evntprice->qty = $qtys[$key]; 
-                    $evntprice->ticket_price = $ticket_prices[$key]; 
+                    if (empty($ticket_prices[$key])) {
+                        $evntprice->ticket_price = 0.00; 
+                    } else {
+                        $evntprice->ticket_price = $ticket_prices[$key]; 
+                    }
+                    
                     $evntprice->note = $notes[$key];
                     $evntprice->created_by = Auth::user()->id;
                     $evntprice->save();
                 }
-            }
+                
 
             $msg = EmailContent::where('title','=','event_create_confirmation_mail')->first()->description;
             $adminmail = ContactMail::where('id', 1)->first()->email;
@@ -356,22 +372,21 @@ class EventController extends Controller
         //     exit();
         // }
 
-        if (empty($request->is_free)) {
+        
             $types = explode(",",$request->type);
             $qtys = explode(",",$request->qty);
-            $max_persons = explode(",",$request->max_person);
             $ticket_prices = explode(",",$request->ticket_price);
             $notes = explode(",",$request->note);
             $priceids = explode(",",$request->priceid);
 
             foreach($types as $key => $name){
-                if($types[$key] == "" ||  $qtys[$key] == "" || $ticket_prices[$key] == "" ){
+                if($types[$key] == "" ||  $qtys[$key] == "" ){
                 $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill all field.</b></div>";
                 return response()->json(['status'=> 303,'message'=>$message]);
                 exit();
                 }
             }
-        }
+            
 
         $data = Event::find($request->event_id);
         $data->title = $request->title;
@@ -432,36 +447,38 @@ class EventController extends Controller
             }
 
             // new 
-            if (empty($request->is_free)) {
-                foreach($types as $key => $value)
-                {
-                    if(isset($priceids[$key])){
+            foreach($types as $key => $value)
+            {
+                if(isset($priceids[$key])){
 
-                        $evntprice = EventPrice::findOrFail($priceids[$key]);
-                        $evntprice->event_id = $data->id;
-                        $evntprice->user_id = Auth::user()->id;
-                        $evntprice->type = $types[$key]; 
-                        $evntprice->qty = $qtys[$key]; 
+                    $evntprice = EventPrice::findOrFail($priceids[$key]);
+                    $evntprice->event_id = $data->id;
+                    $evntprice->user_id = Auth::user()->id;
+                    $evntprice->type = $types[$key]; 
+                    $evntprice->qty = $qtys[$key]; 
+                    if (empty($ticket_prices[$key])) {
+                        $evntprice->ticket_price = 0.00; 
+                    } else {
                         $evntprice->ticket_price = $ticket_prices[$key]; 
-                        $evntprice->note = $notes[$key];
-                        $evntprice->updated_by = Auth::user()->id;
-                        $evntprice->save();
-
-                    }else{
-                        
-                        $evntprice = new EventPrice();
-                        $evntprice->event_id = $data->id;
-                        $evntprice->user_id = Auth::user()->id;
-                        $evntprice->type = $types[$key]; 
-                        $evntprice->qty = $qtys[$key]; 
-                        $evntprice->ticket_price = $ticket_prices[$key]; 
-                        $evntprice->note = $notes[$key];
-                        $evntprice->created_by = Auth::user()->id;
-                        $evntprice->save();
-                        
                     }
+                    $evntprice->note = $notes[$key];
+                    $evntprice->updated_by = Auth::user()->id;
+                    $evntprice->save();
 
+                }else{
+                    
+                    $evntprice = new EventPrice();
+                    $evntprice->event_id = $data->id;
+                    $evntprice->user_id = Auth::user()->id;
+                    $evntprice->type = $types[$key]; 
+                    $evntprice->qty = $qtys[$key]; 
+                    $evntprice->ticket_price = $ticket_prices[$key]; 
+                    $evntprice->note = $notes[$key];
+                    $evntprice->created_by = Auth::user()->id;
+                    $evntprice->save();
+                    
                 }
+
             }
 
             // end
@@ -563,21 +580,20 @@ class EventController extends Controller
         //     exit();
         // }
 
-        if (empty($request->is_free)) {
-            $types = explode(",",$request->type);
-            $qtys = explode(",",$request->qty);
-            $ticket_prices = explode(",",$request->ticket_price);
-            $notes = explode(",",$request->note);
-            $max_persons = explode(",",$request->max_person);
-
-            foreach($types as $key => $name){
-                if($types[$key] == "" ||  $qtys[$key] == "" || $ticket_prices[$key] == "" ){
-                $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill all field.</b></div>";
-                return response()->json(['status'=> 303,'message'=>$message]);
-                exit();
-                }
+        
+        $types = explode(",",$request->type);
+        $qtys = explode(",",$request->qty);
+        $ticket_prices = explode(",",$request->ticket_price);
+        $notes = explode(",",$request->note);
+        
+        foreach($types as $key => $name){
+            if($types[$key] == "" ||  $qtys[$key] == ""){
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill all field.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
             }
         }
+            
 
         $data = new Event();
         $data->user_id = $request->user_id;
@@ -636,19 +652,21 @@ class EventController extends Controller
                 }
             }
 
-            if (empty($request->is_free)) {
-                foreach($types as $key => $value)
-                {
-                    $evntprice = new EventPrice();
-                    $evntprice->event_id = $data->id;
-                    $evntprice->user_id = Auth::user()->id;
-                    $evntprice->type = $types[$key]; 
-                    $evntprice->qty = $qtys[$key]; 
+            foreach($types as $key => $value)
+            {
+                $evntprice = new EventPrice();
+                $evntprice->event_id = $data->id;
+                $evntprice->user_id = Auth::user()->id;
+                $evntprice->type = $types[$key]; 
+                $evntprice->qty = $qtys[$key]; 
+                if (empty($ticket_prices[$key])) {
+                    $evntprice->ticket_price = 0.00; 
+                } else {
                     $evntprice->ticket_price = $ticket_prices[$key]; 
-                    $evntprice->note = $notes[$key];
-                    $evntprice->created_by = Auth::user()->id;
-                    $evntprice->save();
                 }
+                $evntprice->note = $notes[$key];
+                $evntprice->created_by = Auth::user()->id;
+                $evntprice->save();
             }
 
             $userdtls = User::where('id', $request->user_id)->first();
