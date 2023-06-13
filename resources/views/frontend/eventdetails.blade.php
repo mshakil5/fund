@@ -294,15 +294,15 @@
                         </div>
                         <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
                         
-                        <textarea name="note" id="note" cols="30" rows="2" class="form-control" placeholder="Note..."></textarea>
 
                         @else
                         <h4 class="darkerGrotesque-bold my-3 txt-primary"><span>Free</span></h4>
-                        <input type="number" id="qty" name="qty" value="" hidden>
-                        <input type="number" id="freeqty" name="freeqty" value="1" hidden>
                         {{-- <textarea name="note" id="note" cols="30" rows="2" class="form-control" placeholder="Note..."></textarea> --}}
                         @endif
                         
+                        <input type="number" id="qty" name="qty" value="" hidden>
+                        <input type="number" id="freeqty" name="freeqty" value="1" hidden>
+                        <textarea name="note" id="note" cols="30" rows="2" class="form-control" placeholder="Note..."></textarea>
                        
 
                     </div>
