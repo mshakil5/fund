@@ -325,6 +325,7 @@
                         <table class="table table-bordered table-hover" id="exampleevent">
                             <thead>
                             <tr>
+                                <th style="text-align: center">ID</th>
                                 <th style="text-align: center">Date</th>
                                 <th style="text-align: center">Title</th>
                                 <th style="text-align: center">Event Organizer</th>
@@ -338,6 +339,7 @@
                             <tbody>
                                 @foreach ($data as $key => $data)
                                     <tr>
+                                        <td style="text-align: center">{{$data->id}}</td>
                                         <td style="text-align: center">{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y')}}</td>
                                         <td style="text-align: center">
                                             <a href="{{route('admin.eventView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
