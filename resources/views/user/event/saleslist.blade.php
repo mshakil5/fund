@@ -48,21 +48,24 @@
                                 <th scope="col">Customer Name</th>
                                 <th scope="col">Customer Email</th>
                                 <th scope="col">Customer Phone</th>
-                                <th scope="col">Quantity</th>
                                 <th scope="col">Payment Type</th>
                                 <th scope="col">Ticket Type</th>
-                                {{-- <th scope="col">Gross</th>
-                                <th scope="col">Fee</th> --}}
+                                <th scope="col">Gross</th>
+                                <th scope="col">Fee</th>
                                 <th scope="col">Net</th>
                                 <th scope="col">Balance</th>
                                 {{-- <th scope="col">Action</th> --}}
                             </tr>
                         </thead>
                         <?php
-                            $tbalance = 0;
+                            $tbalance = $netamount;
                         ?>
                         <tbody>
                             @foreach ($data->eventticket as $sale)
+                            @php
+                                $totalfee = $sale->commission + $sale->fixed_fee;
+                                $netamnt = $sale->total_amount - $totalfee;
+                            @endphp
                             <tr>
                                 <td class="fs-16 txt-primary">{{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}</td>
                                 <td>
@@ -83,24 +86,29 @@
                                     {{\App\Models\User::where('id',$sale->user_id)->first()->phone}}
                                 </td>
                                 <td class="fs-16 txt-primary text-center">
-                                    {{$sale->quantity}}
-                                </td>
-                                <td class="fs-16 txt-primary text-center">
                                     {{$sale->payment_type}}
                                 </td>
                                 
                                 <td class="fs-16 txt-primary text-center">
-                                    ticket type
+                                    {{$sale->ticket_type}}
                                 </td>
                                 <td class="fs-16 txt-primary text-center">
                                     £{{ number_format($sale->total_amount, 2) }}
+                                </td>
+                                
+                                <td class="fs-16 txt-primary text-center">
+                                    £{{ number_format($totalfee, 2) }}
+                                </td>
+                                
+                                <td class="fs-16 txt-primary text-center">
+                                    £{{ number_format($netamnt, 2) }}
                                 </td>
 
                                 <td class="fs-16 txt-primary text-center">
                                     £{{ number_format($tbalance, 2) }}
                                 </td>
                                 @php
-                                    $tbalance = $tbalance + $sale->total_amount;
+                                    $tbalance = $tbalance - $netamnt;
                                 @endphp
 
 
