@@ -14,6 +14,7 @@
     <div class="row"> 
         <div class="col-lg-6 mt-2">
             <a href="{{ route('admin.event')}}" class="btn-theme bg-primary text-center">Back</a>
+            <a href="{{ route('admin.eventtransaction',$event->id)}}" class="btn-theme bg-secondary text-center">Transaction</a>
         </div> 
     </div>
     <div id="contentContainer">

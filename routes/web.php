@@ -15,6 +15,7 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\EventTransactionController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -192,7 +193,9 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('/event-price/{id}', [EventController::class, 'viewEventPriceByUser'])->name('user.eventPrice');
 
     
+    Route::post('event-withdraw-request', [EventController::class, 'eventWithReqByUser']);
 
+    Route::get('/event-transaction/{id}', [EventTransactionController::class, 'getEventTran'])->name('user.eventtransaction');
 
 });
   

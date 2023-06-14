@@ -5,19 +5,31 @@
 @endsection
 
 @section('content')
+<style>
+    .modal-form{
+        margin: 0px 0 !important;
+    }
+</style>
 <section class="bleesed default">
     <div class="container">
+
         <div class="row"> 
             <div class="col-lg-6 mt-2">
                 <a href="{{ route('user.myevent')}}" class="btn-theme bg-primary text-center">Back</a>
+
+                <button type="button"  class="btn-theme bg-secondary text-center" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    Withdraw
+                </button>
+                
+                <a href="{{ route('user.eventtransaction',$data->id)}}" class="btn-theme bg-secondary text-center">Transaction</a>
+
             </div> 
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3">{{$data->title}} Booking record</h2>
             </div>
-            <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5">
-
+            {{-- <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5">
                 <form action="" class="d-flex">
                     <div class="me-2">
                         <label for="">From</label>
@@ -35,7 +47,7 @@
                             </button>
                     </div>
                 </form>
-            </div>
+            </div> --}}
         </div>
         <div class="row ">
             <div class="col-lg-12">
@@ -44,7 +56,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Date</th>
-                                <th scope="col">Transaction Id</th>
+                                <th scope="col">Reference Id</th>
                                 <th scope="col">Customer Name</th>
                                 <th scope="col">Customer Email</th>
                                 <th scope="col">Customer Phone</th>
@@ -133,6 +145,85 @@
 </section>
 
 
+    <!--Login  Modal -->
+    <div  class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+    
+                <div class="title text-center txt-secondary">Withdraw Request</div>
+
+                @if(session()->has('message'))
+                <p class="alert alert-success"> {{ session()->get('message') }}</p>
+                @endif
+
+                <div class="ermsg"></div>
+                 
+                <div class="form-custom">
+                    @csrf
+
+                    <div class="row">
+                        <div class="col-md-6 text-start">
+                            <div>
+                                <label for="event_name" class="fs-5 fw-bold ">Event name</label>
+                                <input type="text" class="form-control modal-form" name="event_name" id="event_name" placeholder="Event name" value="{{$data->title}}" /> 
+                                <input type="hidden" name="event_id" id="event_id" value="{{$data->id}}" /> 
+                            </div>
+
+                            <div>
+                                <label for="amount" class="fs-5 fw-bold ">Amount</label>
+                                <input type="number" class="form-control modal-form" name="amount" id="amount" placeholder="Amount" value="{{$netamount}}" /> 
+                            </div>
+
+                            <div>
+                                <label for="amount" class="fs-5 fw-bold ">Note</label>
+                                <textarea name="note" id="note" cols="30" rows="5" class="form-control modal-form"></textarea>
+                            </div>
+                            
+                            
+
+                        </div>
+                        <div class="col-md-6">
+
+                            
+
+                            <div>
+                                <label for="bank_name" class="fs-5 fw-bold ">Bank name</label>
+                                <input type="text" class="form-control modal-form" name="bank_name" id="bank_name" placeholder="Bank name" /> 
+                            </div>
+
+                            <div>
+                                <label for="bank_account_name" class="fs-5 fw-bold ">Bank A/C name</label>
+                                <input type="text" class="form-control modal-form" name="bank_account_name" id="bank_account_name" placeholder="Bank A/C name" /> 
+                            </div>
+
+                            <div>
+                                <label for="bank_account_number" class="fs-5 fw-bold ">Bank A/C number</label>
+                                <input type="text" class="form-control modal-form" name="bank_account_number" id="bank_account_number" placeholder="Bank A/C number" /> 
+                            </div>
+
+                            <div>
+                                <label for="bank_account_sort_code" class="fs-5 fw-bold ">Bank A/C sort code</label>
+                                <input type="text" class="form-control modal-form" name="bank_account_sort_code" id="bank_account_sort_code" placeholder="Bank A/C sort code" /> 
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="submit" name="submit" id="addBtn" class="btn-theme bg-primary d-block text-center mx-0 w-100" value="Submit" />
+                    </div>
+                    
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
 
 @endsection
 
@@ -147,4 +238,49 @@ $(document).ready(function() {
     });
 });
 </script> 
+<script>
+    
+$(document).ready(function () { 
+    //header for csrf-token is must in laravel
+    $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+    //
+    var url = "{{URL::to('/user/event-withdraw-request')}}";
+    // console.log(url);
+
+    $("#addBtn").click(function(){
+        // event create 
+            var form_data = new FormData();
+            form_data.append("event_name", $("#event_name").val());
+            form_data.append("event_id", $("#event_id").val());
+            form_data.append("bank_name", $("#bank_name").val());
+            form_data.append("bank_account_name", $("#bank_account_name").val());
+            form_data.append("amount", $("#amount").val());
+            form_data.append("bank_account_number", $("#bank_account_number").val());
+            form_data.append("bank_account_sort_code", $("#bank_account_sort_code").val());
+            form_data.append("note", $("#note").val());
+            
+            
+            $.ajax({
+                url: url,
+                method: "POST",
+                contentType: false,
+                processData: false,
+                data:form_data,
+                success: function (d) {
+                    if (d.status == 303) {
+                        $(".ermsg").html(d.message);
+                    }else if(d.status == 300){
+                        $(".ermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000);
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+            });
+        // event create 
+    });
+
+});
+</script>
 @endsection

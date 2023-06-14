@@ -15,6 +15,7 @@ use App\Mail\EventPaymentMail;
 use App\Models\ContactMail;
 use App\Models\EventPrice;
 use App\Models\EventTransaction;
+use App\Models\EventWithdrawReq;
 use Illuminate\support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -938,6 +939,7 @@ class EventController extends Controller
 
     public function freeEventbooked(Request $request)
     {
+
     $evnbooked = new TicketSale();
     $evnbooked->date = date('Y-m-d');
     $evnbooked->tran_no = date('his');
@@ -1012,6 +1014,70 @@ class EventController extends Controller
         }else{
             return response()->json(['status'=> 300,'types'=>$types]);
         }
+    }
+
+    public function eventWithReqByUser(Request $request)
+    {
+
+        
+        if(empty($request->amount)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Amount \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_number)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account number \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_sort_code)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account sort code \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        
+        $data = new EventWithdrawReq();
+        $data->date = date('Y-m-d');
+        $data->req_no = date('his');
+        $data->user_id = Auth::user()->id;
+        $data->event_id = $request->event_id;
+        $data->note = $request->note;
+        $data->amount = $request->amount;
+        $data->event_name = $request->event_name;
+        $data->created_by = Auth::user()->id;
+        $data->save();
+
+        $user = User::find(Auth::user()->id);
+        $user->bank_name = $request->bank_name;
+        $user->account_name = $request->bank_account_name;
+        $user->account_number = $request->bank_account_number;
+        $user->account_sortcode = $request->bank_account_sort_code;
+        $user->updated_by = Auth::user()->id;
+        $user->save();
+
+
+        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Request send successfully.</b></div>";
+        // $message = $request->image[0];
+        return response()->json(['status'=> 300,'message'=>$message]);
+
     }
 
 

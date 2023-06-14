@@ -11,6 +11,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\FundraiserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventTransactionController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -180,6 +181,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/event-update', [EventController::class, 'updateEventByAdmin']);
     Route::get('/event-ticket-sale/{id}', [EventController::class, 'eventTicketSaleShowByAdmin'])->name('admin.eventSaleRecord');
     Route::get('/event/{id}', [EventController::class, 'deleteByAdmin']);
+
+    Route::get('/event-transaction/{id}', [EventTransactionController::class, 'getEventTranByAdmin'])->name('admin.eventtransaction');
 
 });
 //admin part end
