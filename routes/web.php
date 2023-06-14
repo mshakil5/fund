@@ -15,6 +15,7 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\CharityCampaignController;
 use App\Http\Controllers\EventTransactionController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -77,6 +78,10 @@ Route::post('/charity-registration', [CharityController::class, 'charityregistra
 
 // get event type
 Route::post('gettype', [EventController::class, 'getEventTicketType']);
+
+//search
+Route::post('/get-charity-campaign', [CharityController::class, 'getCharityForCampaign']);
+
 
 /*------------------------------------------
 --------------------------------------------
@@ -196,6 +201,13 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::post('event-withdraw-request', [EventController::class, 'eventWithReqByUser']);
 
     Route::get('/event-transaction/{id}', [EventTransactionController::class, 'getEventTran'])->name('user.eventtransaction');
+
+    
+    // charity campaign
+    Route::get('/charity-campaign', [FrontendController::class, 'charityCampaign'])->name('frontend.charityCampaign');
+    
+    Route::get('/start-a-charity-campaign/{id}', [CharityCampaignController::class, 'startCharityCampaign'])->name('frontend.startcharitycampaign');
+    Route::post('/create-a-charity-campaign', [CharityCampaignController::class, 'storeCharityCampaign']);
 
 });
   
