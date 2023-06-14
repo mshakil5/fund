@@ -183,32 +183,27 @@
                                 <label for="amount" class="fs-5 fw-bold ">Note</label>
                                 <textarea name="note" id="note" cols="30" rows="5" class="form-control modal-form"></textarea>
                             </div>
-                            
-                            
-
                         </div>
                         <div class="col-md-6">
 
-                            
-
                             <div>
                                 <label for="bank_name" class="fs-5 fw-bold ">Bank name</label>
-                                <input type="text" class="form-control modal-form" name="bank_name" id="bank_name" placeholder="Bank name" /> 
+                                <input type="text" class="form-control modal-form" name="bank_name" id="bank_name" value="{{Auth::user()->bank_name}}" placeholder="Bank name" /> 
                             </div>
 
                             <div>
                                 <label for="bank_account_name" class="fs-5 fw-bold ">Bank A/C name</label>
-                                <input type="text" class="form-control modal-form" name="bank_account_name" id="bank_account_name" placeholder="Bank A/C name" /> 
+                                <input type="text" class="form-control modal-form" name="bank_account_name" id="bank_account_name" value="{{Auth::user()->account_name}}" placeholder="Bank A/C name" /> 
                             </div>
 
                             <div>
                                 <label for="bank_account_number" class="fs-5 fw-bold ">Bank A/C number</label>
-                                <input type="text" class="form-control modal-form" name="bank_account_number" id="bank_account_number" placeholder="Bank A/C number" /> 
+                                <input type="text" class="form-control modal-form" name="bank_account_number" id="bank_account_number" value="{{Auth::user()->account_number}}" placeholder="Bank A/C number" /> 
                             </div>
 
                             <div>
                                 <label for="bank_account_sort_code" class="fs-5 fw-bold ">Bank A/C sort code</label>
-                                <input type="text" class="form-control modal-form" name="bank_account_sort_code" id="bank_account_sort_code" placeholder="Bank A/C sort code" /> 
+                                <input type="text" class="form-control modal-form" name="bank_account_sort_code" id="bank_account_sort_code" placeholder="Bank A/C sort code" value="{{Auth::user()->account_sortcode}}" /> 
                             </div>
 
                         </div>

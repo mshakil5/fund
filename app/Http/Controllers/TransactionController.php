@@ -106,10 +106,8 @@ class TransactionController extends Controller
                 $fundraiser->save();
             // fundraiser balance update end
 
-
             $message ="Amount pay Successfully. Transaction id is: ". $t_id;
             return back()->with('message', $message);
-
 
         return back();
     }

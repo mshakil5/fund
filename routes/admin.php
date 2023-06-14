@@ -183,6 +183,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/event/{id}', [EventController::class, 'deleteByAdmin']);
 
     Route::get('/event-transaction/{id}', [EventTransactionController::class, 'getEventTranByAdmin'])->name('admin.eventtransaction');
+    
+    Route::post('/event-pay', [EventTransactionController::class, 'eventPayStore'])->name('admin.eventPayStore');
 
 });
 //admin part end

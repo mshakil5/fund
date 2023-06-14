@@ -11,27 +11,26 @@
             <div class="col-lg-6">
                 <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> Your All Transactions</h2>
             </div>
-            <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5">
-
-                <form action="" class="d-flex">
-                    <div class="me-2">
-                        <label for="">From</label>
-                        <input type="date" class="form-control fs-5" style="height: 46px;" placeholder="Search">
-
-                    </div>
-                    <div class="d-flex align-items-end">
-                        <div  class="me-2">
-                            <label for="">To</label>
-                            <input type="date" class="form-control fs-5" style="height: 46px;" placeholder="Search">
-                        </div>
-                        <button class="btn btn-theme bg-primary m-0" style="height:46px;">
-                            <iconify-icon
-                                icon="material-symbols:search-sharp"></iconify-icon>
-                            </button>
-                    </div>
-                </form>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="{{ route('admin.event')}}" class="btn-theme bg-primary text-center">Back</a>
             </div>
         </div>
+        @if(session()->has('message'))
+            <section class="px-4">
+                <div class="row my-3">
+                    <div class="alert alert-success" id="successMessage">{{ session()->get('message') }}</div>
+                </div>
+            </section>
+        @endif
+        @if(session()->has('error'))
+            <section class="px-4">
+                <div class="row my-3">
+                    <div class="alert alert-danger" id="errMessage">{{ session()->get('error') }}</div>
+                </div>
+            </section>
+        @endif
         <div class="row ">
             <div class="col-lg-12">
                 <ul class="nav nav-tabs mt-4 justify-content-start fs-5" id="myTab" role="tablist">
@@ -48,6 +47,10 @@
                     
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="request-tab" data-bs-toggle="tab" data-bs-target="#request" type="button" role="tab" aria-controls="request" aria-selected="false">Withdraw request</button>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pay-tab" data-bs-toggle="tab" data-bs-target="#pay" type="button" role="tab" aria-controls="pay" aria-selected="false">Pay</button>
                     </li>
 
                 </ul>
@@ -203,40 +206,68 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="request" role="tabpanel" aria-labelledby="request-tab">
+                    <div class="tab-pane fade" id="pay" role="tabpanel" aria-labelledby="pay-tab">
 
                         <div class="data-container">
-                            <table class="table table-theme mt-4" id="example3">
-                                <thead>
-                                    <tr> 
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Request ID</th>
-                                        <th scope="col">Note</th>
-                                        <th scope="col">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($withdrawreqs as $item)
-                                        <tr> 
-                                            <td class="fs-16 txt-secondary">{{$item->date}}</td>
-                                            <td>
-                                                <div class="d-flex flex-column">
-                                                    <span class="fs-20 txt-secondary fw-bold">{{$item->req_no}}</span>
+                            <!-- content area -->
+                            <div class="content">
+                                <div class="row ">
+                                    <div class="col-lg-6  px-3">
+                                        <form method="POST" action="{{ route('admin.eventPayStore') }}"  enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row mb-5">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="pagetitle pb-2">
+                                                            Event Payment
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </td>
-                                            <td class="fs-16 txt-secondary">
-                                                {{$item->note}}
-                                            </td>
-                                            <td class="fs-16 txt-secondary">
-                                                {{ number_format($item->amount, 2) }}
-                                            </td>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group ">
+                                                        <label for="description">Event Title</label>
+                                                        <input type="text" class="form-control" value="{{$event->title}}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="amount">Amount</label>
+                                                        <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{$totalInAmount - $totalOutAmount}}" step="any">
+                                                        <input type="hidden" id="event_id" name="event_id" value="{{$event->id}}">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group ">
+                                                        <label for="description">Note</label>
+                                                        <input type="text" class="form-control" placeholder="Note" id="description" name="description">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group ">
+                                                        <label for="source">Source</label>
+                                                        <select name="source" id="source" class="form-control">
+                                                            <option value="Bank">Bank</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mt-4">
+                                                    <div class="form-group ">
+                                                        <button class="btn-theme bg-primary">Add</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6 border-left-lg px-3">
+                                        
+                                        
+                                        
 
-                                        </tr> 
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
 
                     </div>
 

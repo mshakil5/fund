@@ -6,18 +6,21 @@
 <section class="bleesed default">
     <div class="container">
         
+        <div class="row"> 
+            <div class="col-lg-6 mt-2">
+                <a href="{{ route('user.eventTicketSales',$eventdtl->id)}}" class="btn-theme bg-secondary text-center">Back</a>
 
+            </div> 
+        </div>
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="fw-bold darkerGrotesque-bold txt-primary mb-3"> Your All Transactions</h2>
             </div>
-            <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5">
-
+            {{-- <div class="col-lg-6 d-flex align-items-center justify-content-end fs-5">
                 <form action="" class="d-flex">
                     <div class="me-2">
                         <label for="">From</label>
                         <input type="date" class="form-control fs-5" style="height: 46px;" placeholder="Search">
-
                     </div>
                     <div class="d-flex align-items-end">
                         <div  class="me-2">
@@ -30,7 +33,7 @@
                             </button>
                     </div>
                 </form>
-            </div>
+            </div> --}}
         </div>
         <div class="row ">
             <div class="col-lg-12">
