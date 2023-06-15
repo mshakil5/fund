@@ -252,9 +252,8 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
                             <h4 class="darkerGrotesque-bold mb-0">General Admission</h4>
-   
                             <div class="d-flex">
-                                @if ($data->is_free == 1)
+                                {{-- @if ($data->is_free == 1)
                                 <button class="btn btn-sm btn-theme bg-primary text-white cart-qty-minus ">
                                     <iconify-icon icon="typcn:minus"></iconify-icon>
                                 </button>
@@ -264,12 +263,9 @@
                                 <button class="btn btn-sm btn-theme bg-primary px-3 text-white cart-qty-plus">
                                     <iconify-icon icon="typcn:plus"></iconify-icon>
                                 </button>
-                                @endif
+                                @endif --}}
                             </div>
-
-
                         </div>
-                        @if ($data->is_free == 0) 
 
                         <div class="d-flex align-items-center justify-content-between">
                             <select name="selectType" id="selectType" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2">
@@ -282,16 +278,14 @@
 
                         <input type="number" id="pamount" name="pamount" value="" hidden>
 
-                        {{-- <div class="d-flex align-items-center justify-content-between">
-                            <select name="selectqty" id="selectqty" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2">
-                                <option value="1">Single</option>
-                                <option value="2">Couple</option>
-                            </select>
-                        </div> --}}
+                        
 
                         <div id="qtyNote">
                             
                         </div>
+                        
+                        @if ($data->is_free == 0) 
+                        
                         <h4 class="darkerGrotesque-bold my-3 txt-primary">£<span id="amtshow">{{ number_format($data->price, 2) }}</span></h4>
                         
 
@@ -510,11 +504,13 @@ $(document).ready(function () {
                     var event_id= $("#event_id").val();
                     var quantity= $("#qty").val();
                     var note= $("#note").val();
+                    var event_price_id= $("#selectType").val();
+                    var ticket_type = $("#ticket_type").val();
 
                     $.ajax({
                         url: url,
                         method: "POST",
-                        data: {event_id,quantity,note},
+                        data: {event_id,quantity,note,event_price_id,ticket_type},
                         success: function (d) {
                             if (d.status == 303) {
                                 $(".ermsg").html(d.message);

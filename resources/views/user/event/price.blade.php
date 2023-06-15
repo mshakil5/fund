@@ -26,10 +26,8 @@
                                 <th style="text-align: center">SL</th>
                                 <th style="text-align: center">Type</th>
                                 <th style="text-align: center">Ticket Price</th>
-                                <th style="text-align: center">Quantity</th>
                                 <th style="text-align: center">Available Quantity</th>
                                 <th style="text-align: center">Sold Quantity</th>
-                                
                                 <th style="text-align: center">Total ticket</th>
                                 <th scope="text-align: center">Note</th>
                             </tr>
@@ -37,6 +35,9 @@
                         
                         <tbody>
                             @foreach ($data as $key => $data)
+                            @php
+                                $sold = \App\Models\TicketSale::where('event_id',$data->event_id)->where('event_price_id',$data->id)->count();
+                            @endphp
                             <tr>
                                 <td style="text-align: center">{{ $key + 1 }}</td>
 
@@ -49,14 +50,11 @@
                                 </td>
                                 
                                 <td style="text-align: center" class="fs-16 txt-primary text-center">
-                                    {{$data->max_person}}
-                                </td>
-                                <td style="text-align: center" class="fs-16 txt-primary text-center">
-                                    {{$data->available_qty}}
+                                    {{$data->qty - $sold}}
                                 </td>
 
                                 <td style="text-align: center" class="fs-16 txt-primary text-center">
-                                    {{$data->sold_qty}}
+                                    {{$sold}}
                                 </td>
 
                                 <td style="text-align: center" class="fs-16 txt-primary text-center">

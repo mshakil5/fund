@@ -63,6 +63,7 @@ class EventController extends Controller
         
         $event = Event::with('eventimage')->where('id', $id)->first();
         $data = EventPrice::where('event_id', $id)->get();
+        // dd($data);
         return view('admin.event.price',compact('data','event'));
         
     }
@@ -945,12 +946,18 @@ class EventController extends Controller
     $evnbooked->tran_no = date('his');
     $evnbooked->user_id = Auth::user()->id;
     $evnbooked->event_id = $request->event_id;
+    $evnbooked->event_price_id = $request->event_price_id;
     $evnbooked->commission = 00;
     $evnbooked->amount = 00;
     $evnbooked->total_amount = 00;
-    $evnbooked->quantity = $request->quantity;
+    if (empty($request->quantity)) {
+        $evnbooked->quantity = '1';
+    } else {
+        $evnbooked->quantity = $request->quantity;
+    }
+    
     $evnbooked->payment_type = "Free";
-    $evnbooked->ticket_type = "Free";
+    $evnbooked->ticket_type = $request->ticket_type;
     $evnbooked->note = $request->note;
     $evnbooked->user_notification = "0";
     $evnbooked->admin_notification = "0";
