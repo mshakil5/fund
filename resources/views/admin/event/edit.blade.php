@@ -82,8 +82,8 @@
 
                                                 <div class="col-lg-12">
                                                     <div>
-                                                        <label for="title" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Organizer</label>
-                                                        <input type="text" name="organizer" class="form-control" id="organizer" value="{{$data->title}}">
+                                                        <label for="organizer" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Organizer</label>
+                                                        <input type="text" name="organizer" class="form-control" id="organizer" value="{{$data->organizer}}">
                                                     </div>
                                                 </div>
 
