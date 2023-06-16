@@ -50,14 +50,14 @@
                     <div class="row"> 
                         <div class="col-mg-12">
                             <div class="row">
-                                <div class="col-lg-4 ">
+                                <div class="col-lg-3 text-center">
                                     @if (isset($data->photo))
                                         <img src="{{asset('images/'.$data->photo)}}" alt="" class="img-fluid">
                                     @else
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/A_poor_man.jpg" class="img-fluid">
+                                        <img src="https://via.placeholder.com/100.png" class="img-fluid">
                                     @endif
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-9">
                                     <p class="para fs-6 mb-1 text-muted py-2">
                                     <b class="para mt-3 text-dark fs-6"> {{$data->name}} </b>
                                 </div>
