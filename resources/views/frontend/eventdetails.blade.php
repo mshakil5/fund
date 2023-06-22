@@ -54,10 +54,10 @@
                 <h3 class="mb-0 darkerGrotesque-semibold txt-secondary">{{ \Carbon\Carbon::parse($data->event_start_date)->isoFormat('MMM Do YYYY')}}</h3>
                 <h1 class="darkerGrotesque-bold mb-0">{{$data->title}}</h1>
                 <p class="fs-5 mb-0 darkerGrotesque-bold txt-primary">Organise By: {{$data->organizer}}</p>
-                <h5 class="darkerGrotesque-semibold lh-1 fs-5 mt-3 text-dark">
+                {{-- <h5 class="darkerGrotesque-semibold lh-1 fs-5 mt-3 text-dark">
                     <span class="darkerGrotesque-bold">Available :</span>
                     <span class="text-muted">{{$data->available}}</span>
-                </h5>
+                </h5> --}}
                 <h5 class="darkerGrotesque-semibold lh-1 fs-5 mt-3 text-dark">
                     <span class="darkerGrotesque-bold">Summary :</span>
                     <span class="text-muted">{{$data->summery}}</span>
