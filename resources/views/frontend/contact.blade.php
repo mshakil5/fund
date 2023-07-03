@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                        {{-- <img src="https://via.placeholder.com/520.png" alt="" class="w-100"> --}}
+                        <img class='img-fluid shadow-sm' src="{{asset('assets/images/undraw_Envelope_re_f5j4.png')}}" alt="conatct image missing" > 
                     </div><div class="col-lg-6">
                       
                         <div class="theme-para ">
@@ -48,7 +48,7 @@
     </div>
 </section>
 
-<section class="default contactInfo">
+<section class="default contactInfo" style="display: none">
     <div class="container">
         <div class="row ">
             <div class="col-lg-3 d-flex flex-column align-items-center">
