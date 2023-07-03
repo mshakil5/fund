@@ -52,8 +52,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div>
-                                        <label for="surname">Surname</label>
-                                        <input type="text" id="surname" name="surname" class="form-control">
+                                        <label for="sur_name">Surname</label>
+                                        <input type="text" id="sur_name" name="sur_name" class="form-control">
                                     </div>
 
                                     <div>
@@ -126,7 +126,7 @@
                                     <tr>
                                         <td style="text-align: center">{{ $key + 1 }}</td>
                                         <td style="text-align: center">{{$data->name}}</td>
-                                        <td style="text-align: center">{{$data->surname}}</td>
+                                        <td style="text-align: center">{{$data->sur_name}}</td>
                                         <td style="text-align: center">{{$data->email}}</td>
                                         <td style="text-align: center">{{$data->phone}}</td>
                                         <td style="text-align: center">{{$data->balance}}</td>
@@ -225,7 +225,7 @@
                 if($(this).val() == 'Create') {
                     var form_data = new FormData();
                     form_data.append("name", $("#name").val());
-                    form_data.append("surname", $("#surname").val());
+                    form_data.append("sur_name", $("#sur_name").val());
                     form_data.append("email", $("#email").val());
                     form_data.append("phone", $("#phone").val());
                     form_data.append("house_number", $("#house_number").val());
@@ -261,7 +261,7 @@
 
                     var form_data = new FormData();
                     form_data.append("name", $("#name").val());
-                    form_data.append("surname", $("#surname").val());
+                    form_data.append("sur_name", $("#sur_name").val());
                     form_data.append("email", $("#email").val());
                     form_data.append("phone", $("#phone").val());
                     form_data.append("house_number", $("#house_number").val());
@@ -333,7 +333,7 @@
 
             function populateForm(data){
                 $("#name").val(data.name);
-                $("#surname").val(data.surname);
+                $("#sur_name").val(data.sur_name);
                 $("#email").val(data.email);
                 $("#phone").val(data.phone);    
                 $("#house_number").val(data.house_number);   
