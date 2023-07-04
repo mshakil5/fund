@@ -32,7 +32,7 @@
                             <tr>
                                 <th style="text-align: center">SL</th>
                                 <th style="text-align: center">Date</th>
-                                <th style="text-align: center">Refference Id</th>
+                                <th style="text-align: center">Reference Id</th>
                                 <th style="text-align: center">Customer Name</th>
                                 <th style="text-align: center">Customer Email</th>
                                 <th style="text-align: center">Customer Phone</th>

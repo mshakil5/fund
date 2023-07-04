@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="pagetitle pb-2">
-                Fundraiser
+                Donor
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <div class="card" style="background-color: #fdf3ee">
                 <div class="card-header">
-                    <h5>Fundraiser registration form</h5>
+                    <h5>Donor registration form</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -111,6 +111,7 @@
                             <thead>
                             <tr>
                                 <th style="text-align: center">SL</th>
+                                <th style="text-align: center">Date</th>
                                 <th style="text-align: center">Name</th>
                                 <th style="text-align: center">Surname</th>
                                 <th style="text-align: center">Email</th>
@@ -125,6 +126,7 @@
                                 @foreach ($data as $key => $data)
                                     <tr>
                                         <td style="text-align: center">{{ $key + 1 }}</td>
+                                        <td style="text-align: center">{{$data->created_at}}</td>
                                         <td style="text-align: center">{{$data->name}}</td>
                                         <td style="text-align: center">{{$data->sur_name}}</td>
                                         <td style="text-align: center">{{$data->email}}</td>

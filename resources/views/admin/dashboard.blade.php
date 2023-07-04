@@ -2,35 +2,33 @@
 
 @section('content')
 
+@php
+    $withdrawreqs = \App\Models\EventWithdrawReq::where('admin_notification','=', 0)->get();
+@endphp
 
   <!-- content area -->
   <div class="content">
       <div class="row ">
-          <div class="col-lg-6" style="display:none">
-              <div class="user">
-                  Welcome, Mr Landau
-              </div>
-              <br>
-              <h4 class="txt-dash mb-3">Account Balance</h4>
-              <h2 class="amount">6,123.00 GBP</h2>
+          <div class="col-lg-6">
               <div class="row my-2">
-                  <div class="col-lg-6 ">
-                      <img src="{{ asset('assets/admin/images/card.png')}}" class="img-fluid mt-3 mb-2" alt="">
-                      <a href="#" class="d-block fs-14 txt-theme fw-bold">Order a card</a>
-                  </div>
-
-                  <div class="col-lg-6  pt-3 d-flex flex-column  ">
-                      <a href="#" class="btn-theme bg-primary fs-16 fw-700">Make a
-                          donation</a>
-                      <a href="#" class="btn-theme bg-secondary fs-16 fw-700">Order voucher books</a>
-                      <a href="#" class="btn-theme bg-ternary fs-16 fw-700">Top up account</a>
-                  </div>
+                
                   <div class="col-lg-12 mt-4">
                       <div class=" p-3 py-4 mt-2" style="background-color: #D9D9D9;">
                           <div>
-                              <div class="txt-secondary fs-32 fw-bold  text-center fw-800">GIFT AID DONATIONS</div>  <br>
-                              <div class="txt-secondary fs-24 my-2 fw-500"> Gift Aid donations for this Tax Year : £1250</div> 
-                              <div class="txt-secondary fs-24 fw-500"> Gift Aid donations for last Tax Year : £1250</div>
+                              <div class="txt-secondary fs-20 fw-bold  text-center fw-800">Withdraw request notification</div>  <br>
+                              
+                                <div class="ermsg"></div>
+                              <div class="txt-secondary fs-14 my-2 fw-500"> 
+                                @if (isset($withdrawreqs))
+                                @foreach ($withdrawreqs as $item)
+                                    <p>You have event withdraw request. Please click <a href="{{route('admin.eventtransaction', $item->event_id)}}" class="bg-primary">here</a>
+                                    <input type="button" value="x" dataid="{{$item->id}}"  class="bg-warning withdrawclose">
+                                    </p>
+                                @endforeach
+                                @endif
+                                
+                            </div> 
+                              
                           </div> 
                       </div>
                   </div>
@@ -148,5 +146,41 @@
 
       </div>
   </div>
+
+@endsection
+
+@section('script')
+
+
+<script>
+    $(document).ready(function () {
+        //header for csrf-token is must in laravel
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+
+        //  make mail start
+        var url = "{{URL::to('/admin/withdraw-close')}}";
+        $(".withdrawclose").click(function(){
+            dataid = $(this).attr('dataid');
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {dataid},
+                success: function (d) {
+                    if (d.status == 303) {
+                        $(".ermsg").html(d.message);
+                    }else if(d.status == 300){
+                        $(".ermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+            });                
+
+        });
+        // send mail end =
+    });
+</script>
 
 @endsection

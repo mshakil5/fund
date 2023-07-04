@@ -342,7 +342,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="info">{{$user->house_number}},{{$user->street_name}},{{$user->town}},{{$user->postcode}}</div>
+                                    <div class="info">{{$user->house_number}} {{$user->street_name}} {{$user->town}} {{$user->postcode}}</div>
                                 </div>
                             </div>
                         </div>

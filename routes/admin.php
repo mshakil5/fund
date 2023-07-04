@@ -12,6 +12,7 @@ use App\Http\Controllers\FundraiserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventTransactionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\ContactMailController; 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\AdminController;
@@ -185,6 +186,10 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/event-transaction/{id}', [EventTransactionController::class, 'getEventTranByAdmin'])->name('admin.eventtransaction');
     
     Route::post('/event-pay', [EventTransactionController::class, 'eventPayStore'])->name('admin.eventPayStore');
+
+    
+    // charity donation link close request 
+    Route::post('/withdraw-close', [DashboardController::class, 'withdrawReqRemove']);
 
 });
 //admin part end

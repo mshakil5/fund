@@ -33,12 +33,13 @@ class EventTransactionController extends Controller
     {
         
         $event = Event::where('id', $id)->first();
+        $user = User::where('id', $event->user_id)->first();
         $data = EventTransaction::where('event_id', $id)->orderby('id','DESC')->get();
         $totalInAmount = EventTransaction::where('event_id', $id)->where('tran_type','In')->sum('amount');
         $totalOutAmount = EventTransaction::where('event_id', $id)->where('tran_type','Out')->sum('amount');
         // dd($data);
         $withdrawreqs = EventWithdrawReq::where('event_id', $id)->orderby('id','DESC')->get();
-        return view('admin.event.transaction',compact('data','totalInAmount','totalOutAmount','withdrawreqs','event'));
+        return view('admin.event.transaction',compact('data','totalInAmount','totalOutAmount','withdrawreqs','event','user'));
         
     }
 
