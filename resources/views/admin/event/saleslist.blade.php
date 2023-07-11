@@ -37,8 +37,8 @@
                                 <th style="text-align: center">Customer Email</th>
                                 <th style="text-align: center">Customer Phone</th>
                                 <th style="text-align: center">Payment Type</th>
-                                <th style="text-align: center">Ticket Type</th>
                                 <th style="text-align: center">Note</th>
+                                <th style="text-align: center">Ticket Type</th>
                                 <th style="text-align: center">Gross</th>
                                 <th style="text-align: center">Fee</th>
                                 <th style="text-align: center">Net</th>

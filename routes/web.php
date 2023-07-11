@@ -221,6 +221,7 @@ Route::group(['prefix' =>'charity/', 'middleware' => ['auth', 'is_agent']], func
     Route::get('charity-profile', [HomeController::class, 'charityHome'])->name('charity.profile');
     Route::post('profile-update', [UserController::class, 'updateProfile'])->name('charity.updateprofile');
     Route::get('all-transaction', [TransactionController::class, 'allCharityTransaction'])->name('charity.alltransaction');
+    Route::get('charity-details', [CharityController::class, 'charityDetails'])->name('charity.charity_details');
 });
   
 

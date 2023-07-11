@@ -4,9 +4,15 @@
 
 <section class="campaign default" id="viewContainer">
     <div class="container">
+
+        <div class="row"> 
+            <div class="col-lg-6 mt-2">
+                <a href="{{ route('charity.charity_details')}}" class="btn-theme bg-secondary text-center">Details</a>
+            </div> 
+        </div>
        
        <div class="col-lg-10 mx-auto">
-        <h3 class="fw-bold darkerGrotesque-bold txt-primary mb-5">Your Profile</h3>
+        <h3 class="fw-bold darkerGrotesque-bold txt-primary mb-2">Your Profile</h3>
         <div class="row">
             <div class="col-lg-4 fs-5 shadow-sm p-4 border">
                 @if (isset(Auth::user()->photo))
@@ -21,7 +27,7 @@
 
                         <p class="mb-1"> Charity Name: {{ Auth::user()->name }} </p>
                         <p class="mb-1"> Phone: {{ Auth::user()->phone }} </p>
-                        <p class="mb-1"> email: {{ Auth::user()->email }} </p>
+                        <p class="mb-1"> Email: {{ Auth::user()->email }} </p>
                         <p class="mb-1"> House Number: {{ Auth::user()->house_number }} </p>
                         <p class="mb-1"> Street: {{ Auth::user()->street_name }} </p>
                         <p class="mb-1"> Town: {{ Auth::user()->town }} </p>

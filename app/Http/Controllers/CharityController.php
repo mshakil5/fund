@@ -350,5 +350,11 @@ class CharityController extends Controller
         }
     // serach charity start end
 
-    
+    // charity details
+
+    public function charityDetails()
+    {
+        return view('charity.details');
+    }
+
 }
