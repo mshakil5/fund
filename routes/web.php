@@ -71,6 +71,7 @@ Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->na
 
 Route::get('/event/{id}', [FrontendController::class, 'eventDetails'])->name('frontend.eventDetails');
 
+Route::get('/charity/{id}', [FrontendController::class, 'charityDetails'])->name('frontend.charityDetails');
 /*----------------------Charity Registration-----------------------*/
 Route::get('/charity-registration', [CharityController::class, 'charity'])->name('charity.register');
 Route::post('/charity-registration', [CharityController::class, 'charityregistration'])->name('charity.registration');

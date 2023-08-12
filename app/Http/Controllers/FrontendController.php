@@ -293,4 +293,26 @@ class FrontendController extends Controller
 
         return view('frontend.charitycampaign',compact('charities'));
     }
+
+    public function charityDetails($id)
+    {
+        $facebook = \Share::page(
+            URL::current(),
+            'Your share text comes here',
+        )
+        ->facebook();
+
+        $twitter = \Share::page(
+            URL::current(),
+            'Your share text comes here',
+        )
+        ->facebook()
+        ->twitter();
+
+        $data = User::where('id',$id)->first();
+        
+
+        // dd($doners);
+        return view('frontend.charitydetails', compact('data','facebook','twitter'));
+    }
 }

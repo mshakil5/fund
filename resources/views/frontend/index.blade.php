@@ -271,7 +271,7 @@
 
             <div class="event-slider">
 
-                @foreach ($charities as $charity)
+                {{-- @foreach ($charities as $charity)
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="card-theme mb-3">
                         <div class="topper d-flex align-items-center justify-content-center">
@@ -311,6 +311,40 @@
                                             Donate Now
                                         </button>
                                     @endif
+                                </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                @endforeach --}}
+
+                @foreach ($charities as $charity)
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="card-theme mb-3">
+                        <div class="topper d-flex align-items-center justify-content-center">
+                            @if (isset($charity->photo))
+                                <a href="" class="p-0 d-block w-100">
+                                    <img src="{{asset('images/'.$charity->photo)}}">
+                                </a>
+                            @else
+                                <img src="https://via.placeholder.com/100.png">
+                            @endif
+                        </div>
+                        <div class="card-body px-2 bg-light text-center">
+                            <div class="inner">
+                                <div class="card-title ">      
+                                    <a href="{{ route('frontend.charityDetails',$charity->id)}}">{{$charity->name}}</a>
+                                </div>
+                               <h5 class="mb-0 darkerGrotesque-semibold mb-3 d-flex align-items-center justify-content-center flex-column" style="min-height:45px;">
+                                <iconify-icon icon="bx:map"></iconify-icon>
+                                <span class="text-dark"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
+                               </h5> 
+                               
+                               <div class="w-100 text-center">
+    
+                                <div class="">
+                                    <a href="{{ route('frontend.charityDetails',$charity->id)}}" class="btn btn-sm btn-theme bg-primary py-1 mx-auto fs-5">Donate Now</a>
                                 </div>
                                </div>
                             </div>
