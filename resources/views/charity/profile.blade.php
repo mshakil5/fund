@@ -254,6 +254,9 @@
                 form_data.append("sur_name", $("#sur_name").val());
                 form_data.append("charity_reg_number", $("#charity_reg_number").val());
                 form_data.append("email", $("#email").val());
+                form_data.append("r_name", $("#r_name").val());
+                form_data.append("r_position", $("#r_position").val());
+                form_data.append("r_phone", $("#r_phone").val());
                 form_data.append("house_number", $("#house_number").val());
                 form_data.append("street_name", $("#street_name").val());
                 form_data.append("town", $("#town").val());

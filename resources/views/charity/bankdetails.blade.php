@@ -122,18 +122,8 @@
                 });
             });
             //Edit
-
-            
-
-
-
-
-
     });
 
-
-
-    
 </script>   
 <script type="text/javascript">
     $('.summernote').summernote({
