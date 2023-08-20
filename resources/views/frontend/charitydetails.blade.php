@@ -11,16 +11,13 @@
 <section class="bleesed py-5">
     <div class="container-sm">
 
-
-
-
         <div class="row">
             <div class="col-md-12 col-lg-7">
                 <div class="row mb-2">
-                    <div class="col-md-3 text-center text-xs-start">
+                    {{-- <div class="col-md-3 text-center text-xs-start">
                         <img src="https://consensa.is/utbod/wp-content/uploads/2016/01/dummylogo3.png" class="img-fluid">
-                    </div>
-                    <div class="col-md-9  text-center  text-xs-start">
+                    </div> --}}
+                    <div class="col-md-9  text-left  text-xs-start">
                         <h1 >
                            <a href="#"class="txt-primary fw-bold"> {{ $data->name }}</a>
                         </h1>
@@ -40,18 +37,14 @@
                                         data-bs-slide-to="2" aria-label="Slide 3"></button>
                                 </div>
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="https://dhr91o08xrgul.cloudfront.net/image/vco_31937_a84b9155b0_b80f726cf2_921453d320_16038848.jpg"
-                                            class="d-block w-100" alt="">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://dhr91o08xrgul.cloudfront.net/image/vco_31937_a84b9155b0_b80f726cf2_921453d320_16038848.jpg"
-                                            class="d-block w-100" alt="">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://dhr91o08xrgul.cloudfront.net/image/vco_31937_a84b9155b0_b80f726cf2_921453d320_16038848.jpg"
-                                            class="d-block w-100" alt="">
-                                    </div>
+                                    @foreach ($data->charityimage as $key => $slider)
+                                        
+                                        <div class="carousel-item @if ($key == 0) active @endif">
+                                            <img src="{{asset('images/charity/'.$slider->image)}}"
+                                                class="d-block w-100" alt="">
+                                        </div>
+                                    @endforeach
+
                                 </div>
                                 <button class="carousel-control-prev" type="button"
                                     data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -164,11 +157,11 @@
                         <div class="row justify-content-center">
                             <div class="col-md-12">
                                 <div class="card p-3">
-                                    <h3 class="fw-bold txt-primary ">chartity information
+                                    <h3 class="fw-bold txt-primary ">Chartity information
                                     </h3>
                                     <h5>
-                                        <b class="txt-secondary">Lending Hope Ltd</b> <br>
-                                        <span class="txt-theme">Registered charity no.: 1179132</span>
+                                        <b class="txt-secondary">{{$data->name}}</b> <br>
+                                        <span class="txt-theme">Registered charity no.: {{$data->charity_reg_number}}</span>
                                     </h5>
                                 </div>
                             </div>
@@ -182,51 +175,8 @@
         <div class="row mt-3">
             <div class="col-12 mb-3">
                 <aside class="  p-4 bleesed bg-light">
-                    <h3 class="fw-bold txt-secondary mb-3">Lending Hope - for a brighter future</h3>
-                    <div class="txt-theme">Lending Hope Ltd. is a charitable organization whose
-                        charitable activities predominantly fall into the categories of education, poverty,
-                        and medical support, as detailed below.
-                        <p class="fw-bold txt-primary mt-3">
-                            Education:
-                        </p>
-                        1. In
-                        order to ensure that a quality education is accessible to all children Lending Hope
-                        carries out daily school transportation runs for over 1000 children each day,
-                        including children with mobility restrictions and disabilities. <br>2. Support for
-                        extracurricular activities and after school programs for both mainstream and
-                        disabled children under the age of 25. E.g. swimming, music, exercise, sports,
-                        reading groups etc.<br>3. Support for children under the age of 25 who require extra
-                        educational support through 1:1 assistance, access to additional resources, therapy
-                        or the supply of new or specialist educational material to individuals or
-                        schools.
-                        <p class="fw-bold txt-primary mt-3">
-                            Medical:
-                        </p>
-                        1. Lending Hope provides support
-                        towards medical costs.<br>2. We also support the costs of medical intervention in
-                        the care of disabled children and those dealing with mental health issues. E.g.
-                        therapy and therapeutic activities.<br>3. Support for individuals facing loss of
-                        income due to a medical crisis.
-                        <p class="fw-bold txt-primary mt-3">
-                            Proverty:
-                        </p>
-                        1. Support for
-                        large families struggling to pay for food and clothing.<br>2. Support for the
-                        educational needs of children affected by poverty.
-                        <p class="fw-bold txt-primary mt-3">
-                            Out aims are to:
-                        </p>
-                        Provide relief to poverty-stricken families.<br>
-                        *&nbsp; Support young people facing educational needs.<br> * Provide creative
-                        outlets and opportunities.<br> * Support families struggling with a health
-                        crisis.<br><br>Our service users are BAME young people and their struggling
-                        families, who are disadvantaged by low income, various learning and emotional
-                        disabilities, social exclusion, illness, and dysfunction. Some are struggling with
-                        the unavoidable ramifications of the physical or mental illness of a parent or the
-                        demands that arise from a disabled member in the family. Others may have a personal
-                        physical disability or health challenge that place obstacles in their
-                        path.<br><br><br>
-                    </div>
+                    
+                    {!! $data->about !!}
 
 
                 </aside>

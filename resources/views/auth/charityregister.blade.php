@@ -58,11 +58,11 @@
 
                             <div class="row mb-2">
                                 <div class="col-4">
-                                    <label for="phone" style="font-size: 23px">Charity Number </label>
+                                    <label for="charity_reg_number" style="font-size: 23px">Charity Number </label>
                                 </div>
                                 <div class="col-8">
-                                    <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Charity Number" autofocus>
-                                    @error('phone')
+                                    <input id="charity_reg_number" type="number" class="form-control @error('charity_reg_number') is-invalid @enderror" name="charity_reg_number" value="{{ old('charity_reg_number') }}" required autocomplete="charity_reg_number" placeholder="Charity Number" autofocus>
+                                    @error('charity_reg_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

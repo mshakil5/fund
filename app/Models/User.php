@@ -114,5 +114,10 @@ class User extends Authenticatable
         return $this->hasMany(TicketSale::class);
     }
 
+    public function charityimage()
+    {
+        return $this->hasMany(CharityImage::class);
+    }
+
     
 }

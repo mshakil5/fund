@@ -10,9 +10,11 @@ use App\Models\GivingLevel;
 use App\Models\EmailContent;
 use App\Models\Transaction;
 use App\Mail\EventActiveMail;
+use App\Models\CharityImage;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CharityController extends Controller
@@ -61,7 +63,7 @@ class CharityController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => 'required',
+            'charity_reg_number' => 'required',
             'password' => ['required','min:6'],
             'confirm_password' => 'required|same:password',
         ]);
@@ -73,7 +75,7 @@ class CharityController extends Controller
         $data->r_phone = $request->r_phone;
         $data->r_position = $request->r_position;
         $data->r_name = $request->r_name;
-        $data->phone = $request->phone;
+        $data->charity_reg_number = $request->charity_reg_number;
         $data->password = Hash::make($request->password);
         if(isset($request->bank_statement)){
             $rand = mt_rand(100000, 999999);
@@ -354,7 +356,58 @@ class CharityController extends Controller
 
     public function charityDetails()
     {
-        return view('charity.details');
+        $data = User::with('charityimage')->where('id', Auth::user()->id)->first();
+        return view('charity.details', compact('data'));
+    }
+
+    public function charityImageStore(Request $request)
+    {
+        
+
+            if ($request->image) {
+                
+                foreach ($request->image as $key => $img) {
+                    
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/charity'), $imageName);
+                    //insert into picture table
+                    $pic = new CharityImage();
+                    $pic->image = $imageName;
+                    $pic->user_id = Auth::user()->id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data create Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+    }
+
+    public function charityImageDelete($id)
+    {
+        if(CharityImage::destroy($id)){
+            return response()->json(['success'=>true,'message'=>'Image has been deleted successfully']);
+        }else{
+            return response()->json(['success'=>false,'message'=>'Delete Failed']);
+        }
+    }
+
+    public function charityDescription(Request $request)
+    {
+
+        $data = User::find(Auth::user()->id);
+        $data->about = $request->charity_details;
+        if ($data->save()) {
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }
+        else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        } 
     }
 
 }

@@ -71,7 +71,7 @@ Route::get('/campaign/{id}', [FrontendController::class, 'campaignDetails'])->na
 
 Route::get('/event/{id}', [FrontendController::class, 'eventDetails'])->name('frontend.eventDetails');
 
-Route::get('/charity/{id}', [FrontendController::class, 'charityDetails'])->name('frontend.charityDetails');
+Route::get('/charity-info/{id}', [FrontendController::class, 'charityDetails'])->name('frontend.charityDetails');
 /*----------------------Charity Registration-----------------------*/
 Route::get('/charity-registration', [CharityController::class, 'charity'])->name('charity.register');
 Route::post('/charity-registration', [CharityController::class, 'charityregistration'])->name('charity.registration');
@@ -223,6 +223,12 @@ Route::group(['prefix' =>'charity/', 'middleware' => ['auth', 'is_agent']], func
     Route::post('profile-update', [UserController::class, 'updateProfile'])->name('charity.updateprofile');
     Route::get('all-transaction', [TransactionController::class, 'allCharityTransaction'])->name('charity.alltransaction');
     Route::get('charity-details', [CharityController::class, 'charityDetails'])->name('charity.charity_details');
+
+    
+    Route::post('charity-images', [CharityController::class, 'charityImageStore'])->name('charity.image');
+    Route::get('charity-images/{id}', [CharityController::class, 'charityImageDelete']);
+    
+    Route::post('charity-description', [CharityController::class, 'charityDescription'])->name('charity.description');
 });
   
 

@@ -63,6 +63,7 @@ class HomeController extends Controller
      */
     public function charityHome()
     {
+        // dd('test');
         return view('charity.profile');
     }
 }

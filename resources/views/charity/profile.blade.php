@@ -26,21 +26,48 @@
                 <div class="row darkerGrotesque-semibold "> 
 
                         <p class="mb-1"> Charity Name: {{ Auth::user()->name }} </p>
-                        <p class="mb-1"> Phone: {{ Auth::user()->phone }} </p>
+                        <p class="mb-1"> Charity Registration Number: {{ Auth::user()->charity_reg_number }} </p>
                         <p class="mb-1"> Email: {{ Auth::user()->email }} </p>
                         <p class="mb-1"> House Number: {{ Auth::user()->house_number }} </p>
                         <p class="mb-1"> Street: {{ Auth::user()->street_name }} </p>
                         <p class="mb-1"> Town: {{ Auth::user()->town }} </p>
                         <p class="mb-1"> Post Code: {{ Auth::user()->postcode }} </p>
-                   
-                   
-
+                
                 </div>
                 <button class="editProfile" id="editProfileBtn"><iconify-icon icon="material-symbols:edit"></iconify-icon></button>
             </div>
 
         </div>
        </div>
+
+
+       <div class="col-lg-10 mx-auto">
+        <h3 class="fw-bold darkerGrotesque-bold txt-primary mb-2">Representative Information</h3>
+        <div class="row">
+            <div class="col-lg-4 fs-5 shadow-sm p-4 border">
+                @if (isset(Auth::user()->r_photo))
+                    <img src="{{ asset('images/'.Auth::user()->r_photo)}}" class="img-fluid" alt="">
+                @else
+                    <img src="https://via.placeholder.com/510x440.png" class="img-fluid" alt="">
+                @endif
+                
+            </div>
+            <div class="col-lg-8 fs-5 shadow-sm p-4 border d-flex align-items-center position-relative">
+                <div class="row darkerGrotesque-semibold "> 
+
+                        <p class="mb-1"> Representative Name: {{ Auth::user()->r_name }} </p>
+                        <p class="mb-1"> Email: {{ Auth::user()->email }} </p>
+                        <p class="mb-1"> Position: {{ Auth::user()->r_position }} </p>
+                        <p class="mb-1"> Phone: {{ Auth::user()->r_phone }} </p>
+                
+                </div>
+            </div>
+
+        </div>
+       </div>
+
+
+
     </div>
 </section>
 
@@ -64,9 +91,9 @@
                             </div>
                             
                             <div class="col-lg-4">
-                                <label for="phone">Phone</label>
+                                <label for="charity_reg_number">Charity Registration Number</label>
                                 <div class="form-group mb-3">
-                                    <input class="form-control fs-5" type="text" id="phone" name="phone" value="{{Auth::user()->phone}}" placeholder="Phone">
+                                    <input class="form-control fs-5" type="text" id="charity_reg_number" name="charity_reg_number" value="{{Auth::user()->charity_reg_number}}" placeholder="Charity Registration Number">
                                 </div> 
                             </div>
                             
@@ -159,13 +186,13 @@
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group mb-3 text-center">
-                            @if (isset(Auth::user()->photo))
-                                <img src="{{ asset('images/'.Auth::user()->photo)}}" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
+                            @if (isset(Auth::user()->r_photo))
+                                <img src="{{ asset('images/'.Auth::user()->r_photo)}}" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
                             @else
                                 <img src="https://via.placeholder.com/510x440.png" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
                             @endif
                             <p class="mb-1 text-start">Representative Photo</p>
-                            <input class="form-control fs-5" type="file" id="image" name="image">
+                            <input class="form-control fs-5" type="file" id="r_photo" name="r_photo">
                         </div>
                     </div>
                    
@@ -212,11 +239,19 @@
                 if(typeof file_data === 'undefined'){
                     file_data = 'null';
                 }
+
+                var r_photo = $('#r_photo').prop('files')[0];
+                if(typeof r_photo === 'undefined'){
+                    r_photo = 'null';
+                }
+
+
                 var form_data = new FormData();
                 form_data.append('image', file_data);
+                form_data.append('r_photo', r_photo);
                 form_data.append("name", $("#name").val());
                 form_data.append("sur_name", $("#sur_name").val());
-                form_data.append("phone", $("#phone").val());
+                form_data.append("charity_reg_number", $("#charity_reg_number").val());
                 form_data.append("email", $("#email").val());
                 form_data.append("house_number", $("#house_number").val());
                 form_data.append("street_name", $("#street_name").val());
