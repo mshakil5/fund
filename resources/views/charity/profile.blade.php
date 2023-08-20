@@ -8,6 +8,7 @@
         <div class="row"> 
             <div class="col-lg-6 mt-2">
                 <a href="{{ route('charity.charity_details')}}" class="btn-theme bg-secondary text-center">Details</a>
+                <a href="{{ route('charity.bank_details')}}" class="btn-theme bg-secondary text-center">Bank Information</a>
             </div> 
         </div>
        

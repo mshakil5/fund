@@ -454,4 +454,38 @@ class CharityController extends Controller
         } 
     }
 
+    public function charityBankDetails()
+    {
+        $data = User::with('charityimage')->where('id', Auth::user()->id)->first();
+        return view('charity.bankdetails', compact('data'));
+    }
+
+    public function charitybankInfo(Request $request)
+    {
+
+        $data = User::find(Auth::user()->id);
+        if($request->bank_verification_doc != 'null'){
+            $request->validate([
+                'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imagedocName = time(). $rand .'.'.$request->bank_verification_doc->extension();
+            $request->bank_verification_doc->move(public_path('images/charity'), $imagedocName);
+            $data->bank_verification_doc = $imagedocName;
+        }
+        
+        $data->account_name = $request->name_of_account;
+        $data->bank_name = $request->bank_name;
+        $data->account_number = $request->bank_account_number;
+        $data->account_sortcode = $request->bank_sort_code;
+        
+        if ($data->save()) {
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }
+        else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        } 
+    }
+
 }
