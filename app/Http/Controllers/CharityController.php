@@ -112,8 +112,8 @@ class CharityController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
-        if(empty($request->phone)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Phone \" field..!</b></div>";
+        if(empty($request->charity_reg_number)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Charity registration number \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
@@ -134,18 +134,62 @@ class CharityController extends Controller
             exit();
         }
         $data = new User;
+
+        if($request->fimage != 'null'){
+            $request->validate([
+                'fimage' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->fimage->extension();
+            $request->fimage->move(public_path('images/charity'), $imageName);
+            $data->image= $imageName;
+        }
+
+        if($request->bank_verification_doc != 'null'){
+            $request->validate([
+                'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imagedocName = time(). $rand .'.'.$request->bank_verification_doc->extension();
+            $request->bank_verification_doc->move(public_path('images/charity'), $imagedocName);
+            $data->bank_verification_doc = $imagedocName;
+        }
+
         $data->name = $request->name;
         $data->country = $request->country;
-        $data->phone = $request->phone;
+        $data->charity_reg_number = $request->charity_reg_number;
         $data->email = $request->email;
         $data->r_phone = $request->r_phone;
         $data->r_position = $request->r_position;
         $data->r_name = $request->r_name;
+
+        $data->account_name = $request->name_of_account;
+        $data->bank_name = $request->bank_name;
+        $data->account_number = $request->bank_account_number;
+        $data->account_sortcode = $request->bank_sort_code;
+        $data->about = $request->story;
         $data->is_type = '2';
+        $data->status = '0';
         if(isset($request->password)){
             $data->password = Hash::make($request->password);
         }
         if ($data->save()) {
+            if ($request->image) {
+                foreach ($request->image as $key => $img) {
+                    
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/charity'), $imageName);
+                    //insert into picture table
+                    $pic = new CharityImage();
+                    $pic->image = $imageName;
+                    $pic->user_id = Auth::user()->id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            }
+
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }else{
