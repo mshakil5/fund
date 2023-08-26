@@ -2,21 +2,28 @@
 
 @section('content')
 
+
 <!-- content area -->
 <div class="content">
     <div class="row">
         <div class="col-lg-12">
             <div class="pagetitle pb-2">
-                Charity
+                Charity - {{$data->name}}
             </div>
         </div>
     </div>
-<div id="addThisFormContainer">
+
     <div class="row">
+        <div class="col-lg-12">
+            <div class="ermsg"></div>
+            <div class="stsermsg"></div>
+        </div>
+    </div>
 
 
-        {{-- new code  --}}
-        
+<div id="addThisFormContainer">
+    
+    <div class="row ">
         <div class="col-lg-12">
             <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -58,14 +65,14 @@
                                                     @csrf
                                                     <div>
                                                         <label for="name">Charity Name</label>
-                                                        <input type="text" id="name" name="name" class="form-control">
+                                                        <input type="text" id="name" name="name" class="form-control" value="{{$data->name}}">
                                                     </div>
                                                 </div>
                 
                                                 <div class="col-lg-4">
                                                     <div>
                                                         <label for="charity_reg_number">Registration Number</label>
-                                                        <input type="number" id="charity_reg_number" name="charity_reg_number" class="form-control">
+                                                        <input type="number" id="charity_reg_number" name="charity_reg_number" class="form-control" value="{{$data->charity_reg_number}}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -73,9 +80,9 @@
                                                         <label for="country">Country</label>
                                                         <select name="country" id="country" class="form-control">
                                                             <option value="">Please Select</option>
-                                                            @foreach ($countries as $country)
+                                                            {{-- @foreach ($countries as $country)
                                                                 <option value="{{$country->id}}">{{$country->name}}</option>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                         </select>
                                                     </div>
                                                 </div>
@@ -83,7 +90,7 @@
                                                 <div class="col-lg-12">
                                                     <div>
                                                         <label for="story" class="fs-5  mb-2 darkerGrotesque-medium fw-bold">Charity Description </label>
-                                                        <textarea name="story" id="story" class="form-control summernote"></textarea>
+                                                        <textarea name="story" id="story" class="form-control summernote"> {{$data->about}} </textarea>
                                                     </div>
                                                 </div>
 
@@ -106,11 +113,11 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="r_name">Name</label>
-                                    <input type="text" id="r_name" name="r_name" class="form-control">
+                                    <input type="text" id="r_name" name="r_name" class="form-control" value="{{$data->r_name}}">
                                 </div>
                                 <div>
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" class="form-control">
+                                    <input type="email" id="email" name="email" class="form-control" value="{{$data->email}}">
                                 </div>
                                 <div>
                                     <label for="password">Password</label>
@@ -120,11 +127,11 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="r_position">Position</label>
-                                    <input type="text" id="r_position" name="r_position" class="form-control">
+                                    <input type="text" id="r_position" name="r_position" class="form-control" value="{{$data->r_position}}">
                                 </div>
                                 <div>
                                     <label for="r_phone">Phone</label>
-                                    <input type="text" id="r_phone" name="r_phone" class="form-control">
+                                    <input type="text" id="r_phone" name="r_phone" class="form-control"  value="{{$data->r_phone}}">
                                 </div>
                                 <div>
                                     <label for="confirm_password">Confirm Password</label>
@@ -163,6 +170,25 @@
                                     
                                 </div>
                             </div>
+
+                            <div class="col-lg-6" >
+                                <div id="imgContainer">
+                                    <table>
+                                        @foreach (\App\Models\CharityImage::where('user_id', $data->id)->get() as $item)
+                                            
+                                        <tr>
+                                            <td style="width: 80%; padding:2px">
+                                                <img src="{{asset('images/charity/'.$item->image)}}" height="120px" width="220px" alt="">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <a id="deleteBtn" rid="{{$item->id}}" class="ms-0 btn-theme bg-primary"> Delete </a>
+                                            </td>
+                                        </tr>
+            
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
                             
                             <hr>
                     
@@ -176,7 +202,7 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="name_of_account" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Name of the account</label>
-                                    <input type="text" name="name_of_account" class="form-control" id="name_of_account" required>
+                                    <input type="text" name="name_of_account" class="form-control" id="name_of_account" value="{{$data->account_name}}">
                                 </div>
                             </div>
                             
@@ -184,21 +210,21 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label for="bank_name" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Name</label>
-                                    <input type="bank_name" name="bank_name" class="form-control" id="bank_name" required>
+                                    <input type="bank_name" name="bank_name" class="form-control" id="bank_name"  value="{{$data->bank_name}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="bank_account_number" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Account Number</label>
-                                    <input type="text" name="bank_account_number" class="form-control" id="bank_account_number" required>
+                                    <input type="text" name="bank_account_number" class="form-control" id="bank_account_number"  value="{{$data->account_number}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div>
                                     <label for="bank_sort_code" class="fs-5 mb-2 darkerGrotesque-medium fw-bold">Bank Sort Code</label>
-                                    <input type="text" name="bank_sort_code" class="form-control" id="bank_sort_code" required>
+                                    <input type="text" name="bank_sort_code" class="form-control" id="bank_sort_code"  value="{{$data->account_sortcode}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -218,75 +244,21 @@
             </div>
 
             
-            <div class="col-lg-12">
+            {{-- <div class="col-lg-12">
                 <input type="button" id="addBtn" value="Create" class="btn-theme bg-primary fs-16 fw-700">
                 <input type="button" id="FormCloseBtn" value="Close" class="btn-theme bg-secondary">
-            </div>
+            </div> --}}
 
 
         </div>
-        {{-- new code end --}}
+        {{-- <div class="col-lg-12">
+            <a href="{{route('admin.campaign')}}" class="btn-theme bg-secondary fs-16 fw-700">Back</a>
+            <a id="upBtn" class="btn-theme bg-primary fs-16 fw-700">Update</a>
+        </div> --}}
     </div>
+
 
 </div>
-
-<button id="newBtn" type="button" class="btn-theme bg-primary">Add New</button>
-    <div class="stsermsg"></div>
-    <hr>
-    <div id="contentContainer">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="background-color: #fdf3ee">
-                    <div class="card-header">
-                        <h3> All Data</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-hover" id="example">
-                            <thead>
-                            <tr>
-                                <th style="text-align: center">SL</th>
-                                <th style="text-align: center">Name</th>
-                                <th style="text-align: center">Email</th>
-                                <th style="text-align: center">Phone</th>
-                                <th style="text-align: center">Balance</th>
-                                <th style="text-align: center">Status</th>
-                                <th style="text-align: center">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data as $key => $data)
-                                    <tr>
-                                        <td style="text-align: center">{{ $key + 1 }}</td>
-                                        <td style="text-align: center">
-                                            <a href="{{route('admin.charityView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->name}}</a>
-                                        </td>
-                                        <td style="text-align: center">{{$data->email}}</td>
-                                        <td style="text-align: center">{{$data->r_phone}}</td>
-                                        <td style="text-align: center">
-                                            <a href="{{route('admin.charityTran',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">£{{$data->balance}}</a>
-                                        </td>
-                                        <td style="text-align: center">
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input fundraiserstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="fundraiserstatus" @if ($data->status == 1) checked @endif >
-                                            </div>
-                                        </td>
-                                        
-                                        <td style="text-align: center">
-                                            <a href="{{route('admin.charityEdit', $data->id)}}"> <i class="fa fa-edit" style="color: #2196f3;font-size:16px;"> </i></a>
-                                            <a id="deleteBtn" rid="{{$data->id}}"> <i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
-
-                                            
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
         
 </div>
@@ -295,170 +267,115 @@
 @endsection
 @section('script')
 
-<script>
-    $(function() {
-      $('.fundraiserstatus').change(function() {
-        var url = "{{URL::to('/admin/active-charity')}}";
-          var status = $(this).prop('checked') == true ? 1 : 0;
-          var id = $(this).data('id');
-           console.log(id);
-          $.ajax({
-              type: "GET",
-              dataType: "json",
-              url: url,
-              data: {'status': status, 'id': id},
-              success: function(d){
-                if (d.status == 303) {
-                        pagetop();
-                        $(".stsermsg").html(d.message);
-                        window.setTimeout(function(){location.reload()},2000)
-                    }else if(d.status == 300){
-                        pagetop();
-                        $(".stsermsg").html(d.message);
-                        window.setTimeout(function(){location.reload()},2000)
-                    }
-                },
-                error: function (d) {
-                    console.log(d);
-                }
-          });
-      })
-    })
+<script type="text/javascript">
+    $('.summernote').summernote({
+        height: 400
+    });
+
+    $(document).ready(function() {
+        $('#example1, #example2, #example3').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+    });
+
+    // $(function() {
+    //   $('.commentstatus').change(function() {
+    //     var url = "{{URL::to('/admin/active-comment')}}";
+    //       var status = $(this).prop('checked') == true ? 1 : 0;
+    //       var id = $(this).data('id');
+    //        console.log(id);
+    //       $.ajax({
+    //           type: "GET",
+    //           dataType: "json",
+    //           url: url,
+    //           data: {'status': status, 'id': id},
+    //           success: function(d){
+    //             // console.log(data.success)
+    //             if (d.status == 303) {
+    //                     pagetop();
+    //                     $(".stsermsg").html(d.message);
+    //                     window.setTimeout(function(){location.reload()},2000)
+    //                 }else if(d.status == 300){
+    //                     pagetop();
+    //                     $(".stsermsg").html(d.message);
+    //                     window.setTimeout(function(){location.reload()},2000)
+    //                 }
+    //             },
+    //             error: function (d) {
+    //                 console.log(d);
+    //             }
+    //       });
+    //   })
+    // })
 </script>
 <script>
     
+    var imgStoreFile = [];
     var storedFiles = [];
     $(document).ready(function () {
         
-        $('.summernote').summernote({
-            height: 200
-        });
-
-        $("#addThisFormContainer").hide();
+            $("#addDocContainer").hide();
             $("#newBtn").click(function(){
                 clearform();
                 $("#newBtn").hide(100);
-                $("#addThisFormContainer").show(300);
-
+                $("#addDocContainer").show(300);
             });
             $("#FormCloseBtn").click(function(){
-                $("#addThisFormContainer").hide(200);
+                $("#addDocContainer").hide(200);
                 $("#newBtn").show(100);
                 clearform();
             });
-
-        //header for csrf-token is must in laravel
-        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+            //header for csrf-token is must in laravel
+            $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             //
-            var url = "{{URL::to('/admin/charity')}}";
-            var updateurl = "{{URL::to('/admin/charity-update')}}";
+            var imgurl = "{{URL::to('/admin/campaign-image-store')}}";
             // console.log(url);
             $("#addBtn").click(function(){
-                // fundraiser create 
+                
                 if($(this).val() == 'Create') {
-
                     
-                    var file_data = $('#fimage').prop('files')[0];
-                    if(typeof file_data === 'undefined'){
-                        file_data = 'null';
-                    }
-
-                    var bank_verification_doc = $('#bank_verification_doc').prop('files')[0];
-                    if(typeof bank_verification_doc === 'undefined'){
-                        bank_verification_doc = 'null';
-                    }
-
                     var form_data = new FormData();
-                    for(var i=0, len=storedFiles.length; i<len; i++) {
-                        form_data.append('image[]', storedFiles[i]);
+                    for(var i=0, len=imgStoreFile.length; i<len; i++) {
+                        form_data.append('image[]', imgStoreFile[i]);
                     }
-                    form_data.append('bank_verification_doc', bank_verification_doc);
-                    form_data.append('fimage', file_data);
-                    form_data.append("name", $("#name").val());
-                    form_data.append("charity_reg_number", $("#charity_reg_number").val());
-                    form_data.append("country", $("#country").val());
-                    form_data.append("story", $("#story").val());
-
-                    form_data.append("email", $("#email").val());
-                    form_data.append("r_phone", $("#r_phone").val());
-                    form_data.append("r_position", $("#r_position").val());
-                    form_data.append("r_name", $("#r_name").val());
-                    form_data.append("password", $("#password").val());
-                    form_data.append("confirm_password", $("#confirm_password").val());
-
-                    form_data.append("name_of_account", $("#name_of_account").val());
-                    form_data.append("bank_name", $("#bank_name").val());
-                    form_data.append("bank_account_number", $("#bank_account_number").val());
-                    form_data.append("bank_sort_code", $("#bank_sort_code").val());
-                    
+                    // form_data.append("title", $("#title").val());
+                    form_data.append("category", $("#category").val());
+                    form_data.append("campaign_id", $("#campaign_id").val());
                     $.ajax({
-                        url: url,
-                        method: "POST",
-                        contentType: false,
-                        processData: false,
-                        data:form_data,
-                        success: function (d) {
-                            console.log(d);
-                            if (d.status == 303) {
-                                $(".ermsg").html(d.message);
-                            }else if(d.status == 300){
-                                pagetop();
-                                $(".ermsg").html(d.message);
+                      url: imgurl,
+                      method: "POST",
+                      contentType: false,
+                      processData: false,
+                      data:form_data,
+                      success: function (d) {
+                        console.log(d);
+                          if (d.status == 303) {
+                              $(".ermsg").html(d.message);
+                          }else if(d.status == 300){
+                              $(".ermsg").html(d.message);
                                 window.setTimeout(function(){location.reload()},2000)
-                            }
-                        },
-                        error: function (d) {
-                            console.log(d);
-                        }
-                    });
+                          }
+                      },
+                      error: function (d) {
+                          console.log(d);
+                      }
+                  });
                 }
-                // fundraiser create 
-                //Update
-                if($(this).val() == 'Update'){
-
-                    var form_data = new FormData();
-                    form_data.append("name", $("#name").val());
-                    form_data.append("charity_reg_number", $("#charity_reg_number").val());
-                    form_data.append("country", $("#country").val());
-
-                    form_data.append("email", $("#email").val());
-                    form_data.append("r_phone", $("#r_phone").val());
-                    form_data.append("r_position", $("#r_position").val());
-                    form_data.append("r_name", $("#r_name").val());
-                    form_data.append("password", $("#password").val());
-                    form_data.append("confirm_password", $("#confirm_password").val());
-                    form_data.append("codeid", $("#codeid").val());
-                    
-                    $.ajax({
-                        url: updateurl,
-                        method: "POST",
-                        contentType: false,
-                        processData: false,
-                        data:form_data,
-                        success: function (d) {
-                            if (d.status == 303) {
-                                $(".ermsg").html(d.message);
-                            }else if(d.status == 300){
-                                pagetop();
-                                $(".ermsg").html(d.message);
-                                window.setTimeout(function(){location.reload()},2000)
-                            }
-                        },
-                        error: function (d) {
-                            console.log(d);
-                        }
-                    });
-                }
-                //Update
-
+                //create  end
+                
             });
+            //Edit
 
-
+            var dlturl = "{{URL::to('/admin/charity-images')}}";
             //Delete
-            $("#contentContainer").on('click','#deleteBtn', function(){
-                if(!confirm('Sure?')) return;
+            $("#imgContainer").on('click','#deleteBtn', function(){
+                if(!confirm('Are you sure?')) return;
                 codeid = $(this).attr('rid');
-                info_url = url + '/'+codeid;
+                info_url = dlturl + '/'+codeid;
+                console.log(info_url);
                 $.ajax({
                     url:info_url,
                     method: "GET",
@@ -466,6 +383,7 @@
                     data:{
                     },
                     success: function(d){
+                        console.log(d);
                         if(d.success) {
                             alert(d.message);
                             location.reload();
@@ -476,9 +394,7 @@
                     }
                 });
             });
-            //Delete
-
-            
+            //Delete 
 
             function clearform(){
                 $('#createThisForm')[0].reset();
@@ -486,32 +402,61 @@
             }
 
     });
-   // images
+
+    // images
+        /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
+        // $(document).on('change','#image',function(){
+        //     len_files = $("#image").prop("files").length;
+        //     var construc = "<div class='row'>";
+        //     for (var i = 0; i < len_files; i++) {
+        //         var file_data2 = $("#image").prop("files")[i];
+        //         storedFiles.push(file_data2);
+        //         construc += '<div class="col-3 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+        //             'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
+        //     }
+        //     construc += "</div>";
+        //     $('.preview2').append(construc);
+        // });
+
+        // $(".preview2").on('click','span.imageremove2',function(){
+        //     var trash = $(this).data("file");
+        //     for(var i=0;i<storedFiles.length;i++) {
+        //         if(storedFiles[i].name === trash) {
+        //             storedFiles.splice(i,1);
+        //             break;
+        //         }
+        //     }
+        //     $(this).parent().remove();
+
+        // });
+
         /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
         $(document).on('change','#image',function(){
             len_files = $("#image").prop("files").length;
             var construc = "<div class='row'>";
             for (var i = 0; i < len_files; i++) {
                 var file_data2 = $("#image").prop("files")[i];
-                storedFiles.push(file_data2);
-                construc += '<div class="col-3 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
+                imgStoreFile.push(file_data2);
+                construc += '<div class="col-6 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
                     'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
             }
             construc += "</div>";
-            $('.preview2').append(construc);
+            $('.imgpreview').append(construc);
         });
 
-        $(".preview2").on('click','span.imageremove2',function(){
+        $(".imgpreview").on('click','span.imageremove2',function(){
             var trash = $(this).data("file");
-            for(var i=0;i<storedFiles.length;i++) {
-                if(storedFiles[i].name === trash) {
-                    storedFiles.splice(i,1);
+            for(var i=0;i<imgStoreFile.length;i++) {
+                if(imgStoreFile[i].name === trash) {
+                    imgStoreFile.splice(i,1);
                     break;
                 }
             }
             $(this).parent().remove();
 
         });
+
+
     
 </script>
 @endsection

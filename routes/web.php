@@ -83,6 +83,7 @@ Route::post('gettype', [EventController::class, 'getEventTicketType']);
 //search
 Route::post('/get-charity-campaign', [CharityController::class, 'getCharityForCampaign']);
 
+Route::get('charity/charity-images/{id}', [CharityController::class, 'charityImageDelete']);
 
 /*------------------------------------------
 --------------------------------------------
@@ -231,6 +232,9 @@ Route::group(['prefix' =>'charity/', 'middleware' => ['auth', 'is_agent']], func
     
     Route::post('charity-description', [CharityController::class, 'charityDescription'])->name('charity.description');
     Route::post('charity-bank-info', [CharityController::class, 'charitybankInfo']);
+
+    // transaction
+    Route::get('/charity-transaction/{id}', [CharityController::class, 'getCharityTranByUser'])->name('charity.charitytransaction');
 });
   
 

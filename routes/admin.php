@@ -83,14 +83,22 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/charity', [CharityController::class, 'getCharityByAdmin'])->name('admin.allcharity');
     Route::get('/charity-balance', [CharityController::class, 'getCharityBalanceByAdmin'])->name('admin.charityBalance');
     Route::post('/charity', [CharityController::class, 'newCharitystore']);
-    Route::get('/charity/{id}/edit', [CharityController::class, 'newCharityedit']);
+    Route::get('/charity-edit/{id}', [CharityController::class, 'newCharityedit'])->name('admin.charityEdit');
     Route::post('/charity-update', [CharityController::class, 'newCharityupdate']);
     Route::get('/charity/{id}', [CharityController::class, 'newCharitydelete']);
+    Route::get('/charityimage/{id}', [CharityController::class, 'newCharityImagedelete']);
     // active deactive fundraiser
     Route::get('active-charity', [CharityController::class, 'activeDeactiveAccount']);
     Route::get('/charity-transaction-view/{id}', [CharityController::class, 'viewTransactionCharityByAdmin'])->name('admin.charityTran');
-    
     Route::post('/charity-pay', [TransactionController::class, 'charityPayStore'])->name('admin.charityPayStore');
+
+    
+    // campaign view
+    Route::get('/charity-view/{id}', [CharityController::class, 'viewcharityByAdmin'])->name('admin.charityView');
+    Route::get('/charity-images/{id}', [CharityController::class, 'charityImageDelete'])->name('admin.charityImgDelete');
+
+
+
 
 
     // campaign

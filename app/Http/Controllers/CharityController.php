@@ -202,8 +202,10 @@ class CharityController extends Controller
         $where = [
             'id'=>$id
         ];
-        $info = User::where($where)->get()->first();
-        return response()->json($info);
+        $data = User::with('charityimage')->where($where)->get()->first();
+        $countries = Country::select('id', 'name')->get();
+        // dd($data);
+        return view('admin.charity.edit', compact('data','countries'));
     }
 
     public function newCharityupdate(Request $request)
@@ -220,11 +222,7 @@ class CharityController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
-        if(empty($request->phone)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Phone \" field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
-        }
+        
         
         if(isset($request->password) && ($request->password != $request->confirm_password)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Password doesn't match.</b></div>";
@@ -232,25 +230,71 @@ class CharityController extends Controller
             exit();
         }
 
-        $duplicateemail = User::where('email',$request->email)->where('id','!=', $request->codeid)->first();
+        $duplicateemail = User::where('email',$request->email)->where('id','!=', $request->user_id)->first();
         if($duplicateemail){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This email already added.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
-        $data = User::find($request->codeid);
+
+
+        $data = User::find($request->user_id);
+
+        if($request->fimage != 'null'){
+            $request->validate([
+                'fimage' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->fimage->extension();
+            $request->fimage->move(public_path('images/charity'), $imageName);
+            $data->image= $imageName;
+        }
+
+        if($request->bank_verification_doc != 'null'){
+            $request->validate([
+                'bank_verification_doc' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imagedocName = time(). $rand .'.'.$request->bank_verification_doc->extension();
+            $request->bank_verification_doc->move(public_path('images/charity'), $imagedocName);
+            $data->bank_verification_doc = $imagedocName;
+        }
+
         $data->name = $request->name;
-        $data->sur_name = $request->surname;
-        $data->phone = $request->phone;
+        $data->country = $request->country;
+        $data->charity_reg_number = $request->charity_reg_number;
         $data->email = $request->email;
-        $data->house_number = $request->house_number;
-        $data->street_name = $request->street_name;
-        $data->town = $request->town;
-        $data->postcode = $request->postcode;
+        $data->r_phone = $request->r_phone;
+        $data->r_position = $request->r_position;
+        $data->r_name = $request->r_name;
+
+        $data->account_name = $request->name_of_account;
+        $data->bank_name = $request->bank_name;
+        $data->account_number = $request->bank_account_number;
+        $data->account_sortcode = $request->bank_sort_code;
+        $data->about = $request->story;
+        $data->is_type = '2';
+        $data->status = '0';
         if(isset($request->password)){
             $data->password = Hash::make($request->password);
         }
         if ($data->save()) {
+
+            if ($request->image) {
+                foreach ($request->image as $key => $img) {
+                    
+                    $rand = mt_rand(100000, 999999);
+                    $imageName = time(). $rand .'.'.$img->extension();
+                    $img->move(public_path('images/charity'), $imageName);
+                    //insert into picture table
+                    $pic = new CharityImage();
+                    $pic->image = $imageName;
+                    $pic->user_id = $request->user_id;
+                    $pic->created_by = Auth::user()->id;
+                    $pic->save();
+                }
+            }
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }
@@ -263,6 +307,15 @@ class CharityController extends Controller
     {
         if(User::destroy($id)){
             return response()->json(['success'=>true,'message'=>'User has been deleted successfully']);
+        }else{
+            return response()->json(['success'=>false,'message'=>'Delete Failed']);
+        }
+    }
+
+    public function newCharityImagedelete($id)
+    {
+        if(CharityImage::destroy($id)){
+            return response()->json(['success'=>true,'message'=>'Image deleted successfully']);
         }else{
             return response()->json(['success'=>false,'message'=>'Delete Failed']);
         }
@@ -486,6 +539,29 @@ class CharityController extends Controller
         else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         } 
+    }
+
+    public function getCharityTranByUser($id)
+    {
+        $data = Transaction::where('charity_id', $id)->orderby('id','DESC')->get();
+        $totalInAmount = Transaction::where('charity_id', $id)->where('tran_type','In')->sum('amount');
+        $totalOutAmount = Transaction::where('charity_id', $id)->where('tran_type','Out')->sum('amount');
+        // dd($totalInAmount);
+        return view('charity.charitytran',compact('data','totalOutAmount','totalInAmount'));
+        
+    }
+
+    public function viewcharityByAdmin($id)
+    {
+        $data = User::with('transaction','charityimage')->where('id', $id)->first();
+        // dd($data);
+        $transaction = Transaction::where('charity_id', $id)->orderby('id','DESC')->get();
+        $totalInAmount = Transaction::where('charity_id', $id)->where('tran_type','In')->sum('amount');
+        $totalOutAmount = Transaction::where('charity_id', $id)->where('tran_type','Out')->sum('amount');
+        
+
+        return view('admin.charity.view',compact('data','transaction','totalInAmount','totalOutAmount'));
+        
     }
 
 }
