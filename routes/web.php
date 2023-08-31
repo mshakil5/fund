@@ -88,6 +88,21 @@ Route::get('charity/charity-images/{id}', [CharityController::class, 'charityIma
 // campaign donate
 Route::get('/campaign-donate/{id}', [CampaignController::class, 'campaignDonate'])->name('frontend.campaignDonate');
 Route::get('/charity-donate/{id}', [CharityController::class, 'charityDonate'])->name('frontend.charityDonate');
+
+// payment
+Route::post('/campaign-payment', [StripeController::class,'CampaignPyament'])->name("stripe.post");
+Route::post('/charity-payment', [StripeController::class,'charityPyament'])->name("charitypayment");
+Route::post('/event-payment', [StripeController::class,'eventPyament'])->name("eventpayment");
+
+
+
+
+
+Route::post('charity-pay', [PaypalController::class, 'charitypaymentpay'])->name('paypalcharitypayment');
+Route::get('charity-success', [PaypalController::class, 'charitypaymentsuccess']);
+Route::get('charity-error', [PaypalController::class, 'charitypaymenterror']);
+
+
 /*------------------------------------------
 --------------------------------------------
 All Normal Authenticate Routes List
@@ -127,9 +142,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/campaign-comment', [CommentController::class, 'campaignComment'])->name('campaign.comment');
     
     // Route::get('stripe', [StripeController::class, 'stripe']);
-    Route::post('/campaign-payment', [StripeController::class,'CampaignPyament'])->name("stripe.post");
-    Route::post('/charity-payment', [StripeController::class,'charityPyament'])->name("charitypayment");
-    Route::post('/event-payment', [StripeController::class,'eventPyament'])->name("eventpayment");
     
     Route::get('/referral/campaign', [FundraiserController::class, 'getCampaignReferralLink']);
     Route::post('/referral/campaign', [FundraiserController::class, 'storeCampaignReferralLink'])->name('user.confirmrefcapmaign');
@@ -145,9 +157,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('campaign-error', [PaypalController::class, 'campaignpaymenterror']);
 
     
-    Route::post('charity-pay', [PaypalController::class, 'charitypaymentpay'])->name('charitypayment');
-    Route::get('charity-success', [PaypalController::class, 'charitypaymentsuccess']);
-    Route::get('charity-error', [PaypalController::class, 'charitypaymenterror']);
     
     // image download
     Route::get('image-download/{id}', [CampaignController::class, 'downloadImage'])->name('download.campaignimage');

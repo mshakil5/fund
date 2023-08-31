@@ -42,10 +42,10 @@
             <div class="col-lg-8 mx-auto">
                 <div class="inner p-4">
                     <div class="row mb-4">
-                        <a href="{{ url()->previous() }}" class="text-start btn btn-theme bg-primary">
+                        <a href="{{ route('homepage') }}" class="text-start btn btn-theme bg-primary">
                             <iconify-icon icon="material-symbols:arrow-back-rounded"
                                 class="text-white fs-4"></iconify-icon>
-                            Return to fundriser</a>
+                            Return</a>
                     </div>
                     <div class="row"> 
                         <div class="col-mg-12">
@@ -61,6 +61,40 @@
                                     <p class="para fs-6 mb-1 text-muted py-2">
                                     <b class="para mt-3 text-dark fs-6"> {{$data->name}} </b>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 my-3 ">
+                            <div class="paymentMethodNew border border-2 bg-white mx-auto" >
+                                
+                                <div class="topper p-3 border-bottom" id="lvlShow">
+                                    <div class="items">
+                                        <iconify-icon icon="zondicons:checkmark" class="txt-primary"></iconify-icon>
+                                        <span class="ms-2"> Doner Information</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row row p-3 pt-0">
+                                    <div class="col-xs-12 form-group required">
+                                        <label class="control-label">Name</label>
+                                        <input class="form-control" id="guest_name" name="guest_name" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="form-row row p-3 pt-0">
+                                    <div class="col-xs-12 form-group required">
+                                        <label class="control-label">Email</label>
+                                        <input class="form-control" id="guest_email" name="guest_email" type="email">
+                                    </div>
+                                </div>
+
+                                <div class="form-row row p-3 pt-0">
+                                    <div class="col-xs-12 form-group required">
+                                        <label class="control-label">Phone</label>
+                                        <input class="form-control" id="guest_phone" name="guest_phone" type="number">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         
@@ -137,7 +171,7 @@
                                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
                                         aria-controls="home" aria-selected="true">
                                         <div class="fw-bold d-flex align-items-center">
-                                            <form action="{{route('charitypayment')}}" method="POST" class="title">
+                                            <form action="{{route('paypalcharitypayment')}}" method="POST" class="title">
                                                 @csrf
                                                 <input type="hidden" name="amount" id="paypalamount" value="">
                                                 <input type="hidden" name="charity_id" value="{{$data->id}}">
