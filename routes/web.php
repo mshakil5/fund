@@ -85,6 +85,9 @@ Route::post('/get-charity-campaign', [CharityController::class, 'getCharityForCa
 
 Route::get('charity/charity-images/{id}', [CharityController::class, 'charityImageDelete']);
 
+// campaign donate
+Route::get('/campaign-donate/{id}', [CampaignController::class, 'campaignDonate'])->name('frontend.campaignDonate');
+Route::get('/charity-donate/{id}', [CharityController::class, 'charityDonate'])->name('frontend.charityDonate');
 /*------------------------------------------
 --------------------------------------------
 All Normal Authenticate Routes List
@@ -117,9 +120,6 @@ Route::group(['middleware' => ['auth']], function(){
     // new campaign data store
     Route::post('/campaign-confirmations', [CampaignController::class, 'startCampaign_dataStore'])->name('campaignConfirmation_post');
 
-    // campaign donate
-    Route::get('/campaign-donate/{id}', [CampaignController::class, 'campaignDonate'])->name('frontend.campaignDonate');
-    Route::get('/charity-donate/{id}', [CharityController::class, 'charityDonate'])->name('frontend.charityDonate');
 
     Route::post('/campaign-message', [FrontendController::class, 'campaignMessage'])->name('campaign.message');
 

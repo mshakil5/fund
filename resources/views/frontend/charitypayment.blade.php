@@ -205,7 +205,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <input type="hidden" name="donor_id" id="donor_id" value="{{auth()->user()->id}}">    
+                                    <input type="hidden" name="donor_id" id="donor_id" value="">    
                                     <input type="hidden" name="c_amount" id="c_amount" value="">    
                                     <input type="hidden" name="charity_id" id="charity_id" value="{{$data->id}}">  
                                     <div id="card-element"></div>

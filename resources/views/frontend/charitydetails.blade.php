@@ -89,19 +89,9 @@
 
                     <div class="d-flex gap-2 text-center border mb-2">
                                    
-                        @if (Auth::user())
                         <a href="{{ route('frontend.charityDonate',$data->id)}}" class="btn-theme bg-primary d-block w-100">Donate Now</a>
                         <a href="{{ route('frontend.charityDonate',$data->id)}}" class="btn-theme bg-secondary d-block w-100">Give Monthly</a>
                         
-                        @else
-                            <!-- Button trigger modal -->
-                            <a class="btn-theme bg-primary d-block w-100" dataid="{{$data->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Donate Now
-                            </a>
-                            <a class="btn-theme bg-secondary d-block w-100" dataid="{{$data->id}}" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Give Monthly
-                            </a>
-                        @endif
                     </div>
 
                     <div class="col-12">
