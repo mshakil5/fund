@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\ContactMail;
+use App\Models\EmailContent;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\support\Facades\Auth;
+use App\Mail\EventActiveMail;
+use Mail;
 
 class TransactionController extends Controller
 {
@@ -98,17 +102,46 @@ class TransactionController extends Controller
             $transaction->description = $request->description;
             $transaction->donation_type = "PayOut";
             $transaction->status = "1";
-            $transaction->save();
 
-            // fundraiser balance update
-                $fundraiser = User::find($request->charity_id);
-                $fundraiser->balance =  $fundraiser->balance - $request->amount;
-                $fundraiser->save();
-            // fundraiser balance update end
+            if ($transaction->save()) {
+                // charity balance update
+                $charity = User::find($request->charity_id);
+                $charity->balance =  $charity->balance - $request->amount;
+                $charity->save();
+            // charity balance update end
 
-            $message ="Amount pay Successfully. Transaction id is: ". $t_id;
-            return back()->with('message', $message);
+            // email start
+            $adminmail = ContactMail::where('id', 1)->first()->email;
+            $contactmail = $charity->email;
+            $ccEmails = [$adminmail];
+            $msg = EmailContent::where('title','=','campaign_active_email')->first()->description;
+            // dd($msg);
+            $array['name'] = $charity->name;
+            $array['email'] = $charity->email;
+            $array['subject'] = "Your Charity Payment successfully";
+            $array['message'] = $msg;
+            $array['contactmail'] = $contactmail;
 
-        return back();
+                // $array['message'] = str_replace(
+                //     ['{{title}}','{{user_name}}','{{end_date}}','{{raising_goal}}'],
+                //     [$campaign->title, $charity->name,$campaign->end_date, $data->price],
+                //     $msg
+                // );
+                Mail::to($contactmail)
+                    // ->cc($ccEmails)
+                    ->send(new EventActiveMail($array));
+            // email end
+
+
+
+
+                $message ="Amount pay Successfully. Transaction id is: ". $t_id;
+                return back()->with('message', $message);
+            } else {
+                return back();
+            }
+            
+            
+
     }
 }
