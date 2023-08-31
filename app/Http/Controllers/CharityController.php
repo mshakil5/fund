@@ -11,6 +11,7 @@ use App\Models\EmailContent;
 use App\Models\Transaction;
 use App\Mail\EventActiveMail;
 use App\Models\CharityImage;
+use App\Models\CharityWithdrawReq;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -562,6 +563,69 @@ class CharityController extends Controller
 
         return view('admin.charity.view',compact('data','transaction','totalInAmount','totalOutAmount'));
         
+    }
+
+    public function charityWithReq(Request $request)
+    {
+
+        
+        if(empty($request->amount)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Amount \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_number)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account number \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_sort_code)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account sort code \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        
+        $data = new CharityWithdrawReq();
+        $data->date = date('Y-m-d');
+        $data->req_no = date('his');
+        $data->user_id = Auth::user()->id;
+        $data->note = $request->note;
+        $data->amount = $request->amount;
+        $data->charity_name = $request->charity_name;
+        $data->created_by = Auth::user()->id;
+        $data->save();
+
+        $user = User::find(Auth::user()->id);
+        $user->bank_name = $request->bank_name;
+        $user->account_name = $request->bank_account_name;
+        $user->account_number = $request->bank_account_number;
+        $user->account_sortcode = $request->bank_account_sort_code;
+        $user->updated_by = Auth::user()->id;
+        $user->save();
+
+
+        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Request send successfully.</b></div>";
+        // $message = $request->image[0];
+        return response()->json(['status'=> 300,'message'=>$message]);
+
     }
 
 }

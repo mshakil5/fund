@@ -9,7 +9,7 @@
             <div class="col-lg-10 mt-2">
                 <a href="{{ route('charity.charity_details')}}" class="btn-theme bg-secondary text-center">Details</a>
                 <a href="{{ route('charity.bank_details')}}" class="btn-theme bg-secondary text-center">Bank Information</a>
-                <a href="{{ route('charity.charitytransaction', Auth::user()->id)}}" class="btn-theme bg-secondary text-center">Transaction</a>
+                <a href="{{ route('charity.alltransaction')}}" class="btn-theme bg-secondary text-center">Transaction</a>
             </div> 
         </div>
        

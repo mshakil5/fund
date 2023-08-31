@@ -60,6 +60,12 @@
                             aria-selected="false">Pay</button>
                     </li>
 
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="allreq-tab" data-bs-toggle="tab"
+                            data-bs-target="#allreq" type="button" role="tab" aria-controls="pay"
+                            aria-selected="false">Withdraw Request</button>
+                    </li>
+
                 </ul>
                 <div class="tab-content" id="myTabContent">
 
@@ -373,6 +379,45 @@
 
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="tab-pane fade" id="allreq" role="tabpanel" aria-labelledby="allreq-tab">
+                        <div class="data-container">
+                            <!-- content area -->
+                            <div class="content">
+                                
+                            <table class="table table-theme mt-4" id="example3">
+                                <thead>
+                                    <tr> 
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Request ID</th>
+                                        <th scope="col">Note</th>
+                                        <th scope="col">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (\App\Models\CharityWithdrawReq::where('user_id', $data->id)->get() as $item)
+                                        <tr> 
+                                            <td class="fs-16 txt-secondary">{{$item->date}}</td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <span class="fs-20 txt-secondary fw-bold">{{$item->req_no}}</span>
+                                                </div>
+                                            </td>
+                                            <td class="fs-16 txt-secondary">
+                                                {{$item->note}}
+                                            </td>
+                                            <td class="fs-16 txt-secondary">
+                                                {{ number_format($item->amount, 2) }}
+                                            </td>
+
+                                        </tr> 
+                                    @endforeach
+                                </tbody>
+                            </table>
                             </div>
                         </div>
                     </div>

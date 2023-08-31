@@ -232,9 +232,8 @@ Route::group(['prefix' =>'charity/', 'middleware' => ['auth', 'is_agent']], func
     
     Route::post('charity-description', [CharityController::class, 'charityDescription'])->name('charity.description');
     Route::post('charity-bank-info', [CharityController::class, 'charitybankInfo']);
+    Route::post('withdraw-request', [CharityController::class, 'charityWithReq']);
 
-    // transaction
-    Route::get('/charity-transaction/{id}', [CharityController::class, 'getCharityTranByUser'])->name('charity.charitytransaction');
 });
   
 
