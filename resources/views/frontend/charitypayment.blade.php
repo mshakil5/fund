@@ -47,6 +47,15 @@
                                 class="text-white fs-4"></iconify-icon>
                             Return</a>
                     </div>
+                    
+                    @if(session()->has('error'))
+                    <section class="px-4">
+                        <div class="row my-3">
+                            <div class="alert alert-warning" id="successMessage">{{ session()->get('error') }}</div>
+                        </div>
+                    </section>
+                    @endif
+
                     <div class="row"> 
                         <div class="col-mg-12">
                             <div class="row">
@@ -64,9 +73,10 @@
                             </div>
                         </div>
 
+                        @if (!Auth::user())
                         <div class="col-md-12 my-3 ">
                             <div class="paymentMethodNew border border-2 bg-white mx-auto" >
-                                
+                                <form action="{{route('paypalcharitypayment')}}" method="POST">
                                 <div class="topper p-3 border-bottom" id="lvlShow">
                                     <div class="items">
                                         <iconify-icon icon="zondicons:checkmark" class="txt-primary"></iconify-icon>
@@ -77,26 +87,29 @@
                                 <div class="form-row row p-3 pt-0">
                                     <div class="col-xs-12 form-group required">
                                         <label class="control-label">Name</label>
-                                        <input class="form-control" id="guest_name" name="guest_name" type="text">
+                                        <input class="form-control" id="guest_name" name="guest_name" type="text" required>
                                     </div>
                                 </div>
 
                                 <div class="form-row row p-3 pt-0">
                                     <div class="col-xs-12 form-group required">
                                         <label class="control-label">Email</label>
-                                        <input class="form-control" id="guest_email" name="guest_email" type="email">
+                                        <input class="form-control" id="guest_email" name="guest_email" type="email" required>
                                     </div>
                                 </div>
 
                                 <div class="form-row row p-3 pt-0">
                                     <div class="col-xs-12 form-group required">
                                         <label class="control-label">Phone</label>
-                                        <input class="form-control" id="guest_phone" name="guest_phone" type="number">
+                                        <input class="form-control" id="guest_phone" name="guest_phone" type="number" required>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+                        @endif
+
+                        
                         
                         <div class="col-md-12 my-3 ">
                             <div class="paymentMethodNew border border-2 bg-white">
@@ -163,6 +176,7 @@
                     </div>
                     <div class="  ">
                         <div class="title darkerGrotesque-bold lh-1 fs-3 mt-2">Payment Methods </div>
+                        
 
                         <ul class="nav nav-tabs mt-2 border-0 py-4 justify-content-center  bg-transparent" id="paymentTab" role="tablist">
                             <li class="nav-item fs-5 mx-2" role="presentation">
@@ -171,7 +185,7 @@
                                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
                                         aria-controls="home" aria-selected="true">
                                         <div class="fw-bold d-flex align-items-center">
-                                            <form action="{{route('paypalcharitypayment')}}" method="POST" class="title">
+                                            
                                                 @csrf
                                                 <input type="hidden" name="amount" id="paypalamount" value="">
                                                 <input type="hidden" name="charity_id" value="{{$data->id}}">
@@ -309,6 +323,15 @@
         $(document).on('click', '#lvlShow', function () {
             $("#givinglvlDiv").show();
         });
+
+        // $(document).on('click', '#paypalbtn', function () {
+        //     var amount = Number($("#paypalamount").val());
+        //     if (amount == "") {
+        //         alert('btn');
+        //     } else {
+                
+        //     }
+        // });
     });   
 </script>
 <script>
