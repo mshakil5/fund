@@ -77,7 +77,9 @@
                             <p class="para fs-6 mb-2 text-dark">This donation will be displayed in the name of
                                 <b>
                                     <div class="d-inline" title="You can update the name here " id="editable">
+                                     @if (Auth::user())
                                      {{ Auth::user()->name }}
+                                     @endif 
                                     </div>
                                 </b> 
                                 <button onclick="goEdit();" class="btn btn-sm bg-primary fs-6 fw-bold py-0 text-white">Edit</button>
@@ -163,7 +165,7 @@
                                                 <input type="hidden" name="campaign_id" value="{{$data->id}}">
                                                 <input type="hidden" name="paypaltips" id="paypaltips" value="">
                                                 <input type="hidden" name="paypalcommission" id="paypalcommission" value="">
-                                                <input type="hidden" name="pdisplayname" id="pdisplayname" value="{{Auth::user()->name}}">
+                                                <input type="hidden" name="pdisplayname" id="pdisplayname" value="@if (Auth::user()) {{ Auth::user()->name }} @endif">
             
                                                 <button type="submit" class="btn mx-auto">
                                                     <img src="{{ asset('paypal.png')}}" alt="" style="height: 50px; border-radius:5px;">
@@ -231,7 +233,8 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <input type="hidden" name="donor_id" id="donor_id" value="{{auth()->user()->id}}">    
+                                    
+                                    <input type="hidden" name="donor_id" id="donor_id" value="@if (Auth::user()) {{ Auth::user()->id }} @endif ">    
                                     <input type="hidden" name="tips_amount" id="tips_amount" value="">    
                                     <input type="hidden" name="c_amount" id="c_amount" value="">    
                                     <input type="hidden" name="campaign_id" id="campaign_id" value="{{$data->id}}">  

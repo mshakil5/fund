@@ -79,14 +79,9 @@
                     <span class="w-100 fw-bold">raised of £{{$data->raising_goal}} goal</span> 
 
                     <div class="d-flex justify-content-between my-3 ">
-                        @if (Auth::user())
+                        
                             <a href="{{ route('frontend.campaignDonate',$data->id)}}" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
-                        @else
-                            <!-- Button trigger modal -->
-                            <button type="button"  class="btn-theme bg-secondary w-100 me-1 ms-0" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Donate Now
-                                </button>
-                        @endif
+                        
                         <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
                             data-bs-target="#shareModal">Share</button>
                     </div>
