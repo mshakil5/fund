@@ -96,6 +96,10 @@ Route::post('/event-payment', [StripeController::class,'eventPyament'])->name("e
 
 
 
+Route::post('campaign-pay', [PaypalController::class, 'campaignpaymentpay'])->name('campaignpayment');
+Route::get('campaign-success', [PaypalController::class, 'campaignpaymentsuccess']);
+Route::get('campaign-error', [PaypalController::class, 'campaignpaymenterror']);
+
 
 
 Route::post('charity-pay', [PaypalController::class, 'charitypaymentpay'])->name('paypalcharitypayment');
@@ -152,10 +156,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('success', [PaypalController::class, 'success']);
     Route::get('error', [PaypalController::class, 'error']);
     
-    Route::post('campaign-pay', [PaypalController::class, 'campaignpaymentpay'])->name('campaignpayment');
-    Route::get('campaign-success', [PaypalController::class, 'campaignpaymentsuccess']);
-    Route::get('campaign-error', [PaypalController::class, 'campaignpaymenterror']);
-
     
     
     // image download

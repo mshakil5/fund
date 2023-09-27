@@ -64,28 +64,75 @@
                                     <b class="para mt-3 text-dark fs-6"> {{$data->title}} </b>
                                     <p class="para fs-6 mb-1 text-muted py-2">
                                         {{-- {{ Illuminate\Support\Str::limit($data->story, 20) }} --}}
-                                        {!! Illuminate\Support\Str::limit($data->story, 300) !!}</p>
+                                        {{-- {!! Illuminate\Support\Str::limit($data->story, 300) !!}</p> --}}
                                 </div>
                             </div>
                         </div>
+
+                        <form action="{{ route('campaignpayment') }}" method="POST">
+                            @csrf
                         <div class="col-md-12 mt-2">
                             <label class="para mt-2 text-dark fs-6 mb-2 fw-bold " for="">Enter Your
                                 donation</label>
-                            <input type="number" id="d_amount" name="d_amount" placeholder="£GBP" class="form-control py-3 border fs-1 fw-bold">
+                            <input type="number" id="d_amount" name="d_amount" placeholder="£GBP" class="form-control py-3 border fs-1 fw-bold @error('d_amount') is-invalid @enderror" value="{{ old('d_amount') }}" required>
+                                @error('d_amount')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                         <div class="col-md-12 mt-3">
-                            <p class="para fs-6 mb-2 text-dark">This donation will be displayed in the name of
-                                <b>
-                                    <div class="d-inline" title="You can update the name here " id="editable">
-                                     @if (Auth::user())
-                                     {{ Auth::user()->name }}
-                                     @endif 
+                            
+                            @if (Auth::user())
+                                <p class="para fs-6 mb-2 text-dark">This donation will be displayed in the name of
+                                    <b>
+                                        <div class="d-inline" title="You can update the name here " id="editable">
+                                        @if (Auth::user()) {{ Auth::user()->name }} @endif 
+                                        </div>
+                                    </b> 
+                                    <button onclick="goEdit();" class="btn btn-sm bg-primary fs-6 fw-bold py-0 text-white">Edit</button>
+                                </p>
+                            @else
+
+                                <div class="row">
+                                    <div class="col-lg-4 ">
+                                        <div>
+                                            <label for="doner_name">Name</label>
+                                            <input type="text" id="doner_name" name="doner_name" class="form-control @error('doner_name') is-invalid @enderror">
+                                            @error('doner_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </b> 
-                                <button onclick="goEdit();" class="btn btn-sm bg-primary fs-6 fw-bold py-0 text-white">Edit</button>
-                                 
-                             
-                            </p>
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="doner_email">Email</label>
+                                            <input type="email" id="doner_email" name="doner_email" class="form-control @error('doner_email') is-invalid @enderror">
+                                            @error('doner_email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="doner_phone">Phone</label>
+                                            <input type="number" id="doner_phone" name="doner_phone" class="form-control @error('doner_phone') is-invalid @enderror">
+                                            @error('doner_phone')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            @endif
+
+
                             <p class="para fs-6 mb-2 text-dark">
                                 Because Gogiving doesn't charge a platform fee, we rely on
                                 the generosity of donors like you to continue to help more people. Thank you for
@@ -105,7 +152,7 @@
                     <div class="">
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
-                                <input type="checkbox" id="public" class="publicbtn">
+                                <input type="checkbox" id="public" name="public" value="1" class="publicbtn">
                                 <label for="public" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
                                     Don't display my name publicly on fundriser.
                                 </label>
@@ -113,7 +160,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
-                                <input type="checkbox" id="terms" class="terms">
+                                <input type="checkbox" id="terms" name="terms" value="1" class="terms" required>
                                 <label for="terms" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
                                     By Continuing, you agree with GoGiving <a href="{{route('frontend.terms')}}">terms</a> and <a href="{{route('frontend.privacy')}}">privacy</a>  notice.
                                 </label>
@@ -159,8 +206,7 @@
                                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
                                         aria-controls="home" aria-selected="true">
                                         <div class="fw-bold d-flex align-items-center">
-                                            <form action="{{ route('campaignpayment') }}" method="POST" class="title">
-                                                @csrf
+                                            
                                                 <input type="hidden" name="amount" id="paypalamount" value="">
                                                 <input type="hidden" name="campaign_id" value="{{$data->id}}">
                                                 <input type="hidden" name="paypaltips" id="paypaltips" value="">
@@ -332,7 +378,6 @@
             }
             $("#pdisplayname").val(displayname);
         });
-
 
     });   
 </script>
