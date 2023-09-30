@@ -209,7 +209,6 @@
                                             
                                                 <input type="hidden" name="amount" id="paypalamount" value="">
                                                 <input type="hidden" name="campaign_id" value="{{$data->id}}">
-                                                <input type="hidden" name="paypaltips" id="paypaltips" value="">
                                                 <input type="hidden" name="paypalcommission" id="paypalcommission" value="">
                                                 <input type="hidden" name="pdisplayname" id="pdisplayname" value="@if (Auth::user()) {{ Auth::user()->name }} @endif">
             
@@ -279,8 +278,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    
-                                    <input type="hidden" name="donor_id" id="donor_id" value="@if (Auth::user()) {{ Auth::user()->id }} @endif ">    
+                                      
                                     <input type="hidden" name="tips_amount" id="tips_amount" value="">    
                                     <input type="hidden" name="c_amount" id="c_amount" value="">    
                                     <input type="hidden" name="campaign_id" id="campaign_id" value="{{$data->id}}">  
@@ -383,7 +381,8 @@
 </script>
 <script>
     // Create a Stripe instance with your publishable key
-    var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+    // var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+    var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
   
     // Create a card element and mount it to the card-element div
     var cardElement = stripe.elements().create('card');
@@ -423,11 +422,14 @@
         var amount = $("#amount").val();
         var cardHolderName = $("#cardholder-name").val();
         var tips = $("#tips").val();
-        var donor_id = $("#donor_id").val();
         var campaign_id = $("#campaign_id").val();
         var tips_amount = $("#tips_amount").val();
         var c_amount = $("#c_amount").val();
         var displayname = $('#editable').text();
+        var doner_name = $('#doner_name').val();
+        var doner_email = $('#doner_email').val();
+        var doner_phone = $('#doner_phone').val();
+        console.log(doner_name, doner_email, doner_phone);
       fetch(url, {
         method: 'POST',
         headers: {
@@ -436,7 +438,7 @@
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
 
-        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, donor_id: donor_id, campaign_id:campaign_id,tips_amount:tips_amount,c_amount:c_amount,displayname:displayname,displaynameshow:displaynameshow,tips:tips })
+        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, campaign_id:campaign_id,tips_amount:tips_amount,c_amount:c_amount,displayname:displayname,displaynameshow:displaynameshow,tips:tips,doner_name:doner_name,doner_email:doner_email,doner_phone:doner_phone })
       }).then(function(response) {
         return response.json();
       }).then(function(data) {
