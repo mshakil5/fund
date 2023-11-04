@@ -330,8 +330,8 @@
             var total_tips = (amount * tips)/100;
             var total_amount = amount + total_tips;
             var commission = (total_amount * 10)/100;
-            var net_amount = total_amount + commission;
-            var total_amount_with_commission = total_amount + commission - total_tips;
+            var net_amount = total_amount;
+            var total_amount_with_commission = total_amount - total_tips;
             
             $("#donation_amount").html("£"+ total_amount_with_commission.toFixed(2));
             $("#donation_tips").html("£"+ total_tips.toFixed(2));

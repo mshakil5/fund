@@ -52,51 +52,61 @@
                         <div class="row">
                             <div class="col-lg-4 ">
                                 <div class="form-group mb-3">
+                                    <label for="name">Name</label>
                                     <input class="form-control fs-5" type="text" id="name" name="name" value="{{Auth::user()->name}}">
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="sur_name">Surname</label>
                                     <input class="form-control fs-5" type="text" id="sur_name" name="sur_name" value="{{Auth::user()->sur_name}}">
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="phone">Phone</label>
                                     <input class="form-control fs-5" type="text" id="phone" name="phone" value="{{Auth::user()->phone}}">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="email">Email</label>
                                     <input class="form-control fs-5" type="email" id="email" name="email" value="{{Auth::user()->email}}">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="house_number">House Number</label>
                                     <input class="form-control fs-5" type="text" id="house_number" name="house_number" value="{{Auth::user()->house_number}}">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="street_name">Street Name</label>
                                     <input class="form-control fs-5" type="text" id="street_name" name="street_name" value="{{Auth::user()->street_name}}">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="town">Town</label>
                                     <input class="form-control fs-5" type="text" id="town" name="town" value="{{Auth::user()->town}}">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="postcode">Postcode</label>
                                     <input class="form-control fs-5" type="text" id="postcode" name="postcode" value="{{Auth::user()->postcode}}">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="password">Password</label>
                                     <input class="form-control fs-5" type="password" id="password" name="password" placeholder="Password">
                                 </div> 
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mb-3">
+                                    <label for="confirm_password">Confirm Password</label>
                                     <input class="form-control fs-5" type="password" id="confirm_password" name="" placeholder="Confirm Password">
                                 </div> 
                             </div>
