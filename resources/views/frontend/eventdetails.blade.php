@@ -251,7 +251,7 @@
                         <div class="ermsg">
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
-                            <h4 class="darkerGrotesque-bold mb-0">General Admission</h4>
+                            <h4 class="darkerGrotesque-bold mb-0">Select Option</h4>
                             <div class="d-flex">
                                 {{-- @if ($data->is_free == 1)
                                 <button class="btn btn-sm btn-theme bg-primary text-white cart-qty-minus ">
