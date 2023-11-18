@@ -15,7 +15,7 @@
                     <li class="mb-2"><a href="{{ route('homepage')}}" class="d-flex align-items-center"> 
                         <iconify-icon   class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> Home</a></li>
                     <li class="mb-2"><a href="{{route('frontend.work')}}" class="d-flex align-items-center"> <iconify-icon
-                                class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> How we works</a></li>
+                                class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> How we work</a></li>
                     <li class="mb-2"><a href="{{route('frontend.about')}}" class="d-flex align-items-center"> <iconify-icon
                                 class="txt-primary" icon="material-symbols:arrow-forward-ios-rounded"></iconify-icon> About</a></li>
                     <li class="mb-2"><a href="{{route('newcampaign_show')}}" class="d-flex align-items-center"> <iconify-icon
