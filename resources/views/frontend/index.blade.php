@@ -20,7 +20,7 @@
 
                             <div class="">
                                 <a href="{{route('register')}}" class="btn-theme bg-secondary">Open an account</a>
-                                <a href="{{route('frontend.work')}}" class="btn-theme bg-primary">How it works</a>
+                                <a href="{{route('frontend.work')}}" class="btn-theme bg-primary">How it work</a>
                             </div>
                         </div>
                     </div>
