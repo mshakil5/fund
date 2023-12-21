@@ -85,15 +85,6 @@ class UserController extends Controller
             $request->image->move(public_path('images'), $imageName);
             $data->photo= $imageName;
         }
-        if($request->r_photo != 'null'){
-            $request->validate([
-                'r_photo' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
-            ]);
-            $rand = mt_rand(100000, 999999);
-            $imageName = time(). $rand .'.'.$request->r_photo->extension();
-            $request->r_photo->move(public_path('images'), $imageName);
-            $data->r_photo= $imageName;
-        }
         $data->name = $request->name;
         $data->sur_name = $request->sur_name;
         $data->phone = $request->phone;

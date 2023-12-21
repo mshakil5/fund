@@ -461,7 +461,7 @@ class CampaignController extends Controller
     public function campaignDocStoreByAdmin(Request $request)
     {
 
-        $reqall = $request->image;
+        $reqall = $request->docimage;
 
         if(empty($request->category)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Category \" field..!</b></div>";
@@ -469,9 +469,9 @@ class CampaignController extends Controller
             exit();
         }
  
-        if ($request->image) {
+        if ($request->docimage) {
             if ($request->category == 1) {
-                foreach ($request->image as $key => $img) {
+                foreach ($request->docimage as $key => $img) {
                     // dd($key,  $img);
                     $rand = mt_rand(100000, 999999);
                     $imageName = time(). $rand .'.'.$img->extension();
@@ -486,7 +486,7 @@ class CampaignController extends Controller
                     $pic->save();
                 }
             } else if ($request->category == 2) {
-                foreach ($request->image as $key => $img) {
+                foreach ($request->docimage as $key => $img) {
                     // dd($key,  $img);
                     $rand = mt_rand(100000, 999999);
                     $imageName = time(). $rand .'.'.$img->extension();
@@ -501,7 +501,7 @@ class CampaignController extends Controller
                     $pic->save();
                 }
             }else{
-                foreach ($request->image as $key => $img) {
+                foreach ($request->docimage as $key => $img) {
                     // dd($key,  $img);
                     $rand = mt_rand(100000, 999999);
                     $imageName = time(). $rand .'.'.$img->extension();

@@ -399,7 +399,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="ermsg">
+                                                <div class="docermsg">
                                                 </div>
                                                 <div class="col-md-12">
                                                   <div class="tile">
@@ -415,7 +415,7 @@
 
                                                           <div>
                                                             <label for="category">Category</label>
-                                                            <select name="category" id="category" class="form-control">
+                                                            <select name="category" id="imgcategory" class="form-control">
                                                                 <option value="1">Slider Image</option>
                                                                 <option value="2">Bank Document</option>
                                                                 <option value="3">Govt. Document</option>
@@ -427,12 +427,12 @@
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div>
-                                                                <label for="image">Image</label>
-                                                                <input class="form-control" id="image" name="image[]" type="file" multiple>
+                                                                <label for="docimage">Image</label>
+                                                                <input class="form-control" id="docimage" name="docimage[]" type="file" multiple>
                                                                 <input type="hidden" id="campaign_id" name="campaign_id" value="{{ $data->id }}">
                                                             </div>
 
-                                                            <div class="imgpreview">
+                                                            <div class="docimgpreview">
                                     
                                                             </div>
 
@@ -684,10 +684,10 @@
                     
                     var form_data = new FormData();
                     for(var i=0, len=imgStoreFile.length; i<len; i++) {
-                        form_data.append('image[]', imgStoreFile[i]);
+                        form_data.append('docimage[]', imgStoreFile[i]);
                     }
                     // form_data.append("title", $("#title").val());
-                    form_data.append("category", $("#category").val());
+                    form_data.append("category", $("#imgcategory").val());
                     form_data.append("campaign_id", $("#campaign_id").val());
                     $.ajax({
                       url: imgurl,
@@ -698,9 +698,9 @@
                       success: function (d) {
                         console.log(d);
                           if (d.status == 303) {
-                              $(".ermsg").html(d.message);
+                              $(".docermsg").html(d.message);
                           }else if(d.status == 300){
-                              $(".ermsg").html(d.message);
+                              $(".docermsg").html(d.message);
                                 window.setTimeout(function(){location.reload()},2000)
                           }
                       },
@@ -772,11 +772,12 @@
 
         });
 
-        $(document).on('change','#image',function(){
-            len_files = $("#image").prop("files").length;
+        $(document).on('change','#docimage',function(){
+            len_files = $("#docimage").prop("files").length;
+            // console.log(len_files)
             var construc = "<div class='row'>";
             for (var i = 0; i < len_files; i++) {
-                var file_data2 = $("#image").prop("files")[i];
+                var file_data2 = $("#docimage").prop("files")[i];
                 imgStoreFile.push(file_data2);
                 construc += '<div class="col-6 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' +
                     'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
