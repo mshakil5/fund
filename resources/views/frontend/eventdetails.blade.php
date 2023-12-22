@@ -41,6 +41,8 @@
             <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
         </div>
 
+        <div class="successmsg"></div>
+
         
         <div class="row px-3">
 
@@ -138,7 +140,34 @@
                         <a id="backBtn" class="text-start btn btn-theme bg-primary"><iconify-icon icon="material-symbols:arrow-back-rounded" class="text-white fs-4"></iconify-icon> Back</a>
                     </div>
                     <div class="border shadow-sm p-3 rounded">
-                        <div class="title darkerGrotesque-bold lh-1 fs-3">Payment Methods</div>
+                        <div class="title darkerGrotesque-bold lh-1 fs-3 mb-2">User Information & Payments</div>
+
+                        {{-- user details start  --}}
+                    <div class="p-3 border border-1 rounded shadow-sm bg-white " id="userDetails">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="darkerGrotesque-bold mb-0">Name</h4>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <input type="text" name="name" id="name" class="form-control" value="@if (Auth::user()) {{Auth::user()->name}}@endif">
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="darkerGrotesque-bold mb-0">Email</h4>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <input type="email" name="email" id="uemail"  value="@if (Auth::user()) {{Auth::user()->email}}@endif" class="form-control">
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="darkerGrotesque-bold mb-0">Phone</h4>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <input type="number" name="phone" id="phone" value="@if (Auth::user()) {{Auth::user()->phone}}@endif" class="form-control">
+                        </div>
+                       
+
+                    </div>
+                    {{-- user details end  --}}
                         
                         <div class="row">
                             <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
@@ -251,7 +280,7 @@
                         <div class="ermsg">
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
-                            <h4 class="darkerGrotesque-bold mb-0">Select Option</h4>
+                            <h4 class="darkerGrotesque-bold mb-0">Select Package</h4>
                             <div class="d-flex">
                                 {{-- @if ($data->is_free == 1)
                                 <button class="btn btn-sm btn-theme bg-primary text-white cart-qty-minus ">
@@ -301,27 +330,21 @@
 
                     </div>
                     
-                    
                     @if (($data->is_free == 0 && $data->available < 1) || $data->sale_end_date < date('Y-m-d H:i:s'))
                     <h4 class="darkerGrotesque-bold mb-0">No ticket available</h4>
 
                     @else
                         @if ($data->status == 1)
-                            @if (Auth::user())
-                                @if ($data->is_free == 0)
-                                <a id="chkoutBtn" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Checkout</a>
+
+                        <a id="chkoutBtn" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Checkout</a>
+                        
+                                {{-- @if ($data->is_free == 0)
                                 @else
                                 <a id="freeEvntsub" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Submit</a>
-                                @endif
-                            @else
+                                @endif --}}
                                
-                            <!-- Button trigger modal -->
-                            <button type="button"  class="btn btn-theme bg-secondary w-100 mt-2 mx-auto" style="border: none;background: #18988b;color: white;" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                Checkout
-                            </button>
                              
 
-                            @endif
                             <button class="btn btn-theme bg-primary w-100 mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#shareModal">Share</button>
                         @endif
                     @endif
@@ -453,11 +476,13 @@ $(document).ready(function () {
 
     $("#paymentSection").hide();
     $("#chkoutBtn").click(function(){
+        
+        window.scrollTo({ top: 800, behavior: 'smooth' });
         $("#paymentSection").show(300);
         $("#eventDesc").hide(300);
         $("#chkoutBtn").hide(300);
         $("#qrcodeDiv").hide(300);
-        $(window).scrollTop(450);
+        // $(window).scrollTop(450);
 
     });
     $("#backBtn").click(function(){
@@ -506,16 +531,20 @@ $(document).ready(function () {
                     var note= $("#note").val();
                     var event_price_id= $("#selectType").val();
                     var ticket_type = $("#ticket_type").val();
+                    var email = $("#uemail").val();
+                    var name = $("#name").val();
+                    var phone = $("#phone").val();
 
                     $.ajax({
                         url: url,
                         method: "POST",
-                        data: {event_id,quantity,note,event_price_id,ticket_type},
+                        data: {event_id,quantity,note,event_price_id,ticket_type,phone,name,email},
                         success: function (d) {
                             if (d.status == 303) {
                                 $(".ermsg").html(d.message);
                             }else if(d.status == 300){
-                                $(".ermsg").html(d.message);
+                                $(".successmsg").html(d.message);
+                                window.scrollTo({ top: 500, behavior: 'smooth' });
                                 window.setTimeout(function(){location.reload()},2000)
                             }
                         },

@@ -106,6 +106,10 @@ Route::post('charity-pay', [PaypalController::class, 'charitypaymentpay'])->name
 Route::get('charity-success', [PaypalController::class, 'charitypaymentsuccess']);
 Route::get('charity-error', [PaypalController::class, 'charitypaymenterror']);
 
+// event booking 
+
+Route::post('event-book', [EventController::class, 'freeEventbooked']); 
+
 
 /*------------------------------------------
 --------------------------------------------
@@ -163,7 +167,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('feature-image-download/{id}', [CampaignController::class, 'downloadFeatureImage'])->name('download.featureimage');
     Route::get('bankdoc-download/{id}', [CampaignController::class, 'downloadBankDoc'])->name('download.bankdoc');
 
-    Route::post('event-book', [EventController::class, 'freeEventbooked']);
 
 });
 

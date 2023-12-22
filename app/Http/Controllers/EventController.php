@@ -17,6 +17,7 @@ use App\Models\EventPrice;
 use App\Models\EventTransaction;
 use App\Models\EventWithdrawReq;
 use Illuminate\support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
 class EventController extends Controller
@@ -941,10 +942,49 @@ class EventController extends Controller
     public function freeEventbooked(Request $request)
     {
 
+        if(empty($request->event_price_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please select package field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill name field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->email)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill email field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->phone)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill phone field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        $chkuser = User::where('email', $request->email)->first();
+        if ($chkuser) {
+            $userid = $chkuser->id;
+        } else {
+            $newuser = new User;
+            $newuser->name = $request->name;
+            $newuser->email = $request->email;
+            $newuser->phone = $request->phone;
+            $newuser->password = Hash::make('123456');
+            $newuser->save();
+            $userid = $newuser->id;
+        }
+        
+
+
     $evnbooked = new TicketSale();
     $evnbooked->date = date('Y-m-d');
     $evnbooked->tran_no = date('his');
-    $evnbooked->user_id = Auth::user()->id;
+    $evnbooked->user_id = $userid;
     $evnbooked->event_id = $request->event_id;
     $evnbooked->event_price_id = $request->event_price_id;
     $evnbooked->commission = 00;
@@ -972,7 +1012,7 @@ class EventController extends Controller
     
     $eventdetails = Event::where('id', $request->event_id)->first();
     $adminmail = ContactMail::where('id', 1)->first()->email;
-    $contactmail = Auth::user()->email;
+    $contactmail = $request->email;
     $ccEmails = [$adminmail];
     $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
 
@@ -985,8 +1025,8 @@ class EventController extends Controller
         $array['quantity'] = $request->quantity;
         $array['amount'] = $request->amount;
         $array['tranNo'] = $evnbooked->tran_no;
-        $array['name'] = Auth::user()->name;
-        $array['email'] = Auth::user()->email;
+        $array['name'] = $request->name;
+        $array['email'] = $request->email;
         $array['subject'] = "Event Booking Confirmation";
         $array['message'] = $msg;
         $array['contactmail'] = $contactmail;
@@ -996,7 +1036,7 @@ class EventController extends Controller
 
         $array['message'] = str_replace(
             ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{booking_date}}','{{tran_no}}','{{ticket_name}}','{{amount}}','{{payment_type}}','{{title}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
-            [$eventdetails->title, Auth::user()->name,$date,$time,$eventdetails->id,$eventdetails->venue_name, $eventdetails->price, $evnbooked->date, $evnbooked->tran_no, $evnbooked->ticket_type, $evnbooked->amount, $evnbooked->payment_type,$eventdetails->title,$eventdetails->house_number,$eventdetails->road_name,$eventdetails->town,$eventdetails->postcode],
+            [$eventdetails->title, $request->name,$date,$time,$eventdetails->id,$eventdetails->venue_name, $eventdetails->price, $evnbooked->date, $evnbooked->tran_no, $evnbooked->ticket_type, $evnbooked->amount, $evnbooked->payment_type,$eventdetails->title,$eventdetails->house_number,$eventdetails->road_name,$eventdetails->town,$eventdetails->postcode],
             $msg
         );
         Mail::to($contactmail)
