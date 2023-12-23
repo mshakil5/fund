@@ -139,44 +139,79 @@
                     <div class="row mb-4">
                         <a id="backBtn" class="text-start btn btn-theme bg-primary"><iconify-icon icon="material-symbols:arrow-back-rounded" class="text-white fs-4"></iconify-icon> Back</a>
                     </div>
+
+
+
                     <div class="border shadow-sm p-3 rounded">
                         <div class="title darkerGrotesque-bold lh-1 fs-3 mb-2">User Information & Payments</div>
 
-                        {{-- user details start  --}}
-                    <div class="p-3 border border-1 rounded shadow-sm bg-white " id="userDetails">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h4 class="darkerGrotesque-bold mb-0">Name</h4>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <input type="text" name="name" id="name" class="form-control" value="@if (Auth::user()) {{Auth::user()->name}}@endif">
-                        </div>
+                        <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent"  role="tablist"  @if (Auth::user()) style="display: none"   @else  id="logTab" @endif>
 
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h4 class="darkerGrotesque-bold mb-0">Email</h4>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <input type="email" name="email" id="uemail"  value="@if (Auth::user()) {{Auth::user()->email}}@endif" class="form-control">
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h4 class="darkerGrotesque-bold mb-0">Phone</h4>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <input type="number" name="phone" id="phone" value="@if (Auth::user()) {{Auth::user()->phone}}@endif" class="form-control">
-                        </div>
-                       
-
-                    </div>
-                    {{-- user details end  --}}
-                        
-                        <div class="row">
-                            <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
-                                <input type="checkbox" id="terms" class="terms">
-                                <label for="terms" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
-                                    By Continuing, you agree with GoGiving <a href="{{route('frontend.terms')}}">terms</a> and <a href="{{route('frontend.privacy')}}">privacy</a>  notice.
+                            <li class="nav-item fs-5 mx-2" role="presentation">
+                                <label for="paypal">
+                                    
+                                        <div class="fw-bold d-flex align-items-center">
+                                            
+                                            <button id="guest" class="btn mx-auto">
+                                                <img src="{{ asset('guest.png')}}" alt="" style="height: 50px; border-radius:5px;">
+                                            </button>
+                                        </div>
+                                        
                                 </label>
+                            </li>
+                            <li class="nav-item fs-5 mx-2" role="presentation">
+                                <label for="google_pay">
+
+                                    <div class="fw-bold d-flex align-items-center">
+                                        <button type="button"  class="btn mx-auto"  data-bs-toggle="modal" data-bs-target="#loginModal">
+                                            <img src="{{ asset('login.png')}}" alt="" style="height: 50px; border-radius:5px;">
+                                        </button>
+                                    </div>
+
+                                </label>
+                            </li>
+
+                        </ul>
+
+                        
+
+                        {{-- user details start  --}}
+                        <div class="p-3 border border-1 rounded shadow-sm bg-white " id="userDetails" @if (Auth::user())  @else style="display: none" @endif>
+
+                            <div class="oermsg"></div>
+
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4 class="darkerGrotesque-bold mb-0">Name</h4>
                             </div>
-                        </div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <input type="text" name="name" id="name" class="form-control" value="@if (Auth::user()) {{Auth::user()->name}}@endif">
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4 class="darkerGrotesque-bold mb-0">Email</h4>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <input type="email" name="email" id="uemail"  value="@if (Auth::user()) {{Auth::user()->email}}@endif" class="form-control">
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4 class="darkerGrotesque-bold mb-0">Phone</h4>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <input type="number" name="phone" id="phone" value="@if (Auth::user()) {{Auth::user()->phone}}@endif" class="form-control">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
+                                    <input type="checkbox" id="terms" class="terms">
+                                    <label for="terms" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
+                                        By Continuing, you agree with GoGiving <a href="{{route('frontend.terms')}}">terms</a> and <a href="{{route('frontend.privacy')}}">privacy</a>  notice.
+                                    </label>
+                                </div>
+                            </div>
+
+                            @if ($data->is_free == 0)
+                        
 
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent" id="paymentTab" role="tablist">
 
@@ -266,6 +301,20 @@
                             
 
                         </div>
+
+                        @else    
+                        <input type="hidden" name="freeevent_id" id="freeevent_id" value="{{$data->id}}">  
+                        <a id="freeEvntsub" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Submit</a>
+                        @endif
+                        
+
+                        </div>
+                        {{-- user details end  --}}
+                        
+                        
+
+                        
+
                     </div>
                 </div>
 
@@ -300,7 +349,9 @@
                             <select name="selectType" id="selectType" class="form-control darkerGrotesque-bold fs-5 darkerGrotesque-medium select2">
                                 <option value="">Select</option>
                                 @foreach ($data->eventprice as $eprice)
+                                @if ($eprice->sold_qty < $eprice->qty)
                                 <option value="{{$eprice->id}}">{{$eprice->type}}</option>
+                                @endif
                                 @endforeach
                             </select>
                         </div>
@@ -338,13 +389,6 @@
 
                         <a id="chkoutBtn" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Checkout</a>
                         
-                                {{-- @if ($data->is_free == 0)
-                                @else
-                                <a id="freeEvntsub" class="btn btn-theme bg-secondary w-100 mt-2 mx-auto">Submit</a>
-                                @endif --}}
-                               
-                             
-
                             <button class="btn btn-theme bg-primary w-100 mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#shareModal">Share</button>
                         @endif
                     @endif
@@ -476,6 +520,10 @@ $(document).ready(function () {
 
     $("#paymentSection").hide();
     $("#chkoutBtn").click(function(){
+
+        
+        // var selectType= $("#selectType").val();
+        // console.log(selectType);
         
         window.scrollTo({ top: 800, behavior: 'smooth' });
         $("#paymentSection").show(300);
@@ -485,13 +533,28 @@ $(document).ready(function () {
         // $(window).scrollTop(450);
 
     });
+
+    var loggedIn = {{ auth()->check() ? 'true' : 'false' }};
+
     $("#backBtn").click(function(){
         $("#paymentSection").hide(200);
         $("#eventDesc").show(200);
         $("#chkoutBtn").show(200);
         $("#qrcodeDiv").show(200);
+        if (loggedIn) {
+            $("#userDetails").show(100);
+        } else {
+            $("#logTab").show(200);
+            $("#userDetails").hide(100);
+        }
     });
     //calculation end 
+
+    $("#guest").click(function(){
+        $("#logTab").hide(200);
+        $("#userDetails").show(100);
+        // clearform();
+    });
 
     $(".cart-qty-plus").click(function(){
         
@@ -526,10 +589,14 @@ $(document).ready(function () {
             var url = "{{URL::to('/event-book')}}";
             $("#freeEvntsub").click(function(){
                 $("#loading").show();
-                    var event_id= $("#event_id").val();
+                
+                    var terms = $('#terms').prop('checked');
+                    
+                    var event_id= $("#freeevent_id").val();
+                    // console.log(event_id);
                     var quantity= $("#qty").val();
                     var note= $("#note").val();
-                    var event_price_id= $("#selectType").val();
+                    var event_price_id = $("#selectType").val();
                     var ticket_type = $("#ticket_type").val();
                     var email = $("#uemail").val();
                     var name = $("#name").val();
@@ -538,10 +605,14 @@ $(document).ready(function () {
                     $.ajax({
                         url: url,
                         method: "POST",
-                        data: {event_id,quantity,note,event_price_id,ticket_type,phone,name,email},
+                        data: {event_id,quantity,note,event_price_id,ticket_type,phone,name,email,terms},
                         success: function (d) {
                             if (d.status == 303) {
-                                $(".ermsg").html(d.message);
+                                if (d.package) {
+                                    $(".ermsg").html(d.message);
+                                } else {
+                                    $(".oermsg").html(d.message);
+                                }
                             }else if(d.status == 300){
                                 $(".successmsg").html(d.message);
                                 window.scrollTo({ top: 500, behavior: 'smooth' });

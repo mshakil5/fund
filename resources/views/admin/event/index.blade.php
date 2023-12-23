@@ -332,6 +332,8 @@
                                 <th style="text-align: center">Event Start & End Date </th>
                                 <th style="text-align: center">Sale Start & End Date </th>
                                 <th style="text-align: center">Price</th>
+                                <th style="text-align: center">Sold</th>
+                                <th style="text-align: center">Available</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -356,6 +358,9 @@
                                             <a href="{{route('admin.eventPrice',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">Price</a>
                                         @endif    
                                         </td>
+                                        
+                                        <td style="text-align: center">{{$data->sold}}</td>
+                                        <td style="text-align: center">{{$data->available}}</td>
                                         <td style="text-align: center">
                                             {{-- {{$data->status}} --}}
                                             <div class="form-check form-switch">

@@ -944,7 +944,7 @@ class EventController extends Controller
 
         if(empty($request->event_price_id)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please select package field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
+            return response()->json(['status'=> 303,'message'=>$message,'package'=>'p']);
             exit();
         }
 
@@ -965,9 +965,16 @@ class EventController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        if($request->terms == 'false'){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please accept terms & conditions.!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
 
         $chkuser = User::where('email', $request->email)->first();
-        if ($chkuser) {
+        if (Auth::user()) {
+            $userid = Auth::user()->id;
+        }elseif ($chkuser) {
             $userid = $chkuser->id;
         } else {
             $newuser = new User;
@@ -1008,6 +1015,10 @@ class EventController extends Controller
     $event->available = $event->available-$request->quantity;
     $event->sold = $event->sold+$request->quantity;
     $event->save();
+
+    $eventprice = EventPrice::find($request->event_price_id);
+    $eventprice->sold_qty = $eventprice->sold_qty+1;
+    $eventprice->save();
 
     
     $eventdetails = Event::where('id', $request->event_id)->first();
