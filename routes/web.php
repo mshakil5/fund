@@ -106,6 +106,12 @@ Route::post('charity-pay', [PaypalController::class, 'charitypaymentpay'])->name
 Route::get('charity-success', [PaypalController::class, 'charitypaymentsuccess']);
 Route::get('charity-error', [PaypalController::class, 'charitypaymenterror']);
 
+
+// event paypal payments
+Route::post('pay', [PaypalController::class, 'pay'])->name('payment');
+Route::get('success', [PaypalController::class, 'success']);
+Route::get('error', [PaypalController::class, 'error']);
+
 // event booking 
 
 Route::post('event-book', [EventController::class, 'freeEventbooked']); 
@@ -155,10 +161,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/referral/campaign', [FundraiserController::class, 'storeCampaignReferralLink'])->name('user.confirmrefcapmaign');
 
     
-    // paypal payments
-    Route::post('pay', [PaypalController::class, 'pay'])->name('payment');
-    Route::get('success', [PaypalController::class, 'success']);
-    Route::get('error', [PaypalController::class, 'error']);
     
     
     

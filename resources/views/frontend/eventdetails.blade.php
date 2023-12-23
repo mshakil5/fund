@@ -173,7 +173,8 @@
 
                         </ul>
 
-                        
+                        <form action="{{ route('payment') }}" method="POST" class="title">
+                            @csrf
 
                         {{-- user details start  --}}
                         <div class="p-3 border border-1 rounded shadow-sm bg-white " id="userDetails" @if (Auth::user())  @else style="display: none" @endif>
@@ -203,7 +204,7 @@
 
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center  lh-1  my-1">
-                                    <input type="checkbox" id="terms" class="terms">
+                                    <input type="checkbox" id="terms" class="terms" required>
                                     <label for="terms" class="fs-5 fw-bold ps-2 text-dark flex-1 ">
                                         By Continuing, you agree with GoGiving <a href="{{route('frontend.terms')}}">terms</a> and <a href="{{route('frontend.privacy')}}">privacy</a>  notice.
                                     </label>
@@ -221,8 +222,7 @@
                                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
                                         aria-controls="home" aria-selected="true">
                                         <div class="fw-bold d-flex align-items-center">
-                                            <form action="{{ route('payment') }}" method="POST" class="title">
-                                                @csrf
+                                            
                                                 <input type="hidden" name="amount" id="paypalamount" value="">
                                                 <input type="hidden" name="eventprice_id" id="eventprice_id" value="">
                                                 <input type="hidden" name="clientnote" id="clientnote" value="">
@@ -609,9 +609,11 @@ $(document).ready(function () {
                         success: function (d) {
                             if (d.status == 303) {
                                 if (d.package) {
+                                    $(".oermsg").html('');
                                     $(".ermsg").html(d.message);
                                 } else {
                                     $(".oermsg").html(d.message);
+                                    $(".ermsg").html('');
                                 }
                             }else if(d.status == 300){
                                 $(".successmsg").html(d.message);
@@ -685,9 +687,9 @@ $(document).ready(function () {
 
 <script>
     // Create a Stripe instance with your publishable key
-    // var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
+    var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
    
-    var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+    // var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
   
     // Create a card element and mount it to the card-element div
     var cardElement = stripe.elements().create('card');
@@ -726,6 +728,9 @@ $(document).ready(function () {
         var ticket_type = $("#ticket_type").val();
         var event_price_id = $("#selectType").val();
         var note = $("#note").val();
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
 
       fetch(url, {
         method: 'POST',
@@ -735,7 +740,7 @@ $(document).ready(function () {
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
 
-        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity,ticket_type:ticket_type,event_price_id:event_price_id,note:note })
+        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity,ticket_type:ticket_type,event_price_id:event_price_id,note:note,name:name,email:email,phone:phone })
       }).then(function(response) {
         return response.json();
       }).then(function(data) {
