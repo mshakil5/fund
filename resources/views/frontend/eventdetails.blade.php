@@ -212,6 +212,9 @@
                             </div>
 
                             @if ($data->is_free == 0)
+
+
+                            
                         
 
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent" id="paymentTab" role="tablist">
@@ -253,18 +256,14 @@
                             </li>
 
                         </ul>
+
                         <div class="tab-content shadow-sm" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                 aria-labelledby="home-tab">
-                                {{-- <h5>Pay with paypal</h5> --}}
-                                
-                                
                                 
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                
-                                <div class="ermsg">
-                                </div>
+                                <div class="ermsg"></div>
                                 @if (Session::has('success'))
                                     <div class="alert alert-success text-center">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -291,8 +290,9 @@
                                     </div>
                                     <br> 
                                     <input type="hidden" name="c_amount" id="c_amount" value="">    
-                                    <input type="hidden" name="event_id" id="event_id" value="{{$data->id}}">  
-                                    <div id="card-element"></div>
+                                    <input type="hidden" name="event_id" id="event_id" value="{{$data->id}}"> 
+                                    <label class='control-label'>Card Number</label> 
+                                    <div id="card-element" class="form-control"></div>
                                     <div class="col-lg-12  mt-4 d-flex align-items-center">
                                         <button id="payButton" type="submit" class="btn btn-primary btn-theme mx-auto w-50 bg-primary">Pay</button>
                                     </div>
@@ -301,6 +301,7 @@
                             
 
                         </div>
+                        
 
                         @else    
                         <input type="hidden" name="freeevent_id" id="freeevent_id" value="{{$data->id}}">  
@@ -729,7 +730,7 @@ $(document).ready(function () {
         var event_price_id = $("#selectType").val();
         var note = $("#note").val();
         var name = $("#name").val();
-        var email = $("#email").val();
+        var email = $("#uemail").val();
         var phone = $("#phone").val();
 
       fetch(url, {
@@ -762,6 +763,13 @@ $(document).ready(function () {
             }
           });
         }
+
+        if (data.status == 303) {
+            $("#loading").hide();
+            $(".ermsg").html(d.message);
+        }
+
+
       });
     }
 </script>
