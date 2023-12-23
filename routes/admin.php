@@ -182,6 +182,9 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     
     // event
     Route::get('/event', [EventController::class, 'getEvent'])->name('admin.event');
+    Route::get('/event-live', [EventController::class, 'getLiveEvent'])->name('admin.liveevent');
+    Route::get('/event-complete', [EventController::class, 'getCompleteEvent'])->name('admin.completeevent');
+    Route::get('/event-decline', [EventController::class, 'getDeclineEvent'])->name('admin.declineevent');
     Route::get('/event-view/{id}', [EventController::class, 'viewEventByAdmin'])->name('admin.eventView');
     Route::get('/event-price/{id}', [EventController::class, 'viewEventPriceByAdmin'])->name('admin.eventPrice');
     Route::post('/event', [EventController::class, 'storeEventByAdmin']);

@@ -332,8 +332,6 @@
                                 <th style="text-align: center">Event Start & End Date </th>
                                 <th style="text-align: center">Sale Start & End Date </th>
                                 <th style="text-align: center">Price</th>
-                                <th style="text-align: center">Sold</th>
-                                <th style="text-align: center">Available</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -358,13 +356,19 @@
                                             <a href="{{route('admin.eventPrice',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">Price</a>
                                         @endif    
                                         </td>
-                                        
-                                        <td style="text-align: center">{{$data->sold}}</td>
-                                        <td style="text-align: center">{{$data->available}}</td>
                                         <td style="text-align: center">
-                                            {{-- {{$data->status}} --}}
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input eventstatus" type="checkbox" role="switch"  data-id="{{$data->id}}" id="eventstatus" @if ($data->status == 1) checked @endif >
+                                              <div class="dropdown account text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">
+                                                <div class="d-flex align-items-center  dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="fw-bold fs-16 me-2">@if ($data->status == 0) Processing @elseif($data->status == 1) Active
+                                                        @elseif($data->status == 2) Complete @else Decline @endif</span>
+                                                </div>
+                                                <ul class="dropdown-menu  " aria-labelledby="dropdownMenuButton1">
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="0">Processing</a>
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="1">Active</a>
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="2">Complete</a>
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="3">Decline</a>
+                                                </ul>
                                             </div>
                                         </td>
                                         
@@ -421,31 +425,30 @@
     
 </script>
 <script>
+
     $(function() {
-      $('.eventstatus').change(function() {
-        
-      $("#loading").show();
+      $('.stsBtn').click(function() {
         var url = "{{URL::to('/admin/active-event')}}";
-          var status = $(this).prop('checked') == true ? 1 : 0;
           var id = $(this).data('id');
-           console.log(id);
+          var status = $(this).attr('value');
+        //   console.log(status);
           $.ajax({
               type: "GET",
               dataType: "json",
               url: url,
               data: {'status': status, 'id': id},
               success: function(d){
-                console.log(d)
+                // console.log(data.success)
                 if (d.status == 303) {
                         pagetop();
                         $("#loading").hide();
                         $(".stsermsg").html(d.message);
-                        // window.setTimeout(function(){location.reload()},2000)
                     }else if(d.status == 300){
+                      
+                        $("#stsval"+d.id).html(d.stsval);
                         pagetop();
                         $("#loading").hide();
                         $(".stsermsg").html(d.message);
-                        // window.setTimeout(function(){location.reload()},2000)
                     }
                 },
                 error: function (d) {

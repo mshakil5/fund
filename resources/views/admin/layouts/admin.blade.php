@@ -132,16 +132,17 @@
                 <div class="accordion" id="dropdownLink">
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEventTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <button class="accordion-button {{ (request()->is('admin/event*')) ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEventTwo" aria-expanded="{{ (request()->is('admin/event*')) ? 'true' : 'false' }}" aria-controls="collapseTwo">
                             Event
                         </button>
                       </h2>
-                      <div id="collapseEventTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
+                      <div id="collapseEventTwo" class="accordion-collapse collapse {{ (request()->is('admin/event*')) ? 'show' : '' }}" aria-labelledby="headingTwo" data-bs-parent="#dropdownLink">
                         <div class="accordion-body">
                             
-                            <li><a href="{{route('admin.event')}}" class="nav-link {{ (request()->is('admin/event*')) ? 'current' : '' }}">New Event</a></li>
-                            <li><a href="#" class="nav-link {{ (request()->is('admin/live-campaign*')) ? 'current' : '' }}">Live Event</a></li>
-                            <li><a href="#" class="nav-link {{ (request()->is('admin/close-campaign*')) ? 'current' : '' }}">Close Event</a></li>
+                            <li><a href="{{route('admin.event')}}" class="nav-link {{ (request()->is('admin/event')) ? 'current' : '' }}">Processing</a></li>
+                            <li><a href="{{route('admin.liveevent')}}" class="nav-link {{ (request()->is('admin/event-live*')) ? 'current' : '' }}">Live</a></li>
+                            <li><a href="{{route('admin.completeevent')}}" class="nav-link {{ (request()->is('admin/event-complete*')) ? 'current' : '' }}">Complete</a></li>
+                            <li><a href="{{route('admin.declineevent')}}" class="nav-link {{ (request()->is('admin/event-decline*')) ? 'current' : '' }}">Decline</a></li>
                             
                         </div>
                       </div>

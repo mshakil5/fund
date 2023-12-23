@@ -24,7 +24,28 @@ class EventController extends Controller
 {
     public function getEvent()
     {
-        $data = Event::orderby('id','DESC')->get();
+        $data = Event::where('status',0)->orderby('id','DESC')->get();
+        $users = User::select('id','name','email')->where('is_type','0')->get();
+        return view('admin.event.index',compact('data','users'));
+    }
+
+    public function getLiveEvent()
+    {
+        $data = Event::where('status',1)->orderby('id','DESC')->get();
+        $users = User::select('id','name','email')->where('is_type','0')->get();
+        return view('admin.event.index',compact('data','users'));
+    }
+
+    public function getCompleteEvent()
+    {
+        $data = Event::where('status',2)->orderby('id','DESC')->get();
+        $users = User::select('id','name','email')->where('is_type','0')->get();
+        return view('admin.event.index',compact('data','users'));
+    }
+
+    public function getDeclineEvent()
+    {
+        $data = Event::where('status',3)->orderby('id','DESC')->get();
         $users = User::select('id','name','email')->where('is_type','0')->get();
         return view('admin.event.index',compact('data','users'));
     }
@@ -91,7 +112,8 @@ class EventController extends Controller
         // $data = Event::with('eventimage','eventticket','eventprice')->where('id', $id)->first();
         $data = TicketSale::where('event_id', $id)->orderby('id','DESC')->get();
         $netamount = TicketSale::where('event_id', $id)->sum('amount');
-        return view('admin.event.saleslist',compact('data','netamount'));
+        $tickets = EventPrice::where('event_id', $id)->get();
+        return view('admin.event.saleslist',compact('data','netamount','tickets'));
     }
 
     public function deleteByAdmin($id)
@@ -720,7 +742,7 @@ class EventController extends Controller
         $data = Event::find($request->id);
         $data->status = $request->status;
         $data->save();
-        if($request->status==1){
+        if($request->status){
             $active = Event::find($request->id);
             $active->status = $request->status;
             $active->save();
@@ -743,19 +765,45 @@ class EventController extends Controller
                 $msg
             );
 
-            Mail::to($contactmail)
-                // ->cc($ccEmails)
-                ->send(new EventActiveMail($array));
+            // Mail::to($contactmail)
+            //     // ->cc($ccEmails)
+            //     ->send(new EventActiveMail($array));
 
+            if ($active->status == 0) {
+                $stsval = "Processing";
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This event is on processing. . .</b></div>";
+            }elseif($active->status == 1){
+                $stsval = "Active";
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
+            }elseif($active->status == 2){
+                $stsval = "Complete";
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event completed Successfully.</b></div>";
+            }else {
+                $stsval = "Decline";
+                $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Decline Successfully.</b></div>";
+            }
 
-            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message]);
+            return response()->json(['status'=> 300,'message'=>$message,'stsval'=>$stsval,'id'=>$request->id]);
         }else{
             $deactive = Event::find($request->id);
             $deactive->status = $request->status;
             $deactive->save();
-            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
+
+            if ($deactive->status == 0) {
+                $stsval = "Processing";
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This event is on processing. . .</b></div>";
+            }elseif($deactive->status == 1){
+                $stsval = "Active";
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
+            }elseif($deactive->status == 2){
+                $stsval = "Complete";
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event completed Successfully.</b></div>";
+            }else {
+                $stsval = "Decline";
+                $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Decline Successfully.</b></div>";
+            }
+
+            return response()->json(['status'=> 303,'message'=>$message,'stsval'=>$stsval,'id'=>$request->id]);
         }
     }
 

@@ -16,6 +16,57 @@
             <a href="{{ route('admin.event')}}" class="btn-theme bg-primary text-center">Back</a>
         </div> 
     </div>
+
+    
+    <div id="" class="mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" style="background-color: #fdf3ee">
+                    <div class="card-header">
+                        <h3> Ticket Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover table-responsive" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">SL</th>
+                                <th style="text-align: center">Category</th>
+                                <th style="text-align: center">Total Quantity</th>
+                                <th style="text-align: center">Sold Quantity</th>
+                                <th style="text-align: center">Available Quantity</th>
+                            </tr>
+                            </thead>
+                            
+                            
+                            <tbody>
+                                @foreach ($tickets as $key => $ticket)
+                                <tr>
+                                    <td style="text-align: center">{{ $key + 1 }}</td>
+                                    <td style="text-align: center" class="fs-16 txt-primary">{{$ticket->type}}</td>
+                                    <td style="text-align: center" class="fs-16 txt-primary">{{$ticket->qty}}
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary">
+                                        {{$ticket->sold_qty}}
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary">
+                                        {{$ticket->qty - $ticket->sold_qty}}
+                                    </td>
+                                    
+                                </tr>
+                                @endforeach
+
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div id="contentContainer">
         <div class="row">
             <div class="col-md-12">
