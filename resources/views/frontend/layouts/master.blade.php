@@ -62,6 +62,8 @@
     </style>
 
 
+    
+
     @include('frontend.inc.header')
     
     @yield('content')

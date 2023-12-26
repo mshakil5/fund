@@ -9,7 +9,7 @@ use App\Models\TicketSale;
 use App\Models\User;
 use Mail;
 use App\Models\EmailContent;
-use App\Mail\ContactFormMail;
+use App\Mail\EventWithdrawRequestMail;
 use App\Mail\EventActiveMail;
 use App\Mail\EventPaymentMail;
 use App\Models\ContactMail;
@@ -1178,6 +1178,33 @@ class EventController extends Controller
         $user->account_sortcode = $request->bank_account_sort_code;
         $user->updated_by = Auth::user()->id;
         $user->save();
+
+        
+        $eventdetails = Event::where('id', $request->event_id)->first();
+        $adminmail = ContactMail::where('id', 1)->first()->email;
+        $contactmail = Auth::user()->email;
+        $ccEmails = [$adminmail];
+        $msg = EmailContent::where('title','=','event_withdraw_request_mail')->first()->description;
+
+        $array['eventname'] = $eventdetails->title;
+        $array['start'] = $eventdetails->event_start_date;
+        $array['vanue'] = $eventdetails->venue_name;
+        $array['event_name'] = $request->event_name;
+        $array['amount'] = $request->amount;
+        $array['subject'] = "Event Withdraw Request Confirmation";
+        $array['message'] = $msg;
+        $array['contactmail'] = $contactmail;
+
+        
+
+        $array['message'] = str_replace(
+            ['{{event_name}}','{{event_id}}','{{venue}}','{{price}}','{{title}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
+            [$eventdetails->title,$eventdetails->id,$eventdetails->venue_name, $eventdetails->price, $eventdetails->title,$eventdetails->house_number,$eventdetails->road_name,$eventdetails->town,$eventdetails->postcode],
+            $msg
+        );
+        Mail::to($contactmail)
+            ->cc($ccEmails)
+            ->send(new EventWithdrawRequestMail($array));
 
 
         $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Request send successfully.</b></div>";

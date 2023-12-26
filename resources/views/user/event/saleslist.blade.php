@@ -154,6 +154,11 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
+                <!-- Image loader -->
+                <div id='loading' style='display:none ;'>
+                    <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+                </div>
     
                 <div class="title text-center txt-secondary">Withdraw Request</div>
 
@@ -244,6 +249,8 @@ $(document).ready(function () {
 
     $("#addBtn").click(function(){
         // event create 
+        
+            $("#loading").show();
             var form_data = new FormData();
             form_data.append("event_name", $("#event_name").val());
             form_data.append("event_id", $("#event_id").val());
@@ -266,7 +273,7 @@ $(document).ready(function () {
                         $(".ermsg").html(d.message);
                     }else if(d.status == 300){
                         $(".ermsg").html(d.message);
-                        window.setTimeout(function(){location.reload()},2000);
+                        window.setTimeout(function(){location.reload()},5000);
                     }
                 },
                 error: function (d) {
