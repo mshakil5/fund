@@ -2,6 +2,10 @@
 
 @section('content')
 
+<!-- Image loader -->
+<div id='loading' style='display:none ;'>
+    <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+</div>
 
 <section class="bleesed default">
     <div class="container">
@@ -271,6 +275,7 @@
                                                         <label for="amount">Amount</label>
                                                         <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{$totalInAmount - $totalOutAmount}}" step="any">
                                                         <input type="hidden" id="event_id" name="event_id" value="{{$event->id}}">
+                                                        <input type="hidden" id="user_id" name="user_id" value="{{$event->user_id}}">
                                                         
                                                     </div>
                                                 </div>
@@ -290,7 +295,7 @@
                                                 </div>
                                                 <div class="col-lg-12 mt-4">
                                                     <div class="form-group ">
-                                                        <button class="btn-theme bg-primary">Add</button>
+                                                        <button class="btn-theme bg-primary" id="addBtn">Add</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -431,4 +436,15 @@
 
 
 
+@endsection
+@section('script')
+<script>
+
+
+$("#addBtn").click(function(){
+
+    $("#loading").show();
+
+});
+</script>
 @endsection
