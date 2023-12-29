@@ -63,6 +63,7 @@ Route::get('/privacy', [FrontendController::class, 'privacy'])->name('frontend.p
 Route::get('/terms', [FrontendController::class, 'terms'])->name('frontend.terms');
 Route::get('/faq', [FrontendController::class, 'faq'])->name('frontend.faq');
 Route::get('/non-profit', [FrontendController::class, 'nonprofit'])->name('frontend.nonprofit');
+Route::get('/charities', [FrontendController::class, 'getCharities'])->name('frontend.charities');
 Route::get('/individual', [FrontendController::class, 'individual'])->name('frontend.individual');
 Route::get('/fundriser', [FrontendController::class, 'fundriser'])->name('frontend.fundriser');
 

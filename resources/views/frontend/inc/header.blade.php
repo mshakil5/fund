@@ -32,7 +32,8 @@
                         </li> --}}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('frontend.nonprofit')}}">Non Profit </a>
+                            <a class="nav-link" href="{{route('frontend.charities')}}">Non Profit </a>
+                            {{-- <a class="nav-link" href="{{route('frontend.nonprofit')}}">Non Profit </a> --}}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('frontend.contact')}}">Contact </a>
