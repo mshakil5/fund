@@ -14,6 +14,7 @@ use App\Mail\EventPaymentMail;
 use App\Mail\PaymentMail;
 use App\Models\CampaignShare;
 use App\Models\Event;
+use App\Models\FundraisingSource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use DB;
@@ -77,11 +78,13 @@ class FrontendController extends Controller
     public function getCharities()
     {
         $todate = Carbon::now();
-        $campaign = Campaign::with('transaction','campaignimage')->where('status','1')->where('homepage','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
+        $campaigns = Campaign::with('transaction','campaignimage')->where('status','1')->where('homepage','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
         // dd($campaign);
         $charities = User::select('photo','id','name','postcode','town','street_name','house_number')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('status','1')->get();
+        
+        $categories = FundraisingSource::select('id','name')->get();
 
-        return view('frontend.products',compact('charities','campaign','todate'));
+        return view('frontend.products',compact('charities','campaigns','todate','categories'));
     }
 
     public function individual()

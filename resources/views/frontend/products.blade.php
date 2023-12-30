@@ -69,33 +69,27 @@
                 <h3 class="mb-4 txt-secondary">Categories</h3>
 
                 <ul class="nav nav-tabs " id="myTab" role="tablist">
+                    @foreach ($categories as $key => $cat)
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link rounded active" id="home-tab" data-bs-toggle="tab"
-                            data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
-                            aria-selected="true">Food/Water</button>
+                        <button class="nav-link rounded @if ($key == 0) active @endif" id="{{$cat->name}}-tab" data-bs-toggle="tab" data-bs-target="#{{$cat->name}}-tab-pane" type="button" role="tab" aria-controls="{{$cat->name}}-tab-pane" aria-selected="true">{{$cat->name}}</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link rounded" id="profile-tab" data-bs-toggle="tab"
-                            data-bs-target="#profile-tab-pane" type="button" role="tab"
-                            aria-controls="profile-tab-pane" aria-selected="false">Mosque/Community</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link rounded" id="contact-tab" data-bs-toggle="tab"
-                            data-bs-target="#contact-tab-pane" type="button" role="tab"
-                            aria-controls="contact-tab-pane" aria-selected="false">Education</button>
-                    </li>
+                    @endforeach
+                    
 
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade py-4 show active" id="home-tab-pane" role="tabpanel"
-                        aria-labelledby="home-tab" tabindex="0">
+
+                    @foreach ($categories as $key => $cat)
+                    <div class="tab-pane fade py-4 show  @if ($key == 0) active @endif" id="{{$cat->name}}-tab-pane" role="tabpanel"
+                    aria-labelledby="{{$cat->name}}-tab" tabindex="0">
                         <div class="row gx-1">
                             <div class="col-md-12  txt-primary my-3">
-                                <h4 class="fw-bold txt-secondary">Found 45 Campaigns</h4>
+                                {{-- <h4 class="fw-bold txt-secondary">Found 45 Campaigns</h4> --}}
                             </div>
 
-                            @foreach ($campaign as $campaign)
+                            @foreach ($campaigns as $campaign)
 
+                            @if ($campaign->fundraising_source_id == $cat->id)
                             @php
                                 $today = $todate->format('Y-m-d');
                                 $end = $campaign->end_date;
@@ -106,8 +100,6 @@
                                 $total_collection = $campaign->transaction->sum('amount');
                                 $total_donar = $campaign->transaction->count();
                             @endphp
-
-
                             <div class="col-md-4">
                                 <div class="card-theme mb-3">
                                     <div class="topper d-flex align-items-center justify-content-center">
@@ -158,52 +150,46 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            @endforeach
+                            @endif
 
-
-
-
-                        </div>
-                        <div class="row gx-1 mt-4">
-                            <div class="col-md-12  txt-primary my-3">
-                                <h4 class="fw-bold txt-secondary"> Organizations </h4>
-                            </div>
-
-
-                            @foreach ($charities as $charity)
-                            <div class="col-md-4 px-2">
-                                <div class="card p-4 shadow-sm">
-
-                                    @if (isset($charity->photo))
-                                        <a href="" class="p-0 d-block w-100">
-                                            <img src="{{asset('images/'.$charity->photo)}}" class="img-fluid mx-auto rounded-circle" width="150px">
-                                        </a>
-                                    @else
-                                        <img src="https://via.placeholder.com/100.png" class="img-fluid mx-auto rounded-circle" width="150px">
-                                        
-                                        {{-- <img src="https://pmedia.launchgood.com/154100/orphans_in_need_usa_Orphans%20in%20Need%20USA_logo-400x400.jpg" class="img-fluid mx-auto rounded-circle" width="150px" > --}}
-                                    @endif
- 
-                                    
-
-                                    <h5 class="my-3 fw-bold text-center"><a href="{{ route('frontend.charityDetails',$charity->id)}}">{{$charity->name}}</a></h5>
-                                    <a href="{{ route('frontend.charityDetails',$charity->id)}}" class="btn-theme bg-primary fs-6 w-75 mx-auto" >Donate Now</a>
-                                </div>
-                            </div>
                             @endforeach
 
                         </div>
+
                     </div>
-                    <div class="tab-pane fade p-4" id="profile-tab-pane" role="tabpanel"
-                        aria-labelledby="profile-tab" tabindex="0">
-                        fdgdfgdfg
-                    </div>
-                    <div class="tab-pane fade p-4" id="contact-tab-pane" role="tabpanel"
-                        aria-labelledby="contact-tab" tabindex="0">
-                        fdgdfgdfg
-                    </div>
+                    @endforeach
+
+
                 </div>
+
+                <div class="row gx-1 mt-4">
+                    <div class="col-md-12  txt-primary my-3">
+                        <h4 class="fw-bold txt-secondary"> Organizations </h4>
+                    </div>
+                    @foreach ($charities as $charity)
+                    <div class="col-md-4 px-2">
+                        <div class="card p-4 shadow-sm">
+
+                            @if (isset($charity->photo))
+                                <a href="" class="p-0 d-block w-100">
+                                    <img src="{{asset('images/'.$charity->photo)}}" class="img-fluid mx-auto rounded-circle" width="150px">
+                                </a>
+                            @else
+                                <img src="https://via.placeholder.com/100.png" class="img-fluid mx-auto rounded-circle" width="150px">
+                                
+                                {{-- <img src="https://pmedia.launchgood.com/154100/orphans_in_need_usa_Orphans%20in%20Need%20USA_logo-400x400.jpg" class="img-fluid mx-auto rounded-circle" width="150px" > --}}
+                            @endif
+
+                            
+
+                            <h5 class="my-3 fw-bold text-center"><a href="{{ route('frontend.charityDetails',$charity->id)}}">{{$charity->name}}</a></h5>
+                            <a href="{{ route('frontend.charityDetails',$charity->id)}}" class="btn-theme bg-primary fs-6 w-75 mx-auto" >Donate Now</a>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                
             </div>
         </div>
     </div>
