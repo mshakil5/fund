@@ -114,11 +114,12 @@ class FrontendController extends Controller
         $totalcollection = Transaction::where('campaign_id',$id)->where('tran_type','In')->sum('total_amount');
         $totaltips = Transaction::where('campaign_id',$id)->where('tran_type','In')->sum('tips');
         
-        $doners = Transaction::selectRaw('SUM(amount) as sumamount, donation_display_name')->where([
+        $doners = Transaction::selectRaw('SUM(total_amount) as sumamount, SUM(tips) as tipsamount, donation_display_name')->where([
             ['campaign_id','=', $id]
         ])->groupBy('donation_display_name')->orderby('id','DESC')->limit(5)->get();
+        
 
-        $alldoners = Transaction::selectRaw('SUM(amount) as sumamount, donation_display_name')->where([
+        $alldoners = Transaction::selectRaw('SUM(total_amount) as sumamount, SUM(tips) as tipsamount, donation_display_name')->where([
             ['campaign_id','=', $id]
         ])->groupBy('donation_display_name')->orderby('id','DESC')->get();
 

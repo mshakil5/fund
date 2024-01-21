@@ -96,7 +96,7 @@
                                         {{$doner->donation_display_name}}
                                     </h5>
                                 </div>
-                                <h5 class="fw-bold mb-0">£{{$doner->sumamount}}</h5>
+                                <h5 class="fw-bold mb-0">£{{$doner->sumamount  - $doner->tipsamount}}</h5>
                             </div>
                         @endforeach
                         
@@ -447,7 +447,7 @@
                                         {{$doner->donation_display_name}}
                                     </h5>
                                 </div>
-                                <h5 class="fw-bold">£{{$doner->sumamount}}</h5>
+                                <h5 class="fw-bold">£{{$doner->sumamount - $doner->tipsamount}}</h5>
                             </div>
                             @endforeach
 
