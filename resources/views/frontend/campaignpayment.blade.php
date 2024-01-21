@@ -139,7 +139,8 @@
                                 including a contribution of:
                             </p>
                             <select name="tips" id="tips" class="form-control fs-6 fw-bold my-4">
-                                <option value="10" class="fs-6 fw-bold">10%</option>
+                                <option value="0" class="fs-6 fw-bold">0%</option>
+                                <option value="10" selected class="fs-6 fw-bold">10%</option>
                                 <option value="15" class="fs-6 fw-bold">15%</option>
                                 <option value="20" class="fs-6 fw-bold">20%</option>
                                 <option value="30" class="fs-6 fw-bold">30%</option>
@@ -329,7 +330,8 @@
             var tips = Number($("#tips").val());
             var total_tips = (amount * tips)/100;
             var total_amount = amount + total_tips;
-            var commission = (total_amount * 10)/100;
+            var commission = 0;
+            // var commission = (total_amount * 10)/100;
             var net_amount = total_amount;
             var total_amount_with_commission = total_amount - total_tips;
             
@@ -349,9 +351,13 @@
         $("#tips").change(function(){
             var amount = Number($("#d_amount").val());
             var tips = Number($("#tips").val());
-            var total_tips = (amount * tips)/100;
+            var total_tips = amount * tips/100;
+
+            console.log(total_tips);
+
             var total_amount = amount + total_tips;
-            var commission = (total_amount * 10)/100;
+            var commission = 0;
+            // var commission = (total_amount * 10)/100;
             var net_amount = total_amount + commission;
             var total_amount_with_commission = total_amount + commission - total_tips;
             
