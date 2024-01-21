@@ -137,7 +137,7 @@
                                             <div class="d-flex align-items-center justify-content-between mt-3">
                                                 <div>
                                                     <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) <small class="txt-primary">£{{$total_collection}}</small>  Raised @else @endif</h4>
-                                                    <h6 class="mb-1 text-dark  fw-bold">funded of ${{$campaign->raising_goal}}</h6>
+                                                    <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
                                                 </div>
                                                 <div>
                                                     <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="btn-theme bg-primary fs-6"
