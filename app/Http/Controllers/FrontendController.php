@@ -111,7 +111,8 @@ class FrontendController extends Controller
         $data = Campaign::with('campaignimage','campaignshare')->where('id',$id)->first();
         $chkshareids = CampaignShare::where('campaign_id',$id)->pluck('user_id');
         // dd($chkshareid);
-        $totalcollection = Transaction::where('campaign_id',$id)->where('tran_type','In')->sum('amount');
+        $totalcollection = Transaction::where('campaign_id',$id)->where('tran_type','In')->sum('total_amount');
+        $totaltips = Transaction::where('campaign_id',$id)->where('tran_type','In')->sum('tips');
         
         $doners = Transaction::selectRaw('SUM(amount) as sumamount, donation_display_name')->where([
             ['campaign_id','=', $id]
@@ -122,7 +123,7 @@ class FrontendController extends Controller
         ])->groupBy('donation_display_name')->orderby('id','DESC')->get();
 
         // dd($doners);
-        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids','alldoners'));
+        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids','alldoners','totaltips'));
     }
 
     public function visitorContact(Request $request)

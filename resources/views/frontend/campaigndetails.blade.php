@@ -74,7 +74,7 @@
 
                 <div>
                     <div class=" display-6 fw-bold"> £@if (isset($totalcollection))
-                        {{$totalcollection}}
+                        {{$totalcollection - $totaltips}}
                     @else 0 @endif  </div>
                     <span class="w-100 fw-bold">raised of £{{$data->raising_goal}} goal</span> 
 
