@@ -135,7 +135,8 @@
                     $datetime2 = new DateTime($end);
                     $interval = $datetime1->diff($datetime2);
                     $days = $interval->format('%a');
-                    $total_collection = $campaign->transaction->sum('amount');
+                    $total_collection = $campaign->transaction->sum('total_amount');
+                    $total_tips = $campaign->transaction->sum('tips');
                     $total_donar = $campaign->transaction->count();
                 @endphp
 
@@ -170,7 +171,7 @@
 
                                 <div class="d-flex align-items-center justify-content-between mt-3">
                                     <div>
-                                        <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) <small class="txt-primary">£{{$total_collection}}</small>  Raised @else @endif</h4>
+                                        <h4 class="mb-1 text-dark fw-bold">@if ($total_collection > 0) <small class="txt-primary">£{{$total_collection - $total_tips}}</small>  Raised @else @endif</h4>
                                         <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
                                     </div>
                                     <div>
