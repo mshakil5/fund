@@ -140,6 +140,7 @@
                             </p>
                             <select name="tips" id="tips" class="form-control fs-6 fw-bold my-4">
                                 <option value="0" class="fs-6 fw-bold">0%</option>
+                                <option value="5" class="fs-6 fw-bold">5%</option>
                                 <option value="10" selected class="fs-6 fw-bold">10%</option>
                                 <option value="15" class="fs-6 fw-bold">15%</option>
                                 <option value="20" class="fs-6 fw-bold">20%</option>
