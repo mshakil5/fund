@@ -160,10 +160,11 @@ class CampaignController extends Controller
     public function getCloseCampaignByAdmin()
     {
         $todate = Carbon::now();
+
         $users = User::select('id','name','email')->where('is_type','0')->get();
         $countries = Country::select('id','name')->get();
         $source = FundraisingSource::select('id','name')->get();
-        $data = Campaign::with('transaction','campaignimage','campaignshare')->orderby('id','DESC')->where('end_date','<', $todate->format('Y-m-d'))->get();
+        $data = Campaign::with('transaction','campaignimage','campaignshare')->where('end_date','<', $todate->format('Y-m-d'))->orwhere('end_date','=', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
         return view('admin.campaign.closecampaign',compact('countries','source','data','users'));
     }
 
