@@ -25,8 +25,9 @@ class FrontendController extends Controller
     public function index()
     {
         $todate = Carbon::now();
-        $campaign = Campaign::with('transaction','campaignimage')->where('status','1')->where('homepage','1')->where('end_date','>', $todate->format('Y-m-d'))->orderby('id','DESC')->get();
+        $campaign = Campaign::with('transaction','campaignimage')->where('status','1')->where('homepage','1')->orderby('id','DESC')->get();
         // dd($campaign);
+        // ->where('end_date','>', $todate->format('Y-m-d'))
         $charities = User::select('photo','id','name','postcode','town','street_name','house_number')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('status','1')->get();
 
         
@@ -123,8 +124,9 @@ class FrontendController extends Controller
             ['campaign_id','=', $id]
         ])->groupBy('donation_display_name')->orderby('id','DESC')->get();
 
+        $todate = Carbon::now();
         // dd($doners);
-        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids','alldoners','totaltips'));
+        return view('frontend.campaigndetails', compact('data','campaign','shareComponent','totalcollection','doners','chkshareids','alldoners','totaltips','todate'));
     }
 
     public function visitorContact(Request $request)

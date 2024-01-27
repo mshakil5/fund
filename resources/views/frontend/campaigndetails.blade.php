@@ -23,6 +23,18 @@
     }
 </style>
 
+@php
+    $today = $todate->format('Y-m-d');
+    $end = $data->end_date;
+    $datetime1 = new DateTime($today);
+    $datetime2 = new DateTime($end);
+    $interval = $datetime1->diff($datetime2);
+    $days = $interval->format('%a');
+    $total_collection = $data->transaction->sum('total_amount');
+    $total_tips = $data->transaction->sum('tips');
+    $total_donar = $data->transaction->count();
+@endphp
+
 <section class="bleesed default">
     <div class="container">
         <div class="row">
@@ -79,11 +91,21 @@
                     <span class="w-100 fw-bold">raised of £{{$data->raising_goal}} goal</span> 
 
                     <div class="d-flex justify-content-between my-3 ">
-                        
-                            <a href="{{ route('frontend.campaignDonate',$data->id)}}" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
+
+                        @if ($end>$today)
+                            
+                        @elseif ($end=$today)
+                            
+                        @else
+                        <a href="{{ route('frontend.campaignDonate',$data->id)}}" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
                         
                         <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
                             data-bs-target="#shareModal">Share</button>
+                            
+                        @endif  
+                        
+                            
+                        
                     </div>
                     <div class="card p-4 rounded sideCard">
                        

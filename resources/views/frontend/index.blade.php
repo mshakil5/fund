@@ -175,7 +175,15 @@
                                         <h6 class="mb-1 text-dark  fw-bold">funded of £{{$campaign->raising_goal}}</h6>
                                     </div>
                                     <div>
-                                        <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="btn-theme bg-primary">Donate Now</a>
+                                        <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="btn-theme bg-primary">
+                                        @if ($end>$today)
+                                            Details
+                                        @elseif ($end=$today)
+                                            Details
+                                        @else
+                                            Donate Now
+                                        @endif    
+                                        </a>
                                     </div>
                                 </div>
 
