@@ -161,7 +161,14 @@
                                     </span>
                                     <span class="d-flex align-items-center me-2">
                                         <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 
-                                        {{$days}} days left
+                                        
+                                        @if ($end>$today)
+                                            COMPLETED
+                                        @elseif ($end=$today)
+                                            COMPLETED
+                                        @else
+                                            {{$days}} days left
+                                        @endif
                                     </span>
                                 </div>
                                 <div class="progress " style="height: 7px;">

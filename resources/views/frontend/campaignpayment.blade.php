@@ -436,7 +436,7 @@
         var doner_name = $('#doner_name').val();
         var doner_email = $('#doner_email').val();
         var doner_phone = $('#doner_phone').val();
-        console.log(doner_name, doner_email, doner_phone);
+        console.log(amount, tips_amount, c_amount);
       fetch(url, {
         method: 'POST',
         headers: {
