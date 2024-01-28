@@ -303,7 +303,7 @@ $(document).ready(function () {
     //header for csrf-token is must in laravel
     $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
     //
-    var url = "{{URL::to('/user/event-withdraw-request')}}";
+    var url = "{{URL::to('/user/campaign-withdraw-request')}}";
     // console.log(url);
 
     $("#addBtn").click(function(){
