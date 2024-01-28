@@ -1249,14 +1249,14 @@ class CampaignController extends Controller
 
         
 
-        // $array['message'] = str_replace(
-        //     ['{{campaign_name}}','{{campaign_id}}','{{price}}','{{title}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
-        //     [$campaigndetails->title,$campaigndetails->id, $campaigndetails->price, $campaigndetails->title,$campaigndetails->house_number,$campaigndetails->road_name,$campaigndetails->town,$campaigndetails->postcode],
-        //     $msg
-        // );
-        // Mail::to($contactmail)
-        //     ->cc($ccEmails)
-        //     ->send(new CampaignWithdrawRequestMail($array));
+        $array['message'] = str_replace(
+            ['{{user_name}}','{{title}}','{{amount}}'],
+            [Auth::user()->name,$campaigndetails->title,$request->amount],
+            $msg
+        );
+        Mail::to($contactmail)
+            ->cc($ccEmails)
+            ->send(new CampaignWithdrawRequestMail($array));
 
 
         $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Request send successfully.</b></div>";

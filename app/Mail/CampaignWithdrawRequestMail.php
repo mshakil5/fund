@@ -13,15 +13,16 @@ class CampaignWithdrawRequestMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $array;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct($array)
+     {
+         $this->array = $array;
+     }
 
     /**
      * Get the message envelope.
@@ -35,25 +36,10 @@ class CampaignWithdrawRequestMail extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
+    public function build()
     {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
+        return $this->from('do-not-reply@gogiving.co.uk', 'Gogiving')
+                    ->subject($this->array['subject'])
+                    ->markdown('emails.eventwithdrawreq');
     }
 }
