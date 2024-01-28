@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CampaignWithdrawRequestMail;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\FundraisingSource;
@@ -13,6 +14,7 @@ use Carbon\Carbon;
 use DB;
 use Mail;
 use App\Models\CampaignImage;
+use App\Models\CampaignWithdrawReq;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\ContactMail;
@@ -595,11 +597,13 @@ class CampaignController extends Controller
 
     public function getCamTranByUser($id)
     {
+        
+        $campaign = Campaign::where('id', $id)->first();
         $data = Transaction::where('campaign_id', $id)->orderby('id','DESC')->get();
         $totalInAmount = Transaction::where('campaign_id', $id)->where('tran_type','In')->sum('amount');
         $totalOutAmount = Transaction::where('campaign_id', $id)->where('tran_type','Out')->sum('amount');
         // dd($totalInAmount);
-        return view('user.campaigntran',compact('data','totalOutAmount','totalInAmount'));
+        return view('user.campaigntran',compact('data','totalOutAmount','totalInAmount','campaign'));
         
     }
 
@@ -1167,4 +1171,99 @@ class CampaignController extends Controller
                ->with('error','Server error!!.');
         }
     }
+
+
+
+    public function campaignWithReqByUser(Request $request)
+    {
+
+        
+        if(empty($request->amount)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Amount \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_number)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account number \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_account_sort_code)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank account sort code \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->bank_name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Bank name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        
+        $data = new CampaignWithdrawReq();
+        $data->date = date('Y-m-d');
+        $data->req_no = date('his');
+        $data->user_id = Auth::user()->id;
+        $data->campaign_id = $request->campaign_id;
+        $data->note = $request->note;
+        $data->amount = $request->amount;
+        $data->campaign_name = $request->campaign_name;
+        $data->created_by = Auth::user()->id;
+        $data->save();
+
+        $user = User::find(Auth::user()->id);
+        $user->bank_name = $request->bank_name;
+        $user->account_name = $request->bank_account_name;
+        $user->account_number = $request->bank_account_number;
+        $user->account_sortcode = $request->bank_account_sort_code;
+        $user->updated_by = Auth::user()->id;
+        $user->save();
+
+        
+        $campaigndetails = Campaign::where('id', $request->campaign_id)->first();
+        $adminmail = ContactMail::where('id', 1)->first()->email;
+        $contactmail = Auth::user()->email;
+        $ccEmails = [$adminmail];
+        $msg = EmailContent::where('title','=','campaign_withdraw_request_mail')->first()->description;
+
+        $array['campaignname'] = $campaigndetails->title;
+        $array['start'] = $campaigndetails->event_start_date;
+        $array['vanue'] = $campaigndetails->venue_name;
+        $array['amount'] = $request->amount;
+        $array['subject'] = "Campaign Withdraw Request Confirmation";
+        $array['message'] = $msg;
+        $array['contactmail'] = $contactmail;
+
+        
+
+        // $array['message'] = str_replace(
+        //     ['{{campaign_name}}','{{campaign_id}}','{{price}}','{{title}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
+        //     [$campaigndetails->title,$campaigndetails->id, $campaigndetails->price, $campaigndetails->title,$campaigndetails->house_number,$campaigndetails->road_name,$campaigndetails->town,$campaigndetails->postcode],
+        //     $msg
+        // );
+        // Mail::to($contactmail)
+        //     ->cc($ccEmails)
+        //     ->send(new CampaignWithdrawRequestMail($array));
+
+
+        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Request send successfully.</b></div>";
+        // $message = $request->image[0];
+        return response()->json(['status'=> 300,'message'=>$message]);
+
+    }
+
+
+
 }

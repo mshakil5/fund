@@ -51,6 +51,12 @@
                             out</button>
                     </li>
 
+                    
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="withdraw-tab" data-bs-toggle="tab" data-bs-target="#withdraw"
+                            type="button" role="tab" aria-controls="withdraw" aria-selected="false">Withdraw</button>
+                    </li>
+
                 </ul>
                 <div class="tab-content fs-5" id="myTabContent">
                     <div class="tab-pane fade active show" id="transaction" role="tabpanel"
@@ -204,6 +210,82 @@
                         </div>
                     </div>
 
+                    
+                    <div class="tab-pane fade" id="withdraw" role="tabpanel" aria-labelledby="withdraw-tab">
+                        <div class="data-container">
+                            
+                        <!-- Image loader -->
+                        <div id='loading' style='display:none ;'>
+                            <img src="{{ asset('loader.gif') }}" id="loading-image" alt="Loading..." style="height: 225px;" />
+                        </div>
+
+                        <div class="title text-center txt-secondary">Withdraw Request</div>
+                        <hr>
+
+                        @if(session()->has('message'))
+                        <p class="alert alert-success"> {{ session()->get('message') }}</p>
+                        @endif
+
+                        <div class="ermsg"></div>
+                        
+                        <div class="form-custom">
+                            @csrf
+
+                            <div class="row">
+                                <div class="col-md-6 text-start">
+                                    <div>
+                                        <label for="campaign_name" class="fs-5 fw-bold ">Campaign name</label>
+                                        <input type="text" class="form-control modal-form" name="campaign_name" id="campaign_name" placeholder="Campaign name" value="{{$campaign->title}}" /> 
+                                        <input type="hidden" name="campaign_id" id="campaign_id" value="{{$campaign->id}}" /> 
+                                    </div>
+
+                                    <div>
+                                        <label for="amount" class="fs-5 fw-bold ">Amount</label>
+                                        <input type="number" class="form-control modal-form" name="amount" id="amount" placeholder="Amount" value="{{$totalInAmount - $totalOutAmount}}" /> 
+                                    </div>
+
+                                    <div>
+                                        <label for="amount" class="fs-5 fw-bold ">Note</label>
+                                        <textarea name="note" id="note" cols="30" rows="5" class="form-control modal-form"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div>
+                                        <label for="bank_name" class="fs-5 fw-bold ">Bank name</label>
+                                        <input type="text" class="form-control modal-form" name="bank_name" id="bank_name" value="{{Auth::user()->bank_name}}" placeholder="Bank name" /> 
+                                    </div>
+
+                                    <div>
+                                        <label for="bank_account_name" class="fs-5 fw-bold ">Bank A/C name</label>
+                                        <input type="text" class="form-control modal-form" name="bank_account_name" id="bank_account_name" value="{{Auth::user()->account_name}}" placeholder="Bank A/C name" /> 
+                                    </div>
+
+                                    <div>
+                                        <label for="bank_account_number" class="fs-5 fw-bold ">Bank A/C number</label>
+                                        <input type="text" class="form-control modal-form" name="bank_account_number" id="bank_account_number" value="{{Auth::user()->account_number}}" placeholder="Bank A/C number" /> 
+                                    </div>
+
+                                    <div>
+                                        <label for="bank_account_sort_code" class="fs-5 fw-bold ">Bank A/C sort code</label>
+                                        <input type="text" class="form-control modal-form" name="bank_account_sort_code" id="bank_account_sort_code" placeholder="Bank A/C sort code" value="{{Auth::user()->account_sortcode}}" /> 
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="submit" name="submit" id="addBtn" class="btn-theme bg-primary d-block text-center mx-0 w-100" value="Submit" />
+                            </div>
+                            
+                        </div>
+
+
+
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -212,4 +294,54 @@
 
 
 
+@endsection
+
+@section('script')
+<script>
+    
+$(document).ready(function () { 
+    //header for csrf-token is must in laravel
+    $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+    //
+    var url = "{{URL::to('/user/event-withdraw-request')}}";
+    // console.log(url);
+
+    $("#addBtn").click(function(){
+        // event create 
+        
+            $("#loading").show();
+            var form_data = new FormData();
+            form_data.append("campaign_name", $("#campaign_name").val());
+            form_data.append("campaign_id", $("#campaign_id").val());
+            form_data.append("bank_name", $("#bank_name").val());
+            form_data.append("bank_account_name", $("#bank_account_name").val());
+            form_data.append("amount", $("#amount").val());
+            form_data.append("bank_account_number", $("#bank_account_number").val());
+            form_data.append("bank_account_sort_code", $("#bank_account_sort_code").val());
+            form_data.append("note", $("#note").val());
+            
+            
+            $.ajax({
+                url: url,
+                method: "POST",
+                contentType: false,
+                processData: false,
+                data:form_data,
+                success: function (d) {
+                    if (d.status == 303) {
+                        $(".ermsg").html(d.message);
+                    }else if(d.status == 300){
+                        $(".ermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},5000);
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+            });
+        // event create 
+    });
+
+});
+</script>
 @endsection

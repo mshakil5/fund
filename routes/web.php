@@ -201,6 +201,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     // campaign edit 
     Route::get('campaign-edit/{id}', [CampaignController::class, 'campaignEdit'])->name('user.campaignedit');
 
+    Route::post('campaign-withdraw-request', [CampaignController::class, 'campaignWithReqByUser']);
 
     
     Route::get('my-event', [EventController::class, 'getEventByUser'])->name('user.myevent');
