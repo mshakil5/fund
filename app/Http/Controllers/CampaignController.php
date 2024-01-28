@@ -332,7 +332,8 @@ class CampaignController extends Controller
         $transaction = Transaction::where('campaign_id', $id)->orderby('id','DESC')->get();
         $totalInAmount = Transaction::where('campaign_id', $id)->where('tran_type','In')->sum('amount');
         $totalOutAmount = Transaction::where('campaign_id', $id)->where('tran_type','Out')->sum('amount');
-        return view('admin.campaign.tranview',compact('data','transaction','totalInAmount','totalOutAmount'));
+        $withdrawreqs = CampaignWithdrawReq::where('campaign_id', $id)->get();
+        return view('admin.campaign.tranview',compact('data','transaction','totalInAmount','totalOutAmount','withdrawreqs'));
         
     }
 
