@@ -766,7 +766,7 @@ $(document).ready(function () {
 
         if (data.status == 303) {
             $("#loading").hide();
-            $(".ermsg").html(d.message);
+            $(".ermsg").html(data.message);
         }
 
 

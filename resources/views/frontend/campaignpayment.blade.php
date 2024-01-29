@@ -253,8 +253,7 @@
 
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 
-                                <div class="ermsg">
-                                </div>
+                                
                                 @if (Session::has('success'))
                                     <div class="alert alert-success text-center">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -266,6 +265,8 @@
         
                                 <!-- Create a form to collect card details -->
                                 <form id="payment-form">
+                                    <div class="ermsg">
+                                    </div>
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Donation Amount</label>
@@ -388,6 +389,7 @@
 </script>
 <script>
     // Create a Stripe instance with your publishable key
+
     var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
     // var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
   
@@ -469,6 +471,10 @@
               window.setTimeout(function(){location.reload()},2000)
             }
           });
+        }
+        if (data.status == 303) {
+            $("#loading").hide();
+            $(".ermsg").html(data.message);
         }
       });
     }

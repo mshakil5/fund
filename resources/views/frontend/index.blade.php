@@ -160,11 +160,11 @@
                                         {{$total_donar}}
                                     </span>
                                     <span class="d-flex align-items-center me-2">
-                                        <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> 
+                                        <iconify-icon class="me-1" icon="ic:round-access-time"></iconify-icon> {{$end}}
                                         
-                                        @if ($end>$today)
+                                        @if ($end<$today)
                                             COMPLETED
-                                        @elseif ($end=$today)
+                                        @elseif ($end==$today)
                                             COMPLETED
                                         @else
                                             {{$days}} days left
@@ -183,9 +183,9 @@
                                     </div>
                                     <div>
                                         <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="btn-theme bg-primary">
-                                        @if ($end>$today)
+                                        @if ($end<$today)
                                             Details
-                                        @elseif ($end=$today)
+                                        @elseif ($end==$today)
                                             Details
                                         @else
                                             Donate Now
