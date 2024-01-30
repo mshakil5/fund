@@ -284,7 +284,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="info">{{$user->balance}}</div>
+                                    <div class="info">{{ $moneyIn-$moneyOut }}</div>
                                 </div>
                             </div>
                         </div>
@@ -349,6 +349,66 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="info">{{$user->house_number}} {{$user->street_name}} {{$user->town}} {{$user->postcode}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end -->
+
+                        
+                
+                        <!-- loop start -->
+                        <div class="row mb-2">
+                            <div class="date">
+                                Bank Name
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="info">{{$user->bank_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end -->
+
+                        
+
+                        <!-- loop start -->
+                        <div class="row mb-2">
+                            <div class="date">
+                                Account Name
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="info">{{$user->account_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end -->
+
+                        
+
+                        <!-- loop start -->
+                        <div class="row mb-2">
+                            <div class="date">
+                                Account Number
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="info">{{$user->account_number}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end -->
+
+                        
+
+                        <!-- loop start -->
+                        <div class="row mb-2">
+                            <div class="date">
+                                Sort code
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="info">{{$user->account_sortcode}}</div>
                                 </div>
                             </div>
                         </div>
