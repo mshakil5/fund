@@ -248,7 +248,7 @@ class CharityController extends Controller
             $rand = mt_rand(100000, 999999);
             $imageName = time(). $rand .'.'.$request->fimage->extension();
             $request->fimage->move(public_path('images/charity'), $imageName);
-            $data->image= $imageName;
+            $data->photo = $imageName;
         }
 
         if($request->bank_verification_doc != 'null'){

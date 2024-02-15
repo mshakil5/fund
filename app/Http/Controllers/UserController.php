@@ -173,7 +173,7 @@ class UserController extends Controller
             ]);
             $rand = mt_rand(100000, 999999);
             $imageName = time(). $rand .'.'.$request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
+            $request->image->move(public_path('images/charity'), $imageName);
             $data->photo= $imageName;
         }
         if($request->r_photo != 'null'){
@@ -182,7 +182,7 @@ class UserController extends Controller
             ]);
             $rand = mt_rand(100000, 999999);
             $imageName = time(). $rand .'.'.$request->r_photo->extension();
-            $request->r_photo->move(public_path('images'), $imageName);
+            $request->r_photo->move(public_path('images/charity'), $imageName);
             $data->r_photo= $imageName;
         }
 
