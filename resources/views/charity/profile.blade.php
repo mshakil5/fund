@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-lg-4 fs-5 shadow-sm p-4 border">
                 @if (isset(Auth::user()->photo))
-                    <img src="{{ asset('images/'.Auth::user()->photo)}}" class="img-fluid" alt="">
+                    <img src="{{ asset('images/charity/'.Auth::user()->photo)}}" class="img-fluid" alt="">
                 @else
                     <img src="https://via.placeholder.com/510x440.png" class="img-fluid" alt="">
                 @endif
@@ -48,7 +48,7 @@
         <div class="row">
             <div class="col-lg-4 fs-5 shadow-sm p-4 border">
                 @if (isset(Auth::user()->r_photo))
-                    <img src="{{ asset('images/'.Auth::user()->r_photo)}}" class="img-fluid" alt="">
+                    <img src="{{ asset('images/charity/'.Auth::user()->r_photo)}}" class="img-fluid" alt="">
                 @else
                     <img src="https://via.placeholder.com/510x440.png" class="img-fluid" alt="">
                 @endif
@@ -132,7 +132,7 @@
                     <div class="col-lg-2">
                         <div class="form-group mb-3 text-center">
                             @if (isset(Auth::user()->photo))
-                                <img src="{{ asset('images/'.Auth::user()->photo)}}" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
+                                <img src="{{ asset('images/charity/'.Auth::user()->photo)}}" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
                             @else
                                 <img src="https://via.placeholder.com/510x440.png" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
                             @endif
@@ -189,7 +189,7 @@
                     <div class="col-lg-2">
                         <div class="form-group mb-3 text-center">
                             @if (isset(Auth::user()->r_photo))
-                                <img src="{{ asset('images/'.Auth::user()->r_photo)}}" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
+                                <img src="{{ asset('images/charity/'.Auth::user()->r_photo)}}" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
                             @else
                                 <img src="https://via.placeholder.com/510x440.png" class="img-fluid mb-2 mx-auto rounded " width="120px" alt="">
                             @endif

@@ -138,6 +138,10 @@
                     $total_collection = $campaign->transaction->sum('total_amount');
                     $total_tips = $campaign->transaction->sum('tips');
                     $total_donar = $campaign->transaction->count();
+
+                    $raisedamnt = $total_collection - $total_tips;
+                    $goalamnt = $campaign->raising_goal;
+                    $pbar = $raisedamnt/$goalamnt * 100;
                 @endphp
 
                 <div class="col-md-4 col-sm-6">
@@ -172,7 +176,7 @@
                                     </span>
                                 </div>
                                 <div class="progress " style="height: 7px;">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%;"
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{$pbar}}%;"
                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
 

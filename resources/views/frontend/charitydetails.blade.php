@@ -41,7 +41,7 @@
                                         
                                         <div class="carousel-item @if ($key == 0) active @endif">
                                             <img src="{{asset('images/charity/'.$slider->image)}}"
-                                                class="d-block w-100" alt="">
+                                                class="d-block w-100" alt="" height="371px">
                                         </div>
                                     @endforeach
 
