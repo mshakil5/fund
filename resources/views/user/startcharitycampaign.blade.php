@@ -46,7 +46,7 @@
                             <div class="row mb-2">
                                 <div class="col-md-4">
                                     @if (isset($data->photo))
-                                        <img src="{{ asset('images/'.$data->photo)}}" class="img-fluid mb-3" alt="">
+                                        <img src="{{ asset('images/charity/'.$data->photo)}}" class="img-fluid mb-3" alt="">
                                     @else
                                         <img src="https://via.placeholder.com/510x440.png" class="img-fluid" alt="">
                                     @endif

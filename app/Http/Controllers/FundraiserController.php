@@ -14,7 +14,7 @@ class FundraiserController extends Controller
 {
     public function activeCampaign()
     {
-        $data = Campaign::where('user_id', Auth::user()->id)->get();
+        $data = Campaign::where('user_id', Auth::user()->id)->orderby('id', 'DESC')->get();
         return view('user.activecampaign', compact('data'));
     }
 

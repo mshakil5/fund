@@ -48,6 +48,7 @@
                         <thead>
                             <tr>
                                 <th scope="col"> Date</th>
+                                <th scope="col"> Campaign Id</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Target Goal</th>
                                 <th scope="col">Raised Goal</th>
@@ -60,6 +61,7 @@
                             @foreach ($data as $data)
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y') }}</td>
+                                    <td>{{$data->cam_id}}</td>
                                     <td>
                                         <a href="{{route('frontend.campaignDetails',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center" target="blank">{{$data->title}}</a>
                                     </td>

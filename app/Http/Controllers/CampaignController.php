@@ -1092,6 +1092,7 @@ class CampaignController extends Controller
         if (Auth::user()) {
             $data->user_id = Auth::user()->id;
         }
+        $data->cam_id = date('his').Auth::user()->id;
         $data->country_id = $step2dataForm['country'];
         $data->fundraising_source_id = $step2dataForm['source'];
         $data->title = $step2dataForm['title'];
