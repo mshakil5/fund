@@ -217,8 +217,7 @@ class CampaignController extends Controller
             $data->image= $imageName;
         }
 
-        
-        
+            $data->cam_id = date('his').$request->user_id;
             $data->title = $request->title;
             $data->country_id = $request->country;
             $data->fundraising_source_id = $request->source;

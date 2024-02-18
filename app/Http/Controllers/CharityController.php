@@ -65,12 +65,26 @@ class CharityController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'charity_reg_number' => 'required',
+            'r_phone' => 'required',
             'password' => ['required','min:6'],
             'confirm_password' => 'required|same:password',
+        ], [
+            'email.unique' => 'This email already used in this website.',
+            'charity_reg_number.required' => 'Make sure your charity registration number.',
+            'r_phone.required' => 'Representative phone number required.'
         ]);
+
+
+        
+
+
+
+
+        $cid = mt_rand(10, 99);
         
         $data = new User();
         $data->name = $request->name;
+        $data->charityid = date('his').$cid;
         $data->email = $request->email;
         $data->country = $request->country;
         $data->r_phone = $request->r_phone;
@@ -364,6 +378,31 @@ class CharityController extends Controller
         }else{
             $deactive = User::find($request->id);
             $deactive->status = $request->status;
+            $deactive->save();
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+    }
+
+
+    public function ShowFrontpageCharity(Request $request)
+    {
+        $charitydtl = User::where('id', $request->id)->first();
+        $data = User::find($request->id);
+        $data->frontpage = $request->frontpage;
+        $data->save();
+
+        if($request->frontpage==1){
+            $active = User::find($request->id);
+            $active->frontpage = $request->frontpage;
+            $active->save();
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Frontpage show Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            
+            $deactive = User::find($request->id);
+            $deactive->charity_id = $request->frontpage;
             $deactive->save();
             $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);

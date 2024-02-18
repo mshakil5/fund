@@ -248,7 +248,10 @@
                                 <th style="text-align: center">Name</th>
                                 <th style="text-align: center">Email</th>
                                 <th style="text-align: center">Phone</th>
+                                <th style="text-align: center">Charity Number</th>
+                                <th style="text-align: center">Charity Id</th>
                                 <th style="text-align: center">Balance</th>
+                                <th style="text-align: center">Front Page</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -262,8 +265,15 @@
                                         </td>
                                         <td style="text-align: center">{{$data->email}}</td>
                                         <td style="text-align: center">{{$data->r_phone}}</td>
+                                        <td style="text-align: center">{{$data->charity_reg_number}}</td>
+                                        <td style="text-align: center">{{$data->charityid}}</td>
                                         <td style="text-align: center">
                                             <a href="{{route('admin.charityTran',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">£{{$data->balance}}</a>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input frontpage" type="checkbox" role="switch"  data-id="{{$data->id}}" id="frontpage" @if ($data->frontpage == 1) checked @endif >
+                                            </div>
                                         </td>
                                         <td style="text-align: center">
                                             <div class="form-check form-switch">
@@ -307,6 +317,35 @@
               dataType: "json",
               url: url,
               data: {'status': status, 'id': id},
+              success: function(d){
+                if (d.status == 303) {
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }else if(d.status == 300){
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+          });
+      })
+    })
+
+    $(function() {
+      $('.frontpage').change(function() {
+        var furl = "{{URL::to('/admin/show-charity-frontpage')}}";
+          var frontpage = $(this).prop('checked') == true ? 1 : 0;
+          var id = $(this).data('id');
+           console.log(id);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: furl,
+              data: {'frontpage': frontpage, 'id': id},
               success: function(d){
                 if (d.status == 303) {
                         pagetop();

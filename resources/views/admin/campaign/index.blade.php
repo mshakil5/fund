@@ -398,6 +398,7 @@
                                 <thead>
                                 <tr>
                                     <th style="text-align: center">SL</th>
+                                    <th style="text-align: center">Campaign Id</th>
                                     <th style="text-align: center">Title</th>
                                     <th style="text-align: center">Username</th>
                                     <th style="text-align: center">Country</th>
@@ -410,6 +411,7 @@
                                     @foreach ($data as $key => $data)
                                         <tr>
                                             <td style="text-align: center">{{ $key + 1 }}</td>
+                                            <td style="text-align: center">{{$data->cam_id}}</td>
                                             <td style="text-align: center">
                                                 <a href="{{route('admin.campaignView',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$data->title}}</a>
                                             </td>

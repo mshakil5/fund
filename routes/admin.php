@@ -89,6 +89,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/charityimage/{id}', [CharityController::class, 'newCharityImagedelete']);
     // active deactive fundraiser
     Route::get('active-charity', [CharityController::class, 'activeDeactiveAccount']);
+    Route::get('show-charity-frontpage', [CharityController::class, 'ShowFrontpageCharity']);
     Route::get('/charity-transaction-view/{id}', [CharityController::class, 'viewTransactionCharityByAdmin'])->name('admin.charityTran');
     Route::post('/charity-pay', [TransactionController::class, 'charityPayStore'])->name('admin.charityPayStore');
 
