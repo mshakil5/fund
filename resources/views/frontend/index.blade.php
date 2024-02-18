@@ -230,9 +230,15 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="card-theme mb-3">
                         <div class="topper d-flex align-items-center justify-content-center">
-                            <a href="{{ route('frontend.eventDetails',$event->id)}}" class="p-0 d-block w-100">
-                                <img src="{{asset('images/event/'.$event->image)}}">
-                            </a>
+                            @if (isset($event->image))
+                                <a href="{{ route('frontend.eventDetails',$event->id)}}" class="p-0 d-block w-100">
+                                    <img src="{{asset('images/event/'.$event->image)}}" style="height: 245px; width:100%">
+                                </a>
+                            @else
+                                <a href="{{ route('frontend.eventDetails',$event->id)}}" class="p-0 d-block w-100">
+                                    <img src="https://via.placeholder.com/100.png" style="height: 245px; width:100%">
+                                </a>
+                            @endif
                         </div>
     
                         
@@ -297,10 +303,10 @@
                         <div class="topper d-flex align-items-center justify-content-center">
                             @if (isset($charity->photo))
                                 <a href="" class="p-0 d-block w-100">
-                                    <img src="{{asset('images/charity/'.$charity->photo)}}">
+                                    <img src="{{asset('images/charity/'.$charity->photo)}}" style="height: 245px; width:100%">
                                 </a>
                             @else
-                                <img src="https://via.placeholder.com/100.png">
+                                <img src="https://via.placeholder.com/100.png" style="height: 245px; width:100%">
                             @endif
                         </div>
                         <div class="card-body px-2 bg-light text-center">
@@ -308,10 +314,15 @@
                                 <div class="card-title ">      
                                     <a href="{{ route('frontend.charityDetails',$charity->id)}}">{{$charity->name}}</a>
                                 </div>
-                               <h5 class="mb-0 darkerGrotesque-semibold mb-3 d-flex align-items-center justify-content-center flex-column" style="min-height:45px;">
-                                <iconify-icon icon="bx:map"></iconify-icon>
-                                <span class="text-dark"> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
-                               </h5> 
+
+                                <h5 class="mb-0 darkerGrotesque-semibold d-flex align-items-center justify-content-center flex-column" style="min-height:45px;">
+
+                                    @if (isset($charity->house_number))
+                                    <span class="text-dark"><iconify-icon icon="bx:map"></iconify-icon> {{$charity->house_number}} {{$charity->street_name}} {{$charity->town}} {{$charity->postcode}}</span>
+                                    @endif
+
+                                </h5> 
+                               
                                
                                <div class="w-100 text-center">
     

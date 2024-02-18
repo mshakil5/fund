@@ -847,7 +847,7 @@ body::-webkit-scrollbar-thumb {
   font-family: "DarkerGrotesque-bold";
 }
 .card-theme .card-body .card-title a {
-    min-height: 50px; 
+    min-height: 25px; 
     color: #003057; 
     display:block;
 }
