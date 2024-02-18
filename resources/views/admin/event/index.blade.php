@@ -332,6 +332,7 @@
                                 <th style="text-align: center">Event Start & End Date </th>
                                 <th style="text-align: center">Sale Start & End Date </th>
                                 <th style="text-align: center">Price</th>
+                                <th style="text-align: center">Front Page</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -355,6 +356,12 @@
                                         @else
                                             <a href="{{route('admin.eventPrice',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">Price</a>
                                         @endif    
+                                        </td>
+                                        
+                                        <td style="text-align: center">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input frontpage" type="checkbox" role="switch"  data-id="{{$data->id}}" id="frontpage" @if ($data->homepage == 1) checked @endif >
+                                            </div>
                                         </td>
                                         <td style="text-align: center">
                                               <div class="dropdown account text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">
@@ -449,6 +456,36 @@
                         pagetop();
                         $("#loading").hide();
                         $(".stsermsg").html(d.message);
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+          });
+      })
+    })
+
+
+    $(function() {
+      $('.frontpage').change(function() {
+        var url = "{{URL::to('/admin/active-fronpage-event')}}";
+          var homepage = $(this).prop('checked') == true ? 1 : 0;
+          var id = $(this).data('id');
+           console.log(id);
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: url,
+              data: {'homepage': homepage, 'id': id},
+              success: function(d){
+                if (d.status == 303) {
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
+                    }else if(d.status == 300){
+                        pagetop();
+                        $(".stsermsg").html(d.message);
+                        window.setTimeout(function(){location.reload()},2000)
                     }
                 },
                 error: function (d) {

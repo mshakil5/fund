@@ -28,10 +28,10 @@ class FrontendController extends Controller
         $campaign = Campaign::with('transaction','campaignimage')->where('status','1')->where('homepage','1')->orderby('id','DESC')->get();
         // dd($campaign);
         // ->where('end_date','>', $todate->format('Y-m-d'))
-        $charities = User::select('photo','id','name','postcode','town','street_name','house_number')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('status','1')->get();
+        $charities = User::select('photo','id','name','postcode','town','street_name','house_number')->where('is_type', '2')->limit(6)->orderby('id','DESC')->where('frontpage','1')->get();
 
         
-        $events = Event::with('eventimage')->where('status','1')->orderby('id','DESC')->get();
+        $events = Event::with('eventimage')->where('status','1')->where('homepage','1')->orderby('id','DESC')->get();
         $singleevent = Event::with('eventimage')->where('status','1')->orderby('id','DESC')->limit(1)->first();
         // dd($singleevent);
 

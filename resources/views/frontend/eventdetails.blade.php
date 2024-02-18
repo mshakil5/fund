@@ -31,7 +31,7 @@
 <div class="eventDetails">
     <div class="eventBg">
         <div class="eventBanner container">
-            <img src="{{asset('images/event/'.$data->image)}}" alt="">
+            <img src="{{asset('images/event/'.$data->image)}}" alt="" style="height: 430px">
         </div>
     </div>
     <div class="container py-5">

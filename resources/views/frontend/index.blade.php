@@ -96,7 +96,7 @@
 </section>
 
 @if (isset($singleevent))
-<section class="show-events">
+<section class="show-events" style="display: none">
     <div class="container-fluid p-0">
         <div class="row "> 
             <div class="event">
@@ -147,9 +147,23 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="card-theme mb-3">
                         <div class="topper d-flex align-items-center justify-content-center">
-                            <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
+                            {{-- <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
                                 <img src="{{asset('images/campaign/'.$campaign->image)}}">
-                            </a>
+                            </a> --}}
+
+                            @if (isset($event->image))
+                                <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
+                                    <img src="{{asset('images/campaign/'.$campaign->image)}}" style="height: 245px; width:100%">
+                                </a>
+                            @else
+                                <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
+                                    <img src="https://via.placeholder.com/100.png" style="height: 245px; width:100%">
+                                </a>
+                            @endif
+
+
+
+
                         </div>
                         <div class="card-body px-2">
                             <div class="inner">

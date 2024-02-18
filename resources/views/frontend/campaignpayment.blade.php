@@ -56,12 +56,14 @@
                     <div class="row"> 
                         <div class="col-mg-12">
                             <div class="row">
-                                <div class="col-lg-4 ">
+                                {{-- <div class="col-lg-4 ">
                                     <img src="{{asset('images/campaign/'.$data->image)}}"
                                         alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-8">
-                                    <b class="para mt-3 text-dark fs-6"> {{$data->title}} </b>
+                                </div> --}}
+                                <div class="col-lg-12">
+                                    {{-- <b class="para mt-3 text-dark fs-6"> {{$data->title}} </b> --}}
+                                    
+                                    <div class="title darkerGrotesque-bold lh-1 fs-3 text-center">{{$data->title}} </div>
                                     <p class="para fs-6 mb-1 text-muted py-2">
                                         {{-- {{ Illuminate\Support\Str::limit($data->story, 20) }} --}}
                                         {{-- {!! Illuminate\Support\Str::limit($data->story, 300) !!}</p> --}}

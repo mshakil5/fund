@@ -807,6 +807,30 @@ class EventController extends Controller
         }
     }
 
+    public function activeFrontpageEvent(Request $request)
+    {
+        $charitydtl = Event::where('id', $request->id)->first();
+        $data = Event::find($request->id);
+        $data->homepage = $request->homepage;
+        $data->save();
+
+        if($request->homepage==1){
+            $active = Event::find($request->id);
+            $active->homepage = $request->homepage;
+            $active->save();
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Frontpage show Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            
+            $deactive = Event::find($request->id);
+            $deactive->homepage = $request->homepage;
+            $deactive->save();
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Inactive Successfully.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+        }
+    }
+
     public function editEventByAdmin($id)
     {
         $data = Event::with('eventimage')->where('id', $id)->first();
