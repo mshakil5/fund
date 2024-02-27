@@ -151,7 +151,7 @@
                                 <img src="{{asset('images/campaign/'.$campaign->image)}}">
                             </a> --}}
 
-                            @if (isset($event->image))
+                            @if (isset($campaign->image))
                                 <a href="{{ route('frontend.campaignDetails',$campaign->id)}}" class="p-0 d-block w-100">
                                     <img src="{{asset('images/campaign/'.$campaign->image)}}" style="height: 245px; width:100%">
                                 </a>
