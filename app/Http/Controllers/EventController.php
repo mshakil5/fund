@@ -747,32 +747,34 @@ class EventController extends Controller
             $active->status = $request->status;
             $active->save();
 
-            $adminmail = ContactMail::where('id', 1)->first()->email;
-            $contactmail = $eventuser->email;
-            $ccEmails = [$adminmail];
-            $msg = EmailContent::where('title','=','event_active_email')->first()->description;
-
-            
-            $array['name'] = $eventuser->name;
-            $array['email'] = $eventuser->email;
-            $array['subject'] = "Congrats! We published your event.";
-            $array['message'] = $msg;
-            $array['contactmail'] = $contactmail;
-
-            $array['message'] = str_replace(
-                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{venue}}','{{price}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
-                [$event->title, $eventuser->name,$date,$time,$event->venue_name, $event->price, $event->house_number, $event->road_name, $event->town, $event->postcode],
-                $msg
-            );
-
-            // Mail::to($contactmail)
-            //     // ->cc($ccEmails)
-            //     ->send(new EventActiveMail($array));
-
             if ($active->status == 0) {
                 $stsval = "Processing";
                 $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This event is on processing. . .</b></div>";
             }elseif($active->status == 1){
+
+                $adminmail = ContactMail::where('id', 1)->first()->email;
+                $contactmail = $eventuser->email;
+                $ccEmails = [$adminmail];
+                $msg = EmailContent::where('title','=','event_active_email')->first()->description;
+
+                
+                $array['name'] = $eventuser->name;
+                $array['email'] = $eventuser->email;
+                $array['subject'] = "Congrats! We published your event.";
+                $array['message'] = $msg;
+                $array['contactmail'] = $contactmail;
+
+                $array['message'] = str_replace(
+                    ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{venue}}','{{price}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
+                    [$event->title, $eventuser->name,$date,$time,$event->venue_name, $event->price, $event->house_number, $event->road_name, $event->town, $event->postcode],
+                    $msg
+                );
+
+                Mail::to($contactmail)
+                ->cc($ccEmails)
+                ->send(new EventActiveMail($array));
+
+
                 $stsval = "Active";
                 $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Active Successfully.</b></div>";
             }elseif($active->status == 2){
