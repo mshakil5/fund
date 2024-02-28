@@ -371,10 +371,28 @@
                                                         @elseif($data->status == 2) Complete @else Decline @endif</span>
                                                 </div>
                                                 <ul class="dropdown-menu  " aria-labelledby="dropdownMenuButton1">
-                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="0">Processing</a>
+                                                    @if ($data->status == 0)
+                                                     
                                                     <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="1">Active</a>
                                                     <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="2">Complete</a>
                                                     <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="3">Decline</a>
+                                                     
+                                                    @elseif($data->status == 1)
+
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="2">Complete</a>
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="3">Decline</a>
+                                                        
+                                                    @elseif($data->status == 2)
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="3">Decline</a>
+
+                                                    @else 
+                                                    
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="0">Processing</a>
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="2">Complete</a>
+                                                    <a class="dropdown-item stsBtn" data-id="{{$data->id}}" value="3">Decline</a>
+                                                    
+                                                    @endif
+                                                    
                                                 </ul>
                                             </div>
                                         </td>
