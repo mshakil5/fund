@@ -80,7 +80,8 @@
                                     {{-- {{$data->event_start_date}}-{{$data->event_end_date}} --}}
                                 </h5>
                                 <h5 class="mb-0 darkerGrotesque-semibold">
-                                    {{ \Carbon\Carbon::parse($data->event_start_date)->isoFormat(' H:m:s A')}} - {{ \Carbon\Carbon::parse($data->event_end_date)->isoFormat(' H:m:s A')}}
+
+                                    {{date('h:i A', strtotime($data->event_start_date))}} - {{date('h:i A', strtotime($data->event_end_date))}} 
 
                                     {{-- {{$data->event_start_date}}-{{$data->event_end_date}} --}}
                                 </h5>
@@ -94,7 +95,9 @@
                             </div>
                             <div class="">
                                 <h5 class="mb-0 darkerGrotesque-bold txt-primary">Location</h5>
-                                <h5 class="mb-0 darkerGrotesque-semibold">{{$data->house_number}} {{$data->road_name}} {{$data->town}} {{$data->postcode}}</h5>
+                                <h5 class="mb-0 darkerGrotesque-semibold">
+                                    {{$data->venue_name}} <br>
+                                    {{$data->house_number}} {{$data->road_name}} {{$data->town}} {{$data->postcode}}</h5>
                             </div>
                         </div>
                     </div>

@@ -576,6 +576,18 @@ $(document).ready(function () {
     })
     // qty calculation end
 
+    // $("#delivery").click(function() {
+        
+    //     if($(this).is(":checked")) {
+        
+
+    //     } else {
+    //             $("#dmsg").hide();
+    //             $('#net_total').val(total.toFixed(2));
+    //             $('#d_charge').val('');
+    //     }
+            
+    // });
 
 
 
