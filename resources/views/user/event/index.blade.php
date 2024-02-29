@@ -78,9 +78,21 @@
                                             <a href="{{route('user.eventPrice',$data->id)}}" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">Price</a>
                                         @endif  
                                     </td>
-                                    <td>{{$data->quantity}}</td>
-                                    <td>{{$data->sold}}</td>
-                                    <td>{{$data->available}}</td>
+                                    <td>
+                                        @foreach ($data->eventprice as $qty)
+                                            <p>{{$qty->type}}:<span class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$qty->qty ?? '0'}}</span> </p>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($data->eventprice as $qty)
+                                            <p>{{$qty->type}}:<span class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$qty->sold_qty ?? '0'}}</span> </p>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($data->eventprice as $qty)
+                                            <p>{{$qty->type}}:<span class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center">{{$qty->qty - $qty->sold_qty ?? '0'}}</span> </p>
+                                        @endforeach    
+                                    </td>
                                     <td> @if ($data->status == 1) Active @else Deactive @endif </td>
                                     <td class="d-flex align-items-center">
                                         <a href="{{route('user.eventEdit', $data->id)}}" class="px-2">

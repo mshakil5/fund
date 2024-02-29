@@ -57,7 +57,8 @@ class EventController extends Controller
 
     public function getEventByUser()
     {
-        $data = Event::where('user_id', Auth::user()->id)->orderby('id','DESC')->get();
+        $data = Event::with('eventprice')->where('user_id', Auth::user()->id)->orderby('id','DESC')->get();
+        // dd($data);
         return view('user.event.index',compact('data'));
     }
 
