@@ -53,6 +53,16 @@
                 <p class="alert alert-danger"> {{ session()->get('error') }}</p>
                 @endif
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <h3 class="mb-0 darkerGrotesque-semibold txt-secondary">{{ \Carbon\Carbon::parse($data->event_start_date)->isoFormat('MMM Do YYYY')}}</h3>
                 <h1 class="darkerGrotesque-bold mb-0">{{$data->title}}</h1>
                 <p class="fs-5 mb-0 darkerGrotesque-bold txt-primary">Organised By: {{$data->organizer}}</p>
@@ -148,6 +158,8 @@
                     <div class="border shadow-sm p-3 rounded">
                         <div class="title darkerGrotesque-bold lh-1 fs-3 mb-2">User Information & Payments</div>
 
+                        
+
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent"  role="tablist"  @if (Auth::user()) style="display: none"   @else  id="logTab" @endif>
 
                             <li class="nav-item fs-5 mx-2" role="presentation">
@@ -181,28 +193,28 @@
 
                         {{-- user details start  --}}
                         <div class="p-3 border border-1 rounded shadow-sm bg-white " id="userDetails" @if (Auth::user())  @else style="display: none" @endif>
-
+                            
                             <div class="oermsg"></div>
 
                             <div class="d-flex align-items-center justify-content-between">
                                 <h4 class="darkerGrotesque-bold mb-0">Name</h4>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
-                                <input type="text" name="name" id="name" class="form-control" value="@if (Auth::user()) {{Auth::user()->name}}@endif">
+                                <input type="text" name="name" id="name" class="form-control" value="@if (Auth::user()) {{Auth::user()->name}}@endif" required>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between">
                                 <h4 class="darkerGrotesque-bold mb-0">Email</h4>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
-                                <input type="email" name="email" id="uemail"  value="@if (Auth::user()) {{Auth::user()->email}}@endif" class="form-control">
+                                <input type="email" name="email" id="uemail"  value="@if (Auth::user()) {{Auth::user()->email}}@endif" class="form-control" required>
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between">
                                 <h4 class="darkerGrotesque-bold mb-0">Phone</h4>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
-                                <input type="number" name="phone" id="phone" value="@if (Auth::user()) {{Auth::user()->phone}}@endif" class="form-control">
+                                <input type="number" name="phone" id="phone" value="@if (Auth::user()) {{Auth::user()->phone}}@endif" class="form-control" required>
                             </div>
 
                             <div class="row">
@@ -281,7 +293,7 @@
                                     <div class='form-row row'>
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Amount</label>
-                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" value="" required>
+                                            <input class='form-control' id="amount" name="amount" placeholder='£' type='number' step="any" value="" readonly required>
                                         </div>
                                     </div>
         
@@ -691,9 +703,9 @@ $(document).ready(function () {
 
 <script>
     // Create a Stripe instance with your publishable key
-    // var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
+     // var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
    
-    var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+     var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
   
     // Create a card element and mount it to the card-element div
     var cardElement = stripe.elements().create('card');
@@ -723,6 +735,14 @@ $(document).ready(function () {
     var url = "{{URL::to('/event-payment')}}";
     // Function to confirm the PaymentIntent on the backend
     function confirmPayment(paymentMethodId) {
+
+        var col = document.getElementById("terms");
+
+            if (!col.checked) {
+                alert('Please accept terms & conditions.');
+                $("#loading").hide();
+                return;
+            }
         
         var amount = $("#amount").val();
         var quantity = $("#qty").val();
@@ -736,6 +756,8 @@ $(document).ready(function () {
         var email = $("#uemail").val();
         var phone = $("#phone").val();
 
+        var terms = $('#terms').prop('checked');
+        // console.log(terms);
       fetch(url, {
         method: 'POST',
         headers: {
@@ -744,7 +766,7 @@ $(document).ready(function () {
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
 
-        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity,ticket_type:ticket_type,event_price_id:event_price_id,note:note,name:name,email:email,phone:phone })
+        body: JSON.stringify({ payment_method_id: paymentMethodId, amount: amount, cardHolderName: cardHolderName, event_id:event_id, c_amount:c_amount, quantity:quantity,ticket_type:ticket_type,event_price_id:event_price_id,note:note,name:name,email:email,phone:phone,terms:terms })
       }).then(function(response) {
         return response.json();
       }).then(function(data) {
