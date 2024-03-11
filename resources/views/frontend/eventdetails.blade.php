@@ -162,7 +162,7 @@
 
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent"  role="tablist"  @if (Auth::user()) style="display: none"   @else  id="logTab" @endif>
 
-                            <li class="nav-item fs-5 mx-2" role="presentation" style="display: none">
+                            <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="paypal">
                                     
                                         <div class="fw-bold d-flex align-items-center">
