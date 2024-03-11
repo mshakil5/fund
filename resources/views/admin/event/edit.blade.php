@@ -283,13 +283,15 @@
                                         </thead>
                                         <tbody id="priceinner">
                                             @foreach ($data->eventprice as $price)
-                                            <tr>
+                                            <tr data-tpriceid="{{$price->id}}">
                                                 <td class="px-2"><input type="text"    id="type" name="type[]"  value="{{$price->type}}" class="form-control"><input type="hidden" id="priceid" name="priceid[]" value="{{$price->id}}" ></td>
                                                 <td class="px-2"><input type="text" id="note" name="note[]"  value="{{$price->note}}" class="form-control"></td>
                                                 <td class="px-2"><input type="number" id="ticket_price" name="ticket_price[]"  value="{{$price->ticket_price}}" class="form-control">
                                                 </td>
                                                 <td class="px-2"><input type="number"  id="qty" name="qty[]"  value="{{$price->qty}}" class="form-control qty"></td>
-                                                <td></td>
+                                                <td>
+                                                    <div style="color:#fff;user-select:none;padding:2px;background:red;width:25px;display:flex;align-items:center;margin-right:5px;justify-content:center;border-radius:4px;left:4px" class="removeTicket">X</div>
+                                                </td>
                                             </tr>
                                             @endforeach
                                             
@@ -329,6 +331,31 @@
     });
 </script>
 <script>
+
+$(".removeTicket").click(function (e) {
+        e.preventDefault();
+        // var removeTicketurl = "{{URL::to('/admin/event-ticket-price-delete')}}";
+        var ele = $(this);
+        var tpriceid = ele.parents("tr").attr("data-tpriceid");
+
+        console.log(tpriceid);
+
+        $.ajax({
+            url: removeTicketurl,
+            method: "patch",
+            data: {
+                _token: '{{ csrf_token() }}',
+                tpriceid:tpriceid 
+            },
+            success: function (response) {
+                console.log(response)
+            }
+        });
+    });
+
+    function removeTicket(event) {
+        event.target.parentElement.parentElement.remove(); 
+    }
     
     var storedFiles = [];
 
