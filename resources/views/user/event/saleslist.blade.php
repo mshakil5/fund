@@ -180,6 +180,12 @@
                             </div>
 
                             <div>
+                                <label for="amount" class="fs-5 fw-bold ">Additional Fee</label>
+                                <input type="number" class="form-control modal-form" name="amount" readonly id="amount" placeholder="Amount" value="{{$netfixed_fee + $netcommission}}" /> 
+                            </div>
+
+
+                            <div>
                                 <label for="amount" class="fs-5 fw-bold ">Amount</label>
                                 <input type="number" class="form-control modal-form" name="amount" id="amount" placeholder="Amount" value="{{$netamount}}" /> 
                             </div>
@@ -270,8 +276,10 @@ $(document).ready(function () {
                 data:form_data,
                 success: function (d) {
                     if (d.status == 303) {
+                        $("#loading").hide();
                         $(".ermsg").html(d.message);
                     }else if(d.status == 300){
+                        $("#loading").hide();
                         $(".ermsg").html(d.message);
                         window.setTimeout(function(){location.reload()},5000);
                     }

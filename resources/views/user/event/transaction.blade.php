@@ -216,7 +216,7 @@
                                 </thead>
                                 <?php
                                     // $tbalance = $netamount;
-                                    $tbalance = $totalInAmount - $totalOutAmount;
+                                    $tbalance = $netsaleamount;
                                 ?>
                                 <tbody>
                                     @foreach ($eventdtl->eventticket as $sale)

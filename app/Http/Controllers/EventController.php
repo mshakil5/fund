@@ -104,8 +104,10 @@ class EventController extends Controller
     {
         $data = Event::with('eventimage','eventticket','eventprice')->where('id', $id)->first();
         $netamount = TicketSale::where('event_id', $id)->sum('amount');
+        $netcommission = TicketSale::where('event_id', $id)->sum('commission');
+        $netfixed_fee = TicketSale::where('event_id', $id)->sum('fixed_fee');
         // dd($data);
-        return view('user.event.saleslist',compact('data','netamount'));
+        return view('user.event.saleslist',compact('data','netamount','netcommission','netfixed_fee'));
     }
 
     public function eventTicketSaleShowByAdmin($id)
