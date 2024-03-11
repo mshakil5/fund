@@ -62,7 +62,7 @@
                     <div class="tab-pane fade active show" id="transaction" role="tabpanel"
                         aria-labelledby="transaction-tab">
                         <div class="table-responsive shadow-sm px-4">
-                            <table class="table table-theme mt-4 table-striped">
+                            {{-- <table class="table table-theme mt-4 table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th>
@@ -108,7 +108,93 @@
                                         </tr> 
                                         @endforeach
                                 </tbody>
-                            </table>
+                            </table> --}}
+
+                            <?php
+                                $tbalance = $netamount;
+                            ?>
+                        <table class="table table-bordered table-hover table-responsive" id="eventsales" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">SL</th>
+                                <th style="text-align: center">Date</th>
+                                <th style="text-align: center">Reference Id</th>
+                                <th style="text-align: center">Customer Name</th>
+                                <th style="text-align: center">Customer Email</th>
+                                <th style="text-align: center">Customer Phone</th>
+                                <th style="text-align: center">Payment Type</th>
+                                <th style="text-align: center">Note</th>
+                                <th style="text-align: center">Ticket Type</th>
+                                <th style="text-align: center">Gross</th>
+                                <th style="text-align: center">Fee</th>
+                                <th style="text-align: center">Net</th>
+                                <th style="text-align: center">Balance</th>
+                            </tr>
+                            </thead>
+                            
+                            
+                            <tbody>
+                                @foreach ($ticketsales as $key => $sale)
+                                @php
+                                    $totalfee = $sale->commission + $sale->fixed_fee;
+                                    $netamnt = $sale->total_amount - $totalfee;
+                                @endphp
+                                <tr>
+                                    <td style="text-align: center">{{ $key + 1 }}</td>
+                                    <td style="text-align: center" class="fs-16 txt-primary">{{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}</td>
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <span class="fs-20 txt-primary fw-bold text-center">{{$sale->tran_no}}</span>
+                                        </div>
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary">
+                                        {{\App\Models\User::where('id',$sale->user_id)->first()->name}}
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary">
+                                        {{\App\Models\User::where('id',$sale->user_id)->first()->email}}
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        {{\App\Models\User::where('id',$sale->user_id)->first()->phone}}
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        {{$sale->payment_type}}
+                                    </td>
+
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        {{$sale->note}}
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        {{$sale->ticket_type}}
+                                    </td>
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        £{{ number_format($sale->total_amount, 2) }}
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        £{{ number_format($totalfee, 2) }}
+                                    </td>
+                                    
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        £{{ number_format($netamnt, 2) }}
+                                    </td>
+    
+                                    <td style="text-align: center" class="fs-16 txt-primary text-center">
+                                        £{{ number_format($tbalance, 2) }}
+                                    </td>
+                                    @php
+                                        $tbalance = $tbalance - $netamnt;
+                                    @endphp
+
+                                </tr>
+                                @endforeach
+
+                                </tbody>
+                        </table>
                         </div>
 
                     </div>
@@ -273,7 +359,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
                                                         <label for="amount">Amount</label>
-                                                        <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{$totalInAmount - $totalOutAmount}}" step="any">
+                                                        <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{$netamount - $totalOutAmount}}" step="any">
                                                         <input type="hidden" id="event_id" name="event_id" value="{{$event->id}}">
                                                         <input type="hidden" id="user_id" name="user_id" value="{{$event->user_id}}">
                                                         

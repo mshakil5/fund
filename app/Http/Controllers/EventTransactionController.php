@@ -45,7 +45,9 @@ class EventTransactionController extends Controller
         $totalOutAmount = EventTransaction::where('event_id', $id)->where('tran_type','Out')->sum('amount');
         // dd($data);
         $withdrawreqs = EventWithdrawReq::where('event_id', $id)->orderby('id','DESC')->get();
-        return view('admin.event.transaction',compact('data','totalInAmount','totalOutAmount','withdrawreqs','event','user'));
+        $ticketsales = TicketSale::where('event_id', $id)->orderby('id','DESC')->get();
+        $netamount = TicketSale::where('event_id', $id)->sum('amount');
+        return view('admin.event.transaction',compact('data','totalInAmount','totalOutAmount','withdrawreqs','event','user','ticketsales','netamount'));
         
     }
 
