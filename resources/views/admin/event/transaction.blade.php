@@ -358,6 +358,13 @@
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
+                                                        <label for="amount">Additional Charge</label>
+                                                        <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{$commission + $fixed_fee}}" step="any">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
                                                         <label for="amount">Amount</label>
                                                         <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" value="{{$netamount - $totalOutAmount}}" step="any">
                                                         <input type="hidden" id="event_id" name="event_id" value="{{$event->id}}">

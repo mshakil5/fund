@@ -47,7 +47,9 @@ class EventTransactionController extends Controller
         $withdrawreqs = EventWithdrawReq::where('event_id', $id)->orderby('id','DESC')->get();
         $ticketsales = TicketSale::where('event_id', $id)->orderby('id','DESC')->get();
         $netamount = TicketSale::where('event_id', $id)->sum('amount');
-        return view('admin.event.transaction',compact('data','totalInAmount','totalOutAmount','withdrawreqs','event','user','ticketsales','netamount'));
+        $commission = TicketSale::where('event_id', $id)->sum('commission');
+        $fixed_fee = TicketSale::where('event_id', $id)->sum('fixed_fee');
+        return view('admin.event.transaction',compact('data','totalInAmount','totalOutAmount','withdrawreqs','event','user','ticketsales','netamount','commission','fixed_fee'));
         
     }
 
