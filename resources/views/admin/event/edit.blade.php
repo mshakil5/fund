@@ -290,7 +290,7 @@
                                                 </td>
                                                 <td class="px-2"><input type="number"  id="qty" name="qty[]"  value="{{$price->qty}}" class="form-control qty"></td>
                                                 <td>
-                                                    <div style="color:#fff;user-select:none;padding:2px;background:red;width:25px;display:flex;align-items:center;margin-right:5px;justify-content:center;border-radius:4px;left:4px" class="removeTicket">X</div>
+                                                    {{-- <div style="color:#fff;user-select:none;padding:2px;background:red;width:25px;display:flex;align-items:center;margin-right:5px;justify-content:center;border-radius:4px;left:4px" class="removeTicket">X</div> --}}
                                                 </td>
                                             </tr>
                                             @endforeach

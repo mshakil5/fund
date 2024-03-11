@@ -10,6 +10,7 @@ use App\Models\EventWithdrawReq;
 use App\Models\EmailContent;
 use App\Models\ContactMail;
 use App\Mail\EventPaymentConfirmMail;
+use App\Models\TicketSale;
 use Mail;
 use Illuminate\support\Facades\Auth;
 
@@ -17,15 +18,16 @@ class EventTransactionController extends Controller
 {
     public function getEventTran($id)
     {
-        $eventdtl = Event::where('id', $id)->first();
+        $eventdtl = Event::with('eventticket')->where('id', $id)->first();
         
         if ($eventdtl->user_id == Auth::user()->id) {
             $data = EventTransaction::where('event_id', $id)->orderby('id','DESC')->get();
             $totalInAmount = EventTransaction::where('event_id', $id)->where('tran_type','In')->sum('amount');
             $totalOutAmount = EventTransaction::where('event_id', $id)->where('tran_type','Out')->sum('amount');
-            // dd($data);
+            $netsaleamount = TicketSale::where('event_id', $id)->sum('amount');
+            // dd($netsaleamount);
             $withdrawreqs = EventWithdrawReq::where('event_id', $id)->orderby('id','DESC')->get();
-            return view('user.event.transaction',compact('data','totalInAmount','totalOutAmount','withdrawreqs','eventdtl'));
+            return view('user.event.transaction',compact('data','totalInAmount','totalOutAmount','withdrawreqs','eventdtl','netsaleamount'));
         } else {
             return view('error.404');
         }

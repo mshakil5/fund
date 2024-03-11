@@ -58,7 +58,7 @@
                     <div class="tab-pane fade active show" id="transaction" role="tabpanel"
                         aria-labelledby="transaction-tab">
                         <div class="table-responsive shadow-sm px-4">
-                            <table class="table table-theme mt-4 table-striped">
+                            {{-- <table class="table table-theme mt-4 table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th>
@@ -70,7 +70,7 @@
                                     </tr>
                                 </thead>
                                 <?php
-                                    $tbalance = $totalInAmount - $totalOutAmount;
+                                    // $tbalance = $totalInAmount - $totalOutAmount;
                                 ?>
                                 <tbody>
                                         @foreach ($data as $item)
@@ -104,58 +104,167 @@
                                         </tr> 
                                         @endforeach
                                 </tbody>
+                            </table> --}}
+
+                            <table class="table table-theme mt-4 table-striped" id="example">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Reference Id</th>
+                                        <th scope="col">Customer Name</th>
+                                        <th scope="col">Customer Email</th>
+                                        <th scope="col">Customer Phone</th>
+                                        <th scope="col">Payment Type</th>
+                                        <th scope="col">Ticket Type</th>
+                                        <th scope="col">Note</th>
+                                        <th scope="col">Gross</th>
+                                        <th scope="col">Fee</th>
+                                        <th scope="col">Net</th>
+                                        <th scope="col">Balance</th>
+                                        {{-- <th scope="col">Action</th> --}}
+                                    </tr>
+                                </thead>
+                                <?php
+                                    $tbalance = $netsaleamount;
+                                    // $tbalance = $netsaleamount;
+                                    // $tbalance = $netsaleamount - $totalOutAmount;
+                                ?>
+                                <tbody>
+                                    @foreach ($eventdtl->eventticket as $sale)
+                                    @php
+                                        $totalfee = $sale->commission + $sale->fixed_fee;
+                                        $netamnt = $sale->total_amount - $totalfee;
+                                    @endphp
+                                    <tr>
+                                        <td class="fs-16 txt-primary">{{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}</td>
+                                        <td>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-20 txt-primary fw-bold text-center">{{$sale->tran_no}}</span>
+                                            </div>
+                                        </td>
+                                        
+                                        <td class="fs-16 txt-primary">
+                                            {{\App\Models\User::where('id',$sale->user_id)->first()->name}}
+                                        </td>
+                                        
+                                        <td class="fs-16 txt-primary">
+                                            {{\App\Models\User::where('id',$sale->user_id)->first()->email}}
+                                        </td>
+                                        
+                                        <td class="fs-16 txt-primary text-center">
+                                            {{\App\Models\User::where('id',$sale->user_id)->first()->phone}}
+                                        </td>
+                                        <td class="fs-16 txt-primary text-center">
+                                            {{$sale->payment_type}}
+                                        </td>
+                                        
+                                        <td class="fs-16 txt-primary text-center">
+                                            {{$sale->ticket_type}}
+                                        </td>
+        
+                                        <td class="fs-16 txt-primary text-center">
+                                            {{$sale->note}}
+                                        </td>
+        
+                                        <td class="fs-16 txt-primary text-center">
+                                            £{{ number_format($sale->total_amount, 2) }}
+                                        </td>
+                                        
+                                        <td class="fs-16 txt-primary text-center">
+                                            £{{ number_format($totalfee, 2) }}
+                                        </td>
+                                        
+                                        <td class="fs-16 txt-primary text-center">
+                                            £{{ number_format($netamnt, 2) }}
+                                        </td>
+        
+                                        <td class="fs-16 txt-primary text-center">
+                                            £{{ number_format($tbalance, 2) }}
+                                        </td>
+                                        @php
+                                            $tbalance = $tbalance - $netamnt;
+                                        @endphp
+        
+        
+                                        {{-- <td class="fs-16 txt-primary">
+                                            <a href="#" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i>  Download</a>
+                                        </td> --}}
+                                    </tr>
+                                    @endforeach
+                                    
+                                </tbody>
                             </table>
                         </div>
 
                     </div>
                     <div class="tab-pane fade" id="moneyIn" role="tabpanel" aria-labelledby="moneyIn-tab">
                         <div class="table-responsive shadow-sm px-4">
-                            <table class="table table-theme mt-4 table-striped">
+
+
+                            <table class="table table-theme mt-4 table-striped" id="example">
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th>
-                                        <th scope="col">Transaction ID</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Dr Amount</th>
-                                        <th scope="col">Total Dr Amount</th>
+                                        <th scope="col">Ticket Type</th>
+                                        <th scope="col">Note</th>
+                                        <th scope="col">Gross</th>
+                                        <th scope="col">Fee</th>
+                                        <th scope="col">Net</th>
+                                        <th scope="col">Balance</th>
+                                        {{-- <th scope="col">Action</th> --}}
                                     </tr>
                                 </thead>
-                                
                                 <?php
-                                    $tDrbalance = $totalInAmount;
+                                    // $tbalance = $netamount;
+                                    $tbalance = $totalInAmount - $totalOutAmount;
                                 ?>
-
                                 <tbody>
-                                    @foreach ($data as $item)
-                                    @if ($item->tran_type == "In")
-                                    <tr> 
-                                        <td class="fs-16 txt-secondary">{{$item->date}}</td>
-                                        <td>
-                                            <div class="d-flex flex-column">
-                                                <span class="fs-20 txt-secondary fw-bold">{{$item->tran_no}}</span>
-                                            </div>
+                                    @foreach ($eventdtl->eventticket as $sale)
+                                    @php
+                                        $totalfee = $sale->commission + $sale->fixed_fee;
+                                        $netamnt = $sale->total_amount - $totalfee;
+                                    @endphp
+                                    <tr>
+                                        <td class="fs-16 txt-primary">{{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}</td>
+                                        
+                                        <td class="fs-16 txt-primary text-center">
+                                            {{$sale->ticket_type}}
                                         </td>
-                                        <td class="fs-16 txt-secondary">
-                                            {{$item->description}}
+        
+                                        <td class="fs-16 txt-primary text-center">
+                                            {{$sale->note}}
                                         </td>
-                                        <td class="fs-16 txt-secondary">
-                                            {{ number_format($item->amount, 2) }}
-                                        </td>
-                    
-                                        <td class="fs-16 txt-secondary">
-                                            £{{ number_format($tDrbalance, 2) }}
+        
+                                        <td class="fs-16 txt-primary text-center">
+                                            £{{ number_format($sale->total_amount, 2) }}
                                         </td>
                                         
+                                        <td class="fs-16 txt-primary text-center">
+                                            £{{ number_format($totalfee, 2) }}
+                                        </td>
+                                        
+                                        <td class="fs-16 txt-primary text-center">
+                                            £{{ number_format($netamnt, 2) }}
+                                        </td>
+        
+                                        <td class="fs-16 txt-primary text-center">
+                                            £{{ number_format($tbalance, 2) }}
+                                        </td>
                                         @php
-                                        if ($item->tran_type == "In") {
-                                            $tDrbalance = $tDrbalance - $item->amount;
-                                        }
+                                            $tbalance = $tbalance - $netamnt;
                                         @endphp
-                                    </tr> 
-                                    @endif
+        
+        
+                                        {{-- <td class="fs-16 txt-primary">
+                                            <a href="#" target="_blank" class="text-decoration-none bg-primary text-white py-1 px-3 rounded mb-1 text-center"><i class="fa fa-download" style="color: #2196f3;font-size:16px;"></i>  Download</a>
+                                        </td> --}}
+                                    </tr>
                                     @endforeach
+                                    
                                 </tbody>
                             </table>
+
+
                         </div>
 
                     </div>
