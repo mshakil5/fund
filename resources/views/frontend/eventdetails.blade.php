@@ -703,9 +703,10 @@ $(document).ready(function () {
 
 <script>
     // Create a Stripe instance with your publishable key
-     // var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
+
+    var stripe = Stripe('pk_test_51N5D0QHyRsekXzKiScNvPKU4rCAVKTJOQm8VoSLk7Mm4AqPPsXwd6NDhbdZGyY4tkqWYBoDJyD0eHLFBqQBfLUBA00tj1hNg3q');
    
-     var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
+    // var stripe = Stripe('pk_live_Gx0P9OLtn53jOp5TdChtaONF00LxuoVYFb');
   
     // Create a card element and mount it to the card-element div
     var cardElement = stripe.elements().create('card');
@@ -757,7 +758,7 @@ $(document).ready(function () {
         var phone = $("#phone").val();
 
         var terms = $('#terms').prop('checked');
-        // console.log(terms);
+        console.log(terms);
       fetch(url, {
         method: 'POST',
         headers: {
