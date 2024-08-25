@@ -1153,9 +1153,15 @@ class CampaignController extends Controller
                 [$data->title, Auth::user()->name,$data->id],
                 $mailmsg
             );
+
+            $adminmail = ContactMail::where('id', 1)->first()->email;
+            
             Mail::to(Auth::user()->email)
-                // ->cc($ccEmails)
                 ->send(new EventActiveMail($array));
+
+                
+            Mail::to($adminmail)
+            ->send(new EventActiveMail($array));
 
             
             $request->session()->forget('step1data');
