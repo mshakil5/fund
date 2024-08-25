@@ -21,6 +21,21 @@
         color: #0c4c45;
         background-color: #ccc;
     }
+    /* .video-container {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%; 
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    } */
 </style>
 
 @php
@@ -59,14 +74,17 @@
 
                           @if (isset($data->video_link))
                             <div class="carousel-item">
-                                <a href="{{$data->video_link}}" class="video" target="_blank" title="This is a video">
+                                {{-- <a href="{{$data->video_link}}" class="video" target="_blank" title="This is a video">
                                     <video width="711" height="304" autoplay controls>
                                         <source src="{{$data->video_link}}" type="video/mp4">
                                     </video>
-                                </a>
+                                </a> --}}
                                 {{-- <video width="711" height="304" autoplay controls>
                                     <source src="{{$data->video_link}}" type="video/mp4">
                                 </video> --}}
+                                    <div class="video-container">
+                                        <iframe src="{{$data->video_link}}" frameborder="0" allowfullscreen height="304px" width="711px"></iframe>
+                                    </div>
                             </div> 
                           @endif
                           
