@@ -110,17 +110,20 @@
 
                     <div class="d-flex justify-content-between my-3 ">
 
-                        @if ($end<$today)
+                        @if ($data->status == 1)
+                            @if ($end<$today)
+                                
+                            @elseif ($end==$today)
+                                
+                            @else
+                            <a href="{{ route('frontend.campaignDonate',$data->id)}}" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
                             
-                        @elseif ($end==$today)
-                            
-                        @else
-                        <a href="{{ route('frontend.campaignDonate',$data->id)}}" class="btn-theme bg-secondary w-100 me-1 ms-0">Donate Now</a>
+                            <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
+                                data-bs-target="#shareModal">Share</button>
+                                
+                            @endif  
+                        @endif
                         
-                        <button class="btn-theme bg-primary w-100 ms-1" data-bs-toggle="modal"
-                            data-bs-target="#shareModal">Share</button>
-                            
-                        @endif  
                         
                             
                         
