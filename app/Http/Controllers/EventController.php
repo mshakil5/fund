@@ -1065,79 +1065,190 @@ class EventController extends Controller
         
 
 
-    $evnbooked = new TicketSale();
-    $evnbooked->date = date('Y-m-d');
-    $evnbooked->tran_no = date('his');
-    $evnbooked->user_id = $userid;
-    $evnbooked->event_id = $request->event_id;
-    $evnbooked->event_price_id = $request->event_price_id;
-    $evnbooked->commission = 00;
-    $evnbooked->amount = 00;
-    $evnbooked->total_amount = 00;
-    if (empty($request->quantity)) {
-        $evnbooked->quantity = '1';
-    } else {
-        $evnbooked->quantity = $request->quantity;
+        $evnbooked = new TicketSale();
+        $evnbooked->date = date('Y-m-d');
+        $evnbooked->tran_no = date('his');
+        $evnbooked->user_id = $userid;
+        $evnbooked->event_id = $request->event_id;
+        $evnbooked->event_price_id = $request->event_price_id;
+        $evnbooked->commission = 00;
+        $evnbooked->amount = 00;
+        $evnbooked->total_amount = 00;
+        if (empty($request->quantity)) {
+            $evnbooked->quantity = '1';
+        } else {
+            $evnbooked->quantity = $request->quantity;
+        }
+        
+        $evnbooked->payment_type = "Free";
+        $evnbooked->ticket_type = $request->ticket_type;
+        $evnbooked->note = $request->note;
+        $evnbooked->user_notification = "0";
+        $evnbooked->admin_notification = "0";
+        $evnbooked->status = "0";
+        $evnbooked->save();
+
+        $event = Event::find($request->event_id);
+        $event->available = $event->available-$request->quantity;
+        $event->sold = $event->sold+$request->quantity;
+        $event->save();
+
+        $eventprice = EventPrice::find($request->event_price_id);
+        $eventprice->sold_qty = $eventprice->sold_qty+1;
+        $eventprice->save();
+
+        
+        $eventdetails = Event::where('id', $request->event_id)->first();
+        $adminmail = ContactMail::where('id', 1)->first()->email;
+        $contactmail = $request->email;
+        $ccEmails = [$adminmail];
+        $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
+
+        
+        
+        if (isset($msg)) {
+            $array['eventname'] = $eventdetails->title;
+            $array['start'] = $eventdetails->event_start_date;
+            $array['vanue'] = $eventdetails->venue_name;
+            $array['quantity'] = $request->quantity;
+            $array['amount'] = $request->amount;
+            $array['tranNo'] = $evnbooked->tran_no;
+            $array['name'] = $request->name;
+            $array['email'] = $request->email;
+            $array['subject'] = "Event Booking Confirmation";
+            $array['message'] = $msg;
+            $array['contactmail'] = $contactmail;
+
+            $date = \Carbon\Carbon::parse($eventdetails->event_start_date)->isoFormat('MMM Do YYYY');
+            $time = \Carbon\Carbon::parse($eventdetails->event_start_date)->format('H:i:s');
+
+            $array['message'] = str_replace(
+                ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{booking_date}}','{{tran_no}}','{{ticket_name}}','{{amount}}','{{payment_type}}','{{title}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
+                [$eventdetails->title, $request->name,$date,$time,$eventdetails->id,$eventdetails->venue_name, $eventdetails->price, $evnbooked->date, $evnbooked->tran_no, $evnbooked->ticket_type, $evnbooked->amount, $evnbooked->payment_type,$eventdetails->title,$eventdetails->house_number,$eventdetails->road_name,$eventdetails->town,$eventdetails->postcode],
+                $msg
+            );
+            Mail::to($contactmail)
+                // ->cc($ccEmails)
+                ->send(new EventPaymentMail($array));
+
+        }
+
+        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event booked successfully.</b></div>";
+        // $message = $request->image[0];
+        return response()->json(['status'=> 300,'message'=>$message]);
+
     }
-    
-    $evnbooked->payment_type = "Free";
-    $evnbooked->ticket_type = $request->ticket_type;
-    $evnbooked->note = $request->note;
-    $evnbooked->user_notification = "0";
-    $evnbooked->admin_notification = "0";
-    $evnbooked->status = "0";
-    $evnbooked->save();
 
-    $event = Event::find($request->event_id);
-    $event->available = $event->available-$request->quantity;
-    $event->sold = $event->sold+$request->quantity;
-    $event->save();
+    // event book by bank transfer
+    public function bankTransferEventBook(Request $request)
+    {
+        if (empty($request->event_price_id)) {
+            $message = "<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please select a package field..!</b></div>";
+            return response()->json(['status' => 303, 'message' => $message, 'package' => 'p']);
+            exit();
+        }
 
-    $eventprice = EventPrice::find($request->event_price_id);
-    $eventprice->sold_qty = $eventprice->sold_qty+1;
-    $eventprice->save();
+        if (empty($request->name)) {
+            $message = "<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill the name field..!</b></div>";
+            return response()->json(['status' => 303, 'message' => $message]);
+            exit();
+        }
 
-    
-    $eventdetails = Event::where('id', $request->event_id)->first();
-    $adminmail = ContactMail::where('id', 1)->first()->email;
-    $contactmail = $request->email;
-    $ccEmails = [$adminmail];
-    $msg = EmailContent::where('title','=','event_payment_email_message')->first()->description;
+        if (empty($request->email)) {
+            $message = "<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill the email field..!</b></div>";
+            return response()->json(['status' => 303, 'message' => $message]);
+            exit();
+        }
 
-    
-    
-    if (isset($msg)) {
-        $array['eventname'] = $eventdetails->title;
-        $array['start'] = $eventdetails->event_start_date;
-        $array['vanue'] = $eventdetails->venue_name;
-        $array['quantity'] = $request->quantity;
-        $array['amount'] = $request->amount;
-        $array['tranNo'] = $evnbooked->tran_no;
-        $array['name'] = $request->name;
-        $array['email'] = $request->email;
-        $array['subject'] = "Event Booking Confirmation";
-        $array['message'] = $msg;
-        $array['contactmail'] = $contactmail;
+        if (empty($request->phone)) {
+            $message = "<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill the phone field..!</b></div>";
+            return response()->json(['status' => 303, 'message' => $message]);
+            exit();
+        }
 
-        $date = \Carbon\Carbon::parse($eventdetails->event_start_date)->isoFormat('MMM Do YYYY');
-        $time = \Carbon\Carbon::parse($eventdetails->event_start_date)->format('H:i:s');
+        if ($request->terms == 'false') {
+            $message = "<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please accept terms & conditions.!</b></div>";
+            return response()->json(['status' => 303, 'message' => $message]);
+            exit();
+        }
 
-        $array['message'] = str_replace(
-            ['{{event_name}}','{{user_name}}','{{event_date}}','{{event_time}}','{{event_id}}','{{venue}}','{{price}}','{{booking_date}}','{{tran_no}}','{{ticket_name}}','{{amount}}','{{payment_type}}','{{title}}','{{house_number}}','{{road_name}}','{{town}}','{{postcode}}'],
-            [$eventdetails->title, $request->name,$date,$time,$eventdetails->id,$eventdetails->venue_name, $eventdetails->price, $evnbooked->date, $evnbooked->tran_no, $evnbooked->ticket_type, $evnbooked->amount, $evnbooked->payment_type,$eventdetails->title,$eventdetails->house_number,$eventdetails->road_name,$eventdetails->town,$eventdetails->postcode],
-            $msg
-        );
-        Mail::to($contactmail)
-            // ->cc($ccEmails)
-            ->send(new EventPaymentMail($array));
+        $chkuser = User::where('email', $request->email)->first();
+        if (Auth::user()) {
+            $userid = Auth::user()->id;
+        } elseif ($chkuser) {
+            $userid = $chkuser->id;
+        } else {
+            $newuser = new User;
+            $newuser->name = $request->name;
+            $newuser->email = $request->email;
+            $newuser->phone = $request->phone;
+            $newuser->password = Hash::make('123456');
+            $newuser->save();
+            $userid = $newuser->id;
+        }
 
+        $evnbooked = new TicketSale();
+        $evnbooked->date = date('Y-m-d');
+        $evnbooked->tran_no = date('his');
+        $evnbooked->user_id = $userid;
+        $evnbooked->event_id = $request->event_id;
+        $evnbooked->event_price_id = $request->event_price_id;
+        $evnbooked->commission = 0.00;
+        $evnbooked->amount = $request->amount;
+        $evnbooked->total_amount = $request->amount;
+        $evnbooked->quantity = $request->quantity ?? 1;
+        $evnbooked->payment_type = "Bank Transfer";
+        $evnbooked->ticket_type = $request->ticket_type;
+        $evnbooked->note = $request->note;
+        $evnbooked->user_notification = "0";
+        $evnbooked->admin_notification = "0";
+        $evnbooked->status = "0";
+        $evnbooked->save();
+
+        $event = Event::find($request->event_id);
+        $event->available = $event->available - $request->quantity;
+        $event->sold = $event->sold + $request->quantity;
+        $event->save();
+
+        $eventprice = EventPrice::find($request->event_price_id);
+        $eventprice->sold_qty = $eventprice->sold_qty + $request->quantity;
+        $eventprice->save();
+
+        $eventdetails = Event::where('id', $request->event_id)->first();
+        $adminmail = ContactMail::where('id', 1)->first()->email;
+        $contactmail = $request->email;
+        $ccEmails = [$adminmail];
+        $msg = EmailContent::where('title', '=', 'event_payment_email_message')->first()->description;
+
+        if (isset($msg)) {
+            $array['eventname'] = $eventdetails->title;
+            $array['start'] = $eventdetails->event_start_date;
+            $array['vanue'] = $eventdetails->venue_name;
+            $array['quantity'] = $request->quantity;
+            $array['amount'] = $request->amount;
+            $array['tranNo'] = $evnbooked->tran_no;
+            $array['name'] = $request->name;
+            $array['email'] = $request->email;
+            $array['subject'] = "Event Booking Confirmation";
+            $array['message'] = $msg;
+            $array['contactmail'] = $contactmail;
+
+            $date = \Carbon\Carbon::parse($eventdetails->event_start_date)->isoFormat('MMM Do YYYY');
+            $time = \Carbon\Carbon::parse($eventdetails->event_start_date)->format('H:i:s');
+
+            $array['message'] = str_replace(
+                ['{{event_name}}', '{{user_name}}', '{{event_date}}', '{{event_time}}', '{{event_id}}', '{{venue}}', '{{price}}', '{{booking_date}}', '{{tran_no}}', '{{ticket_name}}', '{{amount}}', '{{payment_type}}', '{{title}}', '{{house_number}}', '{{road_name}}', '{{town}}', '{{postcode}}'],
+                [$eventdetails->title, $request->name, $date, $time, $eventdetails->id, $eventdetails->venue_name, $eventdetails->price, $evnbooked->date, $evnbooked->tran_no, $evnbooked->ticket_type, $evnbooked->amount, $evnbooked->payment_type, $eventdetails->title, $eventdetails->house_number, $eventdetails->road_name, $eventdetails->town, $eventdetails->postcode],
+                $msg
+            );
+            Mail::to($ccEmails)
+                ->send(new EventPaymentMail($array));
+        }
+
+        $message = "<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event booked successfully via bank transfer.</b></div>";
+        return response()->json(['status' => 300, 'message' => $message]);
     }
-
-    $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Event booked successfully.</b></div>";
-    // $message = $request->image[0];
-    return response()->json(['status'=> 300,'message'=>$message]);
-
-    }
+    // event book by bank transfer
 
     // get event type
 

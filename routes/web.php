@@ -116,6 +116,7 @@ Route::get('error', [PaypalController::class, 'error']);
 // event booking 
 
 Route::post('event-book', [EventController::class, 'freeEventbooked']); 
+Route::post('bank-transfer', [EventController::class, 'bankTransferEventBook']); 
 
 
 /*------------------------------------------

@@ -248,7 +248,7 @@
                                                 <input type="hidden" name="event_id" value="{{$data->id}}">
                                                 <input type="hidden" name="paypalqty" id="paypalqty" value="1">
                                                 <button type="submit" class="btn mx-auto">
-                                                    <img src="{{ asset('paypal.png')}}" alt="" style="height: 50px; border-radius:5px;">
+                                                    <img src="{{ asset('paypal.png')}}" alt="" style="height: 33px; border-radius:5px;">
                                                 </button>
                                             </form>
                                         </div>
@@ -263,9 +263,25 @@
 
                                         <div class="fw-bold d-flex align-items-center">
                                             <input type="radio" class="d-none" id="google_pay" value="google_pay" name="paymentMethod">
-                                            <img src="{{ asset('stripe.png')}}" alt="" style="height: 50px; border-radius:5px;">
+                                            <img src="{{ asset('stripe.png')}}" alt="" style="height: 33px; border-radius:5px;">
                                         </div>
 
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="nav-item fs-5 mx-2" role="presentation">
+                                <label for="bank_transfer">
+                                    <div class="shadow-sm d-flex align-items-center justify-content-center"
+                                        id="home2-tab" data-bs-toggle="tab" data-bs-target="#home2" role="tab"
+                                        aria-controls="home" aria-selected="true">
+                                        <div class="fw-bold d-flex align-items-center">
+                                            
+                                                
+                                                <button type="button" id="bankTransferBtn" class="btn mx-auto " style="font-size: 18px;border: 1px solid rgb(185, 184, 184); font-weight: bold;">
+                                                    Bank Transfer
+                                                </button>
+                                                
+                                        </div>
                                     </div>
                                 </label>
                             </li>
@@ -647,6 +663,59 @@ $(document).ready(function () {
 
             });
             // make donation end 
+
+            // bank transfer btn 
+            $("#bankTransferBtn").click(function () {
+                var bankurl = "{{URL::to('/bank-transfer')}}";
+                var event_id = $("#event_id").val();
+                var amount = $("#amount").val();
+                var name = $("#name").val();
+                var email = $("#uemail").val();
+                var phone = $("#phone").val();
+                var note = $("#note").val();
+                var ticket_type = $("#ticket_type").val();
+                var event_price_id = $("#selectType").val();
+                var terms = $('#terms').prop('checked');
+
+                if (!terms) {
+                    alert('Please accept terms & conditions.');
+                    return;
+                }
+
+                $("#loading").show();
+
+                $.ajax({
+                    url: bankurl,
+                    method: "POST",
+                    data: {
+                        event_id: event_id,
+                        amount: amount,
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        note: note,
+                        ticket_type: ticket_type,
+                        event_price_id: event_price_id,
+                        terms: terms
+                    },
+                    success: function (response) {
+                        if (response.status == 300) {
+                            $(".successmsg").html(response.message);
+                            window.scrollTo({ top: 500, behavior: 'smooth' });
+                            window.setTimeout(function () { location.reload() }, 2000);
+                        } else if (response.status == 303) {
+                            $(".ermsg").html(response.message);
+                        }
+                    },
+                    complete: function () {
+                        $("#loading").hide();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+            // bank transfer btn end
 
             // select ticket type
             var urltype = "{{URL::to('/gettype')}}";
