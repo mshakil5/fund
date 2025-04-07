@@ -167,14 +167,19 @@
                                     
                                         <div class="fw-bold d-flex align-items-center">
                                             
-                                            <button id="guest" class="btn mx-auto">
+                                            {{-- <button id="guest" class="btn mx-auto">
                                                 <img src="{{ asset('guest.png')}}" alt="" style="height: 50px; border-radius:5px;">
+                                            </button> --}}
+
+                                            <button id="guest" class="btn btn-theme bg-primary w-100 mt-2 mx-auto" >
+                                                Bank Transfer
                                             </button>
+
                                         </div>
                                         
                                 </label>
                             </li>
-                            <li class="nav-item fs-5 mx-2" role="presentation">
+                            <li class="nav-item fs-5 mx-2 d-none" role="presentation">
                                 <label for="google_pay">
 
                                     <div class="fw-bold d-flex align-items-center">
@@ -234,7 +239,7 @@
 
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent" id="paymentTab" role="tablist">
 
-                            <li class="nav-item fs-5 mx-2" role="presentation">
+                            <li class="nav-item fs-5 mx-2 d-none" role="presentation">
                                 <label for="paypal">
                                     <div class="shadow-sm d-flex align-items-center justify-content-center"
                                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
@@ -255,7 +260,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="nav-item fs-5 mx-2" role="presentation">
+                            <li class="nav-item fs-5 mx-2 d-none" role="presentation">
                                 <label for="google_pay">
                                     <div class="nav-link shadow-sm d-flex align-items-center justify-content-center"
                                         id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab"
@@ -277,8 +282,12 @@
                                         <div class="fw-bold d-flex align-items-center">
                                             
                                                 
-                                                <button type="button" id="bankTransferBtn" class="btn mx-auto " style="font-size: 18px;border: 1px solid rgb(185, 184, 184); font-weight: bold;">
-                                                    Bank Transfer
+                                                {{-- <button type="button" id="bankTransferBtn" class="btn mx-auto " style="font-size: 18px;border: 1px solid rgb(185, 184, 184); font-weight: bold;">
+                                                    Confirm
+                                                </button> --}}
+
+                                                <button type="button" id="bankTransferBtn" class="btn btn-theme bg-primary w-100 mt-2 mx-auto">
+                                                    Confirm
                                                 </button>
                                                 
                                         </div>
