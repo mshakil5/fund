@@ -281,7 +281,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="nav-item fs-5 mx-2 d-none" role="presentation">
+                            <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="bank_transfer">
                                     <div class="shadow-sm d-flex align-items-center justify-content-center"
                                         id="home2-tab" data-bs-toggle="tab" data-bs-target="#home2" role="tab"
@@ -294,7 +294,7 @@
                                                 </button> --}}
 
                                                 <button type="button" id="bankTransferBtn" class="btn btn-theme bg-primary w-100 mt-2 mx-auto">
-                                                    Confirm
+                                                    Bank Transfer
                                                 </button>
                                                 
                                         </div>
