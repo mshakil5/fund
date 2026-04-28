@@ -172,20 +172,27 @@
                                             </button> --}}
 
                                             <button id="guest" class="btn btn-theme bg-primary w-100 mt-2 mx-auto" >
-                                                Bank Transfer
+                                                {{-- Bank Transfer --}}
+                                                Guest
                                             </button>
 
                                         </div>
                                         
                                 </label>
                             </li>
-                            <li class="nav-item fs-5 mx-2 d-none" role="presentation">
+                            <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="google_pay">
 
                                     <div class="fw-bold d-flex align-items-center">
-                                        <button type="button"  class="btn mx-auto"  data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        {{-- <button type="button"  class="btn mx-auto"  data-bs-toggle="modal" data-bs-target="#loginModal">
                                             <img src="{{ asset('login.png')}}" alt="" style="height: 50px; border-radius:5px;">
-                                        </button>
+                                        </button> --}}
+
+                                        <button  type="button" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn btn-theme bg-primary w-100 mt-2 mx-auto" >
+                                                Login
+                                            </button>
+
+
                                     </div>
 
                                 </label>
@@ -239,7 +246,7 @@
 
                         <ul class="nav nav-tabs mt-4 border-0 py-4 justify-content-center  bg-transparent" id="paymentTab" role="tablist">
 
-                            <li class="nav-item fs-5 mx-2 d-none" role="presentation">
+                            <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="paypal">
                                     <div class="shadow-sm d-flex align-items-center justify-content-center"
                                         id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab"
@@ -260,21 +267,21 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="nav-item fs-5 mx-2 d-none" role="presentation">
+                            <li class="nav-item fs-5 mx-2" role="presentation">
                                 <label for="google_pay">
                                     <div class="nav-link shadow-sm d-flex align-items-center justify-content-center"
                                         id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab"
                                         aria-controls="profile" aria-selected="false">
 
                                         <div class="fw-bold d-flex align-items-center">
-                                            <input type="radio" class="d-none" id="google_pay" value="google_pay" name="paymentMethod">
+                                            <input type="radio" class="" id="google_pay" value="google_pay" name="paymentMethod">
                                             <img src="{{ asset('stripe.png')}}" alt="" style="height: 33px; border-radius:5px;">
                                         </div>
 
                                     </div>
                                 </label>
                             </li>
-                            <li class="nav-item fs-5 mx-2" role="presentation">
+                            <li class="nav-item fs-5 mx-2 d-none" role="presentation">
                                 <label for="bank_transfer">
                                     <div class="shadow-sm d-flex align-items-center justify-content-center"
                                         id="home2-tab" data-bs-toggle="tab" data-bs-target="#home2" role="tab"

@@ -299,8 +299,6 @@ class FrontendController extends Controller
 
         $data = Event::with('eventimage')->where('id',$id)->first();
         
-
-        // dd($doners);
         return view('frontend.eventdetails', compact('data','shareComponent'));
     }
 
